@@ -11,8 +11,9 @@
 	<groupId>net.spotapps</groupId>
 	<artifactId>tester</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>tester</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Java SpringBoot API for testing operations against various models</description>
 	<url/>
 	<licenses>
 		<license/>
