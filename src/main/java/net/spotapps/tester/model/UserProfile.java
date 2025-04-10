@@ -56,7 +56,6 @@ public class UserProfile implements Serializable {
     @JsonProperty(required = true)
     @JsonPropertyDescription("List of references to images of the user")
     @OneToMany(mappedBy = "userProfile")
-    @JoinColumn(name = "images", nullable = false)
     private List<UserImage> images;
 
     @ApiModelProperty(notes = "The contact information and preferences of the user", position = 3)
@@ -147,7 +146,6 @@ public class UserProfile implements Serializable {
     @JsonProperty(required = true)
     @JsonPropertyDescription("The things and activities the user is interested in")
     @OneToMany(mappedBy = "userProfile")
-    @JoinColumn(name = "interests", nullable = false)
     private List<UserInterest> interests;
 
     public Long getUserId() {
