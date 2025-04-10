@@ -15,6 +15,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
@@ -53,8 +55,9 @@ public class UserProfile implements Serializable {
     @ApiModelProperty(notes = "List of references to images of the user", position = 2)
     @JsonProperty(required = true)
     @JsonPropertyDescription("List of references to images of the user")
-    @Column(name = "images", nullable = false)
-    private List<String> images;
+    @OneToMany(mappedBy = "userProfile")
+    @JoinColumn(name = "images", nullable = false)
+    private List<UserImage> images;
 
     @ApiModelProperty(notes = "The contact information and preferences of the user", position = 3)
     @JsonPropertyDescription("The contact information and preferences of the user")
@@ -143,22 +146,23 @@ public class UserProfile implements Serializable {
     @ApiModelProperty(notes = "The things and activities the user is interested in", position = 17)
     @JsonProperty(required = true)
     @JsonPropertyDescription("The things and activities the user is interested in")
-    @Column(name = "interests", nullable = false)
-    private List<String> interests;
+    @OneToMany(mappedBy = "userProfile")
+    @JoinColumn(name = "interests", nullable = false)
+    private List<UserInterest> interests;
 
     public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Long id) {
-        this.userId = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public List<String> getImages() {
+    public List<UserImage> getImages() {
         return images;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(List<UserImage> images) {
         this.images = images;
     }
 
@@ -274,11 +278,11 @@ public class UserProfile implements Serializable {
         this.diet = diet;
     }
 
-    public List<String> getInterests() {
+    public List<UserInterest> getInterests() {
         return interests;
     }
 
-    public void setInterests(List<String> interests) {
+    public void setInterests(List<UserInterest> interests) {
         this.interests = interests;
     }
 
@@ -411,5 +415,7 @@ public class UserProfile implements Serializable {
                 + ", language=" + language + ", vice=" + vice + ", pets=" + pets + ", travel=" + travel + ", diet="
                 + diet + ", interests=" + interests + "]";
     }
+
     
+
 }

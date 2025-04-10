@@ -20,13 +20,37 @@ public class UserProfileTest {
 
         testUserProfile1 = new UserProfile();
         testUserProfile1.setUserId(1L);
-        testUserProfile1.setImages(Arrays.asList("four", "images", "only", "please"));
-        testUserProfile1.setInterests(Arrays.asList("up", "to", "six", "of", "these", "allowed"));
+        testUserProfile1.setImages(Arrays.asList(
+            new UserImage(1L,"four"),
+            new UserImage(2L,"images"),
+            new UserImage(3L,"only"),
+            new UserImage(4L,"please")
+            ));
+        testUserProfile1.setInterests(Arrays.asList(
+            new UserInterest(1L, "up"),
+            new UserInterest(2L, "to"),
+            new UserInterest(3L, "six"),
+            new UserInterest(4L, "of"),
+            new UserInterest(5L, "these"),
+            new UserInterest(6L, "allowed")
+        ));
 
         testUserProfile2 = new UserProfile();
         testUserProfile2.setUserId(1L);
-        testUserProfile2.setImages(Arrays.asList("four", "images", "only", "please"));
-        testUserProfile2.setInterests(Arrays.asList("up", "to", "six", "of", "these", "allowed"));
+        testUserProfile2.setImages(Arrays.asList(
+            new UserImage(1L,"four"),
+            new UserImage(2L,"images"),
+            new UserImage(3L,"only"),
+            new UserImage(4L,"please")
+            ));
+        testUserProfile2.setInterests(Arrays.asList(
+            new UserInterest(1L, "up"),
+            new UserInterest(2L, "to"),
+            new UserInterest(3L, "six"),
+            new UserInterest(4L, "of"),
+            new UserInterest(5L, "these"),
+            new UserInterest(6L, "allowed")
+        ));
     }
 
     @Test
