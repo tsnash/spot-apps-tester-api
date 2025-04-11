@@ -53,14 +53,14 @@ public class UserProfileRepositoryTest {
 
     @Test
     void testFindAllByUserIdInOrderByUserIdAsc() {
-        Long[] expectedIds = {4L,2L,5L};
+        Long[] expectedIds = new Long[]{4L,2L,5L};
         List<UserProfile> actual = repository.findAllByUserIdInOrderByUserIdAsc(Arrays.asList(expectedIds));
         assertEquals(expectedIds.length, actual.size(), "There should be a user profile for each user id");
         Arrays.sort(expectedIds);
         assertArrayEquals(expectedIds, actual.stream().map(UserProfile::getUserId).toArray(),
             "The user ids should be in ascending order");
 
-        Long[] notExpectedIds = {10L,6L};
+        Long[] notExpectedIds = new Long[]{10L,6L};
         actual = repository.findAllByUserIdInOrderByUserIdAsc(Arrays.asList(notExpectedIds));
         assertTrue(actual.isEmpty(), "There shouldn't be any user profiles for these ids");
     }
