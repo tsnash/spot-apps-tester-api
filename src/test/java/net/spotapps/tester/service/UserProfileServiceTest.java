@@ -12,7 +12,6 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -199,10 +198,9 @@ public class UserProfileServiceTest {
         actual = userProfileService.getUserProfileList(Arrays.asList(INVALID_ID_INPUTS));
         verifyNoMoreInteractions(repository);
         assertEquals(
-            Collections.emptyList().size(),
+            0,
             actual.size(),
             "There should be no user profiles when only invalid user ids are looked up");
-
 
     }
 
