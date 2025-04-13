@@ -42,7 +42,7 @@ public class UserProfileRepositoryTest {
     private UserProfileRepository repository;
 
     @Test
-    void testFindOneById() {
+    public void testFindOneById() {
         UserProfile actual = repository.findById(3L).orElse(null);
         assertNotNull(actual, "This user profile should exist");
         assertEquals(3L, actual.getUserId(), "This user profile should have a user id of 3");
@@ -52,7 +52,7 @@ public class UserProfileRepositoryTest {
     }
 
     @Test
-    void testFindAllByUserIdInOrderByUserIdAsc() {
+    public void testFindAllByUserIdInOrderByUserIdAsc() {
         Long[] expectedIds = new Long[]{4L,2L,5L};
         List<UserProfile> actual = repository.findAllByUserIdInOrderByUserIdAsc(Arrays.asList(expectedIds));
         assertEquals(expectedIds.length, actual.size(), "There should be a user profile for each user id");
