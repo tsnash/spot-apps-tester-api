@@ -12,6 +12,7 @@ import net.spotapps.tester.UserProfileConstants;
 import net.spotapps.tester.dao.UserProfileRepository;
 import net.spotapps.tester.model.UserProfile;
 import net.spotapps.tester.model.exception.InvalidIdException;
+import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 
 @Service
 public class UserProfileServiceImpl implements UserProfileService {
@@ -33,7 +34,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 
         Optional<UserProfile> optionalUserProfile = userProfileRepository.findById(id);
 
-        return optionalUserProfile.orElse(null);
+        return optionalUserProfile
+            .orElseThrow(
+                () -> new UserProfileNotFoundException(UserProfileConstants.USER_PROFILE_NOT_FOUND_MESSAGE, id));
     }
 
     @Override
