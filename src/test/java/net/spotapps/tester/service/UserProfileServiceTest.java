@@ -27,6 +27,7 @@ import net.spotapps.tester.model.UserImage;
 import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
 import net.spotapps.tester.model.exception.InvalidIdException;
+import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -127,9 +128,11 @@ public class UserProfileServiceTest {
         assertEquals(testUserProfile1, actual, "This user profile should match the test user profile 1");
 
         // valid id profile doesn't exist
-        actual = userProfileService.getUserProfile(VALID_NON_EXISTENT_ID_INPUT);
+        assertThrows(
+            UserProfileNotFoundException.class, 
+            () -> userProfileService.getUserProfile(VALID_NON_EXISTENT_ID_INPUT), 
+            "Should throw an UserProfileNotFoundException");
         verify(repository).findById(VALID_NON_EXISTENT_ID);
-        assertNull(actual, "This user profile shouldn't exist");
         
 
         // invalid id don't check for profile
