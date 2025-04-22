@@ -34,7 +34,3 @@ springdoc:
   version: '@springdoc.version@'
   swagger-ui:
     use-root-path: true
-logging:
-  level:
-    org.springframework: DEBUG
-    org.springdoc: DEBUG
