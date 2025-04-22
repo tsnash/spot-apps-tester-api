@@ -1,0 +1,40 @@
+spring:
+  jpa:
+    show-sql: true
+
+test:
+  reset:
+    sql:
+      template: ALTER TABLE %s ALTER COLUMN id RESTART WITH 1
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+tester:
+  title: Local Tester Application
+springdoc:
+  version: '@springdoc.version@'
+  swagger-ui:
+    use-root-path: true
+logging:
+  level:
+    org.springframework: DEBUG
+    org.springdoc: DEBUG
+
+---
+spring:
+  config:
+    activate:
+      on-profile: render
+tester:
+  title: Render Tester Application
+springdoc:
+  version: '@springdoc.version@'
+  swagger-ui:
+    use-root-path: true
+logging:
+  level:
+    org.springframework: DEBUG
+    org.springdoc: DEBUG

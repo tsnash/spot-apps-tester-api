@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import net.spotapps.tester.model.UserProfile;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -15,11 +15,11 @@ import net.spotapps.tester.model.UserProfile;
 public class UserProfileSuccessResponse implements UserProfileResponse {
 
     @JsonProperty("metadata")
-    @ApiModelProperty(notes = "Additional data related to but not part of the request response")
+    @Schema(description = "Additional data related to but not part of the request response")
     private Metadata metadata;
 
     @JsonProperty("userProfile")
-    @ApiModelProperty(notes = "A profile of a user including all of their indicated preferences")
+    @Schema(description = "A profile of a user including all of their indicated preferences")
     private UserProfile userProfile;
 
     public UserProfileSuccessResponse() {

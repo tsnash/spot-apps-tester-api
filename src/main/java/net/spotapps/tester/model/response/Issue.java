@@ -1,18 +1,16 @@
 package net.spotapps.tester.model.response;
 
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"message"})
-public class Issue implements Serializable{
+public class Issue {
     @JsonProperty("message")
-    @ApiModelProperty(notes = "A message detailing an adverse ocurrence of an operation.")
+    @Schema(description =  "A message detailing an adverse ocurrence of an operation.")
     private String message;
 
     public Issue() {

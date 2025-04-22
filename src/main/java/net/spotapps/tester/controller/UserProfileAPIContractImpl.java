@@ -10,13 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import net.spotapps.tester.model.UserProfile;
@@ -42,9 +46,8 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
     }
 
     @Override
-    @RequestMapping(
-            method = RequestMethod.GET,
-            produces = {APPLICATION_JSON_VALUE}
+    @GetMapping(
+        produces = {APPLICATION_JSON_VALUE}
     )
     public ResponseEntity<UserProfileResponse> getUserProfiles(final HttpServletRequest request) {
 
@@ -62,10 +65,9 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
     }
 
     @Override
-    @RequestMapping(
-            value = "/{userId}",
-            method = RequestMethod.GET,
-            produces = {APPLICATION_JSON_VALUE}
+    @GetMapping(
+        value = "/{userId}",
+        produces = {APPLICATION_JSON_VALUE}
     )
     public ResponseEntity<UserProfileResponse> getUserProfile(
         @Valid @PathVariable(value = "userId") final String userId, final HttpServletRequest request) {
@@ -84,8 +86,7 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
     }
 
     @Override
-    @RequestMapping(
-            method = RequestMethod.POST,
+    @PostMapping(
             consumes = {APPLICATION_JSON_VALUE, APPLICATION_FORM_URLENCODED_VALUE},
             produces = {APPLICATION_JSON_VALUE}
     )
@@ -105,6 +106,10 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
                 return ResponseEntity.ok(response);
     }
 
+    @ApiResponse(
+                responseCode = "404", 
+                description =  "User profile was not found.", 
+                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) })
     @ExceptionHandler({UserProfileNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     private ResponseEntity<UserProfileResponse> userProfileNotFound(
@@ -113,7 +118,7 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
             Issue issue = new Issue();
 
             metadata.setStatusCode(HttpStatus.NOT_FOUND.getReasonPhrase());
-            metadata.setStatusDescription("User profile was not found");
+            metadata.setStatusDescription("User profile was not found.");
             issue.setMessage(e.getMessage());
 
             UserProfileErrorResponse response = new UserProfileErrorResponse();
@@ -123,6 +128,10 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
+    @ApiResponse(
+                responseCode = "412", 
+                description =  "Supplied data was invalid.", 
+                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) })
     @ExceptionHandler({InvalidIdException.class})
     @ResponseStatus(HttpStatus.PRECONDITION_FAILED)
     private ResponseEntity<UserProfileResponse> userProfilePreconditionFailed(
@@ -131,7 +140,7 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
             Issue issue = new Issue();
 
             metadata.setStatusCode(HttpStatus.PRECONDITION_FAILED.getReasonPhrase());
-            metadata.setStatusDescription("User ID supplied was invalid");
+            metadata.setStatusDescription("User ID supplied was invalid.");
             issue.setMessage(e.getMessage());
 
             UserProfileErrorResponse response = new UserProfileErrorResponse();

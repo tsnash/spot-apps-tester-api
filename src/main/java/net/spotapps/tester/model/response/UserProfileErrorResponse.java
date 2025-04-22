@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -16,11 +16,11 @@ import io.swagger.annotations.ApiModelProperty;
 public class UserProfileErrorResponse implements UserProfileResponse {
 
     @JsonProperty("metadata")
-    @ApiModelProperty(notes = "Additional data related to but not part of the request response.")
+    @Schema(description = "Additional data related to but not part of the request response.")
     private Metadata metadata;
 
     @JsonProperty("issues")
-    @ApiModelProperty(notes = "Reasons for the request error.")
+    @Schema(description = "Reasons for the request error.")
     private List<Issue> issues;
 
     public UserProfileErrorResponse() {

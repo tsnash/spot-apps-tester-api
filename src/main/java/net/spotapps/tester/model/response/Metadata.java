@@ -1,12 +1,10 @@
 package net.spotapps.tester.model.response;
 
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -14,18 +12,18 @@ import io.swagger.annotations.ApiModelProperty;
         "statusCode",
         "statusDescription",
 })
-public class Metadata implements Serializable {
+public class Metadata {
 
     @JsonProperty("serviceName")
-    @ApiModelProperty(notes = "The name of the service that provided this response.")
+    @Schema(description =  "The name of the service that provided this response.")
     private String serviceName;
 
     @JsonProperty("statusCode")
-    @ApiModelProperty(notes = "The status code associated with this response.")
+    @Schema(description = "The status code associated with this response.")
     private String statusCode;
 
     @JsonProperty("statusDescription")
-    @ApiModelProperty(notes = "The status message associated with this response.")
+    @Schema(defaultValue = "The status message associated with this response.")
     private String statusDescription;
 
     public Metadata() {

@@ -1,5 +1,9 @@
 package net.spotapps.tester.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,13 +15,20 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "user_images")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+    "imageId",
+    "image"
+})
 public class UserImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("imageId")
     private Long imageId;
 
     @Column
+    @JsonProperty("image")
     private String image;
 
     @ManyToOne
