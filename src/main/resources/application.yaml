@@ -2,6 +2,10 @@ spring:
   jpa:
     show-sql: true
 
+springdoc:
+  swagger-ui:
+    use-root-path: true
+
 test:
   reset:
     sql:
@@ -14,10 +18,7 @@ spring:
       on-profile: local
 tester:
   title: Local Tester Application
-springdoc:
-  version: '@springdoc.version@'
-  swagger-ui:
-    use-root-path: true
+  
 logging:
   level:
     org.springframework: DEBUG
@@ -30,7 +31,3 @@ spring:
       on-profile: render
 tester:
   title: Render Tester Application
-springdoc:
-  version: '@springdoc.version@'
-  swagger-ui:
-    use-root-path: true
