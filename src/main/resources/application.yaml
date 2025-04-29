@@ -21,7 +21,7 @@ tester:
   
 logging:
   level:
-    org.springframework: DEBUG
+    org.springframework: INFO
     org.springdoc: DEBUG
 
 ---
@@ -29,5 +29,7 @@ spring:
   config:
     activate:
       on-profile: render
+  jpa:
+    show-sql: false
 tester:
   title: Render Tester Application
