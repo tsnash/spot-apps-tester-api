@@ -24,20 +24,29 @@ public class UserInterest {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "interest_id")
     @JsonProperty("interestId")
     private Long interestId;
 
-    @Column
     @JsonProperty("interest")
+    @Column
     private String interest;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private UserProfile userProfile;
 
+    public UserInterest() {
+    }
+
     public UserInterest(Long interestId, String interest) {
         this.interestId = interestId;
         this.interest = interest;
+    }
+
+    public UserInterest(String interest, UserProfile userProfile) {
+        this.interest = interest;
+        this.userProfile = userProfile;
     }
 
     @Override

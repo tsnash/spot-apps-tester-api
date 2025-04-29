@@ -25,19 +25,28 @@ public class UserImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("imageId")
+    @Column(name = "image_id")
     private Long imageId;
 
-    @Column
     @JsonProperty("image")
+    @Column
     private String image;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private UserProfile userProfile;
 
+    public UserImage() {
+    }
+
     public UserImage(Long imageId, String image) {
         this.imageId = imageId;
         this.image = image;
+    }
+
+    public UserImage(String image, UserProfile userProfile) {
+        this.image = image;
+        this.userProfile = userProfile;
     }
 
     @Override
