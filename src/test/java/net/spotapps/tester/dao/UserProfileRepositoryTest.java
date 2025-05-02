@@ -4,21 +4,22 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
 
+import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
@@ -28,7 +29,6 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import net.spotapps.tester.TesterApplication;
 import net.spotapps.tester.model.UserProfile;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = TesterApplication.class)
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class})
@@ -42,16 +42,39 @@ public class UserProfileRepositoryTest {
     private UserProfileRepository repository;
 
     @Test
+    @Transactional(readOnly = true)
     public void testFindOneById() {
         UserProfile actual = repository.findById(3L).orElse(null);
         assertNotNull(actual, "This user profile should exist");
         assertEquals(3L, actual.getUserId(), "This user profile should have a user id of 3");
+
+        assertEquals(1, actual.getImages().size(), "There should be one image");
+        assertEquals("0.png", actual.getImages().get(0).getImage(), 
+            "The image should be \"0.png\"");
+
+        assertEquals(1, actual.getInterests().size(), "There should be one interest");
+        assertEquals("programming", actual.getInterests().get(0).getInterest(), 
+            "The interest should be \"programming\"");
 
         actual = repository.findById(6L).orElse(null);
         assertNull(actual, "This user profile should not exist");
     }
 
     @Test
+    public void testFindOneByIdLazyLoadOutsideTransaction() {
+        UserProfile actual = repository.findById(3L).orElse(null);
+        assertNotNull(actual, "This user profile should exist");
+        assertEquals(3L, actual.getUserId(), "This user profile should have a user id of 3");
+
+        assertThrows(LazyInitializationException.class, () -> actual.getImages().size(),
+            "Images should fail to load");
+        assertThrows(LazyInitializationException.class, () -> actual.getInterests().size(),
+            "Interests should fail to load");
+    
+    }
+
+    @Test
+    @Transactional(readOnly = true)
     public void testFindAllByUserIdInOrderByUserIdAsc() {
         Long[] expectedIds = new Long[]{4L,2L,5L};
         List<UserProfile> actual = repository.findAllByUserIdInOrderByUserIdAsc(Arrays.asList(expectedIds));

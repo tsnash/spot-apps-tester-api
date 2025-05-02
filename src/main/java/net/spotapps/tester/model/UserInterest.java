@@ -49,6 +49,30 @@ public class UserInterest {
         this.userProfile = userProfile;
     }
 
+    public Long getInterestId() {
+        return interestId;
+    }
+
+    public void setInterestId(Long interestId) {
+        this.interestId = interestId;
+    }
+
+    public String getInterest() {
+        return interest;
+    }
+
+    public void setInterest(String interest) {
+        this.interest = interest;
+    }
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

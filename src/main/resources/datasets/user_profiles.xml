@@ -4,4 +4,8 @@
     <user_profiles user_id="3" />
     <user_profiles user_id="4" />
     <user_profiles user_id="5" />
+
+    <user_images user_id="3" image_id="1" image="0.png" />
+    
+    <user_interests user_id="3" interest_id="1" interest="programming" />
 </dataset>
