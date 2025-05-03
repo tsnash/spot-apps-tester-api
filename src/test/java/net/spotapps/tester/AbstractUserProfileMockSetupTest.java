@@ -11,6 +11,7 @@ import java.util.Collections;
 
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
+import net.spotapps.tester.dto.UserProfileDto;
 import net.spotapps.tester.model.UserImage;
 import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
@@ -22,6 +23,9 @@ public abstract class AbstractUserProfileMockSetupTest {
     
     protected UserProfile testUserProfile1;
     protected UserProfile testUserProfile2;
+    protected UserProfileDto testUserProfileDto1;
+    protected UserProfileDto testUserProfileDto2;
+
 
     @MockitoBean
     protected UserProfileService userProfileService;
@@ -44,6 +48,8 @@ public abstract class AbstractUserProfileMockSetupTest {
             new UserInterest(6L, "allowed")
         ));
 
+        testUserProfileDto1 = UserProfileDto.convertUserProfileToDto(testUserProfile1);
+
         testUserProfile2 = new UserProfile();
         testUserProfile2.setUserId(2L);
         testUserProfile2.setImages(Arrays.asList(
@@ -60,13 +66,16 @@ public abstract class AbstractUserProfileMockSetupTest {
             new UserInterest(11L, "amount")
         ));
 
+        testUserProfileDto2 = UserProfileDto.convertUserProfileToDto(testUserProfile2);
+
+
         userProfileService = mock(UserProfileService.class);
 
         when(userProfileService.getAllProfiles())
-            .thenReturn(Arrays.asList(new UserProfile[]{testUserProfile1, testUserProfile2}));
+            .thenReturn(Arrays.asList(new UserProfileDto[]{testUserProfileDto1, testUserProfileDto2}));
 
         when(userProfileService.getUserProfile("1"))
-            .thenReturn(testUserProfile1);
+            .thenReturn(testUserProfileDto1);
 
         when(userProfileService.getUserProfile("3"))
             .thenThrow(new UserProfileNotFoundException(USER_PROFILE_NOT_FOUND_MESSAGE, 3L));
@@ -75,10 +84,10 @@ public abstract class AbstractUserProfileMockSetupTest {
             .thenThrow(new InvalidIdException(INVALID_ID_MESSAGE, "invalidID"));
 
         when(userProfileService.getUserProfileList(Arrays.asList(new String[]{"1","2"})))
-            .thenReturn(Arrays.asList(new UserProfile[]{testUserProfile1, testUserProfile2}));
+            .thenReturn(Arrays.asList(new UserProfileDto[]{testUserProfileDto1, testUserProfileDto2}));
 
         when(userProfileService.getUserProfileList(Arrays.asList(new String[]{"invalidID","2"})))
-            .thenReturn(Collections.singletonList(testUserProfile2));
+            .thenReturn(Collections.singletonList(testUserProfileDto2));
 
         when(userProfileService.getUserProfileList(Arrays.asList(new String[]{"invalidID","3"})))
             .thenReturn(Collections.emptyList());

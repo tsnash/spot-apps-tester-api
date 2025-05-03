@@ -2,14 +2,13 @@ package net.spotapps.tester.service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.commons.lang3.math.NumberUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import net.spotapps.tester.UserProfileConstants;
 import net.spotapps.tester.dao.UserProfileRepository;
+import net.spotapps.tester.dto.UserProfileDto;
 import net.spotapps.tester.model.UserProfile;
 import net.spotapps.tester.model.exception.InvalidIdException;
 import net.spotapps.tester.model.exception.UserProfileNotFoundException;
@@ -19,28 +18,26 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     private UserProfileRepository userProfileRepository;
     
-    @Autowired
     public UserProfileServiceImpl(final UserProfileRepository repository) {
 
         this.userProfileRepository = repository;
     }
 
     @Override
-    public UserProfile getUserProfile(final String userId) {
+    public UserProfileDto getUserProfile(final String userId) {
 
         validateId(userId);
 
         Long id = NumberUtils.createLong(userId);
 
-        Optional<UserProfile> optionalUserProfile = userProfileRepository.findById(id);
+        UserProfile userProfile = userProfileRepository.findById(id).orElseThrow(
+            () -> new UserProfileNotFoundException(UserProfileConstants.USER_PROFILE_NOT_FOUND_MESSAGE, id));
 
-        return optionalUserProfile
-            .orElseThrow(
-                () -> new UserProfileNotFoundException(UserProfileConstants.USER_PROFILE_NOT_FOUND_MESSAGE, id));
+        return UserProfileDto.convertUserProfileToDto(userProfile);
     }
 
     @Override
-    public List<UserProfile> getUserProfileList(final List<String> userIds) {
+    public List<UserProfileDto> getUserProfileList(final List<String> userIds) {
         
         List<Long> validUserIds = userIds.stream()
             .filter(NumberUtils::isDigits)
@@ -51,13 +48,17 @@ public class UserProfileServiceImpl implements UserProfileService {
             return Collections.emptyList();
         }
 
-        return userProfileRepository.findAllByUserIdInOrderByUserIdAsc(validUserIds);
+        return userProfileRepository.findAllByUserIdInOrderByUserIdAsc(validUserIds).stream()
+            .map(UserProfileDto::convertUserProfileToDto)
+            .toList();
     }
 
     @Override
-    public List<UserProfile> getAllProfiles() {
+    public List<UserProfileDto> getAllProfiles() {
         
-        return userProfileRepository.findAll();
+        return userProfileRepository.findAll().stream()
+            .map(UserProfileDto::convertUserProfileToDto)
+            .toList();
     }
 
     private void validateId(final String userId) {

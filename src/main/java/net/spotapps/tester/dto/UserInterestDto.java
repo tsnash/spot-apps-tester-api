@@ -1,41 +1,24 @@
-package net.spotapps.tester.model;
+package net.spotapps.tester.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@Entity
-@Table(name = "user_interests")
-public class UserInterest {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+    "interestId",
+    "interest"
+})
+public class UserInterestDto {
+
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "interest_id")
+    @JsonProperty("interestId")
     private Long interestId;
 
-    @Column
+    @JsonProperty("interest")
     private String interest;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserProfile userProfile;
-
-    public UserInterest() {
-    }
-
-    public UserInterest(Long interestId, String interest) {
-        this.interestId = interestId;
-        this.interest = interest;
-    }
-
-    public UserInterest(String interest, UserProfile userProfile) {
-        this.interest = interest;
-        this.userProfile = userProfile;
+    public UserInterestDto() {
     }
 
     public Long getInterestId() {
@@ -52,14 +35,6 @@ public class UserInterest {
 
     public void setInterest(String interest) {
         this.interest = interest;
-    }
-
-    public UserProfile getUserProfile() {
-        return userProfile;
-    }
-
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
     }
 
     @Override
@@ -79,7 +54,7 @@ public class UserInterest {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        UserInterest other = (UserInterest) obj;
+        UserInterestDto other = (UserInterestDto) obj;
         if (interestId == null) {
             if (other.interestId != null)
                 return false;
@@ -95,9 +70,9 @@ public class UserInterest {
 
     @Override
     public String toString() {
-        return "UserInterest [interestId=" + interestId + ", interest=" + interest + "]";
+        return "UserInterestDto [interestId=" + interestId + ", interest=" + interest + "]";
     }
 
     
-    
+
 }

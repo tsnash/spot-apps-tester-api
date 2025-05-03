@@ -6,7 +6,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,7 +22,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import net.spotapps.tester.model.UserProfile;
+import net.spotapps.tester.dto.UserProfileDto;
 import net.spotapps.tester.model.exception.InvalidIdException;
 import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 import net.spotapps.tester.model.response.Issue;
@@ -40,7 +39,6 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
 
     private UserProfileService userProfileService;
 
-    @Autowired
     public UserProfileAPIContractImpl(final UserProfileService userProfileService) {
         this.userProfileService = userProfileService;
     }
@@ -52,7 +50,7 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
     public ResponseEntity<UserProfileResponse> getUserProfiles(final HttpServletRequest request) {
 
         Metadata metadata = initializeMetadata();
-        List<UserProfile> userProfiles = userProfileService.getAllProfiles();
+        List<UserProfileDto> userProfiles = userProfileService.getAllProfiles();
 
         metadata.setStatusCode(HttpStatus.OK.getReasonPhrase());
         metadata.setStatusDescription("User profile(s) fetched.");
@@ -73,7 +71,7 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
         @Valid @PathVariable(value = "userId") final String userId, final HttpServletRequest request) {
 
             Metadata metadata = initializeMetadata();
-            UserProfile userProfile = userProfileService.getUserProfile(userId);
+            UserProfileDto userProfile = userProfileService.getUserProfile(userId);
 
             metadata.setStatusCode(HttpStatus.OK.getReasonPhrase());
             metadata.setStatusDescription("User profile fetched.");
@@ -94,7 +92,7 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
             HttpServletRequest request) {
 
                 Metadata metadata = initializeMetadata();
-                List<UserProfile> userProfiles = userProfileService.getUserProfileList(userIds);
+                List<UserProfileDto> userProfiles = userProfileService.getUserProfileList(userIds);
 
                 metadata.setStatusCode(HttpStatus.OK.getReasonPhrase());
                 metadata.setStatusDescription("User profile(s) fetched.");

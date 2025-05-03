@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import net.spotapps.tester.model.UserProfile;
+import net.spotapps.tester.dto.UserProfileDto;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -20,7 +20,7 @@ public class UserProfileSuccessResponse implements UserProfileResponse {
 
     @JsonProperty("userProfile")
     @Schema(description = "A profile of a user including all of their indicated preferences")
-    private UserProfile userProfile;
+    private UserProfileDto userProfile;
 
     public UserProfileSuccessResponse() {
     }
@@ -33,11 +33,11 @@ public class UserProfileSuccessResponse implements UserProfileResponse {
         this.metadata = metadata;
     }
 
-    public UserProfile getUserProfile() {
+    public UserProfileDto getUserProfile() {
         return userProfile;
     }
 
-    public void setUserProfile(UserProfile userProfile) {
+    public void setUserProfile(UserProfileDto userProfile) {
         this.userProfile = userProfile;
     }
 

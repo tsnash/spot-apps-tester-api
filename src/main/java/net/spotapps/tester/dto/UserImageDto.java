@@ -1,41 +1,23 @@
-package net.spotapps.tester.model;
+package net.spotapps.tester.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@Entity
-@Table(name = "user_images")
-public class UserImage {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+    "imageId",
+    "image"
+})
+public class UserImageDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "image_id")
+    @JsonProperty("imageId")
     private Long imageId;
 
-    @Column
+    @JsonProperty("image")
     private String image;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserProfile userProfile;
-
-    public UserImage() {
-    }
-
-    public UserImage(Long imageId, String image) {
-        this.imageId = imageId;
-        this.image = image;
-    }
-
-    public UserImage(String image, UserProfile userProfile) {
-        this.image = image;
-        this.userProfile = userProfile;
+    public UserImageDto() {
     }
 
     public Long getImageId() {
@@ -71,7 +53,7 @@ public class UserImage {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        UserImage other = (UserImage) obj;
+        UserImageDto other = (UserImageDto) obj;
         if (imageId == null) {
             if (other.imageId != null)
                 return false;
@@ -87,8 +69,7 @@ public class UserImage {
 
     @Override
     public String toString() {
-        return "UserImage [imageId=" + imageId + ", image=" + image + "]";
+        return "UserImageDto [imageId=" + imageId + ", image=" + image + "]";
     }
 
-    
 }

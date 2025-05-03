@@ -46,7 +46,7 @@ public class UserProfileAPIContractTest extends AbstractUserProfileMockSetupTest
             (UserProfileSuccessResponse) userProfileAPIContract.getUserProfile("1", null).getBody();
 
         assertEquals(
-            testUserProfile1, 
+            testUserProfileDto1, 
             actual.getUserProfile(), 
             "The fetched user profile should match the original");
         verify(userProfileService).getUserProfile("1");

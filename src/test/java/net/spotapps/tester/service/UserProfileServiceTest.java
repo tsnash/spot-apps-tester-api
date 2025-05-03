@@ -17,18 +17,16 @@ import java.util.Optional;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import net.spotapps.tester.dao.UserProfileRepository;
+import net.spotapps.tester.dto.UserProfileDto;
 import net.spotapps.tester.model.UserImage;
 import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
 import net.spotapps.tester.model.exception.InvalidIdException;
 import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class UserProfileServiceTest {
 
@@ -46,8 +44,8 @@ public class UserProfileServiceTest {
 
     protected UserProfile testUserProfile1;
     protected UserProfile testUserProfile2;
-
-    
+    protected UserProfileDto testUserProfileDto1;
+    protected UserProfileDto testUserProfileDto2;
 
     @BeforeEach
     void setUp() {
@@ -65,6 +63,8 @@ public class UserProfileServiceTest {
             new UserInterest(3L, "interests")
         ));
 
+        testUserProfileDto1 = UserProfileDto.convertUserProfileToDto(testUserProfile1);
+
         testUserProfile2 = new UserProfile();
         testUserProfile2.setUserId(VALID_EXISTING_IDS[1]);
         testUserProfile2.setImages(Arrays.asList(
@@ -73,13 +73,15 @@ public class UserProfileServiceTest {
             new UserImage(7L, "as"),
             new UserImage(8L, "well")
         ));
-        testUserProfile1.setInterests(Arrays.asList(
+        testUserProfile2.setInterests(Arrays.asList(
             new UserInterest(4L, "here"),
             new UserInterest(5L, "are"),
             new UserInterest(6L, "more"),
             new UserInterest(7L, "of"),
             new UserInterest(8L, "them")
         ));
+
+        testUserProfileDto2 = UserProfileDto.convertUserProfileToDto(testUserProfile2);
 
         repository = mock(UserProfileRepository.class);
 
@@ -121,10 +123,10 @@ public class UserProfileServiceTest {
     @Test
     void testGetUserProfile() {
         // valid id profile exists
-        UserProfile actual = userProfileService.getUserProfile(VALID_EXISTING_ID_INPUTS[0]);
+        UserProfileDto actual = userProfileService.getUserProfile(VALID_EXISTING_ID_INPUTS[0]);
         verify(repository).findById(VALID_EXISTING_IDS[0]);
         assertNotNull(actual, "This user profile should exist.");
-        assertEquals(testUserProfile1, actual, "This user profile should match the test user profile 1");
+        assertEquals(testUserProfileDto1, actual, "This user profile should match the test user profile 1");
 
         // valid id profile doesn't exist
         assertThrows(
@@ -147,7 +149,7 @@ public class UserProfileServiceTest {
     void testGetUserProfileList() {
 
         // 2/2 valid ids 2 profiles in asc order
-        List<UserProfile> actual = userProfileService.getUserProfileList(Arrays.asList(
+        List<UserProfileDto> actual = userProfileService.getUserProfileList(Arrays.asList(
             VALID_EXISTING_ID_INPUTS).reversed());
         verify(repository).findAllByUserIdInOrderByUserIdAsc(Arrays.asList(
             VALID_EXISTING_IDS).reversed());
@@ -156,11 +158,11 @@ public class UserProfileServiceTest {
             actual.size(),
             "There should be as many user profiles as valid existing ids");
         assertEquals(
-            testUserProfile1,
+            testUserProfileDto1,
             actual.get(0),
             "The test user profile 1 should match the first user profile in the list");
         assertEquals(
-            testUserProfile2,
+            testUserProfileDto2,
             actual.get(1),
             "The test user profile 2 should match the second user profile in the list");
 
@@ -174,7 +176,7 @@ public class UserProfileServiceTest {
             actual.size(),
             "There should be only 1 user profile in the list");
         assertEquals(
-            testUserProfile2,
+            testUserProfileDto2,
             actual.get(0),
             "The test user profile 2 should match the only user profile in the list");
 
@@ -192,7 +194,7 @@ public class UserProfileServiceTest {
             actual.size(),
             "There should be only 1 user profile in the list");
         assertEquals(
-            testUserProfile1,
+            testUserProfileDto1,
             actual.get(0),
             "The test user profile 1 should match the only user profile in the list");
         
@@ -208,18 +210,18 @@ public class UserProfileServiceTest {
 
     @Test
     void testGetAllProfiles() {
-        List<UserProfile> actual = userProfileService.getAllProfiles();
+        List<UserProfileDto> actual = userProfileService.getAllProfiles();
         verify(repository).findAll();
         assertEquals(
             VALID_EXISTING_IDS.length,
             actual.size(),
             "All valid user profiles should be returned from this method");
         assertEquals(
-            testUserProfile1,
+            testUserProfileDto1,
             actual.get(0),
             "The test user profile 1 should match the first user profile in the list");
         assertEquals(
-            testUserProfile2,
+            testUserProfileDto2,
             actual.get(1),
             "The test user profile 2 should match the second user profile in the list");
         verifyNoMoreInteractions(repository);

@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import io.restassured.path.json.JsonPath;
+import net.spotapps.tester.dto.UserProfileDto;
 import net.spotapps.tester.model.UserImage;
 import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
@@ -44,6 +45,9 @@ public class UserProfileAPIContractRestTest {
 
     private UserProfile testUserProfile1;
     private UserProfile testUserProfile2;
+    private UserProfileDto testUserProfileDto1;
+    private UserProfileDto testUserProfileDto2;
+
 
     @BeforeEach
     public void setUp() {
@@ -65,6 +69,8 @@ public class UserProfileAPIContractRestTest {
             new UserInterest(6L, "allowed")
         ));
 
+        testUserProfileDto1 = UserProfileDto.convertUserProfileToDto(testUserProfile1);
+
         testUserProfile2 = new UserProfile();
         testUserProfile2.setUserId(2L);
         testUserProfile2.setImages(Arrays.asList(
@@ -81,13 +87,15 @@ public class UserProfileAPIContractRestTest {
             new UserInterest(11L, "amount")
         ));
 
+        testUserProfileDto2 = UserProfileDto.convertUserProfileToDto(testUserProfile2);
+
     }
 
     @Test
     void testGetUserProfiles() throws Exception {
 
         when(userProfileService.getAllProfiles())
-            .thenReturn(Arrays.asList(new UserProfile[]{testUserProfile1, testUserProfile2}));
+            .thenReturn(Arrays.asList(new UserProfileDto[]{testUserProfileDto1, testUserProfileDto2}));
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user-profiles")
             .accept(MediaType.APPLICATION_JSON);
@@ -102,7 +110,7 @@ public class UserProfileAPIContractRestTest {
             actual.getUserProfiles().size(),
             "There should be two total user profiles");
         assertEquals(
-            testUserProfile2, 
+            testUserProfileDto2, 
             actual.getUserProfiles().get(1),
             "The the second profile should match");
         assertEquals(
@@ -120,7 +128,7 @@ public class UserProfileAPIContractRestTest {
     void testGetUserProfileById() throws Exception {
 
         when(userProfileService.getUserProfile("1"))
-            .thenReturn(testUserProfile1);
+            .thenReturn(testUserProfileDto1);
 
         when(userProfileService.getUserProfile("3"))
             .thenThrow(new UserProfileNotFoundException(USER_PROFILE_NOT_FOUND_MESSAGE, 3L));
@@ -137,7 +145,7 @@ public class UserProfileAPIContractRestTest {
             .getObject("", UserProfileSuccessResponse.class);
 
         assertEquals(
-            testUserProfile1, 
+            testUserProfileDto1, 
             actual.getUserProfile(), 
             "The fetched user profile should match the original");
         assertEquals(
@@ -200,10 +208,10 @@ public class UserProfileAPIContractRestTest {
     void testGetUserProfilesContainingIds() throws Exception {
 
         when(userProfileService.getUserProfileList(Arrays.asList(new String[]{"1","2"})))
-            .thenReturn(Arrays.asList(new UserProfile[]{testUserProfile1, testUserProfile2}));
+            .thenReturn(Arrays.asList(new UserProfileDto[]{testUserProfileDto1, testUserProfileDto2}));
 
         when(userProfileService.getUserProfileList(Arrays.asList(new String[]{"invalidID","2"})))
-            .thenReturn(Collections.singletonList(testUserProfile2));
+            .thenReturn(Collections.singletonList(testUserProfileDto2));
 
         when(userProfileService.getUserProfileList(Arrays.asList(new String[]{"invalidID","3"})))
             .thenReturn(Collections.emptyList());
@@ -223,7 +231,7 @@ public class UserProfileAPIContractRestTest {
             actual.getUserProfiles().size(),
             "There should be 2 user profiles");
         assertEquals(
-            testUserProfile1, 
+            testUserProfileDto1, 
             actual.getUserProfiles().get(0),
             "The the first profile should match");
         assertEquals(
@@ -252,7 +260,7 @@ public class UserProfileAPIContractRestTest {
             actual.getUserProfiles().size(),
             "There should be 1 user profile");
         assertEquals(
-            testUserProfile2, 
+            testUserProfileDto2, 
             actual.getUserProfiles().get(0),
             "The the profile should match the corresponding profile");
         assertEquals(
