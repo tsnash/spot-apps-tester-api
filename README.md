@@ -31,15 +31,20 @@ docker run -p 8080:8080 tester:latest
 - Get the appropriate `postgresql` url from your database dashboard via `Info -> Connections -> Internal/External Database URL` and assign a `SPRING_DATASOURCE_URL` key to the value of the url
 
 ## Roadmap
-- Connect to Render postgres instance for `render` profile
+- Represent the remaining properties of the `UserProfile`
 
-- Populate databases with `UserProfile` mock data for `local` and `render` profiles
+- Consider separating user
+
+- Develop models, services, and controllers for `DataProfile` and `RatingProfile` along with any additional properties
 
 - Admin login (`/admin`) and additional resource management endpoints (`/admin/{resource}`)
 
 - Implement soft deletion of database rows
 
+- Take a look at setting up database indexes
+
 - Decide on removing auxiliary ids from DTOs
+
 ## Demo
 [Try it out on Render](https://spot-apps-tester-api.onrender.com/)
 
