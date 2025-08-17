@@ -33,9 +33,11 @@ docker run -p 8080:8080 tester:latest
 ## Roadmap
 - Represent the remaining properties of the `UserProfile`
 
-- Consider separating user
+- Centralize user IDs to a common database entity and have profiles use a foreign key instead
 
 - Develop models, services, and controllers for `DataProfile` and `RatingProfile` along with any additional properties
+
+- Consider emojis for commit prefixes for clarity
 
 - Admin login (`/admin`) and additional resource management endpoints (`/admin/{resource}`)
 
