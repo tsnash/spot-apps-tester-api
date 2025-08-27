@@ -1,4 +1,22 @@
+bucket4j:
+  enabled: true
+  filters:
+    - cache-name: rate-limit-buckets
+      url: "/.*"
+      rate-limits:
+        - bandwidths:
+            - capacity: 10
+              time: 1
+              unit: minutes
+
 spring:
+  main:
+    allow-bean-definition-overriding: true
+  cache:
+    cache-names:
+      - rate-limit-buckets
+    caffeine:
+      spec: maximumSize=100000,expireAfterAccess=3600s
   jpa:
     show-sql: true
     hibernate:
