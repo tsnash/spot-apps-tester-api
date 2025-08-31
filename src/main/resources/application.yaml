@@ -1,30 +1,39 @@
-bucket4j:
-  enabled: true
-  filters:
-    - cache-name: rate-limit-buckets
-      url: "/.*"
-      rate-limits:
-        - bandwidths:
-            - capacity: 10
-              time: 1
-              unit: minutes
-
 spring:
   main:
     allow-bean-definition-overriding: true
-  cache:
-    cache-names:
-      - rate-limit-buckets
-    caffeine:
-      spec: maximumSize=100000,expireAfterAccess=3600s
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
+  cache:
+    jcache:
+      provider: com.github.benmanes.caffeine.jcache.spi.CaffeineCachingProvider
+    cache-names: 
+      - rate-limit-buckets
+      - filter-config-cache
+    caffeine:
+      spec: maximumSize=100000,expireAfterAccess=3600s
 
 springdoc:
   swagger-ui:
     use-root-path: true
+
+bucket4j:
+  enabled: true
+  filter-config-caching-enabled: true
+  filter-config-cache-name: rate-limit-buckets
+  filters:
+    - cache-name: rate-limit-buckets
+      id: filter1
+      filter-method: servlet
+      url: "/.*"
+      rate-limits:
+        - cache-key: "getHeader('X-Forwarded-For')?: getRemoteAddr()"
+          bandwidths:
+            - capacity: 10
+              time: 1
+              unit: minutes
+      hide-http-response-headers: false
 
 test:
   reset:
