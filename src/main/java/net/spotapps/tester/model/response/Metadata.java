@@ -18,6 +18,7 @@ public class Metadata {
     @Schema(description =  "The name of the service that provided this response.")
     private String serviceName;
 
+    //TODO: refactor status code to http status or just status
     @JsonProperty("statusCode")
     @Schema(description = "The status code associated with this response.")
     private String statusCode;
