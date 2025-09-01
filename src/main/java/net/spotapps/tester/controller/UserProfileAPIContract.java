@@ -51,6 +51,10 @@ public interface UserProfileAPIContract {
                 description =  "User is not entitled to fetch user profiles.", 
                 content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }),
             @ApiResponse(
+                responseCode = "429",
+                description =  "Too many requests.",
+                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }),
+            @ApiResponse(
                 responseCode = "500", 
                 description =  "An unexpected error has occurred. Unable to fetch user profile(s).", 
                 content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) })})
@@ -82,6 +86,10 @@ public interface UserProfileAPIContract {
                 description =  "User profile was not found.", 
                 content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }),
             @ApiResponse(
+                responseCode = "429",
+                description =  "Too many requests.",
+                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }),
+            @ApiResponse(
                 responseCode = "500", 
                 description =  "An unexpected error has occurred. User profile was not fetched.", 
                 content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) })})
@@ -111,6 +119,10 @@ public interface UserProfileAPIContract {
             @ApiResponse(
                 responseCode = "403", 
                 description =  "User is not entitled to fetch user profiles.", 
+                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }),
+            @ApiResponse(
+                responseCode = "429",
+                description =  "Too many requests.",
                 content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }),
             @ApiResponse(
                 responseCode = "500", 
