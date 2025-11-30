@@ -26,12 +26,18 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public UserProfileDto getUserProfile(final String userId) {
 
-        validateId(userId);
+        // needs a list of issues here
+        validateId(userId); //needs to add an issue if id is invalid
+
+        //if list of issues is not empty throw generic bad request exception with issues
 
         Long id = NumberUtils.createLong(userId);
 
+        // this needs to be changed to add an issue to issue list if profile not found
         UserProfile userProfile = userProfileRepository.findById(id).orElseThrow(
             () -> new UserProfileNotFoundException(UserProfileConstants.USER_PROFILE_NOT_FOUND_MESSAGE, id));
+
+        // needs to throw if issue list is not empty
 
         return UserProfileDto.convertUserProfileToDto(userProfile);
     }
