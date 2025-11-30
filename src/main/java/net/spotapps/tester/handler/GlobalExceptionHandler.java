@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import net.spotapps.tester.model.exception.InvalidIdException;
+import net.spotapps.tester.model.exception.BadRequestException;
 import net.spotapps.tester.model.exception.TooManyRequestsException;
 import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 import net.spotapps.tester.model.response.Issue;
@@ -36,25 +36,25 @@ public class GlobalExceptionHandler {
     }
 
     @ApiResponse(
-        responseCode = "412", 
+        responseCode = "400", 
         description =  "Supplied data was invalid.", 
         content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }
     )
-    @ExceptionHandler({InvalidIdException.class})
+    @ExceptionHandler({BadRequestException.class})
     protected ResponseEntity<UserProfileResponse> userProfilePreconditionFailed(
         HttpServletRequest request, RuntimeException e) {
         Metadata metadata = initializeMetadata();
         Issue issue = new Issue();
 
-        metadata.setStatusCode(HttpStatus.PRECONDITION_FAILED.getReasonPhrase());
-        metadata.setStatusDescription("User ID supplied was invalid.");
+        metadata.setStatusCode(HttpStatus.BAD_REQUEST.getReasonPhrase());
+        metadata.setStatusDescription("Supplied data was invalid.");
         issue.setMessage(e.getMessage());
 
         UserProfileErrorResponse response = new UserProfileErrorResponse();
         response.setMetadata(metadata);
         response.setIssues(Collections.singletonList(issue));
 
-        return error(HttpStatus.PRECONDITION_FAILED, "User ID supplied was invalid" , e);
+        return error(HttpStatus.BAD_REQUEST, "Supplied data was invalid." , e);
     }
 
     @ApiResponse(

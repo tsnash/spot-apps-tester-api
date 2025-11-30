@@ -27,7 +27,7 @@ import net.spotapps.tester.dto.UserProfileDto;
 import net.spotapps.tester.model.UserImage;
 import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
-import net.spotapps.tester.model.exception.InvalidIdException;
+import net.spotapps.tester.model.exception.BadRequestException;
 import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 import net.spotapps.tester.model.response.UserProfileCollectionResponse;
 import net.spotapps.tester.model.response.UserProfileErrorResponse;
@@ -134,7 +134,7 @@ public class UserProfileAPIContractRestTest {
             .thenThrow(new UserProfileNotFoundException(USER_PROFILE_NOT_FOUND_MESSAGE, 3L));
 
         when(userProfileService.getUserProfile("invalidID"))
-            .thenThrow(new InvalidIdException(INVALID_ID_MESSAGE, "invalidID"));
+            .thenThrow(new BadRequestException(INVALID_ID_MESSAGE, "invalidID"));
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user-profiles/1")
             .accept(MediaType.APPLICATION_JSON);
@@ -190,15 +190,15 @@ public class UserProfileAPIContractRestTest {
 
         
         assertEquals(
-            new InvalidIdException(INVALID_ID_MESSAGE, "invalidID").getMessage(), 
+            new BadRequestException(INVALID_ID_MESSAGE, "invalidID").getMessage(), 
             error.getIssues().get(0).getMessage(), 
             "The issue should have a matching Invalid ID message");
         assertEquals(
-            HttpStatus.PRECONDITION_FAILED.getReasonPhrase(), 
+            HttpStatus.BAD_REQUEST.getReasonPhrase(), 
             error.getMetadata().getStatusCode(),
             "The metadata should reflect the PRECONDITION FAILED status");
         assertEquals(
-            HttpStatus.PRECONDITION_FAILED.value(), 
+            HttpStatus.BAD_REQUEST.value(), 
             result.getResponse().getStatus(),
             "The response should reflect the PRECONDITION FAILED status");
         verify(userProfileService).getUserProfile("invalidID");

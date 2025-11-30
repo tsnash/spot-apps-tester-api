@@ -10,7 +10,7 @@ import net.spotapps.tester.UserProfileConstants;
 import net.spotapps.tester.dao.UserProfileRepository;
 import net.spotapps.tester.dto.UserProfileDto;
 import net.spotapps.tester.model.UserProfile;
-import net.spotapps.tester.model.exception.InvalidIdException;
+import net.spotapps.tester.model.exception.BadRequestException;
 import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 
 @Service
@@ -26,18 +26,12 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public UserProfileDto getUserProfile(final String userId) {
 
-        // needs a list of issues here
-        validateId(userId); //needs to add an issue if id is invalid
-
-        //if list of issues is not empty throw generic bad request exception with issues
+        validateId(userId);
 
         Long id = NumberUtils.createLong(userId);
 
-        // this needs to be changed to add an issue to issue list if profile not found
         UserProfile userProfile = userProfileRepository.findById(id).orElseThrow(
             () -> new UserProfileNotFoundException(UserProfileConstants.USER_PROFILE_NOT_FOUND_MESSAGE, id));
-
-        // needs to throw if issue list is not empty
 
         return UserProfileDto.convertUserProfileToDto(userProfile);
     }
@@ -70,7 +64,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     private void validateId(final String userId) {
 
         if (!NumberUtils.isDigits(userId)) {
-            throw new InvalidIdException(UserProfileConstants.INVALID_ID_MESSAGE, userId);
+            throw new BadRequestException(UserProfileConstants.INVALID_ID_MESSAGE, userId);
         }
     }
 

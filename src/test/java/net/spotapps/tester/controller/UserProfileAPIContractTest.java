@@ -13,7 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import net.spotapps.tester.AbstractUserProfileMockSetupTest;
-import net.spotapps.tester.model.exception.InvalidIdException;
+import net.spotapps.tester.model.exception.BadRequestException;
 import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 import net.spotapps.tester.model.response.UserProfileCollectionResponse;
 import net.spotapps.tester.model.response.UserProfileSuccessResponse;
@@ -58,9 +58,9 @@ public class UserProfileAPIContractTest extends AbstractUserProfileMockSetupTest
         verify(userProfileService).getUserProfile("3");
 
         assertThrows(
-            InvalidIdException.class,
+            BadRequestException.class,
             () -> userProfileAPIContract.getUserProfile("invalidID", null),
-            "Should throw a InvalidIdException");
+            "Should throw a BadRequestException");
         verify(userProfileService).getUserProfile("invalidID");
     }
 

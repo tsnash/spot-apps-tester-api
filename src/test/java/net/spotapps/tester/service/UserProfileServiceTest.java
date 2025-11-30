@@ -24,7 +24,7 @@ import net.spotapps.tester.dto.UserProfileDto;
 import net.spotapps.tester.model.UserImage;
 import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
-import net.spotapps.tester.model.exception.InvalidIdException;
+import net.spotapps.tester.model.exception.BadRequestException;
 import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 
 @SpringBootTest
@@ -138,9 +138,9 @@ public class UserProfileServiceTest {
 
         // invalid id don't check for profile
         assertThrows(
-            InvalidIdException.class, 
+            BadRequestException.class, 
             () -> userProfileService.getUserProfile(INVALID_ID_INPUTS[0]), 
-            "Should throw an InvalidIdException");
+            "Should throw an BadRequestException");
         verifyNoMoreInteractions(repository);
 
     }
