@@ -12,7 +12,7 @@ import net.spotapps.tester.dto.UserProfileDto;
         "metadata",
         "userProfile"
 })
-public class UserProfileSuccessResponse implements UserProfileResponse {
+public class UserProfileSuccessResponse implements HttpRequestResponse {
 
     @JsonProperty("metadata")
     @Schema(description = "Additional data related to but not part of the request response")

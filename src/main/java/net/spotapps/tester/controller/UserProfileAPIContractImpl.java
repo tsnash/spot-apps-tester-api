@@ -19,7 +19,7 @@ import jakarta.validation.Valid;
 import net.spotapps.tester.dto.UserProfileDto;
 import net.spotapps.tester.model.response.Metadata;
 import net.spotapps.tester.model.response.UserProfileCollectionResponse;
-import net.spotapps.tester.model.response.UserProfileResponse;
+import net.spotapps.tester.model.response.HttpRequestResponse;
 import net.spotapps.tester.model.response.UserProfileSuccessResponse;
 import net.spotapps.tester.service.UserProfileService;
 
@@ -37,7 +37,7 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
     @GetMapping(
         produces = {APPLICATION_JSON_VALUE}
     )
-    public ResponseEntity<UserProfileResponse> getUserProfiles(final HttpServletRequest request) {
+    public ResponseEntity<HttpRequestResponse> getUserProfiles(final HttpServletRequest request) {
 
         Metadata metadata = initializeMetadata();
         List<UserProfileDto> userProfiles = userProfileService.getAllProfiles();
@@ -57,7 +57,7 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
         value = "/{userId}",
         produces = {APPLICATION_JSON_VALUE}
     )
-    public ResponseEntity<UserProfileResponse> getUserProfile(
+    public ResponseEntity<HttpRequestResponse> getUserProfile(
         @Valid @PathVariable(value = "userId") final String userId, final HttpServletRequest request) {
 
             Metadata metadata = initializeMetadata();
@@ -78,7 +78,7 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
             consumes = {APPLICATION_JSON_VALUE, APPLICATION_FORM_URLENCODED_VALUE},
             produces = {APPLICATION_JSON_VALUE}
     )
-    public ResponseEntity<UserProfileResponse> getUserProfiles(@Valid @RequestBody List<String> userIds,
+    public ResponseEntity<HttpRequestResponse> getUserProfiles(@Valid @RequestBody List<String> userIds,
             HttpServletRequest request) {
 
                 Metadata metadata = initializeMetadata();

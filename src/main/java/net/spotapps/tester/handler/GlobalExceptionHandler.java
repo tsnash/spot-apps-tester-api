@@ -14,25 +14,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import net.spotapps.tester.model.exception.BadRequestException;
+import net.spotapps.tester.model.exception.NotFoundException;
 import net.spotapps.tester.model.exception.TooManyRequestsException;
-import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 import net.spotapps.tester.model.response.Issue;
 import net.spotapps.tester.model.response.Metadata;
 import net.spotapps.tester.model.response.UserProfileErrorResponse;
-import net.spotapps.tester.model.response.UserProfileResponse;
+import net.spotapps.tester.model.response.HttpRequestResponse;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ApiResponse(
         responseCode = "404", 
-        description =  "User profile was not found.", 
+        description =  "Requested resource was not found.", 
         content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }
     )
-    @ExceptionHandler({UserProfileNotFoundException.class})
-    protected ResponseEntity<UserProfileResponse> userProfileNotFound(
+    @ExceptionHandler({NotFoundException.class})
+    protected ResponseEntity<HttpRequestResponse> userProfileNotFound(
         HttpServletRequest request, RuntimeException e) {        
-        return error(HttpStatus.NOT_FOUND, "User profile was not found.", e);
+        return error(HttpStatus.NOT_FOUND, "Requested resource was not found.", e);
     }
 
     @ApiResponse(
@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
         content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }
     )
     @ExceptionHandler({BadRequestException.class})
-    protected ResponseEntity<UserProfileResponse> userProfilePreconditionFailed(
+    protected ResponseEntity<HttpRequestResponse> userProfilePreconditionFailed(
         HttpServletRequest request, RuntimeException e) {
         Metadata metadata = initializeMetadata();
         Issue issue = new Issue();
@@ -62,7 +62,7 @@ public class GlobalExceptionHandler {
         description =  "Too many requests.", 
         content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) })
     @ExceptionHandler(value = {TooManyRequestsException.class})
-    protected ResponseEntity<UserProfileResponse> tooManyRequests(
+    protected ResponseEntity<HttpRequestResponse> tooManyRequests(
         HttpServletRequest request, RuntimeException e) {
 
         return error(HttpStatus.TOO_MANY_REQUESTS, 
@@ -75,7 +75,7 @@ public class GlobalExceptionHandler {
         return metadata;
     }
 
-    private ResponseEntity<UserProfileResponse> error(HttpStatus status, String description, RuntimeException exception) {
+    private ResponseEntity<HttpRequestResponse> error(HttpStatus status, String description, RuntimeException exception) {
         Metadata metadata = initializeMetadata();
         metadata.setStatusCode(status.getReasonPhrase());
         metadata.setStatusDescription(description);

@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
         "metadata",
         "issues"
 })
-public class UserProfileErrorResponse implements UserProfileResponse {
+public class UserProfileErrorResponse implements HttpRequestResponse {
 
     @JsonProperty("metadata")
     @Schema(description = "Additional data related to but not part of the request response.")

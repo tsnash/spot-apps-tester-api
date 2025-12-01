@@ -24,7 +24,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import net.spotapps.tester.model.response.UserProfileCollectionResponse;
 import net.spotapps.tester.model.response.UserProfileErrorResponse;
-import net.spotapps.tester.model.response.UserProfileResponse;
+import net.spotapps.tester.model.response.HttpRequestResponse;
 import net.spotapps.tester.model.response.UserProfileSuccessResponse;
 
 @Tag(name = "user-profile-service")
@@ -57,7 +57,7 @@ public interface UserProfileAPIContract {
     @GetMapping(
             produces = {APPLICATION_JSON_VALUE}
     )
-    ResponseEntity<UserProfileResponse> getUserProfiles(HttpServletRequest request);
+    ResponseEntity<HttpRequestResponse> getUserProfiles(HttpServletRequest request);
 
     @Operation(
             summary =  "Fetch a user profile by id",
@@ -89,7 +89,7 @@ public interface UserProfileAPIContract {
             value = "/{userId}",
             produces = {APPLICATION_JSON_VALUE}
     )
-    ResponseEntity<UserProfileResponse> getUserProfile(
+    ResponseEntity<HttpRequestResponse> getUserProfile(
         @Parameter(required = true, description = "User ID associated with the user profile")
         @Valid @PathVariable(value = "userId") String userId,
             HttpServletRequest request);
@@ -120,7 +120,7 @@ public interface UserProfileAPIContract {
             consumes = {APPLICATION_JSON_VALUE, APPLICATION_FORM_URLENCODED_VALUE},
             produces = {APPLICATION_JSON_VALUE}
     )
-    ResponseEntity<UserProfileResponse> getUserProfiles(
+    ResponseEntity<HttpRequestResponse> getUserProfiles(
         @Parameter(required = true, description =  "List of user IDs associated with user profiles")
         @Valid @RequestBody List<String> userIds,
             HttpServletRequest request);
