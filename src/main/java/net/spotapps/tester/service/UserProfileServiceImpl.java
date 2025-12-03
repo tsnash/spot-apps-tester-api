@@ -27,7 +27,9 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public UserProfileDto getUserProfile(final String userId) {
 
-        validateId(userId);
+        if (!isValidUserId(userId)) {
+            throw new InvalidUserIdException(UserProfileConstants.INVALID_ID_MESSAGE, userId);
+        }
 
         Long id = NumberUtils.createLong(userId);
 
@@ -69,11 +71,9 @@ public class UserProfileServiceImpl implements UserProfileService {
                 .toList();
     }
 
-    private void validateId(final String userId) {
+    private boolean isValidUserId(final String userId) {
 
-        if (!NumberUtils.isDigits(userId)) {
-            throw new InvalidUserIdException(UserProfileConstants.INVALID_ID_MESSAGE, userId);
-        }
+        return NumberUtils.isDigits(userId);
     }
 
     private List<String> getInvalidUserIds(final List<String> userIds) {
