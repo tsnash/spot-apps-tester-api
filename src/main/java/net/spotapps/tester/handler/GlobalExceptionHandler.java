@@ -69,6 +69,16 @@ public class GlobalExceptionHandler {
             "The user has sent too many requests in a given amount of time.", e);
     }
 
+    @ApiResponse(
+        responseCode = "500", 
+        description =  "An unexpected error occurred.", 
+        content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) })
+    @ExceptionHandler(value = {Exception.class})
+    protected ResponseEntity<HttpRequestResponse> internalServerError(
+        HttpServletRequest request, RuntimeException e) {
+        return error(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred.", e);
+    }
+
     private Metadata initializeMetadata() {
         Metadata metadata = new Metadata();
         metadata.setServiceName("User Profile Service");
