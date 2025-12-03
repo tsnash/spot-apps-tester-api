@@ -11,5 +11,5 @@ public interface UserProfileService {
     List<UserProfileDto> getUserProfileList(List<String> userIds);
 
     List<UserProfileDto> getAllProfiles();
-    
+
 }

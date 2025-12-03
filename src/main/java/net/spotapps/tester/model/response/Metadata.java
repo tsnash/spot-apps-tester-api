@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class Metadata {
 
     @JsonProperty("serviceName")
-    @Schema(description =  "The name of the service that provided this response.")
+    @Schema(description = "The name of the service that provided this response.")
     private String serviceName;
 
     @JsonProperty("statusCode")
@@ -52,7 +52,7 @@ public class Metadata {
     public void setStatusDescription(String statusDescription) {
         this.statusDescription = statusDescription;
     }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -95,6 +95,5 @@ public class Metadata {
         return "Metadata [serviceName=" + serviceName + ", statusCode=" + statusCode + ", statusDescription="
                 + statusDescription + "]";
     }
-    
 
 }

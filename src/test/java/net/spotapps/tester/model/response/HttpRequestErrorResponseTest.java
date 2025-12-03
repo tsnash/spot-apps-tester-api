@@ -37,27 +37,27 @@ public class HttpRequestErrorResponseTest {
     void testHashCode() throws Exception {
 
         assertEquals(
-            testResponse2.hashCode(), 
-            testResponse1.hashCode(), 
-            "Identical responses should have equal hashcodes");
+                testResponse2.hashCode(),
+                testResponse1.hashCode(),
+                "Identical responses should have equal hashcodes");
         assertNotEquals(
-            testResponse3.hashCode(), 
-            testResponse1.hashCode(), 
-            "Different responses should have be equal hashcodes");
+                testResponse3.hashCode(),
+                testResponse1.hashCode(),
+                "Different responses should have be equal hashcodes");
 
     }
 
     @Test
     void testToString() throws Exception {
-        
+
         assertEquals(
-            testResponse2.toString(), 
-            testResponse1.toString(), 
-            "Identical responses should have equal strings");
+                testResponse2.toString(),
+                testResponse1.toString(),
+                "Identical responses should have equal strings");
         assertNotEquals(
-            testResponse3.toString(), 
-            testResponse1.toString(), 
-            "Different responses should not have equal strings");
-            
+                testResponse3.toString(),
+                testResponse1.toString(),
+                "Different responses should not have equal strings");
+
     }
 }

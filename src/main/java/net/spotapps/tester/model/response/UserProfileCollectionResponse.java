@@ -78,5 +78,5 @@ public class UserProfileCollectionResponse implements HttpRequestResponse {
     public String toString() {
         return "UserProfileCollectionResponse [metadata=" + metadata + ", userProfiles=" + userProfiles + "]";
     }
-    
+
 }

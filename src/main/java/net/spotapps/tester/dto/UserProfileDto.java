@@ -11,23 +11,23 @@ import net.spotapps.tester.model.UserProfile;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "userId",
-    "images",
-    "contact",
-    "location",
-    "social",
-    "gender",
-    "relationship",
-    "children",
-    "age",
-    "religion",
-    "education",
-    "language",
-    "vice",
-    "pets",
-    "travel",
-    "diet",
-    "interests"
+        "userId",
+        "images",
+        "contact",
+        "location",
+        "social",
+        "gender",
+        "relationship",
+        "children",
+        "age",
+        "religion",
+        "education",
+        "language",
+        "vice",
+        "pets",
+        "travel",
+        "diet",
+        "interests"
 })
 public class UserProfileDto {
 
@@ -117,29 +117,29 @@ public class UserProfileDto {
         UserProfileDto dto = new UserProfileDto();
         dto.setUserId(userProfile.getUserId());
 
-        if(userProfile.getImages() != null) {
+        if (userProfile.getImages() != null) {
             dto.setImages(userProfile.getImages().stream()
-                .map(image -> {
-                    UserImageDto imageDto = new UserImageDto();
-                    imageDto.setImageId(image.getImageId());
-                    imageDto.setImage(image.getImage());
-                    return imageDto;
-                })
-                .toList());
+                    .map(image -> {
+                        UserImageDto imageDto = new UserImageDto();
+                        imageDto.setImageId(image.getImageId());
+                        imageDto.setImage(image.getImage());
+                        return imageDto;
+                    })
+                    .toList());
         }
 
-        if(userProfile.getInterests() != null) {
+        if (userProfile.getInterests() != null) {
             dto.setInterests(userProfile.getInterests().stream()
-                .map(interest -> {
-                    UserInterestDto interestDto = new UserInterestDto();
-                    interestDto.setInterestId(interest.getInterestId());
-                    interestDto.setInterest(interest.getInterest());
-                    return interestDto;
-                })
-                .toList());
+                    .map(interest -> {
+                        UserInterestDto interestDto = new UserInterestDto();
+                        interestDto.setInterestId(interest.getInterestId());
+                        interestDto.setInterest(interest.getInterest());
+                        return interestDto;
+                    })
+                    .toList());
         }
 
         return dto;
     }
-    
+
 }

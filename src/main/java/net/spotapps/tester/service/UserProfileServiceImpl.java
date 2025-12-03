@@ -17,7 +17,7 @@ import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 public class UserProfileServiceImpl implements UserProfileService {
 
     private UserProfileRepository userProfileRepository;
-    
+
     public UserProfileServiceImpl(final UserProfileRepository repository) {
 
         this.userProfileRepository = repository;
@@ -31,34 +31,34 @@ public class UserProfileServiceImpl implements UserProfileService {
         Long id = NumberUtils.createLong(userId);
 
         UserProfile userProfile = userProfileRepository.findById(id).orElseThrow(
-            () -> new UserProfileNotFoundException(UserProfileConstants.USER_PROFILE_NOT_FOUND_MESSAGE, id));
+                () -> new UserProfileNotFoundException(UserProfileConstants.USER_PROFILE_NOT_FOUND_MESSAGE, id));
 
         return UserProfileDto.convertUserProfileToDto(userProfile);
     }
 
     @Override
     public List<UserProfileDto> getUserProfileList(final List<String> userIds) {
-        
+
         List<Long> validUserIds = userIds.stream()
-            .filter(NumberUtils::isDigits)
-            .map(NumberUtils::createLong)
-            .toList();
+                .filter(NumberUtils::isDigits)
+                .map(NumberUtils::createLong)
+                .toList();
 
         if (validUserIds.isEmpty()) {
             return Collections.emptyList();
         }
 
         return userProfileRepository.findAllByUserIdInOrderByUserIdAsc(validUserIds).stream()
-            .map(UserProfileDto::convertUserProfileToDto)
-            .toList();
+                .map(UserProfileDto::convertUserProfileToDto)
+                .toList();
     }
 
     @Override
     public List<UserProfileDto> getAllProfiles() {
-        
+
         return userProfileRepository.findAll().stream()
-            .map(UserProfileDto::convertUserProfileToDto)
-            .toList();
+                .map(UserProfileDto::convertUserProfileToDto)
+                .toList();
     }
 
     private void validateId(final String userId) {

@@ -20,5 +20,5 @@ public class ContactPreference {
     @MapsId
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
-    
+
 }

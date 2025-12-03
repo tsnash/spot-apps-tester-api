@@ -77,5 +77,4 @@ public class UserProfileSuccessResponse implements HttpRequestResponse {
         return "UserProfileSuccessResponse [metadata=" + metadata + ", userProfile=" + userProfile + "]";
     }
 
-    
 }

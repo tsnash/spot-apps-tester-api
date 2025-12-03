@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MetadataTest {
-    
+
     private Metadata testIssue1;
     private Metadata testIssue2;
     private Metadata testIssue3;
@@ -34,13 +34,13 @@ public class MetadataTest {
     void testHashCode() throws Exception {
 
         assertEquals(
-            testIssue2.hashCode(), 
-            testIssue1.hashCode(), 
-            "Identical metadata should have equal hashcodes");
+                testIssue2.hashCode(),
+                testIssue1.hashCode(),
+                "Identical metadata should have equal hashcodes");
         assertNotEquals(
-            testIssue3.hashCode(), 
-            testIssue1.hashCode(), 
-            "Different metadata should have be equal hashcodes");
+                testIssue3.hashCode(),
+                testIssue1.hashCode(),
+                "Different metadata should have be equal hashcodes");
 
     }
 
@@ -48,13 +48,13 @@ public class MetadataTest {
     void testToString() throws Exception {
 
         assertEquals(
-            testIssue2.toString(), 
-            testIssue1.toString(), 
-            "Identical metadata should have equal strings");
+                testIssue2.toString(),
+                testIssue1.toString(),
+                "Identical metadata should have equal strings");
         assertNotEquals(
-            testIssue3.toString(), 
-            testIssue1.toString(), 
-            "Different metadata should not have equal strings");
-            
+                testIssue3.toString(),
+                testIssue1.toString(),
+                "Different metadata should not have equal strings");
+
     }
 }

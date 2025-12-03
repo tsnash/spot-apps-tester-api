@@ -78,5 +78,4 @@ public class HttpRequestErrorResponse implements HttpRequestResponse {
         return "HttpRequestErrorResponse [metadata=" + metadata + ", issues=" + issues + "]";
     }
 
-    
 }

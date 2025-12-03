@@ -34,13 +34,13 @@ public class IssueTest {
     void testHashCode() throws Exception {
 
         assertEquals(
-            testIssue2.hashCode(), 
-            testIssue1.hashCode(), 
-            "Identical issues should have equal hashcodes");
+                testIssue2.hashCode(),
+                testIssue1.hashCode(),
+                "Identical issues should have equal hashcodes");
         assertNotEquals(
-            testIssue3.hashCode(), 
-            testIssue1.hashCode(), 
-            "Different issues should have be equal hashcodes");
+                testIssue3.hashCode(),
+                testIssue1.hashCode(),
+                "Different issues should have be equal hashcodes");
 
     }
 
@@ -48,13 +48,13 @@ public class IssueTest {
     void testToString() throws Exception {
 
         assertEquals(
-            testIssue2.toString(), 
-            testIssue1.toString(), 
-            "Identical issues should have equal strings");
+                testIssue2.toString(),
+                testIssue1.toString(),
+                "Identical issues should have equal strings");
         assertNotEquals(
-            testIssue3.toString(), 
-            testIssue1.toString(), 
-            "Different issues should not have equal strings");
-            
+                testIssue3.toString(),
+                testIssue1.toString(),
+                "Different issues should not have equal strings");
+
     }
 }
