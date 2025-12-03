@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
         "metadata",
         "issues"
 })
-public class UserProfileErrorResponse implements HttpRequestResponse {
+public class HttpRequestErrorResponse implements HttpRequestResponse {
 
     @JsonProperty("metadata")
     @Schema(description = "Additional data related to but not part of the request response.")
@@ -23,7 +23,7 @@ public class UserProfileErrorResponse implements HttpRequestResponse {
     @Schema(description = "Reasons for the request error.")
     private List<Issue> issues;
 
-    public UserProfileErrorResponse() {
+    public HttpRequestErrorResponse() {
     }
 
     public Metadata getMetadata() {
@@ -59,7 +59,7 @@ public class UserProfileErrorResponse implements HttpRequestResponse {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        UserProfileErrorResponse other = (UserProfileErrorResponse) obj;
+        HttpRequestErrorResponse other = (HttpRequestErrorResponse) obj;
         if (metadata == null) {
             if (other.metadata != null)
                 return false;
@@ -75,7 +75,7 @@ public class UserProfileErrorResponse implements HttpRequestResponse {
 
     @Override
     public String toString() {
-        return "UserProfileErrorResponse [metadata=" + metadata + ", issues=" + issues + "]";
+        return "HttpRequestErrorResponse [metadata=" + metadata + ", issues=" + issues + "]";
     }
 
     

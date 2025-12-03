@@ -18,7 +18,7 @@ import net.spotapps.tester.model.exception.NotFoundException;
 import net.spotapps.tester.model.exception.TooManyRequestsException;
 import net.spotapps.tester.model.response.Issue;
 import net.spotapps.tester.model.response.Metadata;
-import net.spotapps.tester.model.response.UserProfileErrorResponse;
+import net.spotapps.tester.model.response.HttpRequestErrorResponse;
 import net.spotapps.tester.model.response.HttpRequestResponse;
 
 @ControllerAdvice
@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
     @ApiResponse(
         responseCode = "404", 
         description =  "Requested resource was not found.", 
-        content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }
+        content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) }
     )
     @ExceptionHandler({NotFoundException.class})
     protected ResponseEntity<HttpRequestResponse> userProfileNotFound(
@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
     @ApiResponse(
         responseCode = "400", 
         description =  "Supplied data was invalid.", 
-        content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }
+        content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) }
     )
     @ExceptionHandler({BadRequestException.class})
     protected ResponseEntity<HttpRequestResponse> userProfilePreconditionFailed(
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler {
         metadata.setStatusDescription("Supplied data was invalid.");
         issue.setMessage(e.getMessage());
 
-        UserProfileErrorResponse response = new UserProfileErrorResponse();
+        HttpRequestErrorResponse response = new HttpRequestErrorResponse();
         response.setMetadata(metadata);
         response.setIssues(Collections.singletonList(issue));
 
@@ -60,7 +60,7 @@ public class GlobalExceptionHandler {
     @ApiResponse(
         responseCode = "429", 
         description =  "Too many requests.", 
-        content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) })
+        content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) })
     @ExceptionHandler(value = {TooManyRequestsException.class})
     protected ResponseEntity<HttpRequestResponse> tooManyRequests(
         HttpServletRequest request, RuntimeException e) {
@@ -72,7 +72,7 @@ public class GlobalExceptionHandler {
     @ApiResponse(
         responseCode = "500", 
         description =  "An unexpected error occurred.", 
-        content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) })
+        content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) })
     @ExceptionHandler(value = {Exception.class})
     protected ResponseEntity<HttpRequestResponse> internalServerError(
         HttpServletRequest request, RuntimeException e) {
@@ -93,7 +93,7 @@ public class GlobalExceptionHandler {
         //TODO: generate correlation ID and log it with the exception message
         //TODO: replace with generic message that contains generated correlation ID
         issue.setMessage(exception.getMessage());
-        UserProfileErrorResponse body = new UserProfileErrorResponse();
+        HttpRequestErrorResponse body = new HttpRequestErrorResponse();
         body.setMetadata(metadata);
         body.setIssues(Collections.singletonList(issue));
         return new ResponseEntity<>(body, status);

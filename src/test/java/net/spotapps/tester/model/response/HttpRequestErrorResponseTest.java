@@ -6,10 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class UserProfileErrorResponseTest {
-    private UserProfileErrorResponse testResponse1;
-    private UserProfileErrorResponse testResponse2;
-    private UserProfileErrorResponse testResponse3;
+public class HttpRequestErrorResponseTest {
+    private HttpRequestErrorResponse testResponse1;
+    private HttpRequestErrorResponse testResponse2;
+    private HttpRequestErrorResponse testResponse3;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -17,11 +17,11 @@ public class UserProfileErrorResponseTest {
         sameMetadata.setStatusDescription("same");
         Metadata differentMetadata = new Metadata();
         differentMetadata.setStatusDescription("different");
-        testResponse1 = new UserProfileErrorResponse();
+        testResponse1 = new HttpRequestErrorResponse();
         testResponse1.setMetadata(sameMetadata);
-        testResponse2 = new UserProfileErrorResponse();
+        testResponse2 = new HttpRequestErrorResponse();
         testResponse2.setMetadata(sameMetadata);
-        testResponse3 = new UserProfileErrorResponse();
+        testResponse3 = new HttpRequestErrorResponse();
         testResponse3.setMetadata(differentMetadata);
     }
 

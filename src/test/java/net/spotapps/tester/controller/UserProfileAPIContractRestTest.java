@@ -30,7 +30,7 @@ import net.spotapps.tester.model.UserProfile;
 import net.spotapps.tester.model.exception.InvalidUserIdException;
 import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 import net.spotapps.tester.model.response.UserProfileCollectionResponse;
-import net.spotapps.tester.model.response.UserProfileErrorResponse;
+import net.spotapps.tester.model.response.HttpRequestErrorResponse;
 import net.spotapps.tester.model.response.UserProfileSuccessResponse;
 import net.spotapps.tester.service.UserProfileService;
 
@@ -163,8 +163,8 @@ public class UserProfileAPIContractRestTest {
 
         result = mockMvc.perform(requestBuilder).andReturn();
         responseContent = result.getResponse().getContentAsString();
-        UserProfileErrorResponse error = JsonPath.from(responseContent)
-            .getObject("", UserProfileErrorResponse.class);
+        HttpRequestErrorResponse error = JsonPath.from(responseContent)
+            .getObject("", HttpRequestErrorResponse.class);
 
         assertEquals(
             new UserProfileNotFoundException(USER_PROFILE_NOT_FOUND_MESSAGE, 3L).getMessage(), 
@@ -186,7 +186,7 @@ public class UserProfileAPIContractRestTest {
         result = mockMvc.perform(requestBuilder).andReturn();
         responseContent = result.getResponse().getContentAsString();
         error = JsonPath.from(responseContent)
-            .getObject("", UserProfileErrorResponse.class);
+            .getObject("", HttpRequestErrorResponse.class);
 
         
         assertEquals(
