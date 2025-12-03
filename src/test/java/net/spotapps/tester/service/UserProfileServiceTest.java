@@ -3,7 +3,6 @@ package net.spotapps.tester.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -25,7 +24,7 @@ import net.spotapps.tester.model.UserImage;
 import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
 import net.spotapps.tester.model.exception.BadRequestException;
-import net.spotapps.tester.model.exception.UserProfileNotFoundException;
+import net.spotapps.tester.model.exception.NotFoundException;
 
 @SpringBootTest
 public class UserProfileServiceTest {
@@ -126,9 +125,9 @@ public class UserProfileServiceTest {
 
         // valid id profile doesn't exist
         assertThrows(
-                UserProfileNotFoundException.class,
+                NotFoundException.class,
                 () -> userProfileService.getUserProfile(VALID_NON_EXISTENT_ID_INPUT),
-                "Should throw an UserProfileNotFoundException");
+                "Should throw a NotFoundException");
         verify(repository).findById(VALID_NON_EXISTENT_ID);
 
         // invalid id don't check for profile
@@ -176,30 +175,26 @@ public class UserProfileServiceTest {
                 "The test user profile 2 should match the only user profile in the list");
 
         // 1/1 valid ids 0 profiles
-        actual = userProfileService.getUserProfileList(Arrays.asList(VALID_NON_EXISTENT_ID_INPUT));
+        assertThrows(
+                NotFoundException.class,
+                () -> userProfileService.getUserProfileList(Arrays.asList(VALID_NON_EXISTENT_ID_INPUT)),
+                "Should throw a NotFoundException");
         verify(repository).findAllByUserIdInOrderByUserIdAsc(Arrays.asList(VALID_NON_EXISTENT_ID));
-        assertTrue(actual.isEmpty(), "There shouldn't be any user profiles matching this id");
 
-        // 1/2 valid ids 1 profile
-        actual = userProfileService.getUserProfileList(Arrays.asList(
-                VALID_EXISTING_ID_INPUTS[0], INVALID_ID_INPUTS[0]));
-        verify(repository).findAllByUserIdInOrderByUserIdAsc(Arrays.asList(VALID_EXISTING_IDS[0]));
-        assertEquals(
-                1,
-                actual.size(),
-                "There should be only 1 user profile in the list");
-        assertEquals(
-                testUserProfileDto1,
-                actual.get(0),
-                "The test user profile 1 should match the only user profile in the list");
+        // 1/2 valid ids no profile lookup
+        assertThrows(
+                BadRequestException.class,
+                () -> userProfileService.getUserProfileList(Arrays.asList(
+                VALID_EXISTING_ID_INPUTS[0], INVALID_ID_INPUTS[0])),
+                "Should throw an BadRequestException");
+        verifyNoMoreInteractions(repository);
 
         // 0/2 valid ids no profile lookup
-        actual = userProfileService.getUserProfileList(Arrays.asList(INVALID_ID_INPUTS));
+        assertThrows(
+                BadRequestException.class,
+                () -> userProfileService.getUserProfileList(Arrays.asList(INVALID_ID_INPUTS)),
+                "Should throw an BadRequestException");
         verifyNoMoreInteractions(repository);
-        assertEquals(
-                0,
-                actual.size(),
-                "There should be no user profiles when only invalid user ids are looked up");
 
     }
 

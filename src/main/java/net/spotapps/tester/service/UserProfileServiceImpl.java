@@ -1,6 +1,5 @@
 package net.spotapps.tester.service;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.math.NumberUtils;
@@ -10,7 +9,9 @@ import net.spotapps.tester.UserProfileConstants;
 import net.spotapps.tester.dao.UserProfileRepository;
 import net.spotapps.tester.dto.UserProfileDto;
 import net.spotapps.tester.model.UserProfile;
+import net.spotapps.tester.model.exception.InvalidUserIdCollectionException;
 import net.spotapps.tester.model.exception.InvalidUserIdException;
+import net.spotapps.tester.model.exception.UserProfileCollectionNotFoundException;
 import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 
 @Service
@@ -39,16 +40,23 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public List<UserProfileDto> getUserProfileList(final List<String> userIds) {
 
-        List<Long> validUserIds = userIds.stream()
-                .filter(NumberUtils::isDigits)
-                .map(NumberUtils::createLong)
-                .toList();
+        var invalidUserIds = getInvalidUserIds(userIds);
 
-        if (validUserIds.isEmpty()) {
-            return Collections.emptyList();
+        if (!invalidUserIds.isEmpty()) {
+            throw new InvalidUserIdCollectionException(
+                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, invalidUserIds);
         }
 
-        return userProfileRepository.findAllByUserIdInOrderByUserIdAsc(validUserIds).stream()
+        var userProfiles = userProfileRepository.findAllByUserIdInOrderByUserIdAsc(userIds.stream()
+                .map(NumberUtils::createLong)
+                .toList());
+
+        if (userProfiles.isEmpty()) {
+            throw new UserProfileCollectionNotFoundException(
+                    UserProfileConstants.USER_PROFILE_NOT_FOUND_MESSAGE, userIds);
+        }
+
+        return userProfiles.stream()
                 .map(UserProfileDto::convertUserProfileToDto)
                 .toList();
     }
@@ -66,6 +74,12 @@ public class UserProfileServiceImpl implements UserProfileService {
         if (!NumberUtils.isDigits(userId)) {
             throw new InvalidUserIdException(UserProfileConstants.INVALID_ID_MESSAGE, userId);
         }
+    }
+
+    private List<String> getInvalidUserIds(final List<String> userIds) {
+        return userIds.stream()
+                .filter(userId -> !NumberUtils.isDigits(userId))
+                .toList();
     }
 
 }
