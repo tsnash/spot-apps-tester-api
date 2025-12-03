@@ -10,7 +10,7 @@ import net.spotapps.tester.UserProfileConstants;
 import net.spotapps.tester.dao.UserProfileRepository;
 import net.spotapps.tester.dto.UserProfileDto;
 import net.spotapps.tester.model.UserProfile;
-import net.spotapps.tester.model.exception.BadRequestException;
+import net.spotapps.tester.model.exception.InvalidUserIdException;
 import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 
 @Service
@@ -64,7 +64,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     private void validateId(final String userId) {
 
         if (!NumberUtils.isDigits(userId)) {
-            throw new BadRequestException(UserProfileConstants.INVALID_ID_MESSAGE, userId);
+            throw new InvalidUserIdException(UserProfileConstants.INVALID_ID_MESSAGE, userId);
         }
     }
 

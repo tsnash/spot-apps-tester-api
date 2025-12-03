@@ -15,7 +15,7 @@ import net.spotapps.tester.dto.UserProfileDto;
 import net.spotapps.tester.model.UserImage;
 import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
-import net.spotapps.tester.model.exception.BadRequestException;
+import net.spotapps.tester.model.exception.InvalidUserIdException;
 import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 import net.spotapps.tester.service.UserProfileService;
 
@@ -81,7 +81,7 @@ public abstract class AbstractUserProfileMockSetupTest {
             .thenThrow(new UserProfileNotFoundException(USER_PROFILE_NOT_FOUND_MESSAGE, 3L));
 
         when(userProfileService.getUserProfile("invalidID"))
-            .thenThrow(new BadRequestException(INVALID_ID_MESSAGE, "invalidID"));
+            .thenThrow(new InvalidUserIdException(INVALID_ID_MESSAGE, "invalidID"));
 
         when(userProfileService.getUserProfileList(Arrays.asList(new String[]{"1","2"})))
             .thenReturn(Arrays.asList(new UserProfileDto[]{testUserProfileDto1, testUserProfileDto2}));

@@ -27,7 +27,7 @@ import net.spotapps.tester.dto.UserProfileDto;
 import net.spotapps.tester.model.UserImage;
 import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
-import net.spotapps.tester.model.exception.BadRequestException;
+import net.spotapps.tester.model.exception.InvalidUserIdException;
 import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 import net.spotapps.tester.model.response.UserProfileCollectionResponse;
 import net.spotapps.tester.model.response.UserProfileErrorResponse;
@@ -134,7 +134,7 @@ public class UserProfileAPIContractRestTest {
             .thenThrow(new UserProfileNotFoundException(USER_PROFILE_NOT_FOUND_MESSAGE, 3L));
 
         when(userProfileService.getUserProfile("invalidID"))
-            .thenThrow(new BadRequestException(INVALID_ID_MESSAGE, "invalidID"));
+            .thenThrow(new InvalidUserIdException(INVALID_ID_MESSAGE, "invalidID"));
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user-profiles/1")
             .accept(MediaType.APPLICATION_JSON);
@@ -190,7 +190,7 @@ public class UserProfileAPIContractRestTest {
 
         
         assertEquals(
-            new BadRequestException(INVALID_ID_MESSAGE, "invalidID").getMessage(), 
+            new InvalidUserIdException(INVALID_ID_MESSAGE, "invalidID").getMessage(), 
             error.getIssues().get(0).getMessage(), 
             "The issue should have a matching Invalid ID message");
         assertEquals(
