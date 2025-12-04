@@ -10,7 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @JsonPropertyOrder({ "message" })
 public class Issue {
     @JsonProperty("message")
-    @Schema(description = "A message detailing an adverse ocurrence of an operation.")
+    @Schema(description = "A message detailing an adverse occurrence of an operation.")
     private String message;
 
     public Issue() {
