@@ -40,7 +40,7 @@ public class MetadataTest {
         assertNotEquals(
                 testIssue3.hashCode(),
                 testIssue1.hashCode(),
-                "Different metadata should have be equal hashcodes");
+                "Different metadata should not have equal hashcodes");
 
     }
 

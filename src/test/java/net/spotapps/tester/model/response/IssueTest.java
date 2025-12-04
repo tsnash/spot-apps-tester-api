@@ -40,7 +40,7 @@ public class IssueTest {
         assertNotEquals(
                 testIssue3.hashCode(),
                 testIssue1.hashCode(),
-                "Different issues should have be equal hashcodes");
+                "Different issues should not have equal hashcodes");
 
     }
 
