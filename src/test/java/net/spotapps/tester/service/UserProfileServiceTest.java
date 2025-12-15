@@ -186,14 +186,14 @@ public class UserProfileServiceTest {
                 BadRequestException.class,
                 () -> userProfileService.getUserProfileList(Arrays.asList(
                 VALID_EXISTING_ID_INPUTS[0], INVALID_ID_INPUTS[0])),
-                "Should throw an BadRequestException");
+                "Should throw a BadRequestException");
         verifyNoMoreInteractions(repository);
 
         // 0/2 valid ids no profile lookup
         assertThrows(
                 BadRequestException.class,
                 () -> userProfileService.getUserProfileList(Arrays.asList(INVALID_ID_INPUTS)),
-                "Should throw an BadRequestException");
+                "Should throw a BadRequestException");
         verifyNoMoreInteractions(repository);
 
     }
