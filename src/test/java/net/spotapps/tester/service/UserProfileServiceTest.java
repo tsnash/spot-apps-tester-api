@@ -134,7 +134,7 @@ public class UserProfileServiceTest {
         assertThrows(
                 BadRequestException.class,
                 () -> userProfileService.getUserProfile(INVALID_ID_INPUTS[0]),
-                "Should throw an BadRequestException");
+                "Should throw a BadRequestException");
         verifyNoMoreInteractions(repository);
 
     }
