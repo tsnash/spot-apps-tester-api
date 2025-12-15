@@ -72,13 +72,21 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     private boolean isValidUserId(final String userId) {
+        if (userId == null || !NumberUtils.isDigits(userId)) {
+            return false;
+        }
+        try {
+            Long.parseLong(userId);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
 
-        return NumberUtils.isDigits(userId);
     }
 
     private List<String> getInvalidUserIds(final List<String> userIds) {
         return userIds.stream()
-                .filter(userId -> !NumberUtils.isDigits(userId))
+                .filter(userId -> !isValidUserId(userId))
                 .toList();
     }
 
