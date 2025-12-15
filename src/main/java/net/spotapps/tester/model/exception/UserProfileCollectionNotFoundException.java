@@ -14,6 +14,9 @@ public class UserProfileCollectionNotFoundException extends NotFoundException {
         if (userIds == null || userIds.isEmpty()) {
             throw new IllegalArgumentException("User IDs cannot be null or empty");
         }
+        if (userIds.contains(null)) {
+            throw new IllegalArgumentException("User IDs cannot contain null elements");
+        }
         return String.format(message, String.join(",", userIds));
     }
 
