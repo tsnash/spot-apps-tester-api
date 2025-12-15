@@ -55,7 +55,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
         if (userProfiles.isEmpty()) {
             throw new UserProfileCollectionNotFoundException(
-                    UserProfileConstants.USER_PROFILE_NOT_FOUND_MESSAGE, userIds);
+                    UserProfileConstants.USER_PROFILE_COLLECTION_NOT_FOUND_MESSAGE, userIds);
         }
 
         return userProfiles.stream()
