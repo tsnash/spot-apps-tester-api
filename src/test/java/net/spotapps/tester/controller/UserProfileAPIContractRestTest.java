@@ -107,7 +107,7 @@ public class UserProfileAPIContractRestTest {
         assertEquals(
                 testUserProfileDto2,
                 actual.getUserProfiles().get(1),
-                "The the second profile should match");
+                "The second profile should match");
         assertEquals(
                 HttpStatus.OK.getReasonPhrase(),
                 actual.getMetadata().getStatusCode(),
@@ -227,7 +227,7 @@ public class UserProfileAPIContractRestTest {
         assertEquals(
                 testUserProfileDto1,
                 actual.getUserProfiles().get(0),
-                "The the first profile should match");
+                "The first profile should match");
         assertEquals(
                 HttpStatus.OK.getReasonPhrase(),
                 actual.getMetadata().getStatusCode(),
@@ -255,7 +255,7 @@ public class UserProfileAPIContractRestTest {
         assertEquals(
                 testUserProfileDto2,
                 actual.getUserProfiles().get(0),
-                "The the profile should match the corresponding profile");
+                "The profile should match the corresponding profile");
         assertEquals(
                 HttpStatus.OK.getReasonPhrase(),
                 actual.getMetadata().getStatusCode(),
