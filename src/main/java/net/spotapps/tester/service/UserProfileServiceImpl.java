@@ -42,6 +42,12 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public List<UserProfileDto> getUserProfileList(final List<String> userIds) {
 
+        if (userIds == null || userIds.isEmpty()) {
+            throw new InvalidUserIdCollectionException(
+                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, 
+                    userIds == null ? List.of("null") : List.of());
+        }
+
         var invalidUserIds = getInvalidUserIds(userIds);
 
         if (!invalidUserIds.isEmpty()) {
