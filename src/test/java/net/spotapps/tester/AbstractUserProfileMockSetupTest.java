@@ -3,7 +3,6 @@ package net.spotapps.tester;
 import static net.spotapps.tester.UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE;
 import static net.spotapps.tester.UserProfileConstants.INVALID_ID_MESSAGE;
 import static net.spotapps.tester.UserProfileConstants.USER_PROFILE_NOT_FOUND_MESSAGE;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -62,8 +61,6 @@ public abstract class AbstractUserProfileMockSetupTest {
                                 new UserInterest(11L, "amount")));
 
                 testUserProfileDto2 = UserProfileDto.convertUserProfileToDto(testUserProfile2);
-
-                userProfileService = mock(UserProfileService.class);
 
                 when(userProfileService.getAllProfiles())
                                 .thenReturn(Arrays.asList(
