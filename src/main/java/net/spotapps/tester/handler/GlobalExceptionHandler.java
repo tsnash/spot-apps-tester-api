@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
         content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) }
     )
     @ExceptionHandler({NotFoundException.class})
-    protected ResponseEntity<HttpRequestResponse> userProfileNotFound(
+    protected ResponseEntity<HttpRequestResponse> notFound(
         HttpServletRequest request, RuntimeException e) {        
         return error(HttpStatus.NOT_FOUND, "Requested resource was not found.", e);
     }
@@ -41,25 +41,14 @@ public class GlobalExceptionHandler {
         content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) }
     )
     @ExceptionHandler({BadRequestException.class})
-    protected ResponseEntity<HttpRequestResponse> userProfilePreconditionFailed(
+    protected ResponseEntity<HttpRequestResponse> badRequest(
         HttpServletRequest request, RuntimeException e) {
-        Metadata metadata = initializeMetadata();
-        Issue issue = new Issue();
-
-        metadata.setStatusCode(HttpStatus.BAD_REQUEST.getReasonPhrase());
-        metadata.setStatusDescription("Supplied data was invalid.");
-        issue.setMessage(e.getMessage());
-
-        HttpRequestErrorResponse response = new HttpRequestErrorResponse();
-        response.setMetadata(metadata);
-        response.setIssues(Collections.singletonList(issue));
-
         return error(HttpStatus.BAD_REQUEST, "Supplied data was invalid." , e);
     }
 
     @ApiResponse(
         responseCode = "429", 
-        description =  "Too many requests.", 
+        description = "The user has sent too many requests in a given amount of time.",  
         content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) })
     @ExceptionHandler(value = {TooManyRequestsException.class})
     protected ResponseEntity<HttpRequestResponse> tooManyRequests(
@@ -73,7 +62,7 @@ public class GlobalExceptionHandler {
         responseCode = "500", 
         description =  "An unexpected error occurred.", 
         content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) })
-    @ExceptionHandler(value = {Exception.class})
+    @ExceptionHandler(value = {RuntimeException.class})
     protected ResponseEntity<HttpRequestResponse> internalServerError(
         HttpServletRequest request, RuntimeException e) {
         return error(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred.", e);
