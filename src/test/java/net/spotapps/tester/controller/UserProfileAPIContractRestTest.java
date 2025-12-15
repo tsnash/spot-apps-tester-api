@@ -190,11 +190,11 @@ public class UserProfileAPIContractRestTest {
         assertEquals(
                 HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 error.getMetadata().getStatusCode(),
-                "The metadata should reflect the PRECONDITION FAILED status");
+                "The metadata should reflect the BAD REQUEST status");
         assertEquals(
                 HttpStatus.BAD_REQUEST.value(),
                 result.getResponse().getStatus(),
-                "The response should reflect the PRECONDITION FAILED status");
+                "The response should reflect the BAD REQUEST status");
         verify(userProfileService).getUserProfile("invalidID");
     }
 
