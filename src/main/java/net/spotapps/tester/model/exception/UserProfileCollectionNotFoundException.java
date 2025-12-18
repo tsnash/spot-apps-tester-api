@@ -1,23 +1,23 @@
 package net.spotapps.tester.model.exception;
 
+import java.util.IllegalFormatException;
 import java.util.List;
+
+import net.spotapps.tester.UserProfileConstants;
 
 public class UserProfileCollectionNotFoundException extends NotFoundException {
     public UserProfileCollectionNotFoundException(final String message, final List<String> userIds) {
         super(formatMessage(message, userIds));
     }
 
-    private static String formatMessage(final String message, final List<String> userIds) {
-        if (message == null) {
-            throw new IllegalArgumentException("Message cannot be null");
+    private static String formatMessage(final String messageTemplate, final List<String> userIds) {
+        String message;
+        try {
+            message = String.format(messageTemplate, String.join(",", userIds));
+        } catch (IllegalFormatException e) {
+            message = UserProfileConstants.GENERIC_EXCEPTION_MESSAGE;
         }
-        if (userIds == null || userIds.isEmpty()) {
-            throw new IllegalArgumentException("User IDs cannot be null or empty");
-        }
-        if (userIds.contains(null)) {
-            throw new IllegalArgumentException("User IDs cannot contain null elements");
-        }
-        return String.format(message, String.join(",", userIds));
+        return message;
     }
 
 }

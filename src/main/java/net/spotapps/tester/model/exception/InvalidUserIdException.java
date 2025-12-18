@@ -1,17 +1,21 @@
 package net.spotapps.tester.model.exception;
 
+import java.util.IllegalFormatException;
+
+import net.spotapps.tester.UserProfileConstants;
+
 public class InvalidUserIdException extends BadRequestException {
     public InvalidUserIdException(final String message, final String userId) {
         super(formatMessage(message, userId));
     }
 
-    private static String formatMessage(final String message, final String userId) {
-        if (message == null) {
-            throw new IllegalArgumentException("Message cannot be null");
+    private static String formatMessage(final String messageTemplate, final String userId) {
+        String message;
+        try {
+            message = String.format(messageTemplate, userId);
+        } catch (IllegalFormatException e) {
+            message = UserProfileConstants.GENERIC_EXCEPTION_MESSAGE;
         }
-        if (userId == null || userId.isEmpty()) {
-            throw new IllegalArgumentException("User IDs cannot be null or empty");
-        }
-        return String.format(message, userId);
+        return message;
     }
 }
