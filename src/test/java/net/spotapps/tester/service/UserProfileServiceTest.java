@@ -100,9 +100,8 @@ public class UserProfileServiceTest {
                         new UserProfile[] { testUserProfile2 }));
 
         when(repository.findAllByUserIdInOrderByUserIdAsc(Arrays.asList(
-                new Long[] { VALID_EXISTING_IDS[0] })))
-                .thenReturn(Arrays.asList(
-                        new UserProfile[] { testUserProfile1 }));
+                new Long[] { VALID_NON_EXISTENT_ID })))
+                .thenReturn(List.of());
 
         when(repository.findAll())
                 .thenReturn(Arrays.asList(
