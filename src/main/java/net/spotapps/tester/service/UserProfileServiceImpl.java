@@ -81,9 +81,8 @@ public class UserProfileServiceImpl implements UserProfileService {
         if (userId == null || !NumberUtils.isDigits(userId)) {
             return false;
         }
-        try {
-            Long.parseLong(userId);
-            return true;
+         try {
+            return Long.parseLong(userId) > 0;
         } catch (NumberFormatException e) {
             return false;
         }

@@ -137,6 +137,30 @@ public class UserProfileServiceTest {
                 "Should throw a BadRequestException");
         verifyNoMoreInteractions(repository);
 
+        assertThrows(
+                BadRequestException.class,
+                () -> userProfileService.getUserProfile(null),
+                "Should throw a BadRequestException");
+        verifyNoMoreInteractions(repository);
+
+        assertThrows(
+                BadRequestException.class,
+                () -> userProfileService.getUserProfile("-1"),
+                "Should throw a BadRequestException");
+        verifyNoMoreInteractions(repository);
+
+        assertThrows(
+                BadRequestException.class,
+                () -> userProfileService.getUserProfile("0"),
+                "Should throw a BadRequestException");
+        verifyNoMoreInteractions(repository);
+
+        assertThrows(
+                BadRequestException.class,
+                () -> userProfileService.getUserProfile("1000000000000000000000000000000000000"),
+                "Should throw a BadRequestException");
+        verifyNoMoreInteractions(repository);
+
     }
 
     @Test
@@ -193,6 +217,40 @@ public class UserProfileServiceTest {
         assertThrows(
                 BadRequestException.class,
                 () -> userProfileService.getUserProfileList(Arrays.asList(INVALID_ID_INPUTS)),
+                "Should throw a BadRequestException");
+        verifyNoMoreInteractions(repository);
+
+        // 0/1 valid ids no profile lookup
+        assertThrows(
+                BadRequestException.class,
+                () -> userProfileService.getUserProfileList(List.of("-1")),
+                "Should throw a BadRequestException");
+        verifyNoMoreInteractions(repository);
+        
+        assertThrows(
+                BadRequestException.class,
+                () -> userProfileService.getUserProfileList(List.of("0")),
+                "Should throw a BadRequestException");
+        verifyNoMoreInteractions(repository);
+
+        assertThrows(
+                BadRequestException.class,
+                () -> userProfileService.getUserProfileList(List.of("1000000000000000000000000000000000000")),
+                "Should throw a BadRequestException");
+        verifyNoMoreInteractions(repository);
+
+
+
+        // 0/0 valid ids no profile lookup
+        assertThrows(
+                BadRequestException.class,
+                () -> userProfileService.getUserProfileList(null),
+                "Should throw a BadRequestException");
+        verifyNoMoreInteractions(repository);
+
+        assertThrows(
+                BadRequestException.class,
+                () -> userProfileService.getUserProfileList(List.of()),
                 "Should throw a BadRequestException");
         verifyNoMoreInteractions(repository);
 

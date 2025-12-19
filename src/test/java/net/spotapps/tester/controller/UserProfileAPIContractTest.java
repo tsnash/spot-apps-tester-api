@@ -2,7 +2,6 @@ package net.spotapps.tester.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
@@ -75,20 +74,14 @@ public class UserProfileAPIContractTest extends AbstractUserProfileMockSetupTest
                 "There should be 2 user profiles");
         verify(userProfileService).getUserProfileList(Arrays.asList(new String[] { "1", "2" }));
 
-        actual = (UserProfileCollectionResponse) userProfileAPIContract
-                .getUserProfiles(Arrays.asList(new String[] { "invalidID", "2" }), null).getBody();
-        assertEquals(
-                1,
-                actual.getUserProfiles().size(),
-                "There should be 1 user profile");
+        assertThrows(
+                BadRequestException.class,
+                () -> userProfileAPIContract
+                        .getUserProfiles(Arrays.asList(new String[] { "invalidID", "2" }), null)
+                        .getBody(),
+                "Should throw a BadRequestException");
         verify(userProfileService).getUserProfileList(Arrays.asList(new String[] { "invalidID", "2" }));
 
-        actual = (UserProfileCollectionResponse) userProfileAPIContract
-                .getUserProfiles(Arrays.asList(new String[] { "invalidID", "3" }), null).getBody();
-        assertTrue(
-                actual.getUserProfiles().isEmpty(),
-                "There should be no user profiles");
-        verify(userProfileService).getUserProfileList(Arrays.asList(new String[] { "invalidID", "3" }));
 
     }
 

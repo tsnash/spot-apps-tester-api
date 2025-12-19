@@ -82,9 +82,6 @@ public abstract class AbstractUserProfileMockSetupTest {
                 when(userProfileService.getUserProfileList(Arrays.asList(new String[] { "invalidID", "2" })))
                                 .thenThrow(new InvalidUserIdCollectionException(INVALID_ID_COLLECTION_MESSAGE,
                                                 Arrays.asList(new String[] { "invalidID" })));
-                when(userProfileService.getUserProfileList(Arrays.asList(new String[] { "invalidID", "3" })))
-                                .thenThrow(new InvalidUserIdCollectionException(INVALID_ID_COLLECTION_MESSAGE,
-                                                Arrays.asList(new String[] { "invalidID" })));
 
         }
 
