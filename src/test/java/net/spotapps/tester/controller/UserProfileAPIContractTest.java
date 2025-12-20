@@ -13,7 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import net.spotapps.tester.AbstractUserProfileMockSetupTest;
 import net.spotapps.tester.model.exception.BadRequestException;
-import net.spotapps.tester.model.exception.UserProfileNotFoundException;
+import net.spotapps.tester.model.exception.NotFoundException;
 import net.spotapps.tester.model.response.UserProfileCollectionResponse;
 import net.spotapps.tester.model.response.UserProfileSuccessResponse;
 
@@ -51,9 +51,9 @@ public class UserProfileAPIContractTest extends AbstractUserProfileMockSetupTest
         verify(userProfileService).getUserProfile("1");
 
         assertThrows(
-                UserProfileNotFoundException.class,
+                NotFoundException.class,
                 () -> userProfileAPIContract.getUserProfile("3", null),
-                "Should throw a UserProfileNotFoundException");
+                "Should throw a NotFoundException");
         verify(userProfileService).getUserProfile("3");
 
         assertThrows(
@@ -81,6 +81,14 @@ public class UserProfileAPIContractTest extends AbstractUserProfileMockSetupTest
                         .getBody(),
                 "Should throw a BadRequestException");
         verify(userProfileService).getUserProfileList(Arrays.asList(new String[] { "invalidID", "2" }));
+
+        assertThrows(
+                NotFoundException.class,
+                () -> userProfileAPIContract
+                        .getUserProfiles(Arrays.asList(new String[] { "3", "4" }), null)
+                        .getBody(),
+                "Should throw a NotFoundException");
+        verify(userProfileService).getUserProfileList(Arrays.asList(new String[] { "3", "4" }));
 
 
     }

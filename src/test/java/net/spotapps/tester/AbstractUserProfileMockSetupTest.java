@@ -2,6 +2,7 @@ package net.spotapps.tester;
 
 import static net.spotapps.tester.UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE;
 import static net.spotapps.tester.UserProfileConstants.INVALID_ID_MESSAGE;
+import static net.spotapps.tester.UserProfileConstants.USER_PROFILE_COLLECTION_NOT_FOUND_MESSAGE;
 import static net.spotapps.tester.UserProfileConstants.USER_PROFILE_NOT_FOUND_MESSAGE;
 import static org.mockito.Mockito.when;
 
@@ -15,6 +16,7 @@ import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
 import net.spotapps.tester.model.exception.InvalidUserIdCollectionException;
 import net.spotapps.tester.model.exception.InvalidUserIdException;
+import net.spotapps.tester.model.exception.UserProfileCollectionNotFoundException;
 import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 import net.spotapps.tester.service.UserProfileService;
 
@@ -82,6 +84,10 @@ public abstract class AbstractUserProfileMockSetupTest {
                 when(userProfileService.getUserProfileList(Arrays.asList(new String[] { "invalidID", "2" })))
                                 .thenThrow(new InvalidUserIdCollectionException(INVALID_ID_COLLECTION_MESSAGE,
                                                 Arrays.asList(new String[] { "invalidID" })));
+
+                when(userProfileService.getUserProfileList(Arrays.asList(new String[] { "3", "4" })))
+                                .thenThrow(new UserProfileCollectionNotFoundException(USER_PROFILE_COLLECTION_NOT_FOUND_MESSAGE,
+                                                Arrays.asList(new String[] { "3", "4" })));
 
         }
 

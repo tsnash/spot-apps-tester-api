@@ -87,7 +87,7 @@ public class UserProfileServiceTest {
                 .thenReturn(Optional.of(testUserProfile2));
 
         when(repository.findById(VALID_NON_EXISTENT_ID))
-                .thenReturn(Optional.ofNullable(null));
+                .thenReturn(Optional.empty());
 
         when(repository.findAllByUserIdInOrderByUserIdAsc(eq(Arrays.asList(
                 new Long[] { VALID_EXISTING_IDS[0], VALID_EXISTING_IDS[1] }).reversed())))
@@ -225,7 +225,7 @@ public class UserProfileServiceTest {
                 () -> userProfileService.getUserProfileList(List.of("-1")),
                 "Should throw a BadRequestException");
         verifyNoMoreInteractions(repository);
-        
+
         assertThrows(
                 BadRequestException.class,
                 () -> userProfileService.getUserProfileList(List.of("0")),
@@ -237,8 +237,6 @@ public class UserProfileServiceTest {
                 () -> userProfileService.getUserProfileList(List.of("1000000000000000000000000000000000000")),
                 "Should throw a BadRequestException");
         verifyNoMoreInteractions(repository);
-
-
 
         // 0/0 valid ids no profile lookup
         assertThrows(

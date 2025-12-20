@@ -1,6 +1,7 @@
 package net.spotapps.tester.model.response;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -44,33 +45,17 @@ public class HttpRequestErrorResponse implements HttpRequestResponse {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((metadata == null) ? 0 : metadata.hashCode());
-        result = prime * result + ((issues == null) ? 0 : issues.hashCode());
-        return result;
+        return Objects.hash(metadata, issues);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
+        if (obj == null || getClass() != obj.getClass())
             return false;
         HttpRequestErrorResponse other = (HttpRequestErrorResponse) obj;
-        if (metadata == null) {
-            if (other.metadata != null)
-                return false;
-        } else if (!metadata.equals(other.metadata))
-            return false;
-        if (issues == null) {
-            if (other.issues != null)
-                return false;
-        } else if (!issues.equals(other.issues))
-            return false;
-        return true;
+        return Objects.equals(metadata, other.metadata) && Objects.equals(issues, other.issues);
     }
 
     @Override

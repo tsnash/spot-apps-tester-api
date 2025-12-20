@@ -5,6 +5,8 @@ import java.util.IllegalFormatException;
 import net.spotapps.tester.UserProfileConstants;
 
 public class UserProfileNotFoundException extends NotFoundException {
+    private static final long serialVersionUID = 1L;
+    
     public UserProfileNotFoundException(final String message, final Long userId) {
         super(formatMessage(message, userId));
     }

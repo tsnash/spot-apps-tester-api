@@ -6,6 +6,8 @@ import java.util.List;
 import net.spotapps.tester.UserProfileConstants;
 
 public class UserProfileCollectionNotFoundException extends NotFoundException {
+    private static final long serialVersionUID = 1L;
+    
     public UserProfileCollectionNotFoundException(final String message, final List<String> userIds) {
         super(formatMessage(message, userIds));
     }
@@ -13,7 +15,7 @@ public class UserProfileCollectionNotFoundException extends NotFoundException {
     private static String formatMessage(final String messageTemplate, final List<String> userIds) {
         String message;
         try {
-            message = String.format(messageTemplate, String.join(",", userIds));
+            message = String.format(messageTemplate, String.join(", ", userIds));
         } catch (IllegalFormatException e) {
             message = UserProfileConstants.GENERIC_EXCEPTION_MESSAGE;
         }

@@ -38,18 +38,7 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
         produces = {APPLICATION_JSON_VALUE}
     )
     public ResponseEntity<HttpRequestResponse> getUserProfiles(final HttpServletRequest request) {
-
-        Metadata metadata = initializeMetadata();
-        List<UserProfileDto> userProfiles = userProfileService.getAllProfiles();
-
-        metadata.setStatusCode(HttpStatus.OK.getReasonPhrase());
-        metadata.setStatusDescription("User profile(s) fetched.");
-
-        UserProfileCollectionResponse response = new UserProfileCollectionResponse();
-        response.setMetadata(metadata);
-        response.setUserProfiles(userProfiles);
-
-        return ResponseEntity.ok(response);
+        return buildResponse(userProfileService.getAllProfiles());
     }
 
     @Override
@@ -59,18 +48,7 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
     )
     public ResponseEntity<HttpRequestResponse> getUserProfile(
         @Valid @PathVariable(value = "userId") final String userId, final HttpServletRequest request) {
-
-            Metadata metadata = initializeMetadata();
-            UserProfileDto userProfile = userProfileService.getUserProfile(userId);
-
-            metadata.setStatusCode(HttpStatus.OK.getReasonPhrase());
-            metadata.setStatusDescription("User profile fetched.");
-
-            UserProfileSuccessResponse response = new UserProfileSuccessResponse();
-            response.setMetadata(metadata);
-            response.setUserProfile(userProfile);
-        
-            return ResponseEntity.ok(response);
+        return buildResponse(userProfileService.getUserProfile(userId));
     }
 
     @Override
@@ -80,23 +58,30 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
     )
     public ResponseEntity<HttpRequestResponse> getUserProfiles(@Valid @RequestBody List<String> userIds,
             HttpServletRequest request) {
-
-                Metadata metadata = initializeMetadata();
-                List<UserProfileDto> userProfiles = userProfileService.getUserProfileList(userIds);
-
-                metadata.setStatusCode(HttpStatus.OK.getReasonPhrase());
-                metadata.setStatusDescription("User profile(s) fetched.");
-                
-                UserProfileCollectionResponse response = new UserProfileCollectionResponse();
-                response.setMetadata(metadata);
-                response.setUserProfiles(userProfiles);
-        
-                return ResponseEntity.ok(response);
+        return buildResponse(userProfileService.getUserProfileList(userIds));
     }
 
-    private Metadata initializeMetadata() {
+    private ResponseEntity<HttpRequestResponse> buildResponse(List<UserProfileDto> userProfiles) {
+        Metadata metadata = createMetadata("User profile(s) fetched.");
+        UserProfileCollectionResponse response = new UserProfileCollectionResponse();
+        response.setMetadata(metadata);
+        response.setUserProfiles(userProfiles);
+        return ResponseEntity.ok(response);
+    }
+
+    private ResponseEntity<HttpRequestResponse> buildResponse(UserProfileDto userProfile) {
+        Metadata metadata = createMetadata("User profile fetched.");
+        UserProfileSuccessResponse response = new UserProfileSuccessResponse();
+        response.setMetadata(metadata);
+        response.setUserProfile(userProfile);
+        return ResponseEntity.ok(response);
+    }
+
+    private Metadata createMetadata(String description) {
         Metadata metadata = new Metadata();
         metadata.setServiceName("User Profile Service");
+        metadata.setStatusCode(HttpStatus.OK.getReasonPhrase());
+        metadata.setStatusDescription(description);
         return metadata;
     }
 

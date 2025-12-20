@@ -1,7 +1,6 @@
 package net.spotapps.tester.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static net.spotapps.tester.UserProfileConstants.INVALID_ID_MESSAGE;
@@ -9,6 +8,7 @@ import static net.spotapps.tester.UserProfileConstants.USER_PROFILE_NOT_FOUND_ME
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,11 +23,14 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import io.restassured.path.json.JsonPath;
+import net.spotapps.tester.UserProfileConstants;
 import net.spotapps.tester.dto.UserProfileDto;
 import net.spotapps.tester.model.UserImage;
 import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
+import net.spotapps.tester.model.exception.InvalidUserIdCollectionException;
 import net.spotapps.tester.model.exception.InvalidUserIdException;
+import net.spotapps.tester.model.exception.UserProfileCollectionNotFoundException;
 import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 import net.spotapps.tester.model.response.UserProfileCollectionResponse;
 import net.spotapps.tester.model.response.HttpRequestErrorResponse;
@@ -203,12 +206,19 @@ public class UserProfileAPIContractRestTest {
 
         when(userProfileService.getUserProfileList(Arrays.asList(new String[] { "1", "2" })))
                 .thenReturn(Arrays.asList(new UserProfileDto[] { testUserProfileDto1, testUserProfileDto2 }));
-
+        
         when(userProfileService.getUserProfileList(Arrays.asList(new String[] { "invalidID", "2" })))
-                .thenReturn(Collections.singletonList(testUserProfileDto2));
+                .thenThrow(new InvalidUserIdCollectionException(
+                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, Collections.singletonList("invalidID")));
 
-        when(userProfileService.getUserProfileList(Arrays.asList(new String[] { "invalidID", "3" })))
-                .thenReturn(Collections.emptyList());
+        when(userProfileService.getUserProfileList(Collections.emptyList()))
+                .thenThrow(new InvalidUserIdCollectionException(
+                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, List.of()));
+
+        when(userProfileService.getUserProfileList(Arrays.asList(new String[] { "3", "4" })))
+                .thenThrow(new UserProfileCollectionNotFoundException(
+                    UserProfileConstants.USER_PROFILE_COLLECTION_NOT_FOUND_MESSAGE, Arrays.asList(new String[] { "3", "4" })));
+
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/user-profiles")
                 .accept(MediaType.APPLICATION_JSON)
@@ -245,49 +255,72 @@ public class UserProfileAPIContractRestTest {
 
         result = mockMvc.perform(requestBuilder).andReturn();
         responseContent = result.getResponse().getContentAsString();
-        actual = JsonPath.from(responseContent)
-                .getObject("", UserProfileCollectionResponse.class);
+        HttpRequestErrorResponse error = JsonPath.from(responseContent)
+                .getObject("", HttpRequestErrorResponse.class);
 
         assertEquals(
-                1,
-                actual.getUserProfiles().size(),
-                "There should be 1 user profile");
+                new InvalidUserIdCollectionException(
+                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, Collections.singletonList("invalidID")).getMessage(),
+                error.getIssues().get(0).getMessage(),
+                "The issue should have a matching Invalid ID message");
         assertEquals(
-                testUserProfileDto2,
-                actual.getUserProfiles().get(0),
-                "The profile should match the corresponding profile");
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                error.getMetadata().getStatusCode(),
+                "The metadata should reflect the BAD REQUEST status");
         assertEquals(
-                HttpStatus.OK.getReasonPhrase(),
-                actual.getMetadata().getStatusCode(),
-                "The metadata should reflect the OK status");
-        assertEquals(
-                HttpStatus.OK.value(),
+                HttpStatus.BAD_REQUEST.value(),
                 result.getResponse().getStatus(),
-                "The response should reflect the OK status");
+                "The response should reflect the BAD REQUEST status");
         verify(userProfileService).getUserProfileList(Arrays.asList(new String[] { "invalidID", "2" }));
 
         requestBuilder = MockMvcRequestBuilders.post("/user-profiles")
                 .accept(MediaType.APPLICATION_JSON)
-                .content("[\"invalidID\", \"3\"]")
+                .content("[]")
                 .contentType(MediaType.APPLICATION_JSON);
 
         result = mockMvc.perform(requestBuilder).andReturn();
         responseContent = result.getResponse().getContentAsString();
-        actual = JsonPath.from(responseContent)
-                .getObject("", UserProfileCollectionResponse.class);
+        error = JsonPath.from(responseContent)
+                .getObject("", HttpRequestErrorResponse.class);
 
-        assertTrue(
-                actual.getUserProfiles().isEmpty(),
-                "There should be no user profiles");
         assertEquals(
-                HttpStatus.OK.getReasonPhrase(),
-                actual.getMetadata().getStatusCode(),
-                "The metadata should reflect the OK status");
+                new InvalidUserIdCollectionException(
+                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, Collections.emptyList()).getMessage(),
+                error.getIssues().get(0).getMessage(),
+                "The issue should have a matching Invalid ID message");
         assertEquals(
-                HttpStatus.OK.value(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                error.getMetadata().getStatusCode(),
+                "The metadata should reflect the BAD REQUEST status");
+        assertEquals(
+                HttpStatus.BAD_REQUEST.value(),
                 result.getResponse().getStatus(),
-                "The response should reflect the OK status");
-        verify(userProfileService).getUserProfileList(Arrays.asList(new String[] { "invalidID", "3" }));
+                "The response should reflect the BAD REQUEST status");
+        verify(userProfileService).getUserProfileList(Collections.emptyList());
+
+        requestBuilder = MockMvcRequestBuilders.post("/user-profiles")
+                .accept(MediaType.APPLICATION_JSON)
+                .content("[\"3\", \"4\"]")
+                .contentType(MediaType.APPLICATION_JSON);
+
+        result = mockMvc.perform(requestBuilder).andReturn();
+        responseContent = result.getResponse().getContentAsString();
+        error = JsonPath.from(responseContent)
+                .getObject("", HttpRequestErrorResponse.class);
+
+        assertEquals(
+                new UserProfileCollectionNotFoundException(
+                    UserProfileConstants.USER_PROFILE_COLLECTION_NOT_FOUND_MESSAGE, Arrays.asList(new String[] { "3", "4" })).getMessage(),
+                error.getIssues().get(0).getMessage(),
+                "The issue should have a matching User Profile Not Found message");
+        assertEquals(
+                HttpStatus.NOT_FOUND.getReasonPhrase(),
+                error.getMetadata().getStatusCode(),
+                "The metadata should reflect the NOT FOUND status");
+        assertEquals(
+                HttpStatus.NOT_FOUND.value(),
+                result.getResponse().getStatus(),
+                "The response should reflect the NOT FOUND status");
 
     }
 
