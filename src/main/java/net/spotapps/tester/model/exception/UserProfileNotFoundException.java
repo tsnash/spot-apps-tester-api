@@ -12,6 +12,9 @@ public class UserProfileNotFoundException extends NotFoundException {
     }
 
     private static String formatMessage(final String messageTemplate, final Long userId) {
+        if (messageTemplate == null || userId == null) {
+            return UserProfileConstants.GENERIC_EXCEPTION_MESSAGE;
+        }
         String message;
         try {
             message = String.format(messageTemplate, userId);

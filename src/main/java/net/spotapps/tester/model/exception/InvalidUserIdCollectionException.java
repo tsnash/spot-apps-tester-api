@@ -13,7 +13,7 @@ public class InvalidUserIdCollectionException extends BadRequestException {
     }
 
     private static String formatMessage(final String messageTemplate, final List<String> userIds) {
-        if (userIds == null) {
+        if (messageTemplate == null || userIds == null) {
             return UserProfileConstants.GENERIC_EXCEPTION_MESSAGE;
         }
         String message;

@@ -213,7 +213,7 @@ public class UserProfileAPIContractRestTest {
 
         when(userProfileService.getUserProfileList(Collections.emptyList()))
                 .thenThrow(new InvalidUserIdCollectionException(
-                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, List.of()));
+                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, List.of("<empty>")));
 
         when(userProfileService.getUserProfileList(Arrays.asList(new String[] { "3", "4" })))
                 .thenThrow(new UserProfileCollectionNotFoundException(
@@ -285,7 +285,7 @@ public class UserProfileAPIContractRestTest {
 
         assertEquals(
                 new InvalidUserIdCollectionException(
-                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, Collections.emptyList()).getMessage(),
+                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, List.of("<empty>")).getMessage(),
                 error.getIssues().get(0).getMessage(),
                 "The issue should have a matching Invalid ID message");
         assertEquals(

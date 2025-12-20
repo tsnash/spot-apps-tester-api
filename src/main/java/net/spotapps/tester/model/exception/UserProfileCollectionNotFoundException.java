@@ -13,6 +13,9 @@ public class UserProfileCollectionNotFoundException extends NotFoundException {
     }
 
     private static String formatMessage(final String messageTemplate, final List<String> userIds) {
+        if (messageTemplate == null || userIds == null) {
+            return UserProfileConstants.GENERIC_EXCEPTION_MESSAGE;
+        }
         String message;
         try {
             message = String.format(messageTemplate, String.join(", ", userIds));

@@ -90,7 +90,6 @@ public class UserProfileAPIContractTest extends AbstractUserProfileMockSetupTest
                 "Should throw a NotFoundException");
         verify(userProfileService).getUserProfileList(Arrays.asList(new String[] { "3", "4" }));
 
-
     }
 
 }

@@ -45,7 +45,7 @@ public class UserProfileServiceImpl implements UserProfileService {
         if (userIds == null || userIds.isEmpty()) {
             throw new InvalidUserIdCollectionException(
                     UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, 
-                    userIds == null ? List.of("null") : List.of("<empty>"));
+                    userIds == null ? List.of("<null>") : List.of("<empty>"));
         }
 
         var invalidUserIds = getInvalidUserIds(userIds);
