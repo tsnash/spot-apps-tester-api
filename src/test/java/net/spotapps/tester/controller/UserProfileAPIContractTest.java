@@ -67,12 +67,12 @@ public class UserProfileAPIContractTest extends AbstractUserProfileMockSetupTest
     void testGetUserProfilesContainingIds() {
 
         UserProfileCollectionResponse actual = (UserProfileCollectionResponse) userProfileAPIContract
-                .getUserProfiles(Arrays.asList( "1", "2"), null).getBody();
+                .getUserProfiles(Arrays.asList("1", "2"), null).getBody();
         assertEquals(
                 2,
                 actual.getUserProfiles().size(),
                 "There should be 2 user profiles");
-        verify(userProfileService).getUserProfileList(Arrays.asList( "1", "2"));
+        verify(userProfileService).getUserProfileList(Arrays.asList("1", "2"));
 
         assertThrows(
                 BadRequestException.class,
