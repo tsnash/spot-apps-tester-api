@@ -23,8 +23,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import net.spotapps.tester.model.response.UserProfileCollectionResponse;
-import net.spotapps.tester.model.response.UserProfileErrorResponse;
-import net.spotapps.tester.model.response.UserProfileResponse;
+import net.spotapps.tester.model.response.HttpRequestErrorResponse;
+import net.spotapps.tester.model.response.HttpRequestResponse;
 import net.spotapps.tester.model.response.UserProfileSuccessResponse;
 
 @Tag(name = "user-profile-service")
@@ -45,19 +45,19 @@ public interface UserProfileAPIContract {
             @ApiResponse(
                 responseCode = "400", 
                 description = "User profile fetch failed.", 
-                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }),
+                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) }),
             @ApiResponse(
                 responseCode = "403", 
                 description =  "User is not entitled to fetch user profiles.", 
-                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }),
+                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) }),
             @ApiResponse(
                 responseCode = "500", 
                 description =  "An unexpected error has occurred. Unable to fetch user profile(s).", 
-                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) })})
+                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) })})
     @GetMapping(
             produces = {APPLICATION_JSON_VALUE}
     )
-    ResponseEntity<UserProfileResponse> getUserProfiles(HttpServletRequest request);
+    ResponseEntity<HttpRequestResponse> getUserProfiles(HttpServletRequest request);
 
     @Operation(
             summary =  "Fetch a user profile by id",
@@ -72,24 +72,24 @@ public interface UserProfileAPIContract {
             @ApiResponse(
                 responseCode = "400", 
                 description = "User profile fetch failed.", 
-                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }),
+                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) }),
             @ApiResponse(
                 responseCode = "403", 
                 description =  "User is not entitled to fetch this user profile.", 
-                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }),
+                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) }),
             @ApiResponse(
                 responseCode = "404", 
                 description =  "User profile was not found.", 
-                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }),
+                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) }),
             @ApiResponse(
                 responseCode = "500", 
                 description =  "An unexpected error has occurred. User profile was not fetched.", 
-                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) })})
+                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) })})
     @GetMapping(
             value = "/{userId}",
             produces = {APPLICATION_JSON_VALUE}
     )
-    ResponseEntity<UserProfileResponse> getUserProfile(
+    ResponseEntity<HttpRequestResponse> getUserProfile(
         @Parameter(required = true, description = "User ID associated with the user profile")
         @Valid @PathVariable(value = "userId") String userId,
             HttpServletRequest request);
@@ -107,20 +107,20 @@ public interface UserProfileAPIContract {
             @ApiResponse(
                 responseCode = "400", 
                 description = "User profile fetch failed.", 
-                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }),
+                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) }),
             @ApiResponse(
                 responseCode = "403", 
                 description =  "User is not entitled to fetch user profiles.", 
-                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) }),
+                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) }),
             @ApiResponse(
                 responseCode = "500", 
                 description =  "An unexpected error has occurred. Unable to fetch user profile(s).", 
-                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserProfileErrorResponse.class)) })})
+                content = { @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) })})
     @PostMapping(
             consumes = {APPLICATION_JSON_VALUE, APPLICATION_FORM_URLENCODED_VALUE},
             produces = {APPLICATION_JSON_VALUE}
     )
-    ResponseEntity<UserProfileResponse> getUserProfiles(
+    ResponseEntity<HttpRequestResponse> getUserProfiles(
         @Parameter(required = true, description =  "List of user IDs associated with user profiles")
         @Valid @RequestBody List<String> userIds,
             HttpServletRequest request);

@@ -4,17 +4,14 @@ import java.util.IllegalFormatException;
 
 import net.spotapps.tester.UserProfileConstants;
 
-public class UserProfileNotFoundException extends NotFoundException {
+public class InvalidUserIdException extends BadRequestException {
     private static final long serialVersionUID = 1L;
     
-    public UserProfileNotFoundException(final String message, final Long userId) {
+    public InvalidUserIdException(final String message, final String userId) {
         super(formatMessage(message, userId));
     }
 
-    private static String formatMessage(final String messageTemplate, final Long userId) {
-        if (messageTemplate == null || userId == null) {
-            return UserProfileConstants.GENERIC_EXCEPTION_MESSAGE;
-        }
+    private static String formatMessage(final String messageTemplate, final String userId) {
         String message;
         try {
             message = String.format(messageTemplate, userId);

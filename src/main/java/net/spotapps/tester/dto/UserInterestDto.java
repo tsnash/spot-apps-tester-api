@@ -6,12 +6,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "interestId",
-    "interest"
+        "interestId",
+        "interest"
 })
 public class UserInterestDto {
 
-    
     @JsonProperty("interestId")
     private Long interestId;
 
@@ -72,7 +71,5 @@ public class UserInterestDto {
     public String toString() {
         return "UserInterestDto [interestId=" + interestId + ", interest=" + interest + "]";
     }
-
-    
 
 }

@@ -30,10 +30,10 @@ import net.spotapps.tester.TesterApplication;
 import net.spotapps.tester.model.UserProfile;
 
 @SpringBootTest(classes = TesterApplication.class)
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class})
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup(UserProfileRepositoryTest.DATASET)
-@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = {UserProfileRepositoryTest.DATASET})
+@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = { UserProfileRepositoryTest.DATASET })
 @DirtiesContext
 public class UserProfileRepositoryTest {
     protected static final String DATASET = "classpath:datasets/user_profiles.xml";
@@ -49,12 +49,12 @@ public class UserProfileRepositoryTest {
         assertEquals(3L, actual.getUserId(), "This user profile should have a user id of 3");
 
         assertEquals(1, actual.getImages().size(), "There should be one image");
-        assertEquals("0.png", actual.getImages().get(0).getImage(), 
-            "The image should be \"0.png\"");
+        assertEquals("0.png", actual.getImages().get(0).getImage(),
+                "The image should be \"0.png\"");
 
         assertEquals(1, actual.getInterests().size(), "There should be one interest");
-        assertEquals("programming", actual.getInterests().get(0).getInterest(), 
-            "The interest should be \"programming\"");
+        assertEquals("programming", actual.getInterests().get(0).getInterest(),
+                "The interest should be \"programming\"");
 
         actual = repository.findById(6L).orElse(null);
         assertNull(actual, "This user profile should not exist");
@@ -67,23 +67,23 @@ public class UserProfileRepositoryTest {
         assertEquals(3L, actual.getUserId(), "This user profile should have a user id of 3");
 
         assertThrows(LazyInitializationException.class, () -> actual.getImages().size(),
-            "Images should fail to load");
+                "Images should fail to load");
         assertThrows(LazyInitializationException.class, () -> actual.getInterests().size(),
-            "Interests should fail to load");
-    
+                "Interests should fail to load");
+
     }
 
     @Test
     @Transactional(readOnly = true)
     public void testFindAllByUserIdInOrderByUserIdAsc() {
-        Long[] expectedIds = new Long[]{4L,2L,5L};
+        Long[] expectedIds = new Long[] { 4L, 2L, 5L };
         List<UserProfile> actual = repository.findAllByUserIdInOrderByUserIdAsc(Arrays.asList(expectedIds));
         assertEquals(expectedIds.length, actual.size(), "There should be a user profile for each user id");
         Arrays.sort(expectedIds);
         assertArrayEquals(expectedIds, actual.stream().map(UserProfile::getUserId).toArray(),
-            "The user ids should be in ascending order");
+                "The user ids should be in ascending order");
 
-        Long[] notExpectedIds = new Long[]{10L,6L};
+        Long[] notExpectedIds = new Long[] { 10L, 6L };
         actual = repository.findAllByUserIdInOrderByUserIdAsc(Arrays.asList(notExpectedIds));
         assertTrue(actual.isEmpty(), "There shouldn't be any user profiles for these ids");
     }

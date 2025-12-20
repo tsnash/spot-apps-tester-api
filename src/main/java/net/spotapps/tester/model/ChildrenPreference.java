@@ -19,5 +19,5 @@ public class ChildrenPreference {
     @MapsId
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
-    
+
 }
