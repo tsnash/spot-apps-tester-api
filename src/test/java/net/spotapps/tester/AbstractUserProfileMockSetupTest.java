@@ -65,8 +65,7 @@ public abstract class AbstractUserProfileMockSetupTest {
                 testUserProfileDto2 = UserProfileDto.convertUserProfileToDto(testUserProfile2);
 
                 when(userProfileService.getAllProfiles())
-                                .thenReturn(Arrays.asList(
-                                                new UserProfileDto[] { testUserProfileDto1, testUserProfileDto2 }));
+                                .thenReturn(Arrays.asList(testUserProfileDto1, testUserProfileDto2));
 
                 when(userProfileService.getUserProfile("1"))
                                 .thenReturn(testUserProfileDto1);
@@ -77,17 +76,16 @@ public abstract class AbstractUserProfileMockSetupTest {
                 when(userProfileService.getUserProfile("invalidID"))
                                 .thenThrow(new InvalidUserIdException(INVALID_ID_MESSAGE, "invalidID"));
 
-                when(userProfileService.getUserProfileList(Arrays.asList(new String[] { "1", "2" })))
-                                .thenReturn(Arrays.asList(
-                                                new UserProfileDto[] { testUserProfileDto1, testUserProfileDto2 }));
+                when(userProfileService.getUserProfileList(Arrays.asList("1", "2")))
+                                .thenReturn(Arrays.asList(testUserProfileDto1, testUserProfileDto2));
 
-                when(userProfileService.getUserProfileList(Arrays.asList(new String[] { "invalidID", "2" })))
+                when(userProfileService.getUserProfileList(Arrays.asList("invalidID", "2")))
                                 .thenThrow(new InvalidUserIdCollectionException(INVALID_ID_COLLECTION_MESSAGE,
-                                                Arrays.asList(new String[] { "invalidID" })));
+                                                Arrays.asList("invalidID")));
 
-                when(userProfileService.getUserProfileList(Arrays.asList(new String[] { "3", "4" })))
+                when(userProfileService.getUserProfileList(Arrays.asList("3", "4")))
                                 .thenThrow(new UserProfileCollectionNotFoundException(USER_PROFILE_COLLECTION_NOT_FOUND_MESSAGE,
-                                                Arrays.asList(new String[] { "3", "4" })));
+                                                Arrays.asList("3", "4")));
 
         }
 

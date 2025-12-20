@@ -204,10 +204,10 @@ public class UserProfileAPIContractRestTest {
     @Test
     void testGetUserProfilesContainingIds() throws Exception {
 
-        when(userProfileService.getUserProfileList(Arrays.asList(new String[] { "1", "2" })))
+        when(userProfileService.getUserProfileList(Arrays.asList("1", "2")))
                 .thenReturn(Arrays.asList(new UserProfileDto[] { testUserProfileDto1, testUserProfileDto2 }));
         
-        when(userProfileService.getUserProfileList(Arrays.asList(new String[] { "invalidID", "2" })))
+        when(userProfileService.getUserProfileList(Arrays.asList("invalidID", "2")))
                 .thenThrow(new InvalidUserIdCollectionException(
                     UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, Collections.singletonList("invalidID")));
 
@@ -215,9 +215,9 @@ public class UserProfileAPIContractRestTest {
                 .thenThrow(new InvalidUserIdCollectionException(
                     UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, List.of("<empty>")));
 
-        when(userProfileService.getUserProfileList(Arrays.asList(new String[] { "3", "4" })))
+        when(userProfileService.getUserProfileList(Arrays.asList("3", "4")))
                 .thenThrow(new UserProfileCollectionNotFoundException(
-                    UserProfileConstants.USER_PROFILE_COLLECTION_NOT_FOUND_MESSAGE, Arrays.asList(new String[] { "3", "4" })));
+                    UserProfileConstants.USER_PROFILE_COLLECTION_NOT_FOUND_MESSAGE, Arrays.asList("3", "4")));
 
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/user-profiles")
@@ -246,7 +246,7 @@ public class UserProfileAPIContractRestTest {
                 HttpStatus.OK.value(),
                 result.getResponse().getStatus(),
                 "The response should reflect the OK status");
-        verify(userProfileService).getUserProfileList(Arrays.asList(new String[] { "1", "2" }));
+        verify(userProfileService).getUserProfileList(Arrays.asList("1", "2"));
 
         requestBuilder = MockMvcRequestBuilders.post("/user-profiles")
                 .accept(MediaType.APPLICATION_JSON)
@@ -271,7 +271,7 @@ public class UserProfileAPIContractRestTest {
                 HttpStatus.BAD_REQUEST.value(),
                 result.getResponse().getStatus(),
                 "The response should reflect the BAD REQUEST status");
-        verify(userProfileService).getUserProfileList(Arrays.asList(new String[] { "invalidID", "2" }));
+        verify(userProfileService).getUserProfileList(Arrays.asList("invalidID", "2"));
 
         requestBuilder = MockMvcRequestBuilders.post("/user-profiles")
                 .accept(MediaType.APPLICATION_JSON)
@@ -310,7 +310,7 @@ public class UserProfileAPIContractRestTest {
 
         assertEquals(
                 new UserProfileCollectionNotFoundException(
-                    UserProfileConstants.USER_PROFILE_COLLECTION_NOT_FOUND_MESSAGE, Arrays.asList(new String[] { "3", "4" })).getMessage(),
+                    UserProfileConstants.USER_PROFILE_COLLECTION_NOT_FOUND_MESSAGE, Arrays.asList("3", "4")).getMessage(),
                 error.getIssues().get(0).getMessage(),
                 "The issue should have a matching User Profile Not Found message");
         assertEquals(
@@ -321,6 +321,7 @@ public class UserProfileAPIContractRestTest {
                 HttpStatus.NOT_FOUND.value(),
                 result.getResponse().getStatus(),
                 "The response should reflect the NOT FOUND status");
+        verify(userProfileService).getUserProfileList(Arrays.asList("3", "4"));
 
     }
 

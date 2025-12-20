@@ -67,28 +67,28 @@ public class UserProfileAPIContractTest extends AbstractUserProfileMockSetupTest
     void testGetUserProfilesContainingIds() {
 
         UserProfileCollectionResponse actual = (UserProfileCollectionResponse) userProfileAPIContract
-                .getUserProfiles(Arrays.asList(new String[] { "1", "2" }), null).getBody();
+                .getUserProfiles(Arrays.asList( "1", "2"), null).getBody();
         assertEquals(
                 2,
                 actual.getUserProfiles().size(),
                 "There should be 2 user profiles");
-        verify(userProfileService).getUserProfileList(Arrays.asList(new String[] { "1", "2" }));
+        verify(userProfileService).getUserProfileList(Arrays.asList( "1", "2"));
 
         assertThrows(
                 BadRequestException.class,
                 () -> userProfileAPIContract
-                        .getUserProfiles(Arrays.asList(new String[] { "invalidID", "2" }), null)
+                        .getUserProfiles(Arrays.asList("invalidID", "2"), null)
                         .getBody(),
                 "Should throw a BadRequestException");
-        verify(userProfileService).getUserProfileList(Arrays.asList(new String[] { "invalidID", "2" }));
+        verify(userProfileService).getUserProfileList(Arrays.asList("invalidID", "2"));
 
         assertThrows(
                 NotFoundException.class,
                 () -> userProfileAPIContract
-                        .getUserProfiles(Arrays.asList(new String[] { "3", "4" }), null)
+                        .getUserProfiles(Arrays.asList("3", "4"), null)
                         .getBody(),
                 "Should throw a NotFoundException");
-        verify(userProfileService).getUserProfileList(Arrays.asList(new String[] { "3", "4" }));
+        verify(userProfileService).getUserProfileList(Arrays.asList("3", "4"));
 
     }
 
