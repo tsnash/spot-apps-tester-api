@@ -31,9 +31,11 @@ docker run -p 8080:8080 tester:latest
 - Get the appropriate `postgresql` url from your database dashboard via `Info -> Connections -> Internal/External Database URL` and assign a `SPRING_DATASOURCE_URL` key to the value of the url
 
 ## Roadmap
-- Represent the remaining properties of the `UserProfile`
+- Correct `UserProfile` hashing and equality logic
 
 - Centralize user IDs to a common database entity and have profiles use a foreign key instead
+
+- Represent the remaining properties of the `UserProfile`
 
 - Develop models, services, and controllers for `DataProfile` and `RatingProfile` along with any additional properties
 
