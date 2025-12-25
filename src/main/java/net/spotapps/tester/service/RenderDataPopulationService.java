@@ -41,7 +41,7 @@ public class RenderDataPopulationService {
 
     @Transactional
     private void initUserProfiles() {
-        if(userProfileRepository.count() == 0) {
+        if (userProfileRepository.count() == 0) {
             userProfileRepository.saveAllAndFlush(IntStream.range(0, 100).mapToObj(i -> new UserProfile()).toList());
         }
     }
@@ -52,8 +52,8 @@ public class RenderDataPopulationService {
             List<UserImage> images = new ArrayList<>();
             for (UserProfile userProfile : userProfiles) {
                 images.addAll(IntStream.range(0, 4)
-                    .mapToObj(i -> new UserImage(i + ".png", userProfile))
-                    .toList());
+                        .mapToObj(i -> new UserImage(i + ".png", userProfile))
+                        .toList());
             }
             userImageRepository.saveAllAndFlush(images);
         }
@@ -65,8 +65,8 @@ public class RenderDataPopulationService {
             List<UserInterest> interests = new ArrayList<>();
             for (UserProfile userProfile : userProfiles) {
                 interests.addAll(IntStream.range(0, new Random().nextInt(7))
-                .mapToObj(i -> new UserInterest(RandomStringUtils.randomAlphabetic(8), userProfile))
-                .toList());
+                        .mapToObj(i -> new UserInterest(RandomStringUtils.randomAlphabetic(8), userProfile))
+                        .toList());
             }
             userInterestRepository.saveAllAndFlush(interests);
         }

@@ -21,12 +21,14 @@ public class LocalApplicationSwaggerConfig {
     @Bean
     public OpenAPI api() {
         return new OpenAPI()
-              .info(apiInfo());
+                .info(apiInfo());
     }
+
     private Info apiInfo() {
-         return new Info()
-            .title(profileConfigurationProperties.getTitle())
-            .license(new License().name("GNU General Public License v3.0").url("https://www.gnu.org/licenses/#GPL"));
+        return new Info()
+                .title(profileConfigurationProperties.getTitle())
+                .license(
+                        new License().name("GNU General Public License v3.0").url("https://www.gnu.org/licenses/#GPL"));
     }
 
 }

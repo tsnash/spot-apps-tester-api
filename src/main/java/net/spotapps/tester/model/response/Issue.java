@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"message"})
+@JsonPropertyOrder({ "message" })
 public class Issue {
     @JsonProperty("message")
-    @Schema(description =  "A message detailing an adverse ocurrence of an operation.")
+    @Schema(description = "A message detailing an adverse occurrence of an operation.")
     private String message;
 
     public Issue() {
@@ -54,5 +54,4 @@ public class Issue {
         return "Issue [message=" + message + "]";
     }
 
-    
 }
