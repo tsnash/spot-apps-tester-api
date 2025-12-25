@@ -35,7 +35,7 @@ docker run -p 8080:8080 tester:latest
 
 - Centralize user IDs to a common database entity and have profiles use a foreign key instead
 
-- Implement the remaining properties of the rest of the entities of `UserProfile`
+- Implement remaining properties for `UserProfile` related entities
 
 - Consider and address PII concerns including but not limited to
     - Encryption at rest for sensitive data

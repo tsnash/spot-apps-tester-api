@@ -32,6 +32,7 @@ public class ContactPreferenceRepositoryTest {
         cp.setUserProfile(user);
 
         ContactPreference saved = repository.save(cp);
+        assertThat(saved.getUserId()).isNotNull().isEqualTo(user.getUserId());
         entityManager.flush();
         entityManager.clear();
         
@@ -65,5 +66,7 @@ public class ContactPreferenceRepositoryTest {
         assertThat(retrieved.getPhoneNumber()).isEqualTo("555-555-5555");
         assertThat(retrieved.getEmailAddress()).isEqualTo("john@example.com");
         assertThat(retrieved.isEmailVerified()).isTrue();
+        assertThat(retrieved.getUserProfile()).isNotNull();
+        assertThat(retrieved.getUserProfile().getUserId()).isEqualTo(user.getUserId());
     }
 }

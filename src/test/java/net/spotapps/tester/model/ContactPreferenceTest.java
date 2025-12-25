@@ -20,6 +20,17 @@ public class ContactPreferenceTest {
     }
 
     @Test
+    public void testEqualsWithSameUserId() {
+        ContactPreference cp1 = new ContactPreference();
+        cp1.setUserId(1L);
+        
+        ContactPreference cp2 = new ContactPreference();
+        cp2.setUserId(1L);
+        
+        assertEquals(cp1, cp2);
+    }
+
+    @Test
     public void testHashCodeWithNullUserId() {
         ContactPreference cp1 = new ContactPreference();
         cp1.setUserId(null);
