@@ -64,6 +64,6 @@ public class ContactPreferenceRepositoryTest {
         assertThat(retrieved.getLastName()).isEqualTo("Doe");
         assertThat(retrieved.getPhoneNumber()).isEqualTo("555-555-5555");
         assertThat(retrieved.getEmailAddress()).isEqualTo("john@example.com");
-        assertThat(retrieved.getEmailVerified()).isTrue();
+        assertThat(retrieved.isEmailVerified()).isTrue();
     }
 }

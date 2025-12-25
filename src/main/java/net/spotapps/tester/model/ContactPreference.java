@@ -97,7 +97,7 @@ public class ContactPreference {
         this.emailAddress = emailAddress;
     }
 
-    public boolean getEmailVerified() {
+    public boolean isEmailVerified() {
         return emailVerified;
     }
 
