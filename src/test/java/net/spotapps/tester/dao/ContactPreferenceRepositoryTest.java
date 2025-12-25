@@ -25,7 +25,7 @@ public class ContactPreferenceRepositoryTest {
     @Test
     void mapsIdIsDerivedFromUserProfile() {
         UserProfile user = new UserProfile();
-        userRepository.save(user);
+        user = userRepository.save(user);
         assertThat(user.getUserId()).isNotNull();
 
         ContactPreference cp = new ContactPreference();
@@ -45,7 +45,7 @@ public class ContactPreferenceRepositoryTest {
     @Test
     void verifyContactPreferencePersisted() {
         UserProfile user = new UserProfile();
-        userRepository.save(user);
+        user = userRepository.save(user);
 
         ContactPreference cp = new ContactPreference();
         cp.setUserProfile(user);

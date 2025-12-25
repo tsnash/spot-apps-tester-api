@@ -1,6 +1,7 @@
 package net.spotapps.tester.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,6 +29,32 @@ public class ContactPreferenceTest {
         cp2.setUserId(1L);
         
         assertEquals(cp1, cp2);
+    }
+    @Test
+    public void testEqualsWithDifferentUserId() {
+        ContactPreference cp1 = new ContactPreference();
+        cp1.setUserId(1L);
+        
+        ContactPreference cp2 = new ContactPreference();
+        cp2.setUserId(2L);
+        
+        assertNotEquals(cp1, cp2);
+    }
+
+    @Test
+    public void testEqualsWithNull() {
+        ContactPreference cp = new ContactPreference();
+        cp.setUserId(1L);
+        
+        assertNotEquals(cp, null);
+    }
+
+    @Test
+    public void testEqualsReflexive() {
+        ContactPreference cp = new ContactPreference();
+        cp.setUserId(1L);
+        
+        assertEquals(cp, cp);
     }
 
     @Test

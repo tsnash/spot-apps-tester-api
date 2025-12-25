@@ -46,7 +46,7 @@ public class ContactPreference {
     private String emailAddress;
 
     @Schema(description = "Indicates if the user has verified their email address")
-    @Column(name = "email_verified")
+    @Column(name = "email_verified", nullable = false)
     private boolean emailVerified;
     
     public Long getUserId() {
