@@ -7,7 +7,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
@@ -25,18 +26,23 @@ public class ContactPreference {
     
     @Schema(description = "The first name of the user", example = "Jane")
     @Column(name = "first_name")
+    @Size(max = 100)
     private String firstName;
 
     @Schema(description = "The last name of the user", example = "Doe")
     @Column(name = "last_name")
+    @Size(max = 100)
     private String lastName;
 
     @Schema(description = "The phone number of the user", example = "+15551234567")
     @Column(name = "phone_number")
+    @Size(max = 20)
     private String phoneNumber;
 
     @Schema(description = "The email address of the user", example = "jane.doe@example.com")
     @Column(name = "email_address")
+    @Email
+    @Size(max = 255)
     private String emailAddress;
 
     @Schema(description = "Indicates if the user has verified their email address")
