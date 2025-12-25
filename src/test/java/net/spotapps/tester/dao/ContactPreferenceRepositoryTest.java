@@ -22,13 +22,36 @@ public class ContactPreferenceRepositoryTest {
     void mapsIdIsDerivedFromUserProfile() {
         UserProfile user = new UserProfile();
         userRepository.save(user);
+        assertThat(user.getUserId()).isNotNull();
 
         ContactPreference cp = new ContactPreference();
         cp.setUserProfile(user);
-        cp.setEmailAddress("jane@example.com");
 
         ContactPreference saved = repository.save(cp);
 
         assertThat(saved.getUserId()).isEqualTo(user.getUserId());
+    }
+
+    @Test
+    void verifyContactPreferencePersisted() {
+        UserProfile user = new UserProfile();
+        userRepository.save(user);
+
+        ContactPreference cp = new ContactPreference();
+        cp.setUserProfile(user);
+        cp.setFirstName("John");
+        cp.setLastName("Doe");
+        cp.setPhoneNumber("555-555-5555");
+        cp.setEmailAddress("john@example.com");
+        cp.setEmailVerified(true);
+
+
+        ContactPreference saved = repository.save(cp);
+
+        assertThat(saved.getFirstName()).isEqualTo(cp.getFirstName());
+        assertThat(saved.getLastName()).isEqualTo(cp.getLastName());
+        assertThat(saved.getPhoneNumber()).isEqualTo(cp.getPhoneNumber());
+        assertThat(saved.getEmailAddress()).isEqualTo(cp.getEmailAddress());
+        assertThat(saved.getEmailVerified()).isEqualTo(cp.getEmailVerified());
     }
 }
