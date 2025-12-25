@@ -126,9 +126,7 @@ public class ContactPreference {
 
     @Override
     public String toString() {
-        return "ContactPreference [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName
-                + ", phoneNumber=" + phoneNumber + ", emailAddress=" + emailAddress + ", emailVerified=" + emailVerified
-                + "]";
+        return "ContactPreference [userId=" + userId + ", emailVerified=" + emailVerified + "]";
     }
 
 }
