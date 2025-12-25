@@ -47,7 +47,7 @@ public class ContactPreference {
 
     @Schema(description = "Indicates if the user has verified their email address")
     @Column(name = "email_verified")
-    private Boolean emailVerified;
+    private boolean emailVerified;
     
     public Long getUserId() {
         return userId;
@@ -97,11 +97,11 @@ public class ContactPreference {
         this.emailAddress = emailAddress;
     }
 
-    public Boolean getEmailVerified() {
+    public boolean getEmailVerified() {
         return emailVerified;
     }
 
-    public void setEmailVerified(Boolean emailVerified) {
+    public void setEmailVerified(boolean emailVerified) {
         this.emailVerified = emailVerified;
     }
 
@@ -132,7 +132,7 @@ public class ContactPreference {
 
     @Override
     public String toString() {
-        return "ContactPreference [userId=" + userId + ", emailVerified=" + emailVerified + "]";
+        return "ContactPreference [userId=" + userId + "]";
     }
 
 }
