@@ -35,7 +35,14 @@ docker run -p 8080:8080 tester:latest
 
 - Centralize user IDs to a common database entity and have profiles use a foreign key instead
 
-- Represent the remaining properties of the `UserProfile`
+- Implement the remaining properties of the rest of the entities of `UserProfile`
+
+- Consider and address PII concerns including but not limited to
+    - Encryption at rest for sensitive data
+    - Proper audit logging for data access
+    - Compliance with GDPR/CCPA requirements
+    - Data retention and deletion policies
+    - Appropriate masking in logs and error messages
 
 - Develop models, services, and controllers for `DataProfile` and `RatingProfile` along with any additional properties
 
