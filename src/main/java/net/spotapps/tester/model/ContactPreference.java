@@ -40,8 +40,8 @@ public class ContactPreference {
 
     @Schema(description = "The phone number of the user", example = "+15551234567")
     @Column(name = "phone_number")
-    @Pattern(regexp = "^\\+?[1-9]\\d{1,14}$", message = "Invalid phone number format")
-    @Size(max = 20)
+    @Pattern(regexp = "^\\+[1-9]\\d{1,14}$", message = "Phone number must be in E.164 format")
+    @Size(max = 16)
     private String phoneNumber;
 
     @Schema(description = "The email address of the user", example = "jane.doe@example.com")

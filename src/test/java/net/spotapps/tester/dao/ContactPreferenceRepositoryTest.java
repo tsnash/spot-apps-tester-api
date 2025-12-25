@@ -51,7 +51,7 @@ public class ContactPreferenceRepositoryTest {
         cp.setUserProfile(user);
         cp.setFirstName("John");
         cp.setLastName("Doe");
-        cp.setPhoneNumber("5555555555");
+        cp.setPhoneNumber("+5555555555");
         cp.setEmailAddress("john@example.com");
         cp.setEmailVerified(true);
 
@@ -63,7 +63,7 @@ public class ContactPreferenceRepositoryTest {
 
         assertThat(retrieved.getFirstName()).isEqualTo("John");
         assertThat(retrieved.getLastName()).isEqualTo("Doe");
-        assertThat(retrieved.getPhoneNumber()).isEqualTo("5555555555");
+        assertThat(retrieved.getPhoneNumber()).isEqualTo("+5555555555");
         assertThat(retrieved.getEmailAddress()).isEqualTo("john@example.com");
         assertThat(retrieved.isEmailVerified()).isTrue();
         assertThat(retrieved.getUserProfile()).isNotNull();
