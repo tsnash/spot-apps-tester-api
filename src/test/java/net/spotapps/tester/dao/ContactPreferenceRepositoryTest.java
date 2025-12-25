@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import net.spotapps.tester.model.ContactPreference;
 import net.spotapps.tester.model.UserProfile;
@@ -13,7 +14,10 @@ import net.spotapps.tester.model.UserProfile;
 public class ContactPreferenceRepositoryTest {
 
     @Autowired
-    UserProfileRepository userRepository;
+    private TestEntityManager entityManager;
+
+    @Autowired
+    private UserProfileRepository userRepository;
 
     @Autowired
     private ContactPreferenceRepository repository;
@@ -28,8 +32,13 @@ public class ContactPreferenceRepositoryTest {
         cp.setUserProfile(user);
 
         ContactPreference saved = repository.save(cp);
+        entityManager.flush();
+        entityManager.clear();
+        
+        ContactPreference retrieved = repository.findById(saved.getUserId()).orElseThrow();
 
-        assertThat(saved.getUserId()).isEqualTo(user.getUserId());
+        assertThat(retrieved.getUserId()).isEqualTo(user.getUserId());
+        assertThat(retrieved.getUserProfile().getUserId()).isEqualTo(user.getUserId());
     }
 
     @Test
@@ -45,13 +54,16 @@ public class ContactPreferenceRepositoryTest {
         cp.setEmailAddress("john@example.com");
         cp.setEmailVerified(true);
 
-
         ContactPreference saved = repository.save(cp);
+        entityManager.flush();
+        entityManager.clear();
+        
+        ContactPreference retrieved = repository.findById(saved.getUserId()).orElseThrow();
 
-        assertThat(saved.getFirstName()).isEqualTo(cp.getFirstName());
-        assertThat(saved.getLastName()).isEqualTo(cp.getLastName());
-        assertThat(saved.getPhoneNumber()).isEqualTo(cp.getPhoneNumber());
-        assertThat(saved.getEmailAddress()).isEqualTo(cp.getEmailAddress());
-        assertThat(saved.getEmailVerified()).isEqualTo(cp.getEmailVerified());
+        assertThat(retrieved.getFirstName()).isEqualTo("John");
+        assertThat(retrieved.getLastName()).isEqualTo("Doe");
+        assertThat(retrieved.getPhoneNumber()).isEqualTo("555-555-5555");
+        assertThat(retrieved.getEmailAddress()).isEqualTo("john@example.com");
+        assertThat(retrieved.getEmailVerified()).isTrue();
     }
 }
