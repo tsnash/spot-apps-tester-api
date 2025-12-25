@@ -31,7 +31,7 @@ public class ContactPreference {
     @Column(name = "last_name")
     private String lastName;
 
-    @Schema(description = "The phone number of the user", example = "+15550199")
+    @Schema(description = "The phone number of the user", example = "+15551234567")
     @Column(name = "phone_number")
     private String phoneNumber;
 
