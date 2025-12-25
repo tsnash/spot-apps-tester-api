@@ -40,11 +40,11 @@ docker run -p 8080:8080 tester:latest
 - Implement remaining properties for `UserProfile` related entities
 
 - Consider and address PII concerns including but not limited to
-    - Encryption at rest for sensitive data
-    - Proper audit logging for data access
-    - Compliance with GDPR/CCPA requirements
-    - Data retention and deletion policies
-    - Appropriate masking in logs and error messages
+  - Encryption at rest for sensitive data
+  - Proper audit logging for data access
+  - Compliance with GDPR/CCPA requirements
+  - Data retention and deletion policies
+  - Appropriate masking in logs and error messages
 
 - Develop models, services, and controllers for `DataProfile` and `RatingProfile` along with any additional properties
 
