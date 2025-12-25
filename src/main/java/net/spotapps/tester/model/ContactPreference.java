@@ -8,7 +8,11 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+
+import java.util.Objects;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
@@ -36,6 +40,7 @@ public class ContactPreference {
 
     @Schema(description = "The phone number of the user", example = "+15551234567")
     @Column(name = "phone_number")
+    @Pattern(regexp = "^\\+?[1-9]\\d{1,14}$", message = "Invalid phone number format")
     @Size(max = 20)
     private String phoneNumber;
 
@@ -107,27 +112,17 @@ public class ContactPreference {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-        return result;
+        return Objects.hash(userId);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
+        if (obj == null || getClass() != obj.getClass())
             return false;
         ContactPreference other = (ContactPreference) obj;
-        if (userId == null) {
-            if (other.userId != null)
-                return false;
-        } else if (!userId.equals(other.userId))
-            return false;
-        return true;
+        return Objects.equals(userId, other.userId);
     }
 
     @Override
