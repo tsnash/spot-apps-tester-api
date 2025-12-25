@@ -1,6 +1,7 @@
 package net.spotapps.tester.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +16,28 @@ public class ContactPreferenceTest {
         
         ContactPreference cp2 = new ContactPreference();
         cp2.setUserId(1L);
+        
+        assertEquals(cp1.hashCode(), cp2.hashCode());
+    }
+
+    @Test
+    public void testHashCodeWithDifferentUserIds() {
+        ContactPreference cp1 = new ContactPreference();
+        cp1.setUserId(1L);
+        
+        ContactPreference cp2 = new ContactPreference();
+        cp2.setUserId(2L);
+        
+        assertNotEquals(cp1.hashCode(), cp2.hashCode());
+    }
+
+    @Test
+    public void testHashCodeWithNullUserId() {
+        ContactPreference cp1 = new ContactPreference();
+        cp1.setUserId(null);
+        
+        ContactPreference cp2 = new ContactPreference();
+        cp2.setUserId(null);
         
         assertEquals(cp1.hashCode(), cp2.hashCode());
     }
