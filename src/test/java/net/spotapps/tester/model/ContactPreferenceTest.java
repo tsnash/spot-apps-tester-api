@@ -85,6 +85,11 @@ public class ContactPreferenceTest {
 
         ContactPreference contactPreference1AllFields = new ContactPreference();
         contactPreference1AllFields.setUserId(1L);
+        contactPreference1AllFields.setFirstName("John");
+        contactPreference1AllFields.setLastName("Doe");
+        contactPreference1AllFields.setPhoneNumber("1234567890");
+        contactPreference1AllFields.setEmailAddress("john.doe@example.com");
+        contactPreference1AllFields.setEmailVerified(true);
 
         return Stream.of(
                 Arguments.of(contactPreference1, contactPreference1),
