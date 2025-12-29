@@ -1,6 +1,7 @@
 package net.spotapps.tester.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
@@ -256,132 +257,22 @@ public class UserProfile {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-        result = prime * result + ((images == null) ? 0 : images.hashCode());
-        result = prime * result + ((contact == null) ? 0 : contact.hashCode());
-        result = prime * result + ((location == null) ? 0 : location.hashCode());
-        result = prime * result + ((social == null) ? 0 : social.hashCode());
-        result = prime * result + ((gender == null) ? 0 : gender.hashCode());
-        result = prime * result + ((relationship == null) ? 0 : relationship.hashCode());
-        result = prime * result + ((children == null) ? 0 : children.hashCode());
-        result = prime * result + ((age == null) ? 0 : age.hashCode());
-        result = prime * result + ((religion == null) ? 0 : religion.hashCode());
-        result = prime * result + ((education == null) ? 0 : education.hashCode());
-        result = prime * result + ((language == null) ? 0 : language.hashCode());
-        result = prime * result + ((vice == null) ? 0 : vice.hashCode());
-        result = prime * result + ((pets == null) ? 0 : pets.hashCode());
-        result = prime * result + ((travel == null) ? 0 : travel.hashCode());
-        result = prime * result + ((diet == null) ? 0 : diet.hashCode());
-        result = prime * result + ((interests == null) ? 0 : interests.hashCode());
-        return result;
+        return Objects.hash(userId);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
+        if (obj == null || getClass() != obj.getClass())
             return false;
         UserProfile other = (UserProfile) obj;
-        if (userId == null) {
-            if (other.userId != null)
-                return false;
-        } else if (!userId.equals(other.userId))
-            return false;
-        if (images == null) {
-            if (other.images != null)
-                return false;
-        } else if (!images.equals(other.images))
-            return false;
-        if (contact == null) {
-            if (other.contact != null)
-                return false;
-        } else if (!contact.equals(other.contact))
-            return false;
-        if (location == null) {
-            if (other.location != null)
-                return false;
-        } else if (!location.equals(other.location))
-            return false;
-        if (social == null) {
-            if (other.social != null)
-                return false;
-        } else if (!social.equals(other.social))
-            return false;
-        if (gender == null) {
-            if (other.gender != null)
-                return false;
-        } else if (!gender.equals(other.gender))
-            return false;
-        if (relationship == null) {
-            if (other.relationship != null)
-                return false;
-        } else if (!relationship.equals(other.relationship))
-            return false;
-        if (children == null) {
-            if (other.children != null)
-                return false;
-        } else if (!children.equals(other.children))
-            return false;
-        if (age == null) {
-            if (other.age != null)
-                return false;
-        } else if (!age.equals(other.age))
-            return false;
-        if (religion == null) {
-            if (other.religion != null)
-                return false;
-        } else if (!religion.equals(other.religion))
-            return false;
-        if (education == null) {
-            if (other.education != null)
-                return false;
-        } else if (!education.equals(other.education))
-            return false;
-        if (language == null) {
-            if (other.language != null)
-                return false;
-        } else if (!language.equals(other.language))
-            return false;
-        if (vice == null) {
-            if (other.vice != null)
-                return false;
-        } else if (!vice.equals(other.vice))
-            return false;
-        if (pets == null) {
-            if (other.pets != null)
-                return false;
-        } else if (!pets.equals(other.pets))
-            return false;
-        if (travel == null) {
-            if (other.travel != null)
-                return false;
-        } else if (!travel.equals(other.travel))
-            return false;
-        if (diet == null) {
-            if (other.diet != null)
-                return false;
-        } else if (!diet.equals(other.diet))
-            return false;
-        if (interests == null) {
-            if (other.interests != null)
-                return false;
-        } else if (!interests.equals(other.interests))
-            return false;
-        return true;
+        return Objects.equals(userId, other.userId);
     }
 
     @Override
     public String toString() {
-        return "UserProfile [userId=" + userId + ", images=" + images + ", contact=" + contact + ", location="
-                + location + ", social=" + social + ", gender=" + gender + ", relationship=" + relationship
-                + ", children=" + children + ", age=" + age + ", religion=" + religion + ", education=" + education
-                + ", language=" + language + ", vice=" + vice + ", pets=" + pets + ", travel=" + travel + ", diet="
-                + diet + ", interests=" + interests + "]";
+        return "UserProfile [userId=" + userId + "]";
     }
 
     
