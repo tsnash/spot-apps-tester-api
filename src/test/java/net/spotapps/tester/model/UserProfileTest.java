@@ -86,12 +86,10 @@ public class UserProfileTest {
         userProfile4AllFields.setDiet(new DietPreference());
         userProfile4AllFields.setInterests(Arrays.asList(new UserInterest()));
 
-
         return Stream.of(
                 Arguments.of(userProfile1, userProfile2),
                 Arguments.of(userProfile1, userProfileNull),
-                Arguments.of(userProfile3AllFields, userProfile4AllFields)
-        );
+                Arguments.of(userProfile3AllFields, userProfile4AllFields));
     }
 
     private static Stream<Arguments> provideIdenticalUserProfiles() {
@@ -127,8 +125,7 @@ public class UserProfileTest {
                 Arguments.of(userProfile1, userProfile1),
                 Arguments.of(userProfile1, userProfile2),
                 Arguments.of(userProfileNull, userProfileNull),
-                Arguments.of(userProfile1, userProfile1AllFields)
-        );
+                Arguments.of(userProfile1, userProfile1AllFields));
     }
 
 }
