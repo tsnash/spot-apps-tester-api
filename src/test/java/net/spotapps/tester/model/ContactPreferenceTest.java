@@ -61,11 +61,11 @@ public class ContactPreferenceTest {
 
         ContactPreference contactPreference4AllFields = new ContactPreference();
         contactPreference4AllFields.setUserId(4L);
-        contactPreference3AllFields.setFirstName("John");
-        contactPreference3AllFields.setLastName("Doe");
-        contactPreference3AllFields.setPhoneNumber("1234567890");
-        contactPreference3AllFields.setEmailAddress("john.doe@example.com");
-        contactPreference3AllFields.setEmailVerified(true);
+        contactPreference4AllFields.setFirstName("John");
+        contactPreference4AllFields.setLastName("Doe");
+        contactPreference4AllFields.setPhoneNumber("1234567890");
+        contactPreference4AllFields.setEmailAddress("john.doe@example.com");
+        contactPreference4AllFields.setEmailVerified(true);
 
         return Stream.of(
                 Arguments.of(contactPreference1, contactPreference2),
