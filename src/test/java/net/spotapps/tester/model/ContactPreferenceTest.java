@@ -15,14 +15,14 @@ public class ContactPreferenceTest {
     @MethodSource("provideDifferentContactPreferences")
     public void testContactPreferenceInequality(ContactPreference testContactPreference1,
             ContactPreference testContactPreference2) {
-        assertNotEquals(testContactPreference1, testContactPreference2, "Different user profiles should not be equal");
+        assertNotEquals(testContactPreference1, testContactPreference2, "Different contract preferences should not be equal");
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalContactPreferences")
     public void testContactPreferenceEquality(ContactPreference testContactPreference1,
             ContactPreference testContactPreference2) {
-        assertEquals(testContactPreference1, testContactPreference2, "Identical user profiles should be equal");
+        assertEquals(testContactPreference1, testContactPreference2, "Identical contract preferences should be equal");
     }
 
     @ParameterizedTest
@@ -30,7 +30,7 @@ public class ContactPreferenceTest {
     public void testContactPreferenceHashcodeInequality(ContactPreference testContactPreference1,
             ContactPreference testContactPreference2) {
         assertNotEquals(testContactPreference1.hashCode(), testContactPreference2.hashCode(),
-                "Different user profiles should not have equal hash codes");
+                "Different contract preferences should not have equal hash codes");
     }
 
     @ParameterizedTest
@@ -38,7 +38,7 @@ public class ContactPreferenceTest {
     public void testContactPreferenceHashcodeEquality(ContactPreference testContactPreference1,
             ContactPreference testContactPreference2) {
         assertEquals(testContactPreference1.hashCode(), testContactPreference2.hashCode(),
-                "Identical user profiles should have equal hash codes");
+                "Identical contract preferences should have equal hash codes");
     }
 
     private static Stream<Arguments> provideDifferentContactPreferences() {
