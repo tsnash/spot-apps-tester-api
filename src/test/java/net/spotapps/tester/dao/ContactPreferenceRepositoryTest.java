@@ -2,6 +2,7 @@ package net.spotapps.tester.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -9,6 +10,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import net.spotapps.tester.model.ContactPreference;
 import net.spotapps.tester.model.UserProfile;
+import net.spotapps.tester.persistence.encryption.CryptoConverter;
+
+import java.util.Base64;
 
 @DataJpaTest
 public class ContactPreferenceRepositoryTest {
@@ -21,6 +25,11 @@ public class ContactPreferenceRepositoryTest {
 
     @Autowired
     private ContactPreferenceRepository repository;
+
+    @BeforeAll
+    public static void setUp() {
+        CryptoConverter.setEncryptionKey(Base64.getDecoder().decode("P57DYej7WZOi3KlAKY1uD0ao2BE1Ovaw8cvPmzbGEBA="));
+    }
 
     @Test
     void mapsIdIsDerivedFromUserProfile() {

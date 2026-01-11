@@ -39,6 +39,7 @@ docker run -p 8080:8080 tester:latest
 
 - Consider and address PII concerns including but not limited to
   - Encryption at rest for sensitive data
+    - **Note on Encryption Key Management:** The encryption key is currently stored in `application.properties`. This is not recommended for production environments. It is highly recommended to move the key to a secure key management service such as AWS KMS or HashiCorp Vault.
   - Proper audit logging for data access
   - Compliance with GDPR/CCPA requirements
   - Data retention and deletion policies

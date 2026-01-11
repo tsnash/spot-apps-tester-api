@@ -34,8 +34,8 @@ public class UserProfile {
     @Schema(description = "The contact information and preferences of the user")
     @JsonPropertyDescription("The contact information and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "contact")
-    private ContactPreference contact;
+    @PrimaryKeyJoinColumn
+    private ContactPreference contactPreference;
 
     @Schema(description = "The location and proximity preferences of the user")
     @JsonPropertyDescription("The location and proximity preferences of the user")
@@ -135,12 +135,12 @@ public class UserProfile {
         this.images = images;
     }
 
-    public ContactPreference getContact() {
-        return contact;
+    public ContactPreference getContactPreference() {
+        return contactPreference;
     }
 
-    public void setContact(ContactPreference contact) {
-        this.contact = contact;
+    public void setContactPreference(ContactPreference contactPreference) {
+        this.contactPreference = contactPreference;
     }
 
     public LocationPreference getLocation() {
