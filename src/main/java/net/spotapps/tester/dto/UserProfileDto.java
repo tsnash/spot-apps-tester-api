@@ -45,7 +45,7 @@ public class UserProfileDto {
     @JsonPropertyDescription("The things and activities the user is interested in")
     private List<UserInterestDto> interests;
 
-    @JsonProperty(value = "contact", required = true)
+    @JsonProperty(value = "contactPreference", required = true)
     @JsonPropertyDescription("The user's contact preferences")
     @Valid
     private ContactPreferenceDto contactPreference;

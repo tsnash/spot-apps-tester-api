@@ -34,7 +34,7 @@ public class UserProfile {
     @Schema(description = "The contact information and preferences of the user")
     @JsonPropertyDescription("The contact information and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @PrimaryKeyJoinColumn(name = "contact")
     private ContactPreference contactPreference;
 
     @Schema(description = "The location and proximity preferences of the user")

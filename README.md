@@ -14,6 +14,14 @@ Java SpringBoot API for testing operations against various models
 
 - By default it loads an `h2` database in memory but you can specify a `postgresql` database using the corresponding `spring.datasource` properties
 
+- To enable encryption at rest, you must set the `ENCRYPTION_KEY` environment variable. This should be a Base64-encoded 256-bit key. You can generate one with the following command:
+  ```bash
+  python3 -c "import os, base64; print(base64.b64encode(os.urandom(32)).decode('utf-8'))"
+  ```
+  Then, export the key:
+  ```bash
+  export ENCRYPTION_KEY=<your-generated-key>
+  ```
 
 ## Docker Notes
 - build image from project root
@@ -22,7 +30,7 @@ docker build -t tester:latest .
 ```
 - run container
 ```bash
-docker run -p 8080:8080 tester:latest
+docker run -p 8080:8080 -e ENCRYPTION_KEY=<your-generated-key> tester:latest
 ```
 
 ## Render Notes
@@ -39,7 +47,7 @@ docker run -p 8080:8080 tester:latest
 
 - Consider and address PII concerns including but not limited to
   - Encryption at rest for sensitive data
-    - **Note on Encryption Key Management:** The encryption key is currently stored in `application.properties`. This is not recommended for production environments. It is highly recommended to move the key to a secure key management service such as AWS KMS or HashiCorp Vault.
+    - **Note on Encryption Key Management:** The encryption key is sourced from the `ENCRYPTION_KEY` environment variable. For production environments, it is highly recommended to use a secure key management service such as AWS KMS or HashiCorp Vault.
   - Proper audit logging for data access
   - Compliance with GDPR/CCPA requirements
   - Data retention and deletion policies

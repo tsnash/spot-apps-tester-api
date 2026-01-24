@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -13,23 +14,27 @@ public class ContactPreferenceDto {
     @JsonProperty(required = true)
     @JsonPropertyDescription("The first name of the user")
     @Size(max = 100)
+    @NotBlank
     private String firstName;
 
     @JsonProperty(required = true)
     @JsonPropertyDescription("The last name of the user")
     @Size(max = 100)
+    @NotBlank
     private String lastName;
 
     @JsonProperty(required = true)
     @JsonPropertyDescription("The phone number of the user")
     @Pattern(regexp = "^\\+[1-9]\\d{1,14}$", message = "Phone number must be in E.164 format")
     @Size(max = 16)
+    @NotBlank
     private String phoneNumber;
 
     @JsonProperty(required = true)
     @JsonPropertyDescription("The email address of the user")
     @Email
     @Size(max = 255)
+    @NotBlank
     private String emailAddress;
 
     public String getFirstName() {
