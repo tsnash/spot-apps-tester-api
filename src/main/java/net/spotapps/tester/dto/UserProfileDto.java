@@ -16,19 +16,19 @@ import net.spotapps.tester.model.UserProfile;
         "userId",
         "images",
         "contactPreference",
-        "location",
-        "social",
-        "gender",
-        "relationship",
-        "children",
-        "age",
-        "religion",
-        "education",
-        "language",
-        "vice",
-        "pets",
-        "travel",
-        "diet",
+        "locationPreference",
+        "socialPreference",
+        "genderPreference",
+        "relationshipPreference",
+        "childrenPreference",
+        "agePreference",
+        "religionPreference",
+        "educationPreference",
+        "languagePreference",
+        "vicePreference",
+        "petsPreference",
+        "travelPreference",
+        "dietPreference",
         "interests"
 })
 public class UserProfileDto {
@@ -49,6 +49,71 @@ public class UserProfileDto {
     @JsonPropertyDescription("The user's contact preferences")
     @Valid
     private ContactPreferenceDto contactPreference;
+
+    @JsonProperty(value = "locationPreference", required = true)
+    @JsonPropertyDescription("The user's location preferences")
+    @Valid
+    private LocationPreferenceDto locationPreference;
+
+    @JsonProperty(value = "socialPreference", required = true)
+    @JsonPropertyDescription("The user's social preferences")
+    @Valid
+    private SocialPreferenceDto socialPreference;
+
+    @JsonProperty(value = "genderPreference", required = true)
+    @JsonPropertyDescription("The user's gender preferences")
+    @Valid
+    private GenderPreferenceDto genderPreference;
+
+    @JsonProperty(value = "relationshipPreference", required = true)
+    @JsonPropertyDescription("The user's relationship preferences")
+    @Valid
+    private RelationshipPreferenceDto relationshipPreference;
+
+    @JsonProperty(value = "childrenPreference", required = true)
+    @JsonPropertyDescription("The user's children preferences")
+    @Valid
+    private ChildrenPreferenceDto childrenPreference;
+
+    @JsonProperty(value = "agePreference", required = true)
+    @JsonPropertyDescription("The user's age preferences")
+    @Valid
+    private AgePreferenceDto agePreference;
+
+    @JsonProperty(value = "religionPreference", required = true)
+    @JsonPropertyDescription("The user's religion preferences")
+    @Valid
+    private ReligionPreferenceDto religionPreference;
+
+    @JsonProperty(value = "educationPreference", required = true)
+    @JsonPropertyDescription("The user's education preferences")
+    @Valid
+    private EducationPreferenceDto educationPreference;
+
+    @JsonProperty(value = "languagePreference", required = true)
+    @JsonPropertyDescription("The user's language preferences")
+    @Valid
+    private LanguagePreferenceDto languagePreference;
+
+    @JsonProperty(value = "vicePreference", required = true)
+    @JsonPropertyDescription("The user's vice preferences")
+    @Valid
+    private VicePreferenceDto vicePreference;
+
+    @JsonProperty(value = "petsPreference", required = true)
+    @JsonPropertyDescription("The user's pets preferences")
+    @Valid
+    private PetsPreferenceDto petsPreference;
+
+    @JsonProperty(value = "travelPreference", required = true)
+    @JsonPropertyDescription("The user's travel preferences")
+    @Valid
+    private TravelPreferenceDto travelPreference;
+
+    @JsonProperty(value = "dietPreference", required = true)
+    @JsonPropertyDescription("The user's diet preferences")
+    @Valid
+    private DietPreferenceDto dietPreference;
 
     public UserProfileDto() {
     }
@@ -85,9 +150,116 @@ public class UserProfileDto {
         this.contactPreference = contactPreference;
     }
 
+    public LocationPreferenceDto getLocationPreference() {
+        return locationPreference;
+    }
+
+    public void setLocationPreference(LocationPreferenceDto locationPreference) {
+        this.locationPreference = locationPreference;
+    }
+
+    public SocialPreferenceDto getSocialPreference() {
+        return socialPreference;
+    }
+
+    public void setSocialPreference(SocialPreferenceDto socialPreference) {
+        this.socialPreference = socialPreference;
+    }
+
+    public GenderPreferenceDto getGenderPreference() {
+        return genderPreference;
+    }
+
+    public void setGenderPreference(GenderPreferenceDto genderPreference) {
+        this.genderPreference = genderPreference;
+    }
+
+    public RelationshipPreferenceDto getRelationshipPreference() {
+        return relationshipPreference;
+    }
+
+    public void setRelationshipPreference(RelationshipPreferenceDto relationshipPreference) {
+        this.relationshipPreference = relationshipPreference;
+    }
+
+    public ChildrenPreferenceDto getChildrenPreference() {
+        return childrenPreference;
+    }
+
+    public void setChildrenPreference(ChildrenPreferenceDto childrenPreference) {
+        this.childrenPreference = childrenPreference;
+    }
+
+    public AgePreferenceDto getAgePreference() {
+        return agePreference;
+    }
+
+    public void setAgePreference(AgePreferenceDto agePreference) {
+        this.agePreference = agePreference;
+    }
+
+    public ReligionPreferenceDto getReligionPreference() {
+        return religionPreference;
+    }
+
+    public void setReligionPreference(ReligionPreferenceDto religionPreference) {
+        this.religionPreference = religionPreference;
+    }
+
+    public EducationPreferenceDto getEducationPreference() {
+        return educationPreference;
+    }
+
+    public void setEducationPreference(EducationPreferenceDto educationPreference) {
+        this.educationPreference = educationPreference;
+    }
+
+    public LanguagePreferenceDto getLanguagePreference() {
+        return languagePreference;
+    }
+
+    public void setLanguagePreference(LanguagePreferenceDto languagePreference) {
+        this.languagePreference = languagePreference;
+    }
+
+    public VicePreferenceDto getVicePreference() {
+        return vicePreference;
+    }
+
+    public void setVicePreference(VicePreferenceDto vicePreference) {
+        this.vicePreference = vicePreference;
+    }
+
+    public PetsPreferenceDto getPetsPreference() {
+        return petsPreference;
+    }
+
+    public void setPetsPreference(PetsPreferenceDto petsPreference) {
+        this.petsPreference = petsPreference;
+    }
+
+    public TravelPreferenceDto getTravelPreference() {
+        return travelPreference;
+    }
+
+    public void setTravelPreference(TravelPreferenceDto travelPreference) {
+        this.travelPreference = travelPreference;
+    }
+
+    public DietPreferenceDto getDietPreference() {
+        return dietPreference;
+    }
+
+    public void setDietPreference(DietPreferenceDto dietPreference) {
+        this.dietPreference = dietPreference;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(contactPreference, images, interests, userId);
+        return Objects.hash(contactPreference, locationPreference, socialPreference, genderPreference,
+                relationshipPreference, childrenPreference, agePreference, religionPreference, educationPreference,
+                languagePreference, vicePreference, petsPreference, travelPreference, dietPreference, images, interests,
+                userId);
     }
 
     @Override
@@ -99,14 +271,33 @@ public class UserProfileDto {
         if (getClass() != obj.getClass())
             return false;
         UserProfileDto other = (UserProfileDto) obj;
-        return Objects.equals(contactPreference, other.contactPreference) && Objects.equals(images, other.images)
+        return Objects.equals(contactPreference, other.contactPreference)
+                && Objects.equals(locationPreference, other.locationPreference)
+                && Objects.equals(socialPreference, other.socialPreference)
+                && Objects.equals(genderPreference, other.genderPreference)
+                && Objects.equals(relationshipPreference, other.relationshipPreference)
+                && Objects.equals(childrenPreference, other.childrenPreference)
+                && Objects.equals(agePreference, other.agePreference)
+                && Objects.equals(religionPreference, other.religionPreference)
+                && Objects.equals(educationPreference, other.educationPreference)
+                && Objects.equals(languagePreference, other.languagePreference)
+                && Objects.equals(vicePreference, other.vicePreference)
+                && Objects.equals(petsPreference, other.petsPreference)
+                && Objects.equals(travelPreference, other.travelPreference)
+                && Objects.equals(dietPreference, other.dietPreference) && Objects.equals(images, other.images)
                 && Objects.equals(interests, other.interests) && Objects.equals(userId, other.userId);
     }
 
     @Override
     public String toString() {
         return "UserProfileDto [userId=" + userId + ", images=" + images + ", interests=" + interests
-                + ", contactPreference=" + contactPreference + "]";
+                + ", contactPreference=" + contactPreference + ", locationPreference=" + locationPreference
+                + ", socialPreference=" + socialPreference + ", genderPreference=" + genderPreference
+                + ", relationshipPreference=" + relationshipPreference + ", childrenPreference=" + childrenPreference
+                + ", agePreference=" + agePreference + ", religionPreference=" + religionPreference
+                + ", educationPreference=" + educationPreference + ", languagePreference=" + languagePreference
+                + ", vicePreference=" + vicePreference + ", petsPreference=" + petsPreference + ", travelPreference="
+                + travelPreference + ", dietPreference=" + dietPreference + "]";
     }
 
     public static UserProfileDto convertUserProfileToDto(final UserProfile userProfile) {
@@ -143,6 +334,58 @@ public class UserProfileDto {
             contactDto.setPhoneNumber(userProfile.getContactPreference().getPhoneNumber());
             contactDto.setEmailAddress(userProfile.getContactPreference().getEmailAddress());
             dto.setContactPreference(contactDto);
+        }
+
+        if (userProfile.getLocationPreference() != null) {
+            dto.setLocationPreference(new LocationPreferenceDto());
+        }
+
+        if (userProfile.getSocialPreference() != null) {
+            dto.setSocialPreference(new SocialPreferenceDto());
+        }
+
+        if (userProfile.getGenderPreference() != null) {
+            dto.setGenderPreference(new GenderPreferenceDto());
+        }
+
+        if (userProfile.getRelationshipPreference() != null) {
+            dto.setRelationshipPreference(new RelationshipPreferenceDto());
+        }
+
+        if (userProfile.getChildrenPreference() != null) {
+            dto.setChildrenPreference(new ChildrenPreferenceDto());
+        }
+
+        if (userProfile.getAgePreference() != null) {
+            dto.setAgePreference(new AgePreferenceDto());
+        }
+
+        if (userProfile.getReligionPreference() != null) {
+            dto.setReligionPreference(new ReligionPreferenceDto());
+        }
+
+        if (userProfile.getEducationPreference() != null) {
+            dto.setEducationPreference(new EducationPreferenceDto());
+        }
+
+        if (userProfile.getLanguagePreference() != null) {
+            dto.setLanguagePreference(new LanguagePreferenceDto());
+        }
+
+        if (userProfile.getVicePreference() != null) {
+            dto.setVicePreference(new VicePreferenceDto());
+        }
+
+        if (userProfile.getPetsPreference() != null) {
+            dto.setPetsPreference(new PetsPreferenceDto());
+        }
+
+        if (userProfile.getTravelPreference() != null) {
+            dto.setTravelPreference(new TravelPreferenceDto());
+        }
+
+        if (userProfile.getDietPreference() != null) {
+            dto.setDietPreference(new DietPreferenceDto());
         }
 
         return dto;
