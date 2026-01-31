@@ -8,6 +8,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import net.spotapps.tester.persistence.encryption.CryptoConverter;
 
 import java.util.Objects;
@@ -26,31 +30,41 @@ public class ContactPreference {
     @MapsId
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
-    
+
     @Schema(description = "The first name of the user", example = "Jane")
     @Column(name = "first_name", length = 255)
     @Convert(converter = CryptoConverter.class)
+    @Size(max = 100)
+    @NotBlank
     private String firstName;
 
     @Schema(description = "The last name of the user", example = "Doe")
     @Column(name = "last_name", length = 255)
     @Convert(converter = CryptoConverter.class)
+    @Size(max = 100)
+    @NotBlank
     private String lastName;
 
     @Schema(description = "The phone number of the user", example = "+15551234567")
     @Column(name = "phone_number", length = 64)
     @Convert(converter = CryptoConverter.class)
+    @Pattern(regexp = "^\\+[1-9]\\d{1,14}$", message = "Phone number must be in E.164 format")
+    @Size(max = 16)
+    @NotBlank
     private String phoneNumber;
 
     @Schema(description = "The email address of the user", example = "jane.doe@example.com")
     @Column(name = "email_address", length = 512)
     @Convert(converter = CryptoConverter.class)
+    @Email
+    @Size(max = 255)
+    @NotBlank
     private String emailAddress;
 
     @Schema(description = "Indicates if the user has verified their email address")
     @Column(name = "email_verified", nullable = false, columnDefinition = "boolean default false")
     private boolean emailVerified;
-    
+
     public Long getUserId() {
         return userId;
     }
