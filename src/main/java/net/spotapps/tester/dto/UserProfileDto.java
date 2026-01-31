@@ -1,19 +1,21 @@
 package net.spotapps.tester.dto;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import jakarta.validation.Valid;
 import net.spotapps.tester.model.UserProfile;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "userId",
         "images",
-        "contact",
+        "contactPreference",
         "location",
         "social",
         "gender",
@@ -43,6 +45,11 @@ public class UserProfileDto {
     @JsonPropertyDescription("The things and activities the user is interested in")
     private List<UserInterestDto> interests;
 
+    @JsonProperty(value = "contactPreference", required = true)
+    @JsonPropertyDescription("The user's contact preferences")
+    @Valid
+    private ContactPreferenceDto contactPreference;
+
     public UserProfileDto() {
     }
 
@@ -70,14 +77,17 @@ public class UserProfileDto {
         this.interests = interests;
     }
 
+    public ContactPreferenceDto getContactPreference() {
+        return contactPreference;
+    }
+
+    public void setContactPreference(ContactPreferenceDto contactPreference) {
+        this.contactPreference = contactPreference;
+    }
+
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-        result = prime * result + ((images == null) ? 0 : images.hashCode());
-        result = prime * result + ((interests == null) ? 0 : interests.hashCode());
-        return result;
+        return Objects.hash(contactPreference, images, interests, userId);
     }
 
     @Override
@@ -89,27 +99,14 @@ public class UserProfileDto {
         if (getClass() != obj.getClass())
             return false;
         UserProfileDto other = (UserProfileDto) obj;
-        if (userId == null) {
-            if (other.userId != null)
-                return false;
-        } else if (!userId.equals(other.userId))
-            return false;
-        if (images == null) {
-            if (other.images != null)
-                return false;
-        } else if (!images.equals(other.images))
-            return false;
-        if (interests == null) {
-            if (other.interests != null)
-                return false;
-        } else if (!interests.equals(other.interests))
-            return false;
-        return true;
+        return Objects.equals(contactPreference, other.contactPreference) && Objects.equals(images, other.images)
+                && Objects.equals(interests, other.interests) && Objects.equals(userId, other.userId);
     }
 
     @Override
     public String toString() {
-        return "UserProfileDto [userId=" + userId + ", images=" + images + ", interests=" + interests + "]";
+        return "UserProfileDto [userId=" + userId + ", images=" + images + ", interests=" + interests
+                + ", contactPreference=" + contactPreference + "]";
     }
 
     public static UserProfileDto convertUserProfileToDto(final UserProfile userProfile) {
@@ -137,6 +134,15 @@ public class UserProfileDto {
                         return interestDto;
                     })
                     .toList());
+        }
+
+        if (userProfile.getContactPreference() != null) {
+            ContactPreferenceDto contactDto = new ContactPreferenceDto();
+            contactDto.setFirstName(userProfile.getContactPreference().getFirstName());
+            contactDto.setLastName(userProfile.getContactPreference().getLastName());
+            contactDto.setPhoneNumber(userProfile.getContactPreference().getPhoneNumber());
+            contactDto.setEmailAddress(userProfile.getContactPreference().getEmailAddress());
+            dto.setContactPreference(contactDto);
         }
 
         return dto;
