@@ -41,79 +41,79 @@ public class UserProfile {
     @JsonPropertyDescription("The location and proximity preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name = "location")
-    private LocationPreference location;
+    private LocationPreference locationPreference;
 
     @Schema(description = "The socializing preference of the user")
     @JsonPropertyDescription("The socializing preference of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name = "social")
-    private SocialPreference social;
+    private SocialPreference socialPreference;
 
     @Schema(description = "The gender identity and preferences of the user")
     @JsonPropertyDescription("The gender identity and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name = "gender")
-    private GenderPreference gender;
+    private GenderPreference genderPreference;
 
     @Schema(description = "The relationship status and style preferences of the user")
     @JsonPropertyDescription("The relationship status and style preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name = "relationship")
-    private RelationshipPreference relationship;
+    private RelationshipPreference relationshipPreference;
 
     @Schema(description = "The child having status and preferences of the user")
     @JsonPropertyDescription("The child having status and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name = "children")
-    private ChildrenPreference children;
+    private ChildrenPreference childrenPreference;
 
     @Schema(description = "The age and ranged preferences of the user")
     @JsonPropertyDescription("The age and ranged preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name = "age")
-    private AgePreference age;
+    private AgePreference agePreference;
 
     @Schema(description = "The religious practice and preferences of the user")
     @JsonPropertyDescription("The religious practice and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name = "religion")
-    private ReligionPreference religion;
+    private ReligionPreference religionPreference;
 
     @Schema(description = "The education status and preferences of the user")
     @JsonPropertyDescription("The education status and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name = "education")
-    private EducationPreference education;
+    private EducationPreference educationPreference;
 
     @Schema(description = "The language speaking status and preferences of the user")
     @JsonPropertyDescription("The language speaking status and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name = "language")
-    private LanguagePreference language;
+    private LanguagePreference languagePreference;
 
     @Schema(description = "The extracurricular partakings and preferences of the user")
     @JsonPropertyDescription("The extracurricular partakings and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name = "vice")
-    private VicePreference vice;
+    private VicePreference vicePreference;
 
     @Schema(description = "The pet having status and preferences of the user")
     @JsonPropertyDescription("The pet having status and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name = "pets")
-    private PetsPreference pets;
+    private PetsPreference petsPreference;
 
     @Schema(description = "The preferences of the user regarding the dynamics centered around travel")
     @JsonPropertyDescription("The preferences of the user regarding the dynamics centered around travel")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name = "travel")
-    private TravelPreference travel;
+    private TravelPreference travelPreference;
 
     @Schema(description = "The dietary restrictions and preferences of the user")
     @JsonPropertyDescription("The dietary restrictions and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name = "diet")
-    private DietPreference diet;
+    private DietPreference dietPreference;
 
     @Schema(description = "The things and activities the user is interested in")
     @OneToMany(mappedBy = "userProfile")
@@ -143,108 +143,108 @@ public class UserProfile {
         this.contactPreference = contactPreference;
     }
 
-    public LocationPreference getLocation() {
-        return location;
+    public LocationPreference getLocationPreference() {
+        return locationPreference;
     }
 
-    public void setLocation(LocationPreference location) {
-        this.location = location;
+    public void setLocationPreference(LocationPreference locationPreference) {
+        this.locationPreference = locationPreference;
     }
 
-    public SocialPreference getSocial() {
-        return social;
+    public SocialPreference getSocialPreference() {
+        return socialPreference;
     }
 
-    public void setSocial(SocialPreference social) {
-        this.social = social;
+    public void setSocialPreference(SocialPreference socialPreference) {
+        this.socialPreference = socialPreference;
     }
 
-    public GenderPreference getGender() {
-        return gender;
+    public GenderPreference getGenderPreference() {
+        return genderPreference;
     }
 
-    public void setGender(GenderPreference gender) {
-        this.gender = gender;
+    public void setGenderPreference(GenderPreference genderPreference) {
+        this.genderPreference = genderPreference;
     }
 
-    public RelationshipPreference getRelationship() {
-        return relationship;
+    public RelationshipPreference getRelationshipPreference() {
+        return relationshipPreference;
     }
 
-    public void setRelationship(RelationshipPreference relationship) {
-        this.relationship = relationship;
+    public void setRelationshipPreference(RelationshipPreference relationshipPreference) {
+        this.relationshipPreference = relationshipPreference;
     }
 
-    public ChildrenPreference getChildren() {
-        return children;
+    public ChildrenPreference getChildrenPreference() {
+        return childrenPreference;
     }
 
-    public void setChildren(ChildrenPreference children) {
-        this.children = children;
+    public void setChildrenPreference(ChildrenPreference childrenPreference) {
+        this.childrenPreference = childrenPreference;
     }
 
-    public AgePreference getAge() {
-        return age;
+    public AgePreference getAgePreference() {
+        return agePreference;
     }
 
-    public void setAge(AgePreference age) {
-        this.age = age;
+    public void setAgePreference(AgePreference agePreference) {
+        this.agePreference = agePreference;
     }
 
-    public ReligionPreference getReligion() {
-        return religion;
+    public ReligionPreference getReligionPreference() {
+        return religionPreference;
     }
 
-    public void setReligion(ReligionPreference religion) {
-        this.religion = religion;
+    public void setReligionPreference(ReligionPreference religionPreference) {
+        this.religionPreference = religionPreference;
     }
 
-    public EducationPreference getEducation() {
-        return education;
+    public EducationPreference getEducationPreference() {
+        return educationPreference;
     }
 
-    public void setEducation(EducationPreference education) {
-        this.education = education;
+    public void setEducationPreference(EducationPreference educationPreference) {
+        this.educationPreference = educationPreference;
     }
 
-    public LanguagePreference getLanguage() {
-        return language;
+    public LanguagePreference getLanguagePreference() {
+        return languagePreference;
     }
 
-    public void setLanguage(LanguagePreference language) {
-        this.language = language;
+    public void setLanguagePreference(LanguagePreference languagePreference) {
+        this.languagePreference = languagePreference;
     }
 
-    public VicePreference getVice() {
-        return vice;
+    public VicePreference getVicePreference() {
+        return vicePreference;
     }
 
-    public void setVice(VicePreference vice) {
-        this.vice = vice;
+    public void setVicePreference(VicePreference vicePreference) {
+        this.vicePreference = vicePreference;
     }
 
-    public PetsPreference getPets() {
-        return pets;
+    public PetsPreference getPetsPreference() {
+        return petsPreference;
     }
 
-    public void setPets(PetsPreference pets) {
-        this.pets = pets;
+    public void setPetsPreference(PetsPreference petsPreference) {
+        this.petsPreference = petsPreference;
     }
 
-    public TravelPreference getTravel() {
-        return travel;
+    public TravelPreference getTravelPreference() {
+        return travelPreference;
     }
 
-    public void setTravel(TravelPreference travel) {
-        this.travel = travel;
+    public void setTravelPreference(TravelPreference travelPreference) {
+        this.travelPreference = travelPreference;
     }
 
-    public DietPreference getDiet() {
-        return diet;
+    public DietPreference getDietPreference() {
+        return dietPreference;
     }
 
-    public void setDiet(DietPreference diet) {
-        this.diet = diet;
+    public void setDietPreference(DietPreference dietPreference) {
+        this.dietPreference = dietPreference;
     }
 
     public List<UserInterest> getInterests() {
