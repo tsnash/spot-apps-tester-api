@@ -36,7 +36,11 @@ docker run -p 8080:8080 -e ENCRYPTION_KEY=<your-generated-key> tester:latest
 ## Render Notes
 - While in the dashboard of the API make sure to navigate to `Manage -> Environment -> Environment Variables` and assign a `SPRING_PROFILES_ACTIVE` key to the value `render`
 
-- Get the appropriate `postgresql` url from your database dashboard via `Info -> Connections -> Internal/External Database URL` and assign a `SPRING_DATASOURCE_URL` key to the value of the url
+- To use a Render Postgres service navigate to the environment the corresponding project is in and go to `New Service -> Postgres`.
+
+- Get connection details from `Info -> Connections` and assign a `SPRING_DATASOURCE_URL` key to the value of the url in the format `jdbc:postgresql://<Host>:<Port>/<Database>?user=<Username>&password=<Password>`
+
+- Provide a `ENCRYPTION_KEY` environment variable to be able to obtain a database connection.
 
 ## Roadmap
 - Rework and standardize repositories and their tests
