@@ -14,7 +14,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,92 +26,78 @@ public class UserProfile {
     @Column(name = "user_id")
     private Long userId;
 
-    @Schema(description  = "List of references to images of the user")
+    @Schema(description = "List of references to images of the user")
     @OneToMany(mappedBy = "userProfile")
     private List<UserImage> images;
 
     @Schema(description = "The contact information and preferences of the user")
     @JsonPropertyDescription("The contact information and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "contact")
     private ContactPreference contactPreference;
 
     @Schema(description = "The location and proximity preferences of the user")
     @JsonPropertyDescription("The location and proximity preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "location")
     private LocationPreference locationPreference;
 
     @Schema(description = "The socializing preference of the user")
     @JsonPropertyDescription("The socializing preference of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "social")
     private SocialPreference socialPreference;
 
     @Schema(description = "The gender identity and preferences of the user")
     @JsonPropertyDescription("The gender identity and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "gender")
     private GenderPreference genderPreference;
 
     @Schema(description = "The relationship status and style preferences of the user")
     @JsonPropertyDescription("The relationship status and style preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "relationship")
     private RelationshipPreference relationshipPreference;
 
     @Schema(description = "The child having status and preferences of the user")
     @JsonPropertyDescription("The child having status and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "children")
     private ChildrenPreference childrenPreference;
 
     @Schema(description = "The age and ranged preferences of the user")
     @JsonPropertyDescription("The age and ranged preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "age")
     private AgePreference agePreference;
 
     @Schema(description = "The religious practice and preferences of the user")
     @JsonPropertyDescription("The religious practice and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "religion")
     private ReligionPreference religionPreference;
 
     @Schema(description = "The education status and preferences of the user")
     @JsonPropertyDescription("The education status and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "education")
     private EducationPreference educationPreference;
 
     @Schema(description = "The language speaking status and preferences of the user")
     @JsonPropertyDescription("The language speaking status and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "language")
     private LanguagePreference languagePreference;
 
     @Schema(description = "The extracurricular partakings and preferences of the user")
     @JsonPropertyDescription("The extracurricular partakings and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "vice")
     private VicePreference vicePreference;
 
     @Schema(description = "The pet having status and preferences of the user")
     @JsonPropertyDescription("The pet having status and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "pets")
     private PetsPreference petsPreference;
 
     @Schema(description = "The preferences of the user regarding the dynamics centered around travel")
     @JsonPropertyDescription("The preferences of the user regarding the dynamics centered around travel")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "travel")
     private TravelPreference travelPreference;
 
     @Schema(description = "The dietary restrictions and preferences of the user")
     @JsonPropertyDescription("The dietary restrictions and preferences of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "diet")
     private DietPreference dietPreference;
 
     @Schema(description = "The things and activities the user is interested in")
@@ -274,7 +259,5 @@ public class UserProfile {
     public String toString() {
         return "UserProfile [userId=" + userId + "]";
     }
-
-    
 
 }
