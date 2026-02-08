@@ -34,18 +34,16 @@ docker run -p 8080:8080 -e ENCRYPTION_KEY=<your-generated-key> tester:latest
 ## Render Notes
 - While in the dashboard of the API make sure to navigate to `Manage -> Environment -> Environment Variables` and assign a `SPRING_PROFILES_ACTIVE` key to the value `render`
 
-- Get connection details from `Info -> Connections` and assign a `SPRING_DATASOURCE_URL` key to the value of the url in the format `jdbc:postgresql://<Host>:<Port>/<Database>?user=<Username>&password=<Password>`
-
 - Provide an `ENCRYPTION_KEY` environment variable (same format as in Local Notes) for encryption at rest. This is required for the application to start.
 
 ## Database Notes
 
 - By default the project loads an `h2` database in memory but you can specify a `postgresql` database using the corresponding `spring.datasource` properties.
 
-- For Render specific instructions consult the following:
+- For Render-specific instructions consult the following:
   1. Set up a database from your project's environment by going to `New Service -> Postgres`. 
   2. Set the following environment variables by going to `Manage -> Environment -> Environment Variables` from the project dashboard. Your database's `Host`, `Port`, `Database`, `Username`, and `Password` can be obtained by navigating to `Info -> Connections`.
-  
+
 | KEY                        | VALUE                                       |
 | :--------------------------| :------------------------------------------ |
 |`SPRING_DATASOURCE_URL`     | `jdbc:postgresql://<Host>:<Port>/<Database>`|
