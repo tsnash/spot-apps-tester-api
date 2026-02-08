@@ -12,8 +12,6 @@ Java SpringBoot API for testing operations against various models
 
 - Either set `spring.profiles.active` via config or `SPRING_PROFILES_ACTIVE` via environment variable to `local`
 
-- By default it loads an `h2` database in memory but you can specify a `postgresql` database using the corresponding `spring.datasource` properties
-
 - To enable encryption at rest, you must set the `ENCRYPTION_KEY` environment variable. This should be a Base64-encoded 256-bit key. You can generate one with the following command:
   ```bash
   python3 -c "import os, base64; print(base64.b64encode(os.urandom(32)).decode('utf-8'))"
@@ -36,7 +34,23 @@ docker run -p 8080:8080 -e ENCRYPTION_KEY=<your-generated-key> tester:latest
 ## Render Notes
 - While in the dashboard of the API make sure to navigate to `Manage -> Environment -> Environment Variables` and assign a `SPRING_PROFILES_ACTIVE` key to the value `render`
 
-- Get the appropriate `postgresql` url from your database dashboard via `Info -> Connections -> Internal/External Database URL` and assign a `SPRING_DATASOURCE_URL` key to the value of the url
+- Provide an `ENCRYPTION_KEY` environment variable (same format as in Local Notes) for encryption at rest. This is required for the application to start.
+
+## Database Notes
+
+- By default the project loads an `h2` database in memory but you can specify a `postgresql` database using the corresponding `spring.datasource` properties.
+
+- For Render-specific instructions consult the following:
+  1. Set up a database from your project's environment by going to `New Service -> Postgres`. 
+  2. Set the following environment variables by going to `Manage -> Environment -> Environment Variables` from the project dashboard. Your database's `Host`, `Port`, `Database`, `Username`, and `Password` can be obtained by navigating to `Info -> Connections`.
+
+| KEY                        | VALUE                                       |
+| :--------------------------| :------------------------------------------ |
+|`SPRING_DATASOURCE_URL`     | `jdbc:postgresql://<Host>:<Port>/<Database>`|
+|`SPRING_DATASOURCE_USERNAME`| `<Username>`                                |
+|`SPRING_DATASOURCE_PASSWORD`| `<Password>`                                |
+
+
 
 ## Roadmap
 - Rework and standardize repositories and their tests
