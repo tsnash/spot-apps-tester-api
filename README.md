@@ -40,7 +40,7 @@ docker run -p 8080:8080 -e ENCRYPTION_KEY=<your-generated-key> tester:latest
 
 - Get connection details from `Info -> Connections` and assign a `SPRING_DATASOURCE_URL` key to the value of the url in the format `jdbc:postgresql://<Host>:<Port>/<Database>?user=<Username>&password=<Password>`
 
-- Provide a `ENCRYPTION_KEY` environment variable to be able to obtain a database connection.
+- Provide an `ENCRYPTION_KEY` environment variable (same format as in Local Notes) for encryption at rest. This is required for the application to start.
 
 ## Roadmap
 - Rework and standardize repositories and their tests
