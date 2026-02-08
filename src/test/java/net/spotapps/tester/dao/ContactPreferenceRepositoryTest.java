@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
@@ -11,6 +12,7 @@ import net.spotapps.tester.model.ContactPreference;
 import net.spotapps.tester.model.UserProfile;
 
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ContactPreferenceRepositoryTest {
 
     @Autowired
@@ -24,8 +26,7 @@ public class ContactPreferenceRepositoryTest {
 
     @Test
     void mapsIdIsDerivedFromUserProfile() {
-        UserProfile user = new UserProfile();
-        user = userRepository.save(user);
+        UserProfile user = createAndSaveUser();
         assertThat(user.getUserId()).isNotNull();
 
         ContactPreference cp = new ContactPreference();
@@ -35,7 +36,7 @@ public class ContactPreferenceRepositoryTest {
         assertThat(saved.getUserId()).isNotNull().isEqualTo(user.getUserId());
         entityManager.flush();
         entityManager.clear();
-        
+
         ContactPreference retrieved = repository.findById(saved.getUserId()).orElseThrow();
 
         assertThat(retrieved.getUserId()).isEqualTo(user.getUserId());
@@ -44,8 +45,7 @@ public class ContactPreferenceRepositoryTest {
 
     @Test
     void verifyContactPreferencePersisted() {
-        UserProfile user = new UserProfile();
-        user = userRepository.save(user);
+        UserProfile user = createAndSaveUser();
 
         ContactPreference cp = new ContactPreference();
         cp.setUserProfile(user);
@@ -58,7 +58,7 @@ public class ContactPreferenceRepositoryTest {
         ContactPreference saved = repository.save(cp);
         entityManager.flush();
         entityManager.clear();
-        
+
         ContactPreference retrieved = repository.findById(saved.getUserId()).orElseThrow();
 
         assertThat(retrieved.getFirstName()).isEqualTo("John");
@@ -68,5 +68,9 @@ public class ContactPreferenceRepositoryTest {
         assertThat(retrieved.isEmailVerified()).isTrue();
         assertThat(retrieved.getUserProfile()).isNotNull();
         assertThat(retrieved.getUserProfile().getUserId()).isEqualTo(user.getUserId());
+    }
+
+    private UserProfile createAndSaveUser() {
+        return userRepository.save(new UserProfile());
     }
 }
