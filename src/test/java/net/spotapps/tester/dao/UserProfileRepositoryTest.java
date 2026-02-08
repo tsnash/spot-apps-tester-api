@@ -26,60 +26,59 @@ import net.spotapps.tester.model.UserProfile;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestExecutionListeners({
-                DependencyInjectionTestExecutionListener.class,
-                TransactionalTestExecutionListener.class,
-                DbUnitTestExecutionListener.class
+        DependencyInjectionTestExecutionListener.class,
+        TransactionalTestExecutionListener.class,
+        DbUnitTestExecutionListener.class
 })
 @DatabaseSetup(UserProfileRepositoryTest.DATASET)
 @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = { UserProfileRepositoryTest.DATASET })
 public class UserProfileRepositoryTest {
-        protected static final String DATASET = "classpath:datasets/user_profiles.xml";
+    protected static final String DATASET = "classpath:datasets/user_profiles.xml";
 
-        @Autowired
-        private UserProfileRepository repository;
+    @Autowired
+    private UserProfileRepository repository;
 
-        @Autowired
-        private TestEntityManager entityManager;
+    @Autowired
+    private TestEntityManager entityManager;
 
-        @Test
-        public void testFindOneById() {
-                UserProfile actual = repository.findById(3L).orElseThrow();
-                assertThat(actual.getUserId()).isEqualTo(3L);
+    @Test
+    public void testFindOneById() {
+        UserProfile actual = repository.findById(3L).orElseThrow();
+        assertThat(actual.getUserId()).isEqualTo(3L);
 
-                assertThat(actual.getImages()).hasSize(1);
-                assertThat(actual.getImages().get(0).getImage()).isEqualTo("0.png");
+        assertThat(actual.getImages()).hasSize(1);
+        assertThat(actual.getImages().get(0).getImage()).isEqualTo("0.png");
 
-                assertThat(actual.getInterests()).hasSize(1);
-                assertThat(actual.getInterests().get(0).getInterest()).isEqualTo("programming");
+        assertThat(actual.getInterests()).hasSize(1);
+        assertThat(actual.getInterests().get(0).getInterest()).isEqualTo("programming");
 
-                assertThat(repository.findById(6L)).isEmpty();
-        }
+        assertThat(repository.findById(6L)).isEmpty();
+    }
 
-        @Test
-        public void testFindOneByIdLazyLoadOutsideTransaction() {
-                UserProfile actual = repository.findById(3L).orElseThrow();
+    @Test
+    public void testFindOneByIdLazyLoadOutsideTransaction() {
+        UserProfile actual = repository.findById(3L).orElseThrow();
 
-                // Detach the entity to simulate the session closing
-                entityManager.detach(actual);
+        // Detach the entity to simulate the session closing
+        entityManager.detach(actual);
 
-                assertThatThrownBy(() -> actual.getImages().size())
-                                .isInstanceOf(LazyInitializationException.class);
-                assertThatThrownBy(() -> actual.getInterests().size())
-                                .isInstanceOf(LazyInitializationException.class);
-        }
+        assertThatThrownBy(() -> actual.getImages().size())
+                .isInstanceOf(LazyInitializationException.class);
+        assertThatThrownBy(() -> actual.getInterests().size())
+                .isInstanceOf(LazyInitializationException.class);
+    }
 
-        @Test
-        public void testFindAllByUserIdInOrderByUserIdAsc() {
-                List<Long> expectedIds = Arrays.asList(4L, 2L, 5L);
-                List<UserProfile> actual = repository.findAllByUserIdInOrderByUserIdAsc(expectedIds);
+    @Test
+    public void testFindAllByUserIdInOrderByUserIdAsc() {
+        List<Long> expectedIds = Arrays.asList(4L, 2L, 5L);
+        List<UserProfile> actual = repository.findAllByUserIdInOrderByUserIdAsc(expectedIds);
 
-                assertThat(actual).hasSize(expectedIds.size());
-                assertThat(actual)
-                                .extracting(UserProfile::getUserId)
-                                .containsExactly(2L, 4L, 5L);
+        assertThat(actual)
+                .extracting(UserProfile::getUserId)
+                .containsExactly(2L, 4L, 5L);
 
-                List<Long> notExpectedIds = Arrays.asList(10L, 6L);
-                actual = repository.findAllByUserIdInOrderByUserIdAsc(notExpectedIds);
-                assertThat(actual).isEmpty();
-        }
+        List<Long> notExpectedIds = Arrays.asList(10L, 6L);
+        actual = repository.findAllByUserIdInOrderByUserIdAsc(notExpectedIds);
+        assertThat(actual).isEmpty();
+    }
 }
