@@ -9,12 +9,14 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import jakarta.annotation.PostConstruct;
 import net.spotapps.tester.dao.UserImageRepository;
 import net.spotapps.tester.dao.UserInterestRepository;
 import net.spotapps.tester.dao.UserProfileRepository;
+import net.spotapps.tester.dao.UserRepository;
+import net.spotapps.tester.model.User;
 import net.spotapps.tester.model.UserImage;
 import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
@@ -32,17 +34,35 @@ public class RenderDataPopulationService {
     @Autowired
     private UserInterestRepository userInterestRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private TransactionTemplate transactionTemplate;
+
     @PostConstruct
     public void initData() {
-        initUserProfiles();
-        initUserImages();
-        initUserInterests();
+        transactionTemplate.execute(status -> {
+            initUserProfiles();
+            initUserImages();
+            initUserInterests();
+            return null;
+        });
     }
 
-    @Transactional
     private void initUserProfiles() {
         if (userProfileRepository.count() == 0) {
-            userProfileRepository.saveAllAndFlush(IntStream.range(0, 100).mapToObj(i -> new UserProfile()).toList());
+            List<User> users = IntStream.range(0, 100)
+                    .mapToObj(i -> new User())
+                    .toList();
+            List<User> savedUsers = userRepository.saveAll(users);
+
+            List<UserProfile> profiles = savedUsers.stream().map(user -> {
+                UserProfile profile = new UserProfile();
+                profile.setUser(user);
+                return profile;
+            }).toList();
+            userProfileRepository.saveAllAndFlush(profiles);
         }
     }
 
