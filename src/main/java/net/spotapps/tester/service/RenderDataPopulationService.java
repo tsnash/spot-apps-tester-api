@@ -42,11 +42,10 @@ public class RenderDataPopulationService {
 
     @PostConstruct
     public void initData() {
-        transactionTemplate.execute(status -> {
+        transactionTemplate.executeWithoutResult(status -> {
             initUserProfiles();
             initUserImages();
             initUserInterests();
-            return null;
         });
     }
 
