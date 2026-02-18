@@ -75,7 +75,7 @@ docker run -p 8080:8080 -e ENCRYPTION_KEY=<your-generated-key> tester:latest
 
 - Decide on removing auxiliary ids from DTOs
 
-- When data persistence becomes necessary, update the DDL management strategy
+- When data persistence becomes necessary, update the DDL management strategy and include flyway or liquibase for database migrations
 
 ## Demo
 [Try it out on Render](https://spot-apps-tester-api.onrender.com/)
