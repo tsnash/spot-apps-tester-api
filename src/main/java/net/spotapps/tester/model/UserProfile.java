@@ -3,6 +3,7 @@ package net.spotapps.tester.model;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,6 +26,7 @@ public class UserProfile {
     @Column(name = "user_id")
     private Long userId;
 
+    @JsonIgnore
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
