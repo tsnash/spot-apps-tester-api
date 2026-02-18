@@ -53,8 +53,6 @@ docker run -p 8080:8080 -e ENCRYPTION_KEY=<your-generated-key> tester:latest
 
 
 ## Roadmap
-- Centralize user IDs to a common database entity and have profiles use a foreign key instead
-
 - Implement remaining properties for `UserProfile` related entities
 
 - Consider and address PII concerns including but not limited to
@@ -76,6 +74,8 @@ docker run -p 8080:8080 -e ENCRYPTION_KEY=<your-generated-key> tester:latest
 - Take a look at setting up database indexes
 
 - Decide on removing auxiliary ids from DTOs
+
+- When data persistence becomes necessary, update the DDL management strategy and include flyway or liquibase for database migrations
 
 ## Demo
 [Try it out on Render](https://spot-apps-tester-api.onrender.com/)
