@@ -36,10 +36,13 @@ public class UserImageRepositoryTest {
 
         assertThat(saved.getImageId()).isNotNull();
         assertThat(saved.getImage()).isEqualTo("test-image.png");
-        assertThat(saved.getUserProfile().getUserId()).isEqualTo(userProfile.getUserId());
+
+        entityManager.flush();
+        entityManager.clear();
 
         UserImage found = repository.findById(saved.getImageId()).orElse(null);
         assertThat(found).isNotNull();
         assertThat(found.getImage()).isEqualTo("test-image.png");
+        assertThat(found.getUserProfile().getUserId()).isEqualTo(userProfile.getUserId());
     }
 }

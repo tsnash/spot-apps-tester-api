@@ -36,10 +36,13 @@ public class UserInterestRepositoryTest {
 
         assertThat(saved.getInterestId()).isNotNull();
         assertThat(saved.getInterest()).isEqualTo("Coding");
-        assertThat(saved.getUserProfile().getUserId()).isEqualTo(userProfile.getUserId());
+
+        entityManager.flush();
+        entityManager.clear();
 
         UserInterest found = repository.findById(saved.getInterestId()).orElse(null);
         assertThat(found).isNotNull();
         assertThat(found.getInterest()).isEqualTo("Coding");
+        assertThat(found.getUserProfile().getUserId()).isEqualTo(userProfile.getUserId());
     }
 }
