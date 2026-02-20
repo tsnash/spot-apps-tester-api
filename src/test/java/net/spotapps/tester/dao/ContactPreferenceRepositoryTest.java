@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import net.spotapps.tester.model.ContactPreference;
 import net.spotapps.tester.model.UserProfile;
@@ -16,9 +15,6 @@ import net.spotapps.tester.persistence.encryption.CryptoConverter;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ContactPreferenceRepositoryTest extends AbstractRepositoryTestBase {
-
-    @Autowired
-    private TestEntityManager entityManager;
 
     @Autowired
     private ContactPreferenceRepository repository;

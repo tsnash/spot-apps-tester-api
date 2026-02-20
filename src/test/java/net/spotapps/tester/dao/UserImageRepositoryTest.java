@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import net.spotapps.tester.model.UserImage;
 import net.spotapps.tester.model.UserProfile;
@@ -14,9 +13,6 @@ import net.spotapps.tester.model.UserProfile;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class UserImageRepositoryTest extends AbstractRepositoryTestBase {
-
-    @Autowired
-    private TestEntityManager entityManager;
 
     @Autowired
     private UserImageRepository repository;
