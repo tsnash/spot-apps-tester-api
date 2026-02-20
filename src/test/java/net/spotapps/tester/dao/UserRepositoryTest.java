@@ -6,12 +6,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import net.spotapps.tester.model.User;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class UserRepositoryTest {
+
+    @Autowired
+    private TestEntityManager entityManager;
 
     @Autowired
     private UserRepository repository;
@@ -23,7 +27,12 @@ public class UserRepositoryTest {
 
         assertThat(saved.getUserId()).isNotNull();
 
+        entityManager.flush();
+        entityManager.clear();
+
         User found = repository.findById(saved.getUserId()).orElse(null);
+
         assertThat(found).isNotNull();
+        assertThat(found.getUserId()).isEqualTo(saved.getUserId());
     }
 }

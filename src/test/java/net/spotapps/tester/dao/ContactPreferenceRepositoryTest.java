@@ -64,6 +64,8 @@ public class ContactPreferenceRepositoryTest {
         cp.setEmailVerified(true);
 
         ContactPreference saved = repository.save(cp);
+
+        assertThat(saved.getUserId()).isNotNull();
         entityManager.flush();
         entityManager.clear();
 
