@@ -63,6 +63,7 @@ public class ContactPreferenceTest {
         return Stream.of(
                 Arguments.of(contactPreference1, contactPreference2),
                 Arguments.of(contactPreference1, contactPreferenceNull),
+                Arguments.of(contactPreference1, null),
                 Arguments.of(contactPreference3AllFields, contactPreference4AllFields));
     }
 

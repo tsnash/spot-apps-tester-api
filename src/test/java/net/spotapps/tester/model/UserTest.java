@@ -36,7 +36,12 @@ public class UserTest {
         User user2 = new User();
         user2.setUserId(2L);
 
-        return Stream.of(Arguments.of(user1, user2));
+        User userNull = new User();
+
+        return Stream.of(
+                Arguments.of(user1, user2),
+                Arguments.of(user1, userNull),
+                Arguments.of(user1, null));
     }
 
     private static Stream<Arguments> provideIdenticalUsers() {
@@ -46,6 +51,11 @@ public class UserTest {
         User user2 = new User();
         user2.setUserId(1L);
 
-        return Stream.of(Arguments.of(user1, user2));
+        User userNull = new User();
+
+        return Stream.of(
+                Arguments.of(user1, user1),
+                Arguments.of(user1, user2),
+                Arguments.of(userNull, userNull));
     }
 }

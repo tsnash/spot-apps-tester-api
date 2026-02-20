@@ -9,14 +9,13 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
-import net.spotapps.tester.model.User;
 import net.spotapps.tester.model.ContactPreference;
 import net.spotapps.tester.model.UserProfile;
 import net.spotapps.tester.persistence.encryption.CryptoConverter;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class ContactPreferenceRepositoryTest {
+public class ContactPreferenceRepositoryTest extends AbstractRepositoryTestBase {
 
     @Autowired
     private TestEntityManager entityManager;
@@ -75,14 +74,5 @@ public class ContactPreferenceRepositoryTest {
         assertThat(retrieved.isEmailVerified()).isTrue();
         assertThat(retrieved.getUserProfile()).isNotNull();
         assertThat(retrieved.getUserProfile().getUserId()).isEqualTo(userProfile.getUserId());
-    }
-
-    private UserProfile createAndSaveUser() {
-        User user = new User();
-        entityManager.persist(user);
-        UserProfile userProfile = new UserProfile();
-        userProfile.setUser(user);
-        entityManager.persist(userProfile);
-        return userProfile;
     }
 }

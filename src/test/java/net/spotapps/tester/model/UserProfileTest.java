@@ -82,6 +82,7 @@ public class UserProfileTest {
         return Stream.of(
                 Arguments.of(userProfile1, userProfile2),
                 Arguments.of(userProfile1, userProfileNull),
+                Arguments.of(userProfile1, null),
                 Arguments.of(userProfile3AllFields, userProfile4AllFields));
     }
 

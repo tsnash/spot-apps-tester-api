@@ -36,12 +36,15 @@ public class UserInterestTest {
         UserInterest userInterest3 = new UserInterest(1L, "swimming");
         UserInterest userInterestNullId = new UserInterest(null, "coding");
         UserInterest userInterestNullStr = new UserInterest(1L, null);
+        UserInterest userInterestNullAll = new UserInterest();
 
         return Stream.of(
                 Arguments.of(userInterest1, userInterest2),
                 Arguments.of(userInterest1, userInterest3),
                 Arguments.of(userInterest1, userInterestNullId),
-                Arguments.of(userInterest1, userInterestNullStr));
+                Arguments.of(userInterest1, userInterestNullStr),
+                Arguments.of(userInterest1, userInterestNullAll),
+                Arguments.of(userInterest1, null));
     }
 
     private static Stream<Arguments> provideIdenticalUserInterests() {

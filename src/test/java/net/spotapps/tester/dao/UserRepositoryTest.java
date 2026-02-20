@@ -12,7 +12,7 @@ import net.spotapps.tester.model.User;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class UserRepositoryTest {
+public class UserRepositoryTest extends AbstractRepositoryTestBase {
 
     @Autowired
     private TestEntityManager entityManager;

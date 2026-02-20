@@ -8,13 +8,12 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
-import net.spotapps.tester.model.User;
 import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class UserInterestRepositoryTest {
+public class UserInterestRepositoryTest extends AbstractRepositoryTestBase {
 
     @Autowired
     private TestEntityManager entityManager;
@@ -41,14 +40,5 @@ public class UserInterestRepositoryTest {
         assertThat(retrieved).isNotNull();
         assertThat(retrieved.getInterest()).isEqualTo("Coding");
         assertThat(retrieved.getUserProfile().getUserId()).isEqualTo(userProfile.getUserId());
-    }
-
-    private UserProfile createAndSaveUser() {
-        User user = new User();
-        entityManager.persist(user);
-        UserProfile userProfile = new UserProfile();
-        userProfile.setUser(user);
-        entityManager.persist(userProfile);
-        return userProfile;
     }
 }

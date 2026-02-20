@@ -26,21 +26,25 @@ public class UserImageTest {
     @ParameterizedTest
     @MethodSource("provideIdenticalUserImages")
     public void testUserImageHashcodeEquality(UserImage testUserImage1, UserImage testUserImage2) {
-        assertEquals(testUserImage1.hashCode(), testUserImage2.hashCode(), "Identical user images should have equal hash codes");
+        assertEquals(testUserImage1.hashCode(), testUserImage2.hashCode(),
+                "Identical user images should have equal hash codes");
     }
 
     private static Stream<Arguments> provideDifferentUserImages() {
         UserImage userImage1 = new UserImage(1L, "img.png");
         UserImage userImage2 = new UserImage(2L, "img.png");
-        UserImage userImaage3 = new UserImage(1L, "other.png");
+        UserImage userImage3 = new UserImage(1L, "other.png");
         UserImage userImageNullId = new UserImage(null, "img.png");
         UserImage userImageNullStr = new UserImage(1L, null);
+        UserImage userImageNullAll = new UserImage();
 
         return Stream.of(
                 Arguments.of(userImage1, userImage2),
-                Arguments.of(userImage1, userImaage3),
+                Arguments.of(userImage1, userImage3),
                 Arguments.of(userImage1, userImageNullId),
-                Arguments.of(userImage1, userImageNullStr));
+                Arguments.of(userImage1, userImageNullStr),
+                Arguments.of(userImage1, userImageNullAll),
+                Arguments.of(userImage1, null));
     }
 
     private static Stream<Arguments> provideIdenticalUserImages() {
