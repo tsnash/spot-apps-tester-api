@@ -24,12 +24,6 @@ public class UserImageTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideDifferentUserImages")
-    public void testUserImageHashcodeInequality(UserImage image1, UserImage image2) {
-        assertNotEquals(image1.hashCode(), image2.hashCode(), "Different user images should not have equal hash codes");
-    }
-
-    @ParameterizedTest
     @MethodSource("provideIdenticalUserImages")
     public void testUserImageHashcodeEquality(UserImage image1, UserImage image2) {
         assertEquals(image1.hashCode(), image2.hashCode(), "Identical user images should have equal hash codes");

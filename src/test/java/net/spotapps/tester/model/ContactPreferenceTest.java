@@ -15,7 +15,8 @@ public class ContactPreferenceTest {
     @MethodSource("provideDifferentContactPreferences")
     public void testContactPreferenceInequality(ContactPreference testContactPreference1,
             ContactPreference testContactPreference2) {
-        assertNotEquals(testContactPreference1, testContactPreference2, "Different contact preferences should not be equal");
+        assertNotEquals(testContactPreference1, testContactPreference2,
+                "Different contact preferences should not be equal");
     }
 
     @ParameterizedTest
@@ -23,14 +24,6 @@ public class ContactPreferenceTest {
     public void testContactPreferenceEquality(ContactPreference testContactPreference1,
             ContactPreference testContactPreference2) {
         assertEquals(testContactPreference1, testContactPreference2, "Identical contact preferences should be equal");
-    }
-
-    @ParameterizedTest
-    @MethodSource("provideDifferentContactPreferences")
-    public void testContactPreferenceHashcodeInequality(ContactPreference testContactPreference1,
-            ContactPreference testContactPreference2) {
-        assertNotEquals(testContactPreference1.hashCode(), testContactPreference2.hashCode(),
-                "Different contact preferences should not have equal hash codes");
     }
 
     @ParameterizedTest

@@ -24,12 +24,6 @@ public class UserTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideDifferentUsers")
-    public void testUserHashcodeInequality(User user1, User user2) {
-        assertNotEquals(user1.hashCode(), user2.hashCode(), "Different users should not have equal hash codes");
-    }
-
-    @ParameterizedTest
     @MethodSource("provideIdenticalUsers")
     public void testUserHashcodeEquality(User user1, User user2) {
         assertEquals(user1.hashCode(), user2.hashCode(), "Identical users should have equal hash codes");

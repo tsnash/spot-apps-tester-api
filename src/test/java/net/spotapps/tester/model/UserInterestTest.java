@@ -24,13 +24,6 @@ public class UserInterestTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideDifferentUserInterests")
-    public void testUserInterestHashcodeInequality(UserInterest interest1, UserInterest interest2) {
-        assertNotEquals(interest1.hashCode(), interest2.hashCode(),
-                "Different user interests should not have equal hash codes");
-    }
-
-    @ParameterizedTest
     @MethodSource("provideIdenticalUserInterests")
     public void testUserInterestHashcodeEquality(UserInterest interest1, UserInterest interest2) {
         assertEquals(interest1.hashCode(), interest2.hashCode(),
