@@ -23,15 +23,11 @@ public class UserImageRepositoryTest {
     private UserImageRepository repository;
 
     @Test
-    public void testSaveAndFindUserImage() {
-        User user = new User();
-        entityManager.persist(user);
-
-        UserProfile userProfile = new UserProfile();
-        userProfile.setUser(user);
-        entityManager.persist(userProfile);
+    public void verifyUserImagePersisted() {
+        UserProfile userProfile = createAndSaveUser();
 
         UserImage image = new UserImage("test-image.png", userProfile);
+
         UserImage saved = repository.save(image);
 
         assertThat(saved.getImageId()).isNotNull();
@@ -40,9 +36,19 @@ public class UserImageRepositoryTest {
         entityManager.flush();
         entityManager.clear();
 
-        UserImage found = repository.findById(saved.getImageId()).orElse(null);
-        assertThat(found).isNotNull();
-        assertThat(found.getImage()).isEqualTo("test-image.png");
-        assertThat(found.getUserProfile().getUserId()).isEqualTo(userProfile.getUserId());
+        UserImage retrieved = repository.findById(saved.getImageId()).orElse(null);
+
+        assertThat(retrieved).isNotNull();
+        assertThat(retrieved.getImage()).isEqualTo("test-image.png");
+        assertThat(retrieved.getUserProfile().getUserId()).isEqualTo(userProfile.getUserId());
+    }
+
+    private UserProfile createAndSaveUser() {
+        User user = new User();
+        entityManager.persist(user);
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUser(user);
+        entityManager.persist(userProfile);
+        return userProfile;
     }
 }

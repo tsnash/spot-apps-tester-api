@@ -21,7 +21,7 @@ public class UserRepositoryTest {
     private UserRepository repository;
 
     @Test
-    public void testSaveAndFindUser() {
+    public void verfifyUserPersisted() {
         User user = new User();
         User saved = repository.save(user);
 
@@ -30,9 +30,9 @@ public class UserRepositoryTest {
         entityManager.flush();
         entityManager.clear();
 
-        User found = repository.findById(saved.getUserId()).orElse(null);
+        User retrieved = repository.findById(saved.getUserId()).orElse(null);
 
-        assertThat(found).isNotNull();
-        assertThat(found.getUserId()).isEqualTo(saved.getUserId());
+        assertThat(retrieved).isNotNull();
+        assertThat(retrieved.getUserId()).isEqualTo(saved.getUserId());
     }
 }

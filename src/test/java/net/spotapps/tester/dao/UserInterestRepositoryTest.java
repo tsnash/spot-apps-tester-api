@@ -23,15 +23,11 @@ public class UserInterestRepositoryTest {
     private UserInterestRepository repository;
 
     @Test
-    public void testSaveAndFindUserInterest() {
-        User user = new User();
-        entityManager.persist(user);
-
-        UserProfile userProfile = new UserProfile();
-        userProfile.setUser(user);
-        entityManager.persist(userProfile);
+    public void verifyUserInterestPersisted() {
+        UserProfile userProfile = createAndSaveUser();
 
         UserInterest interest = new UserInterest("Coding", userProfile);
+
         UserInterest saved = repository.save(interest);
 
         assertThat(saved.getInterestId()).isNotNull();
@@ -40,9 +36,19 @@ public class UserInterestRepositoryTest {
         entityManager.flush();
         entityManager.clear();
 
-        UserInterest found = repository.findById(saved.getInterestId()).orElse(null);
-        assertThat(found).isNotNull();
-        assertThat(found.getInterest()).isEqualTo("Coding");
-        assertThat(found.getUserProfile().getUserId()).isEqualTo(userProfile.getUserId());
+        UserInterest retrieved = repository.findById(saved.getInterestId()).orElse(null);
+
+        assertThat(retrieved).isNotNull();
+        assertThat(retrieved.getInterest()).isEqualTo("Coding");
+        assertThat(retrieved.getUserProfile().getUserId()).isEqualTo(userProfile.getUserId());
+    }
+
+    private UserProfile createAndSaveUser() {
+        User user = new User();
+        entityManager.persist(user);
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUser(user);
+        entityManager.persist(userProfile);
+        return userProfile;
     }
 }
