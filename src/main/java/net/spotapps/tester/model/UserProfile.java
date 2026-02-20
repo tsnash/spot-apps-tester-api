@@ -125,11 +125,6 @@ public class UserProfile {
 
     public void setUser(User user) {
         this.user = user;
-        if (user != null) {
-            this.userId = user.getUserId();
-        } else {
-            this.userId = null;
-        }
     }
 
     public List<UserImage> getImages() {

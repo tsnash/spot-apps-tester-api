@@ -33,13 +33,14 @@ import net.spotapps.tester.model.UserProfile;
 @DatabaseSetup(UserProfileRepositoryTest.DATASET)
 @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = { UserProfileRepositoryTest.DATASET })
 public class UserProfileRepositoryTest {
+
     protected static final String DATASET = "classpath:datasets/user_profiles.xml";
 
     @Autowired
-    private UserProfileRepository repository;
+    private TestEntityManager entityManager;
 
     @Autowired
-    private TestEntityManager entityManager;
+    private UserProfileRepository repository;
 
     @Test
     public void testFindOneById() {

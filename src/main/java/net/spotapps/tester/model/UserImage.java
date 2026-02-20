@@ -54,6 +54,14 @@ public class UserImage {
         this.image = image;
     }
 
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -90,5 +98,4 @@ public class UserImage {
         return "UserImage [imageId=" + imageId + ", image=" + image + "]";
     }
 
-    
 }

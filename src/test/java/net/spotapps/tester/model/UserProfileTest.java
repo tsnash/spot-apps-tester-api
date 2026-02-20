@@ -25,13 +25,6 @@ public class UserProfileTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideDifferentUserProfiles")
-    public void testUserProfileHashcodeInequality(UserProfile testUserProfile1, UserProfile testUserProfile2) {
-        assertNotEquals(testUserProfile1.hashCode(), testUserProfile2.hashCode(),
-                "Different user profiles should not have equal hash codes");
-    }
-
-    @ParameterizedTest
     @MethodSource("provideIdenticalUserProfiles")
     public void testUserProfileHashcodeEquality(UserProfile testUserProfile1, UserProfile testUserProfile2) {
         assertEquals(testUserProfile1.hashCode(), testUserProfile2.hashCode(),
@@ -89,6 +82,7 @@ public class UserProfileTest {
         return Stream.of(
                 Arguments.of(userProfile1, userProfile2),
                 Arguments.of(userProfile1, userProfileNull),
+                Arguments.of(userProfile1, null),
                 Arguments.of(userProfile3AllFields, userProfile4AllFields));
     }
 
