@@ -21,7 +21,7 @@ public class UserRepositoryTest {
     private UserRepository repository;
 
     @Test
-    public void verfifyUserPersisted() {
+    public void verifyUserPersisted() {
         User user = new User();
         User saved = repository.save(user);
 
