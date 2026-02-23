@@ -1,12 +1,15 @@
 package net.spotapps.tester.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "gender_preferences")
@@ -21,4 +24,77 @@ public class GenderPreference {
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
 
+    @Schema(description = "The gender identity of the user")
+    @ManyToOne
+    @JoinColumn(name = "gender_id")
+    private Gender gender;
+
+    @Schema(description = "Indicates if the user identifies as transgender")
+    @Column(name = "is_trans", nullable = false, columnDefinition = "boolean default false")
+    private boolean isTrans;
+
+    @Schema(description = "The sexual orientation of the user")
+    @ManyToOne
+    @JoinColumn(name = "orientation_id")
+    private Orientation orientation;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public boolean isTrans() {
+        return isTrans;
+    }
+
+    public void setTrans(boolean isTrans) {
+        this.isTrans = isTrans;
+    }
+
+    public Orientation getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        GenderPreference other = (GenderPreference) obj;
+        return Objects.equals(userId, other.userId);
+    }
+
+    @Override
+    public String toString() {
+        return "GenderPreference [userId=" + userId + "]";
+    }
 }

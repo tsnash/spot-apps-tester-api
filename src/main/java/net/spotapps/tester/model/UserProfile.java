@@ -47,10 +47,10 @@ public class UserProfile {
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     private LocationPreference locationPreference;
 
-    @Schema(description = "The socializing preference of the user")
-    @JsonPropertyDescription("The socializing preference of the user")
+    @Schema(description = "The socializing personality traits of the user")
+    @JsonPropertyDescription("The socializing personality traits of the user")
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    private SocialPreference socialPreference;
+    private SocialPersonality socialPersonality;
 
     @Schema(description = "The gender identity and preferences of the user")
     @JsonPropertyDescription("The gender identity and preferences of the user")
@@ -151,12 +151,12 @@ public class UserProfile {
         this.locationPreference = locationPreference;
     }
 
-    public SocialPreference getSocialPreference() {
-        return socialPreference;
+    public SocialPersonality getSocialPersonality() {
+        return socialPersonality;
     }
 
-    public void setSocialPreference(SocialPreference socialPreference) {
-        this.socialPreference = socialPreference;
+    public void setSocialPersonality(SocialPersonality socialPersonality) {
+        this.socialPersonality = socialPersonality;
     }
 
     public GenderPreference getGenderPreference() {

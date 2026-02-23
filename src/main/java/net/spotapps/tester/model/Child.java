@@ -1,0 +1,95 @@
+package net.spotapps.tester.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import java.util.Objects;
+
+@Entity
+@Table(name = "children")
+public class Child {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "child_id")
+    private Long childId;
+
+    @ManyToOne
+    @JoinColumn(name = "life_stage_id")
+    private LifeStage lifeStage;
+
+    @ManyToOne
+    @JoinColumn(name = "gender_id")
+    private ChildGender gender;
+
+    @ManyToOne
+    @JoinColumn(name = "household_status_id")
+    private HouseholdStatus inHousehold;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private ChildrenPreference childrenPreference;
+
+    public Long getChildId() {
+        return childId;
+    }
+
+    public void setChildId(Long childId) {
+        this.childId = childId;
+    }
+
+    public LifeStage getLifeStage() {
+        return lifeStage;
+    }
+
+    public void setLifeStage(LifeStage lifeStage) {
+        this.lifeStage = lifeStage;
+    }
+
+    public ChildGender getGender() {
+        return gender;
+    }
+
+    public void setGender(ChildGender gender) {
+        this.gender = gender;
+    }
+
+    public HouseholdStatus getInHousehold() {
+        return inHousehold;
+    }
+
+    public void setInHousehold(HouseholdStatus inHousehold) {
+        this.inHousehold = inHousehold;
+    }
+
+    public ChildrenPreference getChildrenPreference() {
+        return childrenPreference;
+    }
+
+    public void setChildrenPreference(ChildrenPreference childrenPreference) {
+        this.childrenPreference = childrenPreference;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Child child = (Child) o;
+        return Objects.equals(childId, child.childId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(childId);
+    }
+
+    @Override
+    public String toString() {
+        return "Child [childId=" + childId + "]";
+    }
+}

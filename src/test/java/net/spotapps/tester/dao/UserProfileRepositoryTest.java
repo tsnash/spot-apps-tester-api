@@ -57,6 +57,54 @@ public class UserProfileRepositoryTest {
     }
 
     @Test
+    public void testFindOneByIdWithAllPreferences() {
+        UserProfile actual = repository.findById(2L).orElseThrow();
+        assertThat(actual.getUserId()).isEqualTo(2L);
+
+        assertThat(actual.getLocationPreference()).isNotNull();
+        assertThat(actual.getLocationPreference().isUseLocal()).isTrue();
+        assertThat(actual.getLocationPreference().getDistanceInMiles()).isEqualTo(20.0);
+
+        assertThat(actual.getSocialPersonality()).isNotNull();
+        assertThat(actual.getSocialPersonality().getOpenness().getName()).isEqualTo("Neutral");
+
+        assertThat(actual.getGenderPreference()).isNotNull();
+        assertThat(actual.getGenderPreference().getGender().getName()).isEqualTo("Male");
+
+        assertThat(actual.getRelationshipPreference()).isNotNull();
+        assertThat(actual.getRelationshipPreference().getRelationshipStatus().getName()).isEqualTo("Single");
+
+        assertThat(actual.getChildrenPreference()).isNotNull();
+        assertThat(actual.getChildrenPreference().getChildren()).hasSize(1);
+        assertThat(actual.getChildrenPreference().getChildren().get(0).getLifeStage().getName()).isEqualTo("Infant");
+
+        assertThat(actual.getAgePreference()).isNotNull();
+        assertThat(actual.getAgePreference().getYear()).isEqualTo("1990");
+
+        assertThat(actual.getReligionPreference()).isNotNull();
+        assertThat(actual.getReligionPreference().getReligion().getReligionName()).isEqualTo("Christianity");
+
+        assertThat(actual.getEducationPreference()).isNotNull();
+        assertThat(actual.getEducationPreference().getHighestDegree().getName()).isEqualTo("Bachelor's");
+
+        assertThat(actual.getLanguagePreference()).isNotNull();
+        assertThat(actual.getLanguagePreference().getLanguagesSpoken()).hasSize(1);
+        assertThat(actual.getLanguagePreference().getLanguagesSpoken().get(0).getName()).isEqualTo("English");
+
+        assertThat(actual.getVicePreference()).isNotNull();
+        assertThat(actual.getVicePreference().getVices()).hasSize(1);
+
+        assertThat(actual.getPetsPreference()).isNotNull();
+        assertThat(actual.getPetsPreference().getPets()).hasSize(1);
+
+        assertThat(actual.getTravelPreference()).isNotNull();
+        assertThat(actual.getTravelPreference().getFrequency().getName()).isEqualTo("Rarely");
+
+        assertThat(actual.getDietPreference()).isNotNull();
+        assertThat(actual.getDietPreference().getRestrictions()).hasSize(1);
+    }
+
+    @Test
     public void testFindOneByIdLazyLoadOutsideTransaction() {
         UserProfile actual = repository.findById(3L).orElseThrow();
 

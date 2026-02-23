@@ -46,7 +46,7 @@ public class UserProfileTest {
         userProfile3AllFields.setImages(Arrays.asList(new UserImage()));
         userProfile3AllFields.setContactPreference(new ContactPreference());
         userProfile3AllFields.setLocationPreference(new LocationPreference());
-        userProfile3AllFields.setSocialPreference(new SocialPreference());
+        userProfile3AllFields.setSocialPersonality(new SocialPersonality());
         userProfile3AllFields.setGenderPreference(new GenderPreference());
         userProfile3AllFields.setRelationshipPreference(new RelationshipPreference());
         userProfile3AllFields.setChildrenPreference(new ChildrenPreference());
@@ -65,7 +65,7 @@ public class UserProfileTest {
         userProfile4AllFields.setImages(Arrays.asList(new UserImage()));
         userProfile4AllFields.setContactPreference(new ContactPreference());
         userProfile4AllFields.setLocationPreference(new LocationPreference());
-        userProfile4AllFields.setSocialPreference(new SocialPreference());
+        userProfile4AllFields.setSocialPersonality(new SocialPersonality());
         userProfile4AllFields.setGenderPreference(new GenderPreference());
         userProfile4AllFields.setRelationshipPreference(new RelationshipPreference());
         userProfile4AllFields.setChildrenPreference(new ChildrenPreference());
@@ -101,7 +101,7 @@ public class UserProfileTest {
         userProfile1AllFields.setImages(Arrays.asList(new UserImage()));
         userProfile1AllFields.setContactPreference(new ContactPreference());
         userProfile1AllFields.setLocationPreference(new LocationPreference());
-        userProfile1AllFields.setSocialPreference(new SocialPreference());
+        userProfile1AllFields.setSocialPersonality(new SocialPersonality());
         userProfile1AllFields.setGenderPreference(new GenderPreference());
         userProfile1AllFields.setRelationshipPreference(new RelationshipPreference());
         userProfile1AllFields.setChildrenPreference(new ChildrenPreference());

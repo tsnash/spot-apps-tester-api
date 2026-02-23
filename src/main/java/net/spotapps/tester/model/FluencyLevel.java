@@ -1,0 +1,62 @@
+package net.spotapps.tester.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.util.Objects;
+
+@Entity
+@Table(name = "fluency_levels")
+public class FluencyLevel {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "fluency_level_id")
+    private Long fluencyLevelId;
+
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    public FluencyLevel() {}
+
+    public FluencyLevel(String name) {
+        this.name = name;
+    }
+
+    public Long getFluencyLevelId() {
+        return fluencyLevelId;
+    }
+
+    public void setFluencyLevelId(Long fluencyLevelId) {
+        this.fluencyLevelId = fluencyLevelId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FluencyLevel other = (FluencyLevel) o;
+        return Objects.equals(fluencyLevelId, other.fluencyLevelId) && Objects.equals(name, other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fluencyLevelId, name);
+    }
+
+    @Override
+    public String toString() {
+        return "FluencyLevel [fluencyLevelId=" + fluencyLevelId + ", name=" + name + "]";
+    }
+}

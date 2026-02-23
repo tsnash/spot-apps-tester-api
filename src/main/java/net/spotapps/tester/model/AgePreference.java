@@ -1,5 +1,6 @@
 package net.spotapps.tester.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -7,6 +8,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "age_preferences")
@@ -21,4 +23,99 @@ public class AgePreference {
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
 
+    @Schema(description = "The day of the user's birth", example = "01")
+    @Column(name = "birth_day")
+    private String day;
+
+    @Schema(description = "The month of the user's birth", example = "January")
+    @Column(name = "birth_month")
+    private String month;
+
+    @Schema(description = "The year of the user's birth", example = "1990")
+    @Column(name = "birth_year")
+    private String year;
+
+    @Schema(description = "The minimum age the user is interested in")
+    @Column(name = "min_age")
+    private Integer minAge;
+
+    @Schema(description = "The maximum age the user is interested in")
+    @Column(name = "max_age")
+    private Integer maxAge;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public Integer getMinAge() {
+        return minAge;
+    }
+
+    public void setMinAge(Integer minAge) {
+        this.minAge = minAge;
+    }
+
+    public Integer getMaxAge() {
+        return maxAge;
+    }
+
+    public void setMaxAge(Integer maxAge) {
+        this.maxAge = maxAge;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        AgePreference other = (AgePreference) obj;
+        return Objects.equals(userId, other.userId);
+    }
+
+    @Override
+    public String toString() {
+        return "AgePreference [userId=" + userId + "]";
+    }
 }

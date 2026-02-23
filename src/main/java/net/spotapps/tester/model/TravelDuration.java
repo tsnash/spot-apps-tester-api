@@ -1,0 +1,62 @@
+package net.spotapps.tester.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.util.Objects;
+
+@Entity
+@Table(name = "travel_durations")
+public class TravelDuration {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "travel_duration_id")
+    private Long travelDurationId;
+
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    public TravelDuration() {}
+
+    public TravelDuration(String name) {
+        this.name = name;
+    }
+
+    public Long getTravelDurationId() {
+        return travelDurationId;
+    }
+
+    public void setTravelDurationId(Long travelDurationId) {
+        this.travelDurationId = travelDurationId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TravelDuration other = (TravelDuration) o;
+        return Objects.equals(travelDurationId, other.travelDurationId) && Objects.equals(name, other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(travelDurationId, name);
+    }
+
+    @Override
+    public String toString() {
+        return "TravelDuration [travelDurationId=" + travelDurationId + ", name=" + name + "]";
+    }
+}
