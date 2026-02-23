@@ -3,8 +3,6 @@ package net.spotapps.tester.dto;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)

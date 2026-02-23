@@ -339,7 +339,7 @@ public class UserProfileDto {
 
         if (userProfile.getLocationPreference() != null) {
             LocationPreferenceDto locDto = new LocationPreferenceDto();
-            locDto.setUseLocal(userProfile.getLocationPreference().isUseLocal());
+            locDto.setUseLocal(userProfile.getLocationPreference().getUseLocal());
             locDto.setDistanceInMiles(userProfile.getLocationPreference().getDistanceInMiles());
             locDto.setDistanceInKilometers(userProfile.getLocationPreference().getDistanceInKilometers());
             dto.setLocationPreference(locDto);
@@ -364,7 +364,7 @@ public class UserProfileDto {
             GenderPreferenceDto gpDto = new GenderPreferenceDto();
             if (userProfile.getGenderPreference().getGender() != null)
                 gpDto.setGender(new GenderDto(userProfile.getGenderPreference().getGender().getGenderId(), userProfile.getGenderPreference().getGender().getName()));
-            gpDto.setTrans(userProfile.getGenderPreference().isTrans());
+            gpDto.setTrans(userProfile.getGenderPreference().getTrans());
             if (userProfile.getGenderPreference().getOrientation() != null)
                 gpDto.setOrientation(new OrientationDto(userProfile.getGenderPreference().getOrientation().getOrientationId(), userProfile.getGenderPreference().getOrientation().getName()));
             dto.setGenderPreference(gpDto);

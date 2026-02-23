@@ -10,6 +10,7 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,7 +29,7 @@ public class ChildrenPreference {
 
     @Schema(description = "List of user's children")
     @OneToMany(mappedBy = "childrenPreference", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Child> children;
+    private List<Child> children = new ArrayList<>();
 
     @Schema(description = "Indicates if the user wants more children")
     @Column(name = "more_children")

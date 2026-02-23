@@ -11,6 +11,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -39,7 +40,7 @@ public class RelationshipPreference {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "practice_id")
     )
-    private Set<RelationshipPractice> relationshipPractices;
+    private Set<RelationshipPractice> relationshipPractices = new HashSet<>();
 
     @Schema(description = "The types of relationships the user is interested in")
     @ManyToMany
@@ -48,7 +49,7 @@ public class RelationshipPreference {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "interest_id")
     )
-    private Set<RelationshipInterest> relationshipInterests;
+    private Set<RelationshipInterest> relationshipInterests = new HashSet<>();
 
     public Long getUserId() {
         return userId;

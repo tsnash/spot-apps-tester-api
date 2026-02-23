@@ -1,5 +1,6 @@
 package net.spotapps.tester.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,7 +36,7 @@ public class UserProfile {
 
     @Schema(description = "List of references to images of the user")
     @OneToMany(mappedBy = "userProfile")
-    private List<UserImage> images;
+    private List<UserImage> images = new ArrayList<>();
 
     @Schema(description = "The contact information and preferences of the user")
     @JsonPropertyDescription("The contact information and preferences of the user")
@@ -109,7 +110,7 @@ public class UserProfile {
 
     @Schema(description = "The things and activities the user is interested in")
     @OneToMany(mappedBy = "userProfile")
-    private List<UserInterest> interests;
+    private List<UserInterest> interests = new ArrayList<>();
 
     public Long getUserId() {
         return userId;

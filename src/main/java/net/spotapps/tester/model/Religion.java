@@ -6,10 +6,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import java.util.Objects;
 
 @Entity
-@Table(name = "religions")
+@Table(name = "religions", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"religion_name", "branch_name"})
+})
 public class Religion {
 
     @Id

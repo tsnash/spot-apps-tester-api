@@ -31,7 +31,7 @@ public class GenderPreference {
 
     @Schema(description = "Indicates if the user identifies as transgender")
     @Column(name = "is_trans", nullable = false, columnDefinition = "boolean default false")
-    private boolean isTrans;
+    private Boolean isTrans = false;
 
     @Schema(description = "The sexual orientation of the user")
     @ManyToOne
@@ -62,11 +62,11 @@ public class GenderPreference {
         this.gender = gender;
     }
 
-    public boolean isTrans() {
+    public Boolean getTrans() {
         return isTrans;
     }
 
-    public void setTrans(boolean isTrans) {
+    public void setTrans(Boolean isTrans) {
         this.isTrans = isTrans;
     }
 

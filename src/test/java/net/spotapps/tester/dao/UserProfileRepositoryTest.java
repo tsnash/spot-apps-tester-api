@@ -62,7 +62,7 @@ public class UserProfileRepositoryTest {
         assertThat(actual.getUserId()).isEqualTo(2L);
 
         assertThat(actual.getLocationPreference()).isNotNull();
-        assertThat(actual.getLocationPreference().isUseLocal()).isTrue();
+        assertThat(actual.getLocationPreference().getUseLocal()).isTrue();
         assertThat(actual.getLocationPreference().getDistanceInMiles()).isEqualTo(20.0);
 
         assertThat(actual.getSocialPersonality()).isNotNull();

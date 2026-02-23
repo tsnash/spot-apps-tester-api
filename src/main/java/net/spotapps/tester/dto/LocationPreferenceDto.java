@@ -7,14 +7,14 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LocationPreferenceDto {
     @JsonProperty("useLocal")
-    private boolean useLocal;
+    private Boolean useLocal;
     @JsonProperty("distanceInMiles")
     private Double distanceInMiles;
     @JsonProperty("distanceInKilometers")
     private Double distanceInKilometers;
 
-    public boolean isUseLocal() { return useLocal; }
-    public void setUseLocal(boolean useLocal) { this.useLocal = useLocal; }
+    public Boolean getUseLocal() { return useLocal; }
+    public void setUseLocal(Boolean useLocal) { this.useLocal = useLocal; }
     public Double getDistanceInMiles() { return distanceInMiles; }
     public void setDistanceInMiles(Double distanceInMiles) { this.distanceInMiles = distanceInMiles; }
     public Double getDistanceInKilometers() { return distanceInKilometers; }

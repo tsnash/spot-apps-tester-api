@@ -25,7 +25,7 @@ public class LocationPreference {
 
     @Schema(description = "Whether to use the user's current location or specified location")
     @Column(name = "use_local", nullable = false, columnDefinition = "boolean default false")
-    private boolean useLocal;
+    private Boolean useLocal = false;
 
     @Schema(description = "The maximum distance in miles the user is willing to search")
     @Column(name = "distance_in_miles", columnDefinition = "double precision default 15.0")
@@ -51,11 +51,11 @@ public class LocationPreference {
         this.userProfile = userProfile;
     }
 
-    public boolean isUseLocal() {
+    public Boolean getUseLocal() {
         return useLocal;
     }
 
-    public void setUseLocal(boolean useLocal) {
+    public void setUseLocal(Boolean useLocal) {
         this.useLocal = useLocal;
     }
 
