@@ -2,6 +2,7 @@ package net.spotapps.tester.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,19 +20,19 @@ public class Child {
     @Column(name = "child_id")
     private Long childId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "life_stage_id")
     private LifeStage lifeStage;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gender_id")
     private ChildGender gender;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "household_status_id")
     private HouseholdStatus inHousehold;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private ChildrenPreference childrenPreference;
 
@@ -78,7 +79,7 @@ public class Child {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Child)) return false;
         Child child = (Child) o;
         return Objects.equals(childId, child.childId);
     }

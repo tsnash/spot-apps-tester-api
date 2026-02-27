@@ -3,6 +3,7 @@ package net.spotapps.tester.model;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -29,7 +30,7 @@ public class RelationshipPreference {
     private UserProfile userProfile;
 
     @Schema(description = "The current relationship status of the user")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_id")
     private RelationshipStatus relationshipStatus;
 
@@ -80,7 +81,13 @@ public class RelationshipPreference {
     }
 
     public void setRelationshipPractices(Set<RelationshipPractice> relationshipPractices) {
-        this.relationshipPractices = relationshipPractices;
+        if (this.relationshipPractices == null) {
+            this.relationshipPractices = new HashSet<>();
+        }
+        this.relationshipPractices.clear();
+        if (relationshipPractices != null) {
+            this.relationshipPractices.addAll(relationshipPractices);
+        }
     }
 
     public Set<RelationshipInterest> getRelationshipInterests() {
@@ -88,22 +95,34 @@ public class RelationshipPreference {
     }
 
     public void setRelationshipInterests(Set<RelationshipInterest> relationshipInterests) {
-        this.relationshipInterests = relationshipInterests;
+        if (this.relationshipInterests == null) {
+            this.relationshipInterests = new HashSet<>();
+        }
+        this.relationshipInterests.clear();
+        if (relationshipInterests != null) {
+            this.relationshipInterests.addAll(relationshipInterests);
+        }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId);
+        if (userId != null) {
+            return Objects.hash(userId);
+        }
+        return System.identityHashCode(this);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null || getClass() != obj.getClass())
+        if (!(obj instanceof RelationshipPreference))
             return false;
         RelationshipPreference other = (RelationshipPreference) obj;
-        return Objects.equals(userId, other.userId);
+        if (userId != null && other.getUserId() != null) {
+            return Objects.equals(userId, other.getUserId());
+        }
+        return false;
     }
 
     @Override

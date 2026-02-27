@@ -45,7 +45,7 @@ public class PersonalityScale {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof PersonalityScale)) return false;
         PersonalityScale other = (PersonalityScale) o;
         return Objects.equals(personalityScaleId, other.personalityScaleId) && Objects.equals(name, other.name);
     }

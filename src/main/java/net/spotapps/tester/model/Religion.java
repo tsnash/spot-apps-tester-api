@@ -23,14 +23,14 @@ public class Religion {
     @Column(name = "religion_name", nullable = false)
     private String religionName;
 
-    @Column(name = "branch_name")
-    private String branchName;
+    @Column(name = "branch_name", nullable = false)
+    private String branchName = "";
 
     public Religion() {}
 
     public Religion(String religionName, String branchName) {
         this.religionName = religionName;
-        this.branchName = branchName;
+        this.branchName = branchName != null ? branchName : "";
     }
 
     public Long getReligionId() {
@@ -60,16 +60,15 @@ public class Religion {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Religion)) return false;
         Religion religion = (Religion) o;
-        return Objects.equals(religionId, religion.religionId) &&
-               Objects.equals(religionName, religion.religionName) &&
+        return Objects.equals(religionName, religion.religionName) &&
                Objects.equals(branchName, religion.branchName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(religionId, religionName, branchName);
+        return Objects.hash(religionName, branchName);
     }
 
     @Override

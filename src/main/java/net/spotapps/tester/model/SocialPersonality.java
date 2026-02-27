@@ -3,6 +3,7 @@ package net.spotapps.tester.model;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -25,27 +26,27 @@ public class SocialPersonality {
     private UserProfile userProfile;
 
     @Schema(description = "Openness to experience trait")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "openness_id")
     private PersonalityScale openness;
 
     @Schema(description = "Conscientiousness trait")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "conscientiousness_id")
     private PersonalityScale conscientiousness;
 
     @Schema(description = "Extraversion trait")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "extraversion_id")
     private PersonalityScale extraversion;
 
     @Schema(description = "Agreeableness trait")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "agreeableness_id")
     private PersonalityScale agreeableness;
 
     @Schema(description = "Neuroticism trait")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "neuroticism_id")
     private PersonalityScale neuroticism;
 
@@ -107,17 +108,23 @@ public class SocialPersonality {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId);
+        if (userId != null) {
+            return Objects.hash(userId);
+        }
+        return System.identityHashCode(this);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null || getClass() != obj.getClass())
+        if (!(obj instanceof SocialPersonality))
             return false;
         SocialPersonality other = (SocialPersonality) obj;
-        return Objects.equals(userId, other.userId);
+        if (userId != null && other.getUserId() != null) {
+            return Objects.equals(userId, other.getUserId());
+        }
+        return false;
     }
 
     @Override

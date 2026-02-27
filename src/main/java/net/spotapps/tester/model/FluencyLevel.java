@@ -45,7 +45,7 @@ public class FluencyLevel {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof FluencyLevel)) return false;
         FluencyLevel other = (FluencyLevel) o;
         return Objects.equals(fluencyLevelId, other.fluencyLevelId) && Objects.equals(name, other.name);
     }

@@ -133,7 +133,13 @@ public class UserProfile {
     }
 
     public void setImages(List<UserImage> images) {
-        this.images = images;
+        if (this.images == null) {
+            this.images = new ArrayList<>();
+        }
+        this.images.clear();
+        if (images != null) {
+            this.images.addAll(images);
+        }
     }
 
     public ContactPreference getContactPreference() {
@@ -253,22 +259,34 @@ public class UserProfile {
     }
 
     public void setInterests(List<UserInterest> interests) {
-        this.interests = interests;
+        if (this.interests == null) {
+            this.interests = new ArrayList<>();
+        }
+        this.interests.clear();
+        if (interests != null) {
+            this.interests.addAll(interests);
+        }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId);
+        if (userId != null) {
+            return Objects.hash(userId);
+        }
+        return System.identityHashCode(this);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null || getClass() != obj.getClass())
+        if (!(obj instanceof UserProfile))
             return false;
         UserProfile other = (UserProfile) obj;
-        return Objects.equals(userId, other.userId);
+        if (userId != null && other.getUserId() != null) {
+            return Objects.equals(userId, other.getUserId());
+        }
+        return false;
     }
 
     @Override

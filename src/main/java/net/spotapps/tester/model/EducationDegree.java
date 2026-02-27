@@ -45,7 +45,7 @@ public class EducationDegree {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof EducationDegree)) return false;
         EducationDegree other = (EducationDegree) o;
         return Objects.equals(educationDegreeId, other.educationDegreeId) && Objects.equals(name, other.name);
     }

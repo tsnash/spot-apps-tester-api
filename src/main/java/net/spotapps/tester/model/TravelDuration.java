@@ -45,7 +45,7 @@ public class TravelDuration {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TravelDuration)) return false;
         TravelDuration other = (TravelDuration) o;
         return Objects.equals(travelDurationId, other.travelDurationId) && Objects.equals(name, other.name);
     }

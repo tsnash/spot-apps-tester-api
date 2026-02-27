@@ -45,7 +45,7 @@ public class ViceFrequency {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ViceFrequency)) return false;
         ViceFrequency other = (ViceFrequency) o;
         return Objects.equals(viceFrequencyId, other.viceFrequencyId) && Objects.equals(name, other.name);
     }

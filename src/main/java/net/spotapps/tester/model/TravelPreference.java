@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -27,22 +28,22 @@ public class TravelPreference {
     private UserProfile userProfile;
 
     @Schema(description = "How often the user likes to travel")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "frequency_id")
     private TravelFrequency frequency;
 
     @Schema(description = "Preferred duration of trips")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "duration_id")
     private TravelDuration duration;
 
     @Schema(description = "How far the user is willing to travel")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "distance_id")
     private TravelDistance distance;
 
     @Schema(description = "Preferred travel group size")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_size_id")
     private TravelGroupSize groupSize;
 
@@ -110,17 +111,23 @@ public class TravelPreference {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId);
+        if (userId != null) {
+            return Objects.hash(userId);
+        }
+        return System.identityHashCode(this);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null || getClass() != obj.getClass())
+        if (!(obj instanceof TravelPreference))
             return false;
         TravelPreference other = (TravelPreference) obj;
-        return Objects.equals(userId, other.userId);
+        if (userId != null && other.getUserId() != null) {
+            return Objects.equals(userId, other.getUserId());
+        }
+        return false;
     }
 
     @Override

@@ -7,15 +7,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class GenderPreferenceDto {
     @JsonProperty("gender")
     private GenderDto gender;
-    private Boolean isTrans;
+    private Boolean trans;
     @JsonProperty("orientation")
     private OrientationDto orientation;
 
     public GenderDto getGender() { return gender; }
     public void setGender(GenderDto gender) { this.gender = gender; }
     @JsonProperty("isTrans")
-    public Boolean getTrans() { return isTrans; }
-    public void setTrans(Boolean isTrans) { this.isTrans = isTrans; }
+    public Boolean getTrans() { return trans; }
+    public void setTrans(Boolean trans) { this.trans = trans; }
     public OrientationDto getOrientation() { return orientation; }
     public void setOrientation(OrientationDto orientation) { this.orientation = orientation; }
 }

@@ -45,7 +45,7 @@ public class RelationshipInterest {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof RelationshipInterest)) return false;
         RelationshipInterest other = (RelationshipInterest) o;
         return Objects.equals(relationshipInterestId, other.relationshipInterestId) && Objects.equals(name, other.name);
     }

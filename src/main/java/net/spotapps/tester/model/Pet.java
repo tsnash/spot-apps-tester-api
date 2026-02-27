@@ -2,6 +2,7 @@ package net.spotapps.tester.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,7 +20,7 @@ public class Pet {
     @Column(name = "pet_id")
     private Long petId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pet_type_id")
     private PetType petType;
 
@@ -29,7 +30,7 @@ public class Pet {
     @Column(name = "is_allowed")
     private Boolean isAllowed;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private PetsPreference petsPreference;
 
@@ -76,7 +77,7 @@ public class Pet {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Pet)) return false;
         Pet pet = (Pet) o;
         return Objects.equals(petId, pet.petId);
     }

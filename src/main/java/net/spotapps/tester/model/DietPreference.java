@@ -65,7 +65,13 @@ public class DietPreference {
     }
 
     public void setRestrictions(Set<DietaryRestriction> restrictions) {
-        this.restrictions = restrictions;
+        if (this.restrictions == null) {
+            this.restrictions = new HashSet<>();
+        }
+        this.restrictions.clear();
+        if (restrictions != null) {
+            this.restrictions.addAll(restrictions);
+        }
     }
 
     public Integer getImportance() {
@@ -78,17 +84,23 @@ public class DietPreference {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId);
+        if (userId != null) {
+            return Objects.hash(userId);
+        }
+        return System.identityHashCode(this);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null || getClass() != obj.getClass())
+        if (!(obj instanceof DietPreference))
             return false;
         DietPreference other = (DietPreference) obj;
-        return Objects.equals(userId, other.userId);
+        if (userId != null && other.getUserId() != null) {
+            return Objects.equals(userId, other.getUserId());
+        }
+        return false;
     }
 
     @Override

@@ -45,7 +45,7 @@ public class ViceType {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ViceType)) return false;
         ViceType other = (ViceType) o;
         return Objects.equals(viceTypeId, other.viceTypeId) && Objects.equals(name, other.name);
     }

@@ -45,7 +45,7 @@ public class Orientation {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Orientation)) return false;
         Orientation other = (Orientation) o;
         return Objects.equals(orientationId, other.orientationId) && Objects.equals(name, other.name);
     }

@@ -45,7 +45,7 @@ public class HouseholdStatus {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof HouseholdStatus)) return false;
         HouseholdStatus other = (HouseholdStatus) o;
         return Objects.equals(householdStatusId, other.householdStatusId) && Objects.equals(name, other.name);
     }

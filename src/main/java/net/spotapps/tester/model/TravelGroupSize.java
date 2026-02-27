@@ -45,7 +45,7 @@ public class TravelGroupSize {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TravelGroupSize)) return false;
         TravelGroupSize other = (TravelGroupSize) o;
         return Objects.equals(travelGroupSizeId, other.travelGroupSizeId) && Objects.equals(name, other.name);
     }

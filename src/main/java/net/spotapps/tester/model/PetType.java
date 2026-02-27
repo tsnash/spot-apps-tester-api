@@ -45,7 +45,7 @@ public class PetType {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof PetType)) return false;
         PetType other = (PetType) o;
         return Objects.equals(petTypeId, other.petTypeId) && Objects.equals(name, other.name);
     }

@@ -60,7 +60,13 @@ public class LanguagePreference {
     }
 
     public void setLanguagesSpoken(List<Language> languagesSpoken) {
-        this.languagesSpoken = languagesSpoken;
+        if (this.languagesSpoken == null) {
+            this.languagesSpoken = new ArrayList<>();
+        }
+        this.languagesSpoken.clear();
+        if (languagesSpoken != null) {
+            this.languagesSpoken.addAll(languagesSpoken);
+        }
     }
 
     public Integer getImportance() {
@@ -73,17 +79,23 @@ public class LanguagePreference {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId);
+        if (userId != null) {
+            return Objects.hash(userId);
+        }
+        return System.identityHashCode(this);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null || getClass() != obj.getClass())
+        if (!(obj instanceof LanguagePreference))
             return false;
         LanguagePreference other = (LanguagePreference) obj;
-        return Objects.equals(userId, other.userId);
+        if (userId != null && other.getUserId() != null) {
+            return Objects.equals(userId, other.getUserId());
+        }
+        return false;
     }
 
     @Override

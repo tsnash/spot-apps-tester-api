@@ -45,7 +45,7 @@ public class LifeStage {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof LifeStage)) return false;
         LifeStage other = (LifeStage) o;
         return Objects.equals(lifeStageId, other.lifeStageId) && Objects.equals(name, other.name);
     }

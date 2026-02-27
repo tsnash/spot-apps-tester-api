@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import java.util.Objects;
 
@@ -34,6 +36,16 @@ public class LocationPreference {
     @Schema(description = "The maximum distance in kilometers the user is willing to search")
     @Column(name = "distance_in_kilometers")
     private Double distanceInKilometers;
+
+    @PrePersist
+    @PreUpdate
+    private void updateDistances() {
+        if (distanceInMiles != null) {
+            this.distanceInKilometers = distanceInMiles * 1.60934;
+        } else if (distanceInKilometers != null) {
+            this.distanceInMiles = distanceInKilometers / 1.60934;
+        }
+    }
 
     public Long getUserId() {
         return userId;
@@ -77,17 +89,23 @@ public class LocationPreference {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId);
+        if (userId != null) {
+            return Objects.hash(userId);
+        }
+        return System.identityHashCode(this);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null || getClass() != obj.getClass())
+        if (!(obj instanceof LocationPreference))
             return false;
         LocationPreference other = (LocationPreference) obj;
-        return Objects.equals(userId, other.userId);
+        if (userId != null && other.getUserId() != null) {
+            return Objects.equals(userId, other.getUserId());
+        }
+        return false;
     }
 
     @Override

@@ -45,7 +45,7 @@ public class ChildGender {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ChildGender)) return false;
         ChildGender other = (ChildGender) o;
         return Objects.equals(childGenderId, other.childGenderId) && Objects.equals(name, other.name);
     }

@@ -45,7 +45,7 @@ public class TravelFrequency {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TravelFrequency)) return false;
         TravelFrequency other = (TravelFrequency) o;
         return Objects.equals(travelFrequencyId, other.travelFrequencyId) && Objects.equals(name, other.name);
     }

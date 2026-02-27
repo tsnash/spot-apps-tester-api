@@ -60,7 +60,13 @@ public class VicePreference {
     }
 
     public void setVices(List<Vice> vices) {
-        this.vices = vices;
+        if (this.vices == null) {
+            this.vices = new ArrayList<>();
+        }
+        this.vices.clear();
+        if (vices != null) {
+            this.vices.addAll(vices);
+        }
     }
 
     public Integer getImportance() {
@@ -73,17 +79,23 @@ public class VicePreference {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId);
+        if (userId != null) {
+            return Objects.hash(userId);
+        }
+        return System.identityHashCode(this);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null || getClass() != obj.getClass())
+        if (!(obj instanceof VicePreference))
             return false;
         VicePreference other = (VicePreference) obj;
-        return Objects.equals(userId, other.userId);
+        if (userId != null && other.getUserId() != null) {
+            return Objects.equals(userId, other.getUserId());
+        }
+        return false;
     }
 
     @Override
