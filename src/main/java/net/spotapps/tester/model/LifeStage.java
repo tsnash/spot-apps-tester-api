@@ -46,13 +46,13 @@ public class LifeStage {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof LifeStage)) return false;
-        LifeStage other = (LifeStage) o;
-        return Objects.equals(lifeStageId, other.lifeStageId) && Objects.equals(name, other.name);
+        LifeStage that = (LifeStage) o;
+        return Objects.equals(name, that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(lifeStageId, name);
+        return Objects.hash(name);
     }
 
     @Override

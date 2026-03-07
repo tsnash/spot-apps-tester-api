@@ -46,13 +46,13 @@ public class PersonalityScale {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof PersonalityScale)) return false;
-        PersonalityScale other = (PersonalityScale) o;
-        return Objects.equals(personalityScaleId, other.personalityScaleId) && Objects.equals(name, other.name);
+        PersonalityScale that = (PersonalityScale) o;
+        return Objects.equals(name, that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(personalityScaleId, name);
+        return Objects.hash(name);
     }
 
     @Override

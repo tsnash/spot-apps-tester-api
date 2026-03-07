@@ -46,13 +46,13 @@ public class FluencyLevel {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof FluencyLevel)) return false;
-        FluencyLevel other = (FluencyLevel) o;
-        return Objects.equals(fluencyLevelId, other.fluencyLevelId) && Objects.equals(name, other.name);
+        FluencyLevel that = (FluencyLevel) o;
+        return Objects.equals(name, that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fluencyLevelId, name);
+        return Objects.hash(name);
     }
 
     @Override

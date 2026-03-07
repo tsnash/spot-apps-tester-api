@@ -63,9 +63,14 @@ public class VicePreference {
         if (this.vices == null) {
             this.vices = new ArrayList<>();
         }
+        // Maintain bidirectional consistency
+        this.vices.forEach(v -> v.setVicePreference(null));
         this.vices.clear();
         if (vices != null) {
-            this.vices.addAll(vices);
+            for (Vice vice : vices) {
+                vice.setVicePreference(this);
+                this.vices.add(vice);
+            }
         }
     }
 

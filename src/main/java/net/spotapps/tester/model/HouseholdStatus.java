@@ -46,13 +46,13 @@ public class HouseholdStatus {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof HouseholdStatus)) return false;
-        HouseholdStatus other = (HouseholdStatus) o;
-        return Objects.equals(householdStatusId, other.householdStatusId) && Objects.equals(name, other.name);
+        HouseholdStatus that = (HouseholdStatus) o;
+        return Objects.equals(name, that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(householdStatusId, name);
+        return Objects.hash(name);
     }
 
     @Override

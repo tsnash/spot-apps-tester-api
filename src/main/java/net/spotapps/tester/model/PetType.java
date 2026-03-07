@@ -46,13 +46,13 @@ public class PetType {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof PetType)) return false;
-        PetType other = (PetType) o;
-        return Objects.equals(petTypeId, other.petTypeId) && Objects.equals(name, other.name);
+        PetType that = (PetType) o;
+        return Objects.equals(name, that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(petTypeId, name);
+        return Objects.hash(name);
     }
 
     @Override

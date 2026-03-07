@@ -54,7 +54,7 @@ public class Religion {
     }
 
     public void setBranchName(String branchName) {
-        this.branchName = branchName;
+        this.branchName = branchName != null ? branchName : "";
     }
 
     @Override

@@ -63,9 +63,14 @@ public class LanguagePreference {
         if (this.languagesSpoken == null) {
             this.languagesSpoken = new ArrayList<>();
         }
+        // Maintain bidirectional consistency
+        this.languagesSpoken.forEach(lang -> lang.setLanguagePreference(null));
         this.languagesSpoken.clear();
         if (languagesSpoken != null) {
-            this.languagesSpoken.addAll(languagesSpoken);
+            for (Language language : languagesSpoken) {
+                language.setLanguagePreference(this);
+                this.languagesSpoken.add(language);
+            }
         }
     }
 

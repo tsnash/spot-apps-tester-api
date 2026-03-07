@@ -78,13 +78,19 @@ public class Pet {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Pet)) return false;
-        Pet pet = (Pet) o;
-        return Objects.equals(petId, pet.petId);
+        Pet other = (Pet) o;
+        if (petId != null && other.getPetId() != null) {
+            return Objects.equals(petId, other.getPetId());
+        }
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(petId);
+        if (petId != null) {
+            return Objects.hash(petId);
+        }
+        return System.identityHashCode(this);
     }
 
     @Override

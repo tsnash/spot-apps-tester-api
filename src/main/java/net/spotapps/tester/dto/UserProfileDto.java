@@ -371,17 +371,17 @@ public class UserProfileDto {
     private static SocialPersonalityDto mapSocialPersonality(net.spotapps.tester.model.SocialPersonality sp) {
         if (sp == null) return null;
         SocialPersonalityDto dto = new SocialPersonalityDto();
-        if (sp.getOpenness() != null)
-            dto.setOpenness(new PersonalityScaleDto(sp.getOpenness().getPersonalityScaleId(), sp.getOpenness().getName()));
-        if (sp.getConscientiousness() != null)
-            dto.setConscientiousness(new PersonalityScaleDto(sp.getConscientiousness().getPersonalityScaleId(), sp.getConscientiousness().getName()));
-        if (sp.getExtraversion() != null)
-            dto.setExtraversion(new PersonalityScaleDto(sp.getExtraversion().getPersonalityScaleId(), sp.getExtraversion().getName()));
-        if (sp.getAgreeableness() != null)
-            dto.setAgreeableness(new PersonalityScaleDto(sp.getAgreeableness().getPersonalityScaleId(), sp.getAgreeableness().getName()));
-        if (sp.getNeuroticism() != null)
-            dto.setNeuroticism(new PersonalityScaleDto(sp.getNeuroticism().getPersonalityScaleId(), sp.getNeuroticism().getName()));
+        dto.setOpenness(toDto(sp.getOpenness()));
+        dto.setConscientiousness(toDto(sp.getConscientiousness()));
+        dto.setExtraversion(toDto(sp.getExtraversion()));
+        dto.setAgreeableness(toDto(sp.getAgreeableness()));
+        dto.setNeuroticism(toDto(sp.getNeuroticism()));
         return dto;
+    }
+
+    private static PersonalityScaleDto toDto(net.spotapps.tester.model.PersonalityScale ps) {
+        if (ps == null) return null;
+        return new PersonalityScaleDto(ps.getPersonalityScaleId(), ps.getName());
     }
 
     private static GenderPreferenceDto mapGenderPreference(net.spotapps.tester.model.GenderPreference gp) {

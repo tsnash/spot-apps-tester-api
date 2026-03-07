@@ -46,13 +46,13 @@ public class ViceFrequency {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ViceFrequency)) return false;
-        ViceFrequency other = (ViceFrequency) o;
-        return Objects.equals(viceFrequencyId, other.viceFrequencyId) && Objects.equals(name, other.name);
+        ViceFrequency that = (ViceFrequency) o;
+        return Objects.equals(name, that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(viceFrequencyId, name);
+        return Objects.hash(name);
     }
 
     @Override

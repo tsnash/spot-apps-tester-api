@@ -67,13 +67,19 @@ public class Language {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Language)) return false;
-        Language language = (Language) o;
-        return Objects.equals(languageId, language.languageId);
+        Language other = (Language) o;
+        if (languageId != null && other.getLanguageId() != null) {
+            return Objects.equals(languageId, other.getLanguageId());
+        }
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(languageId);
+        if (languageId != null) {
+            return Objects.hash(languageId);
+        }
+        return System.identityHashCode(this);
     }
 
     @Override

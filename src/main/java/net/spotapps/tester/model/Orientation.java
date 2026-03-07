@@ -46,13 +46,13 @@ public class Orientation {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Orientation)) return false;
-        Orientation other = (Orientation) o;
-        return Objects.equals(orientationId, other.orientationId) && Objects.equals(name, other.name);
+        Orientation that = (Orientation) o;
+        return Objects.equals(name, that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orientationId, name);
+        return Objects.hash(name);
     }
 
     @Override

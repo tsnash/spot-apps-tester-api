@@ -46,13 +46,13 @@ public class RelationshipStatus {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof RelationshipStatus)) return false;
-        RelationshipStatus other = (RelationshipStatus) o;
-        return Objects.equals(relationshipStatusId, other.relationshipStatusId) && Objects.equals(name, other.name);
+        RelationshipStatus that = (RelationshipStatus) o;
+        return Objects.equals(name, that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(relationshipStatusId, name);
+        return Objects.hash(name);
     }
 
     @Override

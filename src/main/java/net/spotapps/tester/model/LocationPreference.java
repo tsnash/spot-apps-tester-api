@@ -30,22 +30,12 @@ public class LocationPreference {
     private Boolean useLocal = false;
 
     @Schema(description = "The maximum distance in miles the user is willing to search")
-    @Column(name = "distance_in_miles", columnDefinition = "double precision default 15.0")
+    @Column(name = "distance_in_miles")
     private Double distanceInMiles = 15.0;
 
     @Schema(description = "The maximum distance in kilometers the user is willing to search")
     @Column(name = "distance_in_kilometers")
-    private Double distanceInKilometers;
-
-    @PrePersist
-    @PreUpdate
-    private void updateDistances() {
-        if (distanceInMiles != null) {
-            this.distanceInKilometers = distanceInMiles * 1.60934;
-        } else if (distanceInKilometers != null) {
-            this.distanceInMiles = distanceInKilometers / 1.60934;
-        }
-    }
+    private Double distanceInKilometers = 24.1401;
 
     public Long getUserId() {
         return userId;
@@ -77,6 +67,11 @@ public class LocationPreference {
 
     public void setDistanceInMiles(Double distanceInMiles) {
         this.distanceInMiles = distanceInMiles;
+        if (distanceInMiles != null) {
+            this.distanceInKilometers = distanceInMiles * 1.60934;
+        } else {
+            this.distanceInKilometers = null;
+        }
     }
 
     public Double getDistanceInKilometers() {
@@ -85,6 +80,11 @@ public class LocationPreference {
 
     public void setDistanceInKilometers(Double distanceInKilometers) {
         this.distanceInKilometers = distanceInKilometers;
+        if (distanceInKilometers != null) {
+            this.distanceInMiles = distanceInKilometers / 1.60934;
+        } else {
+            this.distanceInMiles = null;
+        }
     }
 
     @Override

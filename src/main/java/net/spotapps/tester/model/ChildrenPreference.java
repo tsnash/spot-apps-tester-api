@@ -61,9 +61,14 @@ public class ChildrenPreference {
         if (this.children == null) {
             this.children = new ArrayList<>();
         }
+        // Null out existing children's parent reference to maintain consistency
+        this.children.forEach(child -> child.setChildrenPreference(null));
         this.children.clear();
         if (children != null) {
-            this.children.addAll(children);
+            for (Child child : children) {
+                child.setChildrenPreference(this);
+                this.children.add(child);
+            }
         }
     }
 

@@ -46,13 +46,13 @@ public class TravelDuration {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof TravelDuration)) return false;
-        TravelDuration other = (TravelDuration) o;
-        return Objects.equals(travelDurationId, other.travelDurationId) && Objects.equals(name, other.name);
+        TravelDuration that = (TravelDuration) o;
+        return Objects.equals(name, that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(travelDurationId, name);
+        return Objects.hash(name);
     }
 
     @Override

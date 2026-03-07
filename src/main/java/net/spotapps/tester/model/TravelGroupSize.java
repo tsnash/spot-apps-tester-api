@@ -46,13 +46,13 @@ public class TravelGroupSize {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof TravelGroupSize)) return false;
-        TravelGroupSize other = (TravelGroupSize) o;
-        return Objects.equals(travelGroupSizeId, other.travelGroupSizeId) && Objects.equals(name, other.name);
+        TravelGroupSize that = (TravelGroupSize) o;
+        return Objects.equals(name, that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(travelGroupSizeId, name);
+        return Objects.hash(name);
     }
 
     @Override

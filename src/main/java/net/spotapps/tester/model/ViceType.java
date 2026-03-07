@@ -46,13 +46,13 @@ public class ViceType {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ViceType)) return false;
-        ViceType other = (ViceType) o;
-        return Objects.equals(viceTypeId, other.viceTypeId) && Objects.equals(name, other.name);
+        ViceType that = (ViceType) o;
+        return Objects.equals(name, that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(viceTypeId, name);
+        return Objects.hash(name);
     }
 
     @Override

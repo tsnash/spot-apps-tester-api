@@ -46,13 +46,13 @@ public class TravelDistance {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof TravelDistance)) return false;
-        TravelDistance other = (TravelDistance) o;
-        return Objects.equals(travelDistanceId, other.travelDistanceId) && Objects.equals(name, other.name);
+        TravelDistance that = (TravelDistance) o;
+        return Objects.equals(name, that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(travelDistanceId, name);
+        return Objects.hash(name);
     }
 
     @Override

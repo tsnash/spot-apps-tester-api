@@ -80,13 +80,19 @@ public class Child {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Child)) return false;
-        Child child = (Child) o;
-        return Objects.equals(childId, child.childId);
+        Child other = (Child) o;
+        if (childId != null && other.getChildId() != null) {
+            return Objects.equals(childId, other.getChildId());
+        }
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(childId);
+        if (childId != null) {
+            return Objects.hash(childId);
+        }
+        return System.identityHashCode(this);
     }
 
     @Override

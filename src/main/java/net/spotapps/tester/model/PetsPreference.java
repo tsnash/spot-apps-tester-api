@@ -63,9 +63,14 @@ public class PetsPreference {
         if (this.pets == null) {
             this.pets = new ArrayList<>();
         }
+        // Maintain bidirectional consistency
+        this.pets.forEach(p -> p.setPetsPreference(null));
         this.pets.clear();
         if (pets != null) {
-            this.pets.addAll(pets);
+            for (Pet pet : pets) {
+                pet.setPetsPreference(this);
+                this.pets.add(pet);
+            }
         }
     }
 

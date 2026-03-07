@@ -68,17 +68,25 @@ public class Vice {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Vice)) return false;
-        Vice vice = (Vice) o;
-        return Objects.equals(viceId, vice.viceId);
+        Vice other = (Vice) o;
+        if (viceId != null && other.getViceId() != null) {
+            return Objects.equals(viceId, other.getViceId());
+        }
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(viceId);
+        if (viceId != null) {
+            return Objects.hash(viceId);
+        }
+        return System.identityHashCode(this);
     }
 
     @Override
     public String toString() {
-        return "Vice [viceId=" + viceId + "]";
+        String typeName = (viceType != null) ? viceType.getName() : "null";
+        String freqName = (frequency != null) ? frequency.getName() : "null";
+        return "Vice [viceId=" + viceId + ", type=" + typeName + ", frequency=" + freqName + "]";
     }
 }

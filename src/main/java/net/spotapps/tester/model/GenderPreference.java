@@ -68,7 +68,7 @@ public class GenderPreference {
     }
 
     public void setTrans(Boolean isTrans) {
-        this.isTrans = isTrans;
+        this.isTrans = isTrans != null ? isTrans : false;
     }
 
     public Orientation getOrientation() {

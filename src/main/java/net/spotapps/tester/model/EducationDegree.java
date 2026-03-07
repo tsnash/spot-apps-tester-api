@@ -46,13 +46,13 @@ public class EducationDegree {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof EducationDegree)) return false;
-        EducationDegree other = (EducationDegree) o;
-        return Objects.equals(educationDegreeId, other.educationDegreeId) && Objects.equals(name, other.name);
+        EducationDegree that = (EducationDegree) o;
+        return Objects.equals(name, that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(educationDegreeId, name);
+        return Objects.hash(name);
     }
 
     @Override

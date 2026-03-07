@@ -46,13 +46,13 @@ public class ChildGender {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ChildGender)) return false;
-        ChildGender other = (ChildGender) o;
-        return Objects.equals(childGenderId, other.childGenderId) && Objects.equals(name, other.name);
+        ChildGender that = (ChildGender) o;
+        return Objects.equals(name, that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(childGenderId, name);
+        return Objects.hash(name);
     }
 
     @Override

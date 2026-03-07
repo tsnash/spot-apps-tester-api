@@ -1,6 +1,7 @@
 package net.spotapps.tester.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -37,10 +38,12 @@ public class AgePreference {
 
     @Schema(description = "The minimum age the user is interested in")
     @Column(name = "min_age")
+    @Min(0)
     private Integer minAge;
 
     @Schema(description = "The maximum age the user is interested in")
     @Column(name = "max_age")
+    @Min(0)
     private Integer maxAge;
 
     public Long getUserId() {
@@ -88,6 +91,14 @@ public class AgePreference {
     }
 
     public void setMinAge(Integer minAge) {
+        if (minAge != null) {
+            if (minAge < 0) {
+                throw new IllegalArgumentException("Minimum age cannot be negative");
+            }
+            if (maxAge != null && minAge > maxAge) {
+                throw new IllegalArgumentException("Minimum age cannot be greater than maximum age");
+            }
+        }
         this.minAge = minAge;
     }
 
@@ -96,6 +107,14 @@ public class AgePreference {
     }
 
     public void setMaxAge(Integer maxAge) {
+        if (maxAge != null) {
+            if (maxAge < 0) {
+                throw new IllegalArgumentException("Maximum age cannot be negative");
+            }
+            if (minAge != null && maxAge < minAge) {
+                throw new IllegalArgumentException("Maximum age cannot be less than minimum age");
+            }
+        }
         this.maxAge = maxAge;
     }
 

@@ -46,13 +46,13 @@ public class Gender {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Gender)) return false;
-        Gender gender = (Gender) o;
-        return Objects.equals(genderId, gender.genderId) && Objects.equals(name, gender.name);
+        Gender that = (Gender) o;
+        return Objects.equals(name, that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(genderId, name);
+        return Objects.hash(name);
     }
 
     @Override
