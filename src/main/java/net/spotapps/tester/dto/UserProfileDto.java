@@ -1,5 +1,6 @@
 package net.spotapps.tester.dto;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -527,7 +528,9 @@ public class UserProfileDto {
     private static DietPreferenceDto mapDietPreference(net.spotapps.tester.model.DietPreference dp) {
         if (dp == null) return null;
         DietPreferenceDto dto = new DietPreferenceDto();
-        dto.setRestrictions(dp.getRestrictions());
+        if (dp.getRestrictions() != null) {
+            dto.setRestrictions(new HashSet<>(dp.getRestrictions()));
+        }
         dto.setImportance(dp.getImportance());
         return dto;
     }

@@ -85,8 +85,8 @@ public class Vice {
 
     @Override
     public String toString() {
-        String typeName = (viceType != null) ? viceType.getName() : "null";
-        String freqName = (frequency != null) ? frequency.getName() : "null";
-        return "Vice [viceId=" + viceId + ", type=" + typeName + ", frequency=" + freqName + "]";
+        String typeId = (viceType != null) ? String.valueOf(viceType.getViceTypeId()) : "null";
+        String freqId = (frequency != null) ? String.valueOf(frequency.getViceFrequencyId()) : "null";
+        return "Vice [viceId=" + viceId + ", typeId=" + typeId + ", frequencyId=" + freqId + "]";
     }
 }
