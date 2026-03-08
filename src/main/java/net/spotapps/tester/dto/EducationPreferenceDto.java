@@ -5,7 +5,10 @@ import jakarta.validation.constraints.Min;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class EducationPreferenceDto {
     @JsonProperty("highestDegree")
     private EducationDegreeDto highestDegree;
@@ -22,4 +25,17 @@ public class EducationPreferenceDto {
     public void setConcentration(String concentration) { this.concentration = concentration; }
     public Integer getImportance() { return importance; }
     public void setImportance(Integer importance) { this.importance = importance; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EducationPreferenceDto)) return false;
+        EducationPreferenceDto other = (EducationPreferenceDto) o;
+        return Objects.equals(highestDegree, other.highestDegree) && Objects.equals(concentration, other.concentration) && Objects.equals(importance, other.importance);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(highestDegree, concentration, importance);
+    }
 }

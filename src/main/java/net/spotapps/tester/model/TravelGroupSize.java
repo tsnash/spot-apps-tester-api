@@ -17,7 +17,7 @@ public class TravelGroupSize {
     @Column(name = "travel_group_size_id")
     private Long travelGroupSizeId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
     public TravelGroupSize() {}
@@ -38,9 +38,7 @@ public class TravelGroupSize {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     @Override
     public boolean equals(Object o) {

@@ -17,7 +17,7 @@ public class ViceFrequency {
     @Column(name = "vice_frequency_id")
     private Long viceFrequencyId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
     public ViceFrequency() {}
@@ -38,9 +38,7 @@ public class ViceFrequency {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     @Override
     public boolean equals(Object o) {

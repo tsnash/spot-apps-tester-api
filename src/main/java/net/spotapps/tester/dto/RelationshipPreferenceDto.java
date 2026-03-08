@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Set;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class RelationshipPreferenceDto {
     @JsonProperty("relationshipStatus")
     private RelationshipStatusDto relationshipStatus;
@@ -19,4 +22,17 @@ public class RelationshipPreferenceDto {
     public void setRelationshipPractices(Set<RelationshipPracticeDto> relationshipPractices) { this.relationshipPractices = relationshipPractices; }
     public Set<RelationshipInterestDto> getRelationshipInterests() { return relationshipInterests; }
     public void setRelationshipInterests(Set<RelationshipInterestDto> relationshipInterests) { this.relationshipInterests = relationshipInterests; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RelationshipPreferenceDto)) return false;
+        RelationshipPreferenceDto other = (RelationshipPreferenceDto) o;
+        return Objects.equals(relationshipStatus, other.relationshipStatus);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(relationshipStatus);
+    }
 }

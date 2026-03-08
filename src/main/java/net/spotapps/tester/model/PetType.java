@@ -17,7 +17,7 @@ public class PetType {
     @Column(name = "pet_type_id")
     private Long petTypeId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
     public PetType() {}
@@ -38,9 +38,7 @@ public class PetType {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     @Override
     public boolean equals(Object o) {

@@ -17,7 +17,7 @@ public class ViceType {
     @Column(name = "vice_type_id")
     private Long viceTypeId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
     public ViceType() {}
@@ -38,9 +38,7 @@ public class ViceType {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     @Override
     public boolean equals(Object o) {

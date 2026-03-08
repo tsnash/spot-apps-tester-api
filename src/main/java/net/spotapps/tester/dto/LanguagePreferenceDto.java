@@ -6,7 +6,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class LanguagePreferenceDto {
     @JsonProperty("languagesSpoken")
     private List<LanguageDto> languagesSpoken;
@@ -19,4 +22,17 @@ public class LanguagePreferenceDto {
     public void setLanguagesSpoken(List<LanguageDto> languagesSpoken) { this.languagesSpoken = languagesSpoken; }
     public Integer getImportance() { return importance; }
     public void setImportance(Integer importance) { this.importance = importance; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LanguagePreferenceDto)) return false;
+        LanguagePreferenceDto other = (LanguagePreferenceDto) o;
+        return Objects.equals(importance, other.importance);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(importance);
+    }
 }

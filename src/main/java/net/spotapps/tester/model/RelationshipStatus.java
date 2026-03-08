@@ -17,7 +17,7 @@ public class RelationshipStatus {
     @Column(name = "relationship_status_id")
     private Long relationshipStatusId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
     public RelationshipStatus() {}
@@ -38,9 +38,7 @@ public class RelationshipStatus {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     @Override
     public boolean equals(Object o) {

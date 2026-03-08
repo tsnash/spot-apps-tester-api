@@ -7,7 +7,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import net.spotapps.tester.model.DietaryRestriction;
 import java.util.Set;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class DietPreferenceDto {
     @JsonProperty("restrictions")
     private Set<DietaryRestriction> restrictions;
@@ -20,4 +23,17 @@ public class DietPreferenceDto {
     public void setRestrictions(Set<DietaryRestriction> restrictions) { this.restrictions = restrictions; }
     public Integer getImportance() { return importance; }
     public void setImportance(Integer importance) { this.importance = importance; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DietPreferenceDto)) return false;
+        DietPreferenceDto other = (DietPreferenceDto) o;
+        return Objects.equals(importance, other.importance);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(importance);
+    }
 }

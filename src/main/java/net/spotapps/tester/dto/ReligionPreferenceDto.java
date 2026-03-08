@@ -5,7 +5,10 @@ import jakarta.validation.constraints.Min;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class ReligionPreferenceDto {
     @JsonProperty("religion")
     private ReligionDto religion;
@@ -22,4 +25,17 @@ public class ReligionPreferenceDto {
     public void setImportance(Integer importance) { this.importance = importance; }
     public Boolean getSameReligion() { return sameReligion; }
     public void setSameReligion(Boolean sameReligion) { this.sameReligion = sameReligion; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ReligionPreferenceDto)) return false;
+        ReligionPreferenceDto other = (ReligionPreferenceDto) o;
+        return Objects.equals(religion, other.religion) && Objects.equals(importance, other.importance) && Objects.equals(sameReligion, other.sameReligion);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(religion, importance, sameReligion);
+    }
 }

@@ -5,7 +5,10 @@ import jakarta.validation.constraints.Min;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class TravelPreferenceDto {
     @JsonProperty("frequency")
     private TravelFrequencyDto frequency;
@@ -30,4 +33,17 @@ public class TravelPreferenceDto {
     public void setGroupSize(TravelGroupSizeDto groupSize) { this.groupSize = groupSize; }
     public Integer getImportance() { return importance; }
     public void setImportance(Integer importance) { this.importance = importance; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TravelPreferenceDto)) return false;
+        TravelPreferenceDto other = (TravelPreferenceDto) o;
+        return Objects.equals(frequency, other.frequency) && Objects.equals(duration, other.duration) && Objects.equals(distance, other.distance) && Objects.equals(groupSize, other.groupSize) && Objects.equals(importance, other.importance);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(frequency, duration, distance, groupSize, importance);
+    }
 }

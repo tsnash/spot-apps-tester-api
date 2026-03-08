@@ -17,7 +17,7 @@ public class EducationDegree {
     @Column(name = "education_degree_id")
     private Long educationDegreeId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
     public EducationDegree() {}
@@ -38,9 +38,7 @@ public class EducationDegree {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     @Override
     public boolean equals(Object o) {

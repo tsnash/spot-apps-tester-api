@@ -3,7 +3,10 @@ package net.spotapps.tester.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class GenderPreferenceDto {
     @JsonProperty("gender")
     private GenderDto gender;
@@ -18,4 +21,17 @@ public class GenderPreferenceDto {
     public void setTrans(Boolean trans) { this.trans = trans; }
     public OrientationDto getOrientation() { return orientation; }
     public void setOrientation(OrientationDto orientation) { this.orientation = orientation; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GenderPreferenceDto)) return false;
+        GenderPreferenceDto other = (GenderPreferenceDto) o;
+        return Objects.equals(gender, other.gender) && Objects.equals(trans, other.trans) && Objects.equals(orientation, other.orientation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(gender, trans, orientation);
+    }
 }

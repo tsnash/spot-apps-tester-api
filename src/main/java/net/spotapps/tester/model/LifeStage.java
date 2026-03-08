@@ -17,7 +17,7 @@ public class LifeStage {
     @Column(name = "life_stage_id")
     private Long lifeStageId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
     public LifeStage() {}
@@ -38,9 +38,7 @@ public class LifeStage {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     @Override
     public boolean equals(Object o) {

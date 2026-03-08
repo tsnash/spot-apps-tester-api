@@ -19,4 +19,17 @@ public class LocationPreferenceDto {
     public void setDistanceInMiles(Double distanceInMiles) { this.distanceInMiles = distanceInMiles; }
     public Double getDistanceInKilometers() { return distanceInKilometers; }
     public void setDistanceInKilometers(Double distanceInKilometers) { this.distanceInKilometers = distanceInKilometers; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LocationPreferenceDto)) return false;
+        LocationPreferenceDto other = (LocationPreferenceDto) o;
+        return Objects.equals(useLocal, other.useLocal) && Objects.equals(distanceInMiles, other.distanceInMiles) && Objects.equals(distanceInKilometers, other.distanceInKilometers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(useLocal, distanceInMiles, distanceInKilometers);
+    }
 }

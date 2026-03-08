@@ -17,7 +17,7 @@ public class TravelFrequency {
     @Column(name = "travel_frequency_id")
     private Long travelFrequencyId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
     public TravelFrequency() {}
@@ -38,9 +38,7 @@ public class TravelFrequency {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     @Override
     public boolean equals(Object o) {

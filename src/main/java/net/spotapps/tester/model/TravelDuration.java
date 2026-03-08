@@ -17,7 +17,7 @@ public class TravelDuration {
     @Column(name = "travel_duration_id")
     private Long travelDurationId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
     public TravelDuration() {}
@@ -38,9 +38,7 @@ public class TravelDuration {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     @Override
     public boolean equals(Object o) {

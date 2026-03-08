@@ -17,7 +17,7 @@ public class TravelDistance {
     @Column(name = "travel_distance_id")
     private Long travelDistanceId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
     public TravelDistance() {}
@@ -38,9 +38,7 @@ public class TravelDistance {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     @Override
     public boolean equals(Object o) {

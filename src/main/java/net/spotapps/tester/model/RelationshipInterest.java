@@ -17,7 +17,7 @@ public class RelationshipInterest {
     @Column(name = "relationship_interest_id")
     private Long relationshipInterestId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
     public RelationshipInterest() {}
@@ -38,9 +38,7 @@ public class RelationshipInterest {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     @Override
     public boolean equals(Object o) {

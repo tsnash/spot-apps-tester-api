@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ContactPreferenceDto {
 
@@ -67,5 +69,18 @@ public class ContactPreferenceDto {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ContactPreferenceDto)) return false;
+        ContactPreferenceDto other = (ContactPreferenceDto) o;
+        return Objects.equals(firstName, other.firstName) && Objects.equals(lastName, other.lastName) && Objects.equals(phoneNumber, other.phoneNumber) && Objects.equals(emailAddress, other.emailAddress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, phoneNumber, emailAddress);
     }
 }

@@ -3,7 +3,10 @@ package net.spotapps.tester.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class SocialPersonalityDto {
     @JsonProperty("openness")
     private PersonalityScaleDto openness;
@@ -26,4 +29,17 @@ public class SocialPersonalityDto {
     public void setAgreeableness(PersonalityScaleDto agreeableness) { this.agreeableness = agreeableness; }
     public PersonalityScaleDto getNeuroticism() { return neuroticism; }
     public void setNeuroticism(PersonalityScaleDto neuroticism) { this.neuroticism = neuroticism; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SocialPersonalityDto)) return false;
+        SocialPersonalityDto other = (SocialPersonalityDto) o;
+        return Objects.equals(openness, other.openness) && Objects.equals(conscientiousness, other.conscientiousness) && Objects.equals(extraversion, other.extraversion) && Objects.equals(agreeableness, other.agreeableness) && Objects.equals(neuroticism, other.neuroticism);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(openness, conscientiousness, extraversion, agreeableness, neuroticism);
+    }
 }
