@@ -19,7 +19,7 @@ public class LocationPreferenceRepositoryTest extends AbstractRepositoryTestBase
 
     @Test
     void mapsIdIsDerivedFromUserProfile() {
-        UserProfile userProfile = createAndSaveUser();
+        UserProfile userProfile = createAndSaveUserWithProfile();
         assertThat(userProfile.getUserId()).isNotNull();
 
         LocationPreference pref = new LocationPreference();

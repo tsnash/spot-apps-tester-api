@@ -19,7 +19,7 @@ public class PetsPreferenceRepositoryTest extends AbstractRepositoryTestBase {
 
     @Test
     void mapsIdIsDerivedFromUserProfile() {
-        UserProfile userProfile = createAndSaveUser();
+        UserProfile userProfile = createAndSaveUserWithProfile();
         assertThat(userProfile.getUserId()).isNotNull();
 
         PetsPreference pref = new PetsPreference();

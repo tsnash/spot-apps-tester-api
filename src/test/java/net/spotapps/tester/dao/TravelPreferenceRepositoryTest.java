@@ -19,7 +19,7 @@ public class TravelPreferenceRepositoryTest extends AbstractRepositoryTestBase {
 
     @Test
     void mapsIdIsDerivedFromUserProfile() {
-        UserProfile userProfile = createAndSaveUser();
+        UserProfile userProfile = createAndSaveUserWithProfile();
         assertThat(userProfile.getUserId()).isNotNull();
 
         TravelPreference pref = new TravelPreference();

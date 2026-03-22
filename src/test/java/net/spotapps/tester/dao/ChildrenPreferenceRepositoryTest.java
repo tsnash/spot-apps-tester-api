@@ -19,7 +19,7 @@ public class ChildrenPreferenceRepositoryTest extends AbstractRepositoryTestBase
 
     @Test
     void mapsIdIsDerivedFromUserProfile() {
-        UserProfile userProfile = createAndSaveUser();
+        UserProfile userProfile = createAndSaveUserWithProfile();
         assertThat(userProfile.getUserId()).isNotNull();
 
         ChildrenPreference pref = new ChildrenPreference();

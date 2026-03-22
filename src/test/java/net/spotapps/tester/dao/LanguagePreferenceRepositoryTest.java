@@ -19,7 +19,7 @@ public class LanguagePreferenceRepositoryTest extends AbstractRepositoryTestBase
 
     @Test
     void mapsIdIsDerivedFromUserProfile() {
-        UserProfile userProfile = createAndSaveUser();
+        UserProfile userProfile = createAndSaveUserWithProfile();
         assertThat(userProfile.getUserId()).isNotNull();
 
         LanguagePreference pref = new LanguagePreference();

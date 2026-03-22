@@ -19,7 +19,7 @@ public class ReligionPreferenceRepositoryTest extends AbstractRepositoryTestBase
 
     @Test
     void mapsIdIsDerivedFromUserProfile() {
-        UserProfile userProfile = createAndSaveUser();
+        UserProfile userProfile = createAndSaveUserWithProfile();
         assertThat(userProfile.getUserId()).isNotNull();
 
         ReligionPreference pref = new ReligionPreference();

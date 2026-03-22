@@ -10,7 +10,7 @@ public abstract class AbstractRepositoryTestBase {
     @Autowired
     protected TestEntityManager entityManager;
 
-    protected UserProfile createAndSaveUser() {
+    protected UserProfile createAndSaveUserWithProfile() {
         User user = new User();
         entityManager.persist(user);
         UserProfile userProfile = new UserProfile();

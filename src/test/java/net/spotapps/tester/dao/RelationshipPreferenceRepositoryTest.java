@@ -19,7 +19,7 @@ public class RelationshipPreferenceRepositoryTest extends AbstractRepositoryTest
 
     @Test
     void mapsIdIsDerivedFromUserProfile() {
-        UserProfile userProfile = createAndSaveUser();
+        UserProfile userProfile = createAndSaveUserWithProfile();
         assertThat(userProfile.getUserId()).isNotNull();
 
         RelationshipPreference pref = new RelationshipPreference();

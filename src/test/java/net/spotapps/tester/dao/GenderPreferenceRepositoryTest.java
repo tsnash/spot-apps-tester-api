@@ -19,7 +19,7 @@ public class GenderPreferenceRepositoryTest extends AbstractRepositoryTestBase {
 
     @Test
     void mapsIdIsDerivedFromUserProfile() {
-        UserProfile userProfile = createAndSaveUser();
+        UserProfile userProfile = createAndSaveUserWithProfile();
         assertThat(userProfile.getUserId()).isNotNull();
 
         GenderPreference pref = new GenderPreference();

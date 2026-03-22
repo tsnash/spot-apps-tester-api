@@ -19,7 +19,7 @@ public class UserInterestRepositoryTest extends AbstractRepositoryTestBase {
 
     @Test
     public void verifyUserInterestPersisted() {
-        UserProfile userProfile = createAndSaveUser();
+        UserProfile userProfile = createAndSaveUserWithProfile();
 
         UserInterest interest = new UserInterest("Coding", userProfile);
 

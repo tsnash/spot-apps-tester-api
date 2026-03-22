@@ -19,7 +19,7 @@ public class EducationPreferenceRepositoryTest extends AbstractRepositoryTestBas
 
     @Test
     void mapsIdIsDerivedFromUserProfile() {
-        UserProfile userProfile = createAndSaveUser();
+        UserProfile userProfile = createAndSaveUserWithProfile();
         assertThat(userProfile.getUserId()).isNotNull();
 
         EducationPreference pref = new EducationPreference();

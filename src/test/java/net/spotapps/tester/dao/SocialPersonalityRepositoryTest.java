@@ -19,7 +19,7 @@ public class SocialPersonalityRepositoryTest extends AbstractRepositoryTestBase 
 
     @Test
     void mapsIdIsDerivedFromUserProfile() {
-        UserProfile userProfile = createAndSaveUser();
+        UserProfile userProfile = createAndSaveUserWithProfile();
         assertThat(userProfile.getUserId()).isNotNull();
 
         SocialPersonality pref = new SocialPersonality();

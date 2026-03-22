@@ -19,7 +19,7 @@ public class AgePreferenceRepositoryTest extends AbstractRepositoryTestBase {
 
     @Test
     void mapsIdIsDerivedFromUserProfile() {
-        UserProfile userProfile = createAndSaveUser();
+        UserProfile userProfile = createAndSaveUserWithProfile();
         assertThat(userProfile.getUserId()).isNotNull();
 
         AgePreference pref = new AgePreference();

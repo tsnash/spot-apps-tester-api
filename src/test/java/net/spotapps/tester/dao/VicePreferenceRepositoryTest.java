@@ -19,7 +19,7 @@ public class VicePreferenceRepositoryTest extends AbstractRepositoryTestBase {
 
     @Test
     void mapsIdIsDerivedFromUserProfile() {
-        UserProfile userProfile = createAndSaveUser();
+        UserProfile userProfile = createAndSaveUserWithProfile();
         assertThat(userProfile.getUserId()).isNotNull();
 
         VicePreference pref = new VicePreference();
