@@ -1,12 +1,13 @@
 package net.spotapps.tester.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.util.Objects;
 
 @Entity
 @Table(name = "orientations")
@@ -20,7 +21,8 @@ public class Orientation {
     @Column(nullable = false, unique = true)
     private String name;
 
-    public Orientation() {}
+    public Orientation() {
+    }
 
     public Orientation(String name) {
         this.name = name;
@@ -44,8 +46,10 @@ public class Orientation {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Orientation)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Orientation))
+            return false;
         Orientation that = (Orientation) o;
         return Objects.equals(name, that.getName());
     }

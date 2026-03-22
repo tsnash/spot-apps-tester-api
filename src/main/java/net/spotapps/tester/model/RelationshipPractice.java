@@ -1,12 +1,13 @@
 package net.spotapps.tester.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.util.Objects;
 
 @Entity
 @Table(name = "relationship_practices")
@@ -20,7 +21,8 @@ public class RelationshipPractice {
     @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
-    public RelationshipPractice() {}
+    public RelationshipPractice() {
+    }
 
     public RelationshipPractice(String name) {
         this.name = name;
@@ -38,12 +40,12 @@ public class RelationshipPractice {
         return name;
     }
 
-
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof RelationshipPractice)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof RelationshipPractice))
+            return false;
         RelationshipPractice other = (RelationshipPractice) o;
         if (name != null && other.getName() != null) {
             return Objects.equals(name, other.getName());

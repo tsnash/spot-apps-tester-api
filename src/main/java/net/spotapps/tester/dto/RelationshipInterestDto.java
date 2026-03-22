@@ -1,9 +1,10 @@
 package net.spotapps.tester.dto;
 
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -18,7 +19,8 @@ public class RelationshipInterestDto {
     @JsonProperty("name")
     private String name;
 
-    public RelationshipInterestDto() {}
+    public RelationshipInterestDto() {
+    }
 
     public RelationshipInterestDto(Long id, String name) {
         this.relationshipInterestId = id;
@@ -43,8 +45,10 @@ public class RelationshipInterestDto {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         RelationshipInterestDto other = (RelationshipInterestDto) o;
         return Objects.equals(relationshipInterestId, other.relationshipInterestId) && Objects.equals(name, other.name);
     }

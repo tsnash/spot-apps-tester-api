@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
+import jakarta.annotation.PostConstruct;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import jakarta.annotation.PostConstruct;
 import net.spotapps.tester.dao.UserImageRepository;
 import net.spotapps.tester.dao.UserInterestRepository;
 import net.spotapps.tester.dao.UserProfileRepository;

@@ -1,5 +1,7 @@
 package net.spotapps.tester.dto;
 
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
@@ -7,8 +9,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-
-import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ContactPreferenceDto {
@@ -73,10 +73,13 @@ public class ContactPreferenceDto {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ContactPreferenceDto)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof ContactPreferenceDto))
+            return false;
         ContactPreferenceDto other = (ContactPreferenceDto) o;
-        return Objects.equals(firstName, other.firstName) && Objects.equals(lastName, other.lastName) && Objects.equals(phoneNumber, other.phoneNumber) && Objects.equals(emailAddress, other.emailAddress);
+        return Objects.equals(firstName, other.firstName) && Objects.equals(lastName, other.lastName)
+                && Objects.equals(phoneNumber, other.phoneNumber) && Objects.equals(emailAddress, other.emailAddress);
     }
 
     @Override

@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import jakarta.validation.Valid;
+
 import net.spotapps.tester.model.UserProfile;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -327,7 +327,8 @@ public class UserProfileDto {
     }
 
     private static List<UserImageDto> mapImages(UserProfile userProfile) {
-        if (userProfile.getImages() == null) return java.util.Collections.emptyList();
+        if (userProfile.getImages() == null)
+            return java.util.Collections.emptyList();
         return userProfile.getImages().stream()
                 .map(image -> {
                     UserImageDto imageDto = new UserImageDto();
@@ -339,7 +340,8 @@ public class UserProfileDto {
     }
 
     private static List<UserInterestDto> mapInterests(UserProfile userProfile) {
-        if (userProfile.getInterests() == null) return java.util.Collections.emptyList();
+        if (userProfile.getInterests() == null)
+            return java.util.Collections.emptyList();
         return userProfile.getInterests().stream()
                 .map(interest -> {
                     UserInterestDto interestDto = new UserInterestDto();
@@ -351,7 +353,8 @@ public class UserProfileDto {
     }
 
     private static ContactPreferenceDto mapContactPreference(net.spotapps.tester.model.ContactPreference cp) {
-        if (cp == null) return new ContactPreferenceDto();
+        if (cp == null)
+            return new ContactPreferenceDto();
         ContactPreferenceDto dto = new ContactPreferenceDto();
         dto.setFirstName(cp.getFirstName());
         dto.setLastName(cp.getLastName());
@@ -361,7 +364,8 @@ public class UserProfileDto {
     }
 
     private static LocationPreferenceDto mapLocationPreference(net.spotapps.tester.model.LocationPreference lp) {
-        if (lp == null) return new LocationPreferenceDto();
+        if (lp == null)
+            return new LocationPreferenceDto();
         LocationPreferenceDto dto = new LocationPreferenceDto();
         dto.setUseLocal(lp.getUseLocal());
         dto.setDistanceInMiles(lp.getDistanceInMiles());
@@ -370,7 +374,8 @@ public class UserProfileDto {
     }
 
     private static SocialPersonalityDto mapSocialPersonality(net.spotapps.tester.model.SocialPersonality sp) {
-        if (sp == null) return new SocialPersonalityDto();
+        if (sp == null)
+            return new SocialPersonalityDto();
         SocialPersonalityDto dto = new SocialPersonalityDto();
         dto.setOpenness(toDto(sp.getOpenness()));
         dto.setConscientiousness(toDto(sp.getConscientiousness()));
@@ -381,44 +386,60 @@ public class UserProfileDto {
     }
 
     private static PersonalityScaleDto toDto(net.spotapps.tester.model.PersonalityScale ps) {
-        if (ps == null) return null;
+        if (ps == null)
+            return null;
         return new PersonalityScaleDto(ps.getPersonalityScaleId(), ps.getName());
     }
 
     private static GenderPreferenceDto mapGenderPreference(net.spotapps.tester.model.GenderPreference gp) {
-        if (gp == null) return new GenderPreferenceDto();
+        if (gp == null)
+            return new GenderPreferenceDto();
         GenderPreferenceDto dto = new GenderPreferenceDto();
         if (gp.getGender() != null)
             dto.setGender(new GenderDto(gp.getGender().getGenderId(), gp.getGender().getName()));
         dto.setTrans(gp.getTrans());
         if (gp.getOrientation() != null)
-            dto.setOrientation(new OrientationDto(gp.getOrientation().getOrientationId(), gp.getOrientation().getName()));
+            dto.setOrientation(
+                    new OrientationDto(gp.getOrientation().getOrientationId(), gp.getOrientation().getName()));
         return dto;
     }
 
-    private static RelationshipPreferenceDto mapRelationshipPreference(net.spotapps.tester.model.RelationshipPreference rp) {
-        if (rp == null) return new RelationshipPreferenceDto();
+    private static RelationshipPreferenceDto mapRelationshipPreference(
+            net.spotapps.tester.model.RelationshipPreference rp) {
+        if (rp == null)
+            return new RelationshipPreferenceDto();
         RelationshipPreferenceDto dto = new RelationshipPreferenceDto();
         if (rp.getRelationshipStatus() != null)
-            dto.setRelationshipStatus(new RelationshipStatusDto(rp.getRelationshipStatus().getRelationshipStatusId(), rp.getRelationshipStatus().getName()));
+            dto.setRelationshipStatus(new RelationshipStatusDto(rp.getRelationshipStatus().getRelationshipStatusId(),
+                    rp.getRelationshipStatus().getName()));
         if (rp.getRelationshipPractices() != null)
-            dto.setRelationshipPractices(rp.getRelationshipPractices().stream().map(p -> new RelationshipPracticeDto(p.getRelationshipPracticeId(), p.getName())).collect(Collectors.toSet()));
+            dto.setRelationshipPractices(rp.getRelationshipPractices().stream()
+                    .map(p -> new RelationshipPracticeDto(p.getRelationshipPracticeId(), p.getName()))
+                    .collect(Collectors.toSet()));
         if (rp.getRelationshipInterests() != null)
-            dto.setRelationshipInterests(rp.getRelationshipInterests().stream().map(i -> new RelationshipInterestDto(i.getRelationshipInterestId(), i.getName())).collect(Collectors.toSet()));
+            dto.setRelationshipInterests(rp.getRelationshipInterests().stream()
+                    .map(i -> new RelationshipInterestDto(i.getRelationshipInterestId(), i.getName()))
+                    .collect(Collectors.toSet()));
         return dto;
     }
 
     private static ChildrenPreferenceDto mapChildrenPreference(net.spotapps.tester.model.ChildrenPreference cp) {
-        if (cp == null) return new ChildrenPreferenceDto();
+        if (cp == null)
+            return new ChildrenPreferenceDto();
         ChildrenPreferenceDto dto = new ChildrenPreferenceDto();
         dto.setMoreChildren(cp.getMoreChildren());
         if (cp.getChildren() != null) {
             dto.setChildren(cp.getChildren().stream().map(c -> {
                 ChildDto childDto = new ChildDto();
                 childDto.setChildId(c.getChildId());
-                if (c.getLifeStage() != null) childDto.setLifeStage(new LifeStageDto(c.getLifeStage().getLifeStageId(), c.getLifeStage().getName()));
-                if (c.getGender() != null) childDto.setGender(new ChildGenderDto(c.getGender().getChildGenderId(), c.getGender().getName()));
-                if (c.getInHousehold() != null) childDto.setInHousehold(new HouseholdStatusDto(c.getInHousehold().getHouseholdStatusId(), c.getInHousehold().getName()));
+                if (c.getLifeStage() != null)
+                    childDto.setLifeStage(
+                            new LifeStageDto(c.getLifeStage().getLifeStageId(), c.getLifeStage().getName()));
+                if (c.getGender() != null)
+                    childDto.setGender(new ChildGenderDto(c.getGender().getChildGenderId(), c.getGender().getName()));
+                if (c.getInHousehold() != null)
+                    childDto.setInHousehold(new HouseholdStatusDto(c.getInHousehold().getHouseholdStatusId(),
+                            c.getInHousehold().getName()));
                 return childDto;
             }).toList());
         }
@@ -426,7 +447,8 @@ public class UserProfileDto {
     }
 
     private static AgePreferenceDto mapAgePreference(net.spotapps.tester.model.AgePreference ap) {
-        if (ap == null) return new AgePreferenceDto();
+        if (ap == null)
+            return new AgePreferenceDto();
         AgePreferenceDto dto = new AgePreferenceDto();
         dto.setDay(ap.getDay());
         dto.setMonth(ap.getMonth());
@@ -437,7 +459,8 @@ public class UserProfileDto {
     }
 
     private static ReligionPreferenceDto mapReligionPreference(net.spotapps.tester.model.ReligionPreference rp) {
-        if (rp == null) return new ReligionPreferenceDto();
+        if (rp == null)
+            return new ReligionPreferenceDto();
         ReligionPreferenceDto dto = new ReligionPreferenceDto();
         if (rp.getReligion() != null) {
             ReligionDto rDto = new ReligionDto();
@@ -452,24 +475,28 @@ public class UserProfileDto {
     }
 
     private static EducationPreferenceDto mapEducationPreference(net.spotapps.tester.model.EducationPreference ep) {
-        if (ep == null) return new EducationPreferenceDto();
+        if (ep == null)
+            return new EducationPreferenceDto();
         EducationPreferenceDto dto = new EducationPreferenceDto();
         if (ep.getHighestDegree() != null)
-            dto.setHighestDegree(new EducationDegreeDto(ep.getHighestDegree().getEducationDegreeId(), ep.getHighestDegree().getName()));
+            dto.setHighestDegree(new EducationDegreeDto(ep.getHighestDegree().getEducationDegreeId(),
+                    ep.getHighestDegree().getName()));
         dto.setConcentration(ep.getConcentration());
         dto.setImportance(ep.getImportance());
         return dto;
     }
 
     private static LanguagePreferenceDto mapLanguagePreference(net.spotapps.tester.model.LanguagePreference lp) {
-        if (lp == null) return new LanguagePreferenceDto();
+        if (lp == null)
+            return new LanguagePreferenceDto();
         LanguagePreferenceDto dto = new LanguagePreferenceDto();
         if (lp.getLanguagesSpoken() != null) {
             dto.setLanguagesSpoken(lp.getLanguagesSpoken().stream().map(l -> {
                 LanguageDto lDto = new LanguageDto();
                 lDto.setLanguageId(l.getLanguageId());
                 lDto.setName(l.getName());
-                if (l.getFluency() != null) lDto.setFluency(new FluencyLevelDto(l.getFluency().getFluencyLevelId(), l.getFluency().getName()));
+                if (l.getFluency() != null)
+                    lDto.setFluency(new FluencyLevelDto(l.getFluency().getFluencyLevelId(), l.getFluency().getName()));
                 return lDto;
             }).toList());
         }
@@ -478,14 +505,18 @@ public class UserProfileDto {
     }
 
     private static VicePreferenceDto mapVicePreference(net.spotapps.tester.model.VicePreference vp) {
-        if (vp == null) return new VicePreferenceDto();
+        if (vp == null)
+            return new VicePreferenceDto();
         VicePreferenceDto dto = new VicePreferenceDto();
         if (vp.getVices() != null) {
             dto.setVices(vp.getVices().stream().map(v -> {
                 ViceDto vDto = new ViceDto();
                 vDto.setViceId(v.getViceId());
-                if (v.getViceType() != null) vDto.setViceType(new ViceTypeDto(v.getViceType().getViceTypeId(), v.getViceType().getName()));
-                if (v.getFrequency() != null) vDto.setFrequency(new ViceFrequencyDto(v.getFrequency().getViceFrequencyId(), v.getFrequency().getName()));
+                if (v.getViceType() != null)
+                    vDto.setViceType(new ViceTypeDto(v.getViceType().getViceTypeId(), v.getViceType().getName()));
+                if (v.getFrequency() != null)
+                    vDto.setFrequency(
+                            new ViceFrequencyDto(v.getFrequency().getViceFrequencyId(), v.getFrequency().getName()));
                 return vDto;
             }).toList());
         }
@@ -494,13 +525,15 @@ public class UserProfileDto {
     }
 
     private static PetsPreferenceDto mapPetsPreference(net.spotapps.tester.model.PetsPreference pp) {
-        if (pp == null) return new PetsPreferenceDto();
+        if (pp == null)
+            return new PetsPreferenceDto();
         PetsPreferenceDto dto = new PetsPreferenceDto();
         if (pp.getPets() != null) {
             dto.setPets(pp.getPets().stream().map(p -> {
                 PetDto pDto = new PetDto();
                 pDto.setPetId(p.getPetId());
-                if (p.getPetType() != null) pDto.setPetType(new PetTypeDto(p.getPetType().getPetTypeId(), p.getPetType().getName()));
+                if (p.getPetType() != null)
+                    pDto.setPetType(new PetTypeDto(p.getPetType().getPetTypeId(), p.getPetType().getName()));
                 pDto.setQuantity(p.getQuantity());
                 pDto.setIsAllowed(p.getIsAllowed());
                 return pDto;
@@ -511,22 +544,26 @@ public class UserProfileDto {
     }
 
     private static TravelPreferenceDto mapTravelPreference(net.spotapps.tester.model.TravelPreference tp) {
-        if (tp == null) return new TravelPreferenceDto();
+        if (tp == null)
+            return new TravelPreferenceDto();
         TravelPreferenceDto dto = new TravelPreferenceDto();
         if (tp.getFrequency() != null)
-            dto.setFrequency(new TravelFrequencyDto(tp.getFrequency().getTravelFrequencyId(), tp.getFrequency().getName()));
+            dto.setFrequency(
+                    new TravelFrequencyDto(tp.getFrequency().getTravelFrequencyId(), tp.getFrequency().getName()));
         if (tp.getDuration() != null)
             dto.setDuration(new TravelDurationDto(tp.getDuration().getTravelDurationId(), tp.getDuration().getName()));
         if (tp.getDistance() != null)
             dto.setDistance(new TravelDistanceDto(tp.getDistance().getTravelDistanceId(), tp.getDistance().getName()));
         if (tp.getGroupSize() != null)
-            dto.setGroupSize(new TravelGroupSizeDto(tp.getGroupSize().getTravelGroupSizeId(), tp.getGroupSize().getName()));
+            dto.setGroupSize(
+                    new TravelGroupSizeDto(tp.getGroupSize().getTravelGroupSizeId(), tp.getGroupSize().getName()));
         dto.setImportance(tp.getImportance());
         return dto;
     }
 
     private static DietPreferenceDto mapDietPreference(net.spotapps.tester.model.DietPreference dp) {
-        if (dp == null) return new DietPreferenceDto();
+        if (dp == null)
+            return new DietPreferenceDto();
         DietPreferenceDto dto = new DietPreferenceDto();
         if (dp.getRestrictions() != null) {
             dto.setRestrictions(new HashSet<>(dp.getRestrictions()));

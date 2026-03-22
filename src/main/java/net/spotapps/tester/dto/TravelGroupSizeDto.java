@@ -1,9 +1,10 @@
 package net.spotapps.tester.dto;
 
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -18,7 +19,8 @@ public class TravelGroupSizeDto {
     @JsonProperty("name")
     private String name;
 
-    public TravelGroupSizeDto() {}
+    public TravelGroupSizeDto() {
+    }
 
     public TravelGroupSizeDto(Long id, String name) {
         this.travelGroupSizeId = id;
@@ -43,8 +45,10 @@ public class TravelGroupSizeDto {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         TravelGroupSizeDto other = (TravelGroupSizeDto) o;
         return Objects.equals(travelGroupSizeId, other.travelGroupSizeId) && Objects.equals(name, other.name);
     }

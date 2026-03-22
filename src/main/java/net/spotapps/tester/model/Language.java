@@ -1,5 +1,7 @@
 package net.spotapps.tester.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -9,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.Objects;
 
 @Entity
 @Table(name = "languages")
@@ -65,8 +66,10 @@ public class Language {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Language)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Language))
+            return false;
         Language other = (Language) o;
         if (languageId != null && other.getLanguageId() != null) {
             return Objects.equals(languageId, other.getLanguageId());

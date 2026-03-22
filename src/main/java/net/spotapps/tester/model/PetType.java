@@ -1,12 +1,13 @@
 package net.spotapps.tester.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.util.Objects;
 
 @Entity
 @Table(name = "pet_types")
@@ -20,7 +21,8 @@ public class PetType {
     @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
-    public PetType() {}
+    public PetType() {
+    }
 
     public PetType(String name) {
         this.name = name;
@@ -38,12 +40,12 @@ public class PetType {
         return name;
     }
 
-
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof PetType)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof PetType))
+            return false;
         PetType that = (PetType) o;
         return Objects.equals(name, that.getName());
     }

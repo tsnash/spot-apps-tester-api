@@ -1,9 +1,10 @@
 package net.spotapps.tester.dto;
 
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -18,7 +19,8 @@ public class GenderDto {
     @JsonProperty("name")
     private String name;
 
-    public GenderDto() {}
+    public GenderDto() {
+    }
 
     public GenderDto(Long id, String name) {
         this.genderId = id;
@@ -43,8 +45,10 @@ public class GenderDto {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         GenderDto other = (GenderDto) o;
         return Objects.equals(genderId, other.genderId) && Objects.equals(name, other.name);
     }

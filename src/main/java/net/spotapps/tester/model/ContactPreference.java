@@ -1,5 +1,8 @@
 package net.spotapps.tester.model;
 
+import java.util.Objects;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -8,11 +11,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+
 import net.spotapps.tester.persistence.encryption.CryptoConverter;
-
-import java.util.Objects;
-
-import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "contact_preferences")

@@ -1,12 +1,13 @@
 package net.spotapps.tester.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.util.Objects;
 
 @Entity
 @Table(name = "travel_distances")
@@ -20,7 +21,8 @@ public class TravelDistance {
     @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
-    public TravelDistance() {}
+    public TravelDistance() {
+    }
 
     public TravelDistance(String name) {
         this.name = name;
@@ -38,12 +40,12 @@ public class TravelDistance {
         return name;
     }
 
-
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TravelDistance)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof TravelDistance))
+            return false;
         TravelDistance that = (TravelDistance) o;
         return Objects.equals(name, that.getName());
     }

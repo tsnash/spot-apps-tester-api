@@ -1,9 +1,10 @@
 package net.spotapps.tester.dto;
 
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -22,7 +23,8 @@ public class ReligionDto {
     @JsonProperty("branchName")
     private String branchName;
 
-    public ReligionDto() {}
+    public ReligionDto() {
+    }
 
     public Long getReligionId() {
         return religionId;
@@ -50,12 +52,14 @@ public class ReligionDto {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         ReligionDto that = (ReligionDto) o;
         return Objects.equals(religionId, that.religionId) &&
-               Objects.equals(religionName, that.religionName) &&
-               Objects.equals(branchName, that.branchName);
+                Objects.equals(religionName, that.religionName) &&
+                Objects.equals(branchName, that.branchName);
     }
 
     @Override
@@ -65,6 +69,7 @@ public class ReligionDto {
 
     @Override
     public String toString() {
-        return "ReligionDto [religionId=" + religionId + ", religionName=" + religionName + ", branchName=" + branchName + "]";
+        return "ReligionDto [religionId=" + religionId + ", religionName=" + religionName + ", branchName=" + branchName
+                + "]";
     }
 }

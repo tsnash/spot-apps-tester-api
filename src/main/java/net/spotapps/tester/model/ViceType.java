@@ -1,12 +1,13 @@
 package net.spotapps.tester.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.util.Objects;
 
 @Entity
 @Table(name = "vice_types")
@@ -20,7 +21,8 @@ public class ViceType {
     @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
-    public ViceType() {}
+    public ViceType() {
+    }
 
     public ViceType(String name) {
         this.name = name;
@@ -38,12 +40,12 @@ public class ViceType {
         return name;
     }
 
-
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ViceType)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof ViceType))
+            return false;
         ViceType that = (ViceType) o;
         return Objects.equals(name, that.getName());
     }
