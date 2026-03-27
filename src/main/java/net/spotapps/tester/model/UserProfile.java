@@ -14,6 +14,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.NamedAttributeNode;
+import jakarta.persistence.NamedEntityGraph;
+import jakarta.persistence.NamedSubgraph;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -21,6 +24,72 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "user_profiles")
+@NamedEntityGraph(name = "UserProfile.withAssociations", attributeNodes = {
+        @NamedAttributeNode("images"),
+        @NamedAttributeNode("interests"),
+        @NamedAttributeNode("contactPreference"),
+        @NamedAttributeNode("locationPreference"),
+        @NamedAttributeNode("agePreference"),
+        @NamedAttributeNode(value = "socialPersonality", subgraph = "social-subgraph"),
+        @NamedAttributeNode(value = "genderPreference", subgraph = "gender-subgraph"),
+        @NamedAttributeNode(value = "relationshipPreference", subgraph = "relationship-subgraph"),
+        @NamedAttributeNode(value = "childrenPreference", subgraph = "children-subgraph"),
+        @NamedAttributeNode(value = "religionPreference", subgraph = "religion-subgraph"),
+        @NamedAttributeNode(value = "educationPreference", subgraph = "education-subgraph"),
+        @NamedAttributeNode(value = "vicePreference", subgraph = "vice-subgraph"),
+        @NamedAttributeNode(value = "petsPreference", subgraph = "pets-subgraph"),
+        @NamedAttributeNode(value = "travelPreference", subgraph = "travel-subgraph")
+}, subgraphs = {
+        @NamedSubgraph(name = "gender-subgraph", attributeNodes = {
+                @NamedAttributeNode("gender"),
+                @NamedAttributeNode("orientation")
+        }),
+        @NamedSubgraph(name = "social-subgraph", attributeNodes = {
+                @NamedAttributeNode("openness"),
+                @NamedAttributeNode("conscientiousness"),
+                @NamedAttributeNode("extraversion"),
+                @NamedAttributeNode("agreeableness"),
+                @NamedAttributeNode("neuroticism")
+        }),
+        @NamedSubgraph(name = "relationship-subgraph", attributeNodes = {
+                @NamedAttributeNode("relationshipStatus"),
+                @NamedAttributeNode("relationshipPractices"),
+                @NamedAttributeNode("relationshipInterests")
+        }),
+        @NamedSubgraph(name = "children-subgraph", attributeNodes = {
+                @NamedAttributeNode(value = "children", subgraph = "child-details-subgraph")
+        }),
+        @NamedSubgraph(name = "child-details-subgraph", attributeNodes = {
+                @NamedAttributeNode("lifeStage"),
+                @NamedAttributeNode("gender"),
+                @NamedAttributeNode("inHousehold")
+        }),
+        @NamedSubgraph(name = "religion-subgraph", attributeNodes = {
+                @NamedAttributeNode("religion")
+        }),
+        @NamedSubgraph(name = "education-subgraph", attributeNodes = {
+                @NamedAttributeNode("highestDegree")
+        }),
+        @NamedSubgraph(name = "vice-subgraph", attributeNodes = {
+                @NamedAttributeNode(value = "vices", subgraph = "vice-details-subgraph")
+        }),
+        @NamedSubgraph(name = "vice-details-subgraph", attributeNodes = {
+                @NamedAttributeNode("viceType"),
+                @NamedAttributeNode("frequency")
+        }),
+        @NamedSubgraph(name = "pets-subgraph", attributeNodes = {
+                @NamedAttributeNode(value = "pets", subgraph = "pet-details-subgraph")
+        }),
+        @NamedSubgraph(name = "pet-details-subgraph", attributeNodes = {
+                @NamedAttributeNode("petType")
+        }),
+        @NamedSubgraph(name = "travel-subgraph", attributeNodes = {
+                @NamedAttributeNode("frequency"),
+                @NamedAttributeNode("duration"),
+                @NamedAttributeNode("distance"),
+                @NamedAttributeNode("groupSize")
+        })
+})
 public class UserProfile {
 
     @Id
