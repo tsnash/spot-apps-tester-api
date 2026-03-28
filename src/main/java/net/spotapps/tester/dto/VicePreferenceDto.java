@@ -41,11 +41,12 @@ public class VicePreferenceDto {
         if (!(o instanceof VicePreferenceDto))
             return false;
         VicePreferenceDto other = (VicePreferenceDto) o;
-        return Objects.equals(importance, other.importance);
+        return Objects.equals(importance, other.importance)
+                && Objects.equals(vices, other.vices);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(importance);
+        return Objects.hash(importance, vices);
     }
 }
