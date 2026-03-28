@@ -3,6 +3,7 @@ package net.spotapps.tester.dao;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.NonNull;
@@ -11,15 +12,15 @@ import net.spotapps.tester.model.UserProfile;
 
 public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {
 
-    @Override
     @NonNull
+    @Query("SELECT u FROM UserProfile u WHERE u.userId = :id")
     @EntityGraph(value = "UserProfile.withAssociations")
-    Optional<UserProfile> findById(@NonNull Long id);
+    Optional<UserProfile> findWithAssociationsByUserId(@NonNull Long id);
 
-    @Override
     @NonNull
+    @Query("SELECT u FROM UserProfile u")
     @EntityGraph(value = "UserProfile.withAssociations")
-    List<UserProfile> findAll();
+    List<UserProfile> findAllWithAssociations();
 
     @NonNull
     @EntityGraph(value = "UserProfile.withAssociations")

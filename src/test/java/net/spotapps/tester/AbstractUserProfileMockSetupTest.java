@@ -8,6 +8,7 @@ import static net.spotapps.tester.UserProfileConstants.USER_PROFILE_COLLECTION_N
 import static net.spotapps.tester.UserProfileConstants.USER_PROFILE_NOT_FOUND_MESSAGE;
 
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
@@ -34,34 +35,34 @@ public abstract class AbstractUserProfileMockSetupTest {
         public void setUp() {
                 testUserProfile1 = new UserProfile();
                 testUserProfile1.setUserId(1L);
-                testUserProfile1.setImages(Arrays.asList(
+                testUserProfile1.setImages(new LinkedHashSet<>(Arrays.asList(
                                 new UserImage(1L, "four"),
                                 new UserImage(2L, "images"),
                                 new UserImage(3L, "only"),
-                                new UserImage(4L, "please")));
-                testUserProfile1.setInterests(Arrays.asList(
+                                new UserImage(4L, "please"))));
+                testUserProfile1.setInterests(new LinkedHashSet<>(Arrays.asList(
                                 new UserInterest(1L, "up"),
                                 new UserInterest(2L, "to"),
                                 new UserInterest(3L, "six"),
                                 new UserInterest(4L, "of"),
                                 new UserInterest(5L, "these"),
-                                new UserInterest(6L, "allowed")));
+                                new UserInterest(6L, "allowed"))));
 
                 testUserProfileDto1 = UserProfileDto.convertUserProfileToDto(testUserProfile1);
 
                 testUserProfile2 = new UserProfile();
                 testUserProfile2.setUserId(2L);
-                testUserProfile2.setImages(Arrays.asList(
+                testUserProfile2.setImages(new LinkedHashSet<>(Arrays.asList(
                                 new UserImage(5L, "just"),
                                 new UserImage(6L, "these"),
                                 new UserImage(7L, "four"),
-                                new UserImage(8L, "images")));
-                testUserProfile2.setInterests(Arrays.asList(
+                                new UserImage(8L, "images"))));
+                testUserProfile2.setInterests(new LinkedHashSet<>(Arrays.asList(
                                 new UserInterest(7L, "you"),
                                 new UserInterest(8L, "can"),
                                 new UserInterest(9L, "vary"),
                                 new UserInterest(10L, "this"),
-                                new UserInterest(11L, "amount")));
+                                new UserInterest(11L, "amount"))));
 
                 testUserProfileDto2 = UserProfileDto.convertUserProfileToDto(testUserProfile2);
 

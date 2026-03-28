@@ -1,8 +1,8 @@
 package net.spotapps.tester.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -32,7 +33,8 @@ public class PetsPreference {
 
     @Schema(description = "List of user's pets")
     @OneToMany(mappedBy = "petsPreference", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Pet> pets = new ArrayList<>();
+    @OrderBy("petId ASC")
+    private Set<Pet> pets = new LinkedHashSet<>();
 
     @Schema(description = "The importance of pet preferences to the user (1-5)")
     @Column(name = "importance")
@@ -56,13 +58,13 @@ public class PetsPreference {
         this.userProfile = userProfile;
     }
 
-    public List<Pet> getPets() {
+    public Set<Pet> getPets() {
         return pets;
     }
 
-    public void setPets(List<Pet> pets) {
+    public void setPets(Set<Pet> pets) {
         if (this.pets == null) {
-            this.pets = new ArrayList<>();
+            this.pets = new LinkedHashSet<>();
         }
         // Maintain bidirectional consistency
         this.pets.forEach(p -> p.setPetsPreference(null));

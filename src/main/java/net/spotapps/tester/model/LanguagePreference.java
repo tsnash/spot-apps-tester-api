@@ -1,8 +1,8 @@
 package net.spotapps.tester.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -32,7 +33,8 @@ public class LanguagePreference {
 
     @Schema(description = "List of languages spoken by the user")
     @OneToMany(mappedBy = "languagePreference", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Language> languagesSpoken = new ArrayList<>();
+    @OrderBy("languageId ASC")
+    private Set<Language> languagesSpoken = new LinkedHashSet<>();
 
     @Schema(description = "The importance of language to the user (1-5)")
     @Column(name = "importance")
@@ -56,13 +58,13 @@ public class LanguagePreference {
         this.userProfile = userProfile;
     }
 
-    public List<Language> getLanguagesSpoken() {
+    public Set<Language> getLanguagesSpoken() {
         return languagesSpoken;
     }
 
-    public void setLanguagesSpoken(List<Language> languagesSpoken) {
+    public void setLanguagesSpoken(Set<Language> languagesSpoken) {
         if (this.languagesSpoken == null) {
-            this.languagesSpoken = new ArrayList<>();
+            this.languagesSpoken = new LinkedHashSet<>();
         }
         // Maintain bidirectional consistency
         this.languagesSpoken.forEach(lang -> lang.setLanguagePreference(null));

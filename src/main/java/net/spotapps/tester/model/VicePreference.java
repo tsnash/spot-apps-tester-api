@@ -1,8 +1,8 @@
 package net.spotapps.tester.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -32,7 +33,8 @@ public class VicePreference {
 
     @Schema(description = "List of user's vices and their frequencies")
     @OneToMany(mappedBy = "vicePreference", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Vice> vices = new ArrayList<>();
+    @OrderBy("viceId ASC")
+    private Set<Vice> vices = new LinkedHashSet<>();
 
     @Schema(description = "The importance of vice preferences to the user (1-5)")
     @Column(name = "importance")
@@ -56,13 +58,13 @@ public class VicePreference {
         this.userProfile = userProfile;
     }
 
-    public List<Vice> getVices() {
+    public Set<Vice> getVices() {
         return vices;
     }
 
-    public void setVices(List<Vice> vices) {
+    public void setVices(Set<Vice> vices) {
         if (this.vices == null) {
-            this.vices = new ArrayList<>();
+            this.vices = new LinkedHashSet<>();
         }
         // Maintain bidirectional consistency
         this.vices.forEach(v -> v.setVicePreference(null));

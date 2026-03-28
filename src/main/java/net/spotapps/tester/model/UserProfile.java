@@ -1,8 +1,8 @@
 package net.spotapps.tester.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
@@ -19,6 +19,7 @@ import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.NamedSubgraph;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -104,8 +105,9 @@ public class UserProfile {
     private User user;
 
     @Schema(description = "List of references to images of the user")
-    @OneToMany(mappedBy = "userProfile")
-    private List<UserImage> images = new ArrayList<>();
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("imageId ASC")
+    private Set<UserImage> images = new LinkedHashSet<>();
 
     @Schema(description = "The contact information and preferences of the user")
     @JsonPropertyDescription("The contact information and preferences of the user")
@@ -178,8 +180,9 @@ public class UserProfile {
     private DietPreference dietPreference;
 
     @Schema(description = "The things and activities the user is interested in")
-    @OneToMany(mappedBy = "userProfile")
-    private List<UserInterest> interests = new ArrayList<>();
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("interestId ASC")
+    private Set<UserInterest> interests = new LinkedHashSet<>();
 
     public Long getUserId() {
         return userId;
@@ -197,13 +200,13 @@ public class UserProfile {
         this.user = user;
     }
 
-    public List<UserImage> getImages() {
+    public Set<UserImage> getImages() {
         return images;
     }
 
-    public void setImages(List<UserImage> images) {
+    public void setImages(Set<UserImage> images) {
         if (this.images == null) {
-            this.images = new ArrayList<>();
+            this.images = new LinkedHashSet<>();
         }
         this.images.clear();
         if (images != null) {
@@ -323,13 +326,13 @@ public class UserProfile {
         this.dietPreference = dietPreference;
     }
 
-    public List<UserInterest> getInterests() {
+    public Set<UserInterest> getInterests() {
         return interests;
     }
 
-    public void setInterests(List<UserInterest> interests) {
+    public void setInterests(Set<UserInterest> interests) {
         if (this.interests == null) {
-            this.interests = new ArrayList<>();
+            this.interests = new LinkedHashSet<>();
         }
         this.interests.clear();
         if (interests != null) {

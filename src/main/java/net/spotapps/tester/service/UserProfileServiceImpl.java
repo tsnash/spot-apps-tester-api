@@ -33,7 +33,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
         Long id = NumberUtils.createLong(userId);
 
-        UserProfile userProfile = userProfileRepository.findById(id).orElseThrow(
+        UserProfile userProfile = userProfileRepository.findWithAssociationsByUserId(id).orElseThrow(
                 () -> new UserProfileNotFoundException(UserProfileConstants.USER_PROFILE_NOT_FOUND_MESSAGE, id));
 
         return UserProfileDto.convertUserProfileToDto(userProfile);
@@ -44,7 +44,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
         if (userIds == null || userIds.isEmpty()) {
             throw new InvalidUserIdCollectionException(
-                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, 
+                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE,
                     userIds == null ? List.of("<null>") : List.of("<empty>"));
         }
 
@@ -72,7 +72,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public List<UserProfileDto> getAllProfiles() {
 
-        return userProfileRepository.findAll().stream()
+        return userProfileRepository.findAllWithAssociations().stream()
                 .map(UserProfileDto::convertUserProfileToDto)
                 .toList();
     }

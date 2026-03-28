@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
@@ -43,7 +44,7 @@ public class UserProfileTest {
 
         UserProfile userProfile3AllFields = new UserProfile();
         userProfile3AllFields.setUserId(3L);
-        userProfile3AllFields.setImages(Arrays.asList(new UserImage()));
+        userProfile3AllFields.setImages(new LinkedHashSet<>(Arrays.asList(new UserImage())));
         userProfile3AllFields.setContactPreference(new ContactPreference());
         userProfile3AllFields.setLocationPreference(new LocationPreference());
         userProfile3AllFields.setSocialPersonality(new SocialPersonality());
@@ -58,11 +59,11 @@ public class UserProfileTest {
         userProfile3AllFields.setPetsPreference(new PetsPreference());
         userProfile3AllFields.setTravelPreference(new TravelPreference());
         userProfile3AllFields.setDietPreference(new DietPreference());
-        userProfile3AllFields.setInterests(Arrays.asList(new UserInterest()));
+        userProfile3AllFields.setInterests(new LinkedHashSet<>(Arrays.asList(new UserInterest())));
 
         UserProfile userProfile4AllFields = new UserProfile();
         userProfile4AllFields.setUserId(4L);
-        userProfile4AllFields.setImages(Arrays.asList(new UserImage()));
+        userProfile4AllFields.setImages(new LinkedHashSet<>(Arrays.asList(new UserImage())));
         userProfile4AllFields.setContactPreference(new ContactPreference());
         userProfile4AllFields.setLocationPreference(new LocationPreference());
         userProfile4AllFields.setSocialPersonality(new SocialPersonality());
@@ -77,7 +78,7 @@ public class UserProfileTest {
         userProfile4AllFields.setPetsPreference(new PetsPreference());
         userProfile4AllFields.setTravelPreference(new TravelPreference());
         userProfile4AllFields.setDietPreference(new DietPreference());
-        userProfile4AllFields.setInterests(Arrays.asList(new UserInterest()));
+        userProfile4AllFields.setInterests(new LinkedHashSet<>(Arrays.asList(new UserInterest())));
 
         return Stream.of(
                 Arguments.of(userProfile1, userProfile2),
@@ -98,7 +99,7 @@ public class UserProfileTest {
 
         UserProfile userProfile1AllFields = new UserProfile();
         userProfile1AllFields.setUserId(1L);
-        userProfile1AllFields.setImages(Arrays.asList(new UserImage()));
+        userProfile1AllFields.setImages(new LinkedHashSet<>(Arrays.asList(new UserImage())));
         userProfile1AllFields.setContactPreference(new ContactPreference());
         userProfile1AllFields.setLocationPreference(new LocationPreference());
         userProfile1AllFields.setSocialPersonality(new SocialPersonality());
@@ -113,7 +114,7 @@ public class UserProfileTest {
         userProfile1AllFields.setPetsPreference(new PetsPreference());
         userProfile1AllFields.setTravelPreference(new TravelPreference());
         userProfile1AllFields.setDietPreference(new DietPreference());
-        userProfile1AllFields.setInterests(Arrays.asList(new UserInterest()));
+        userProfile1AllFields.setInterests(new LinkedHashSet<>(Arrays.asList(new UserInterest())));
 
         return Stream.of(
                 Arguments.of(userProfile1, userProfile1),

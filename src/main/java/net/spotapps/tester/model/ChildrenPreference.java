@@ -1,8 +1,8 @@
 package net.spotapps.tester.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
@@ -32,7 +32,7 @@ public class ChildrenPreference {
     @Schema(description = "List of user's children")
     @OneToMany(mappedBy = "childrenPreference", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("childId ASC")
-    private List<Child> children = new ArrayList<>();
+    private Set<Child> children = new LinkedHashSet<>();
 
     @Schema(description = "Indicates if the user wants more children")
     @Column(name = "more_children")
@@ -54,13 +54,13 @@ public class ChildrenPreference {
         this.userProfile = userProfile;
     }
 
-    public List<Child> getChildren() {
+    public Set<Child> getChildren() {
         return children;
     }
 
-    public void setChildren(List<Child> children) {
+    public void setChildren(Set<Child> children) {
         if (this.children == null) {
-            this.children = new ArrayList<>();
+            this.children = new LinkedHashSet<>();
         }
         // Null out existing children's parent reference to maintain consistency
         this.children.forEach(child -> child.setChildrenPreference(null));

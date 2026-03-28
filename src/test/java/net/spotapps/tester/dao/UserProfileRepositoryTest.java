@@ -47,17 +47,17 @@ public class UserProfileRepositoryTest {
         assertThat(actual.getUserId()).isEqualTo(3L);
 
         assertThat(actual.getImages()).hasSize(1);
-        assertThat(actual.getImages().get(0).getImage()).isEqualTo("0.png");
+        assertThat(actual.getImages().iterator().next().getImage()).isEqualTo("0.png");
 
         assertThat(actual.getInterests()).hasSize(1);
-        assertThat(actual.getInterests().get(0).getInterest()).isEqualTo("programming");
+        assertThat(actual.getInterests().iterator().next().getInterest()).isEqualTo("programming");
 
         assertThat(repository.findById(6L)).isEmpty();
     }
 
     @Test
     public void testFindOneByIdWithAllPreferences() {
-        UserProfile actual = repository.findById(2L).orElseThrow();
+        UserProfile actual = repository.findWithAssociationsByUserId(2L).orElseThrow();
         assertThat(actual.getUserId()).isEqualTo(2L);
 
         assertThat(actual.getLocationPreference()).isNotNull();
@@ -75,7 +75,8 @@ public class UserProfileRepositoryTest {
 
         assertThat(actual.getChildrenPreference()).isNotNull();
         assertThat(actual.getChildrenPreference().getChildren()).hasSize(1);
-        assertThat(actual.getChildrenPreference().getChildren().get(0).getLifeStage().getName()).isEqualTo("Infant");
+        assertThat(actual.getChildrenPreference().getChildren().iterator().next().getLifeStage().getName())
+                .isEqualTo("Infant");
 
         assertThat(actual.getAgePreference()).isNotNull();
         assertThat(actual.getAgePreference().getYear()).isEqualTo("1990");
@@ -88,7 +89,8 @@ public class UserProfileRepositoryTest {
 
         assertThat(actual.getLanguagePreference()).isNotNull();
         assertThat(actual.getLanguagePreference().getLanguagesSpoken()).hasSize(1);
-        assertThat(actual.getLanguagePreference().getLanguagesSpoken().get(0).getName()).isEqualTo("English");
+        assertThat(actual.getLanguagePreference().getLanguagesSpoken().iterator().next().getName())
+                .isEqualTo("English");
 
         assertThat(actual.getVicePreference()).isNotNull();
         assertThat(actual.getVicePreference().getVices()).hasSize(1);
@@ -118,7 +120,9 @@ public class UserProfileRepositoryTest {
 
     @Test
     public void testFindAllByUserIdInOrderByUserIdAsc() {
-        List<Long> expectedIds = Arrays.asList(4L, 2L, 5L);
+        // The findAllByUserIdInOrderByUserIdAsc method already has @EntityGraph,
+        // so we expect eager loading for this specific method.
+        List<Long> expectedIds = List.of(4L, 2L, 5L);
         List<UserProfile> actual = repository.findAllByUserIdInOrderByUserIdAsc(expectedIds);
 
         assertThat(actual)
@@ -126,7 +130,7 @@ public class UserProfileRepositoryTest {
                 .containsExactly(2L, 4L, 5L);
 
         List<Long> notExpectedIds = Arrays.asList(10L, 6L);
-        actual = repository.findAllByUserIdInOrderByUserIdAsc(notExpectedIds);
+        actual = repository.findAllByUserIdInOrderByUserIdAsc(List.of(10L, 6L));
         assertThat(actual).isEmpty();
     }
 }
