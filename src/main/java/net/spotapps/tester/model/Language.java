@@ -25,7 +25,7 @@ public class Language {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fluency_id")
+    @JoinColumn(name = "fluency_level_id")
     private FluencyLevel fluency;
 
     @ManyToOne(fetch = FetchType.LAZY)
