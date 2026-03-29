@@ -42,17 +42,22 @@ public class ChildGender {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof ChildGender))
+        }
+        if (!(o instanceof ChildGender)) {
             return false;
+        }
         ChildGender that = (ChildGender) o;
-        return Objects.equals(name, that.getName());
+        if (name != null && that.name != null) {
+            return Objects.equals(name, that.name);
+        }
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return name != null ? name.hashCode() : System.identityHashCode(this);
     }
 
     @Override
