@@ -50,13 +50,19 @@ public class Orientation {
             return true;
         if (!(o instanceof Orientation))
             return false;
-        Orientation that = (Orientation) o;
-        return Objects.equals(name, that.getName());
+        Orientation other = (Orientation) o;
+        if (orientationId != null && other.getOrientationId() != null) {
+            return Objects.equals(orientationId, other.getOrientationId());
+        }
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        if (orientationId != null) {
+            return Objects.hash(orientationId);
+        }
+        return System.identityHashCode(this);
     }
 
     @Override
