@@ -11,6 +11,7 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.AssertTrue;
 
 @Entity
 @Table(name = "age_preferences")
@@ -39,12 +40,12 @@ public class AgePreference {
 
     @Schema(description = "The minimum age the user is interested in")
     @Column(name = "min_age")
-    @Min(0)
+    @Min(18)
     private Integer minAge;
 
     @Schema(description = "The maximum age the user is interested in")
     @Column(name = "max_age")
-    @Min(0)
+    @Min(18)
     private Integer maxAge;
 
     public Long getUserId() {
@@ -96,9 +97,6 @@ public class AgePreference {
             if (minAge < 0) {
                 throw new IllegalArgumentException("Minimum age cannot be negative");
             }
-            if (maxAge != null && minAge > maxAge) {
-                throw new IllegalArgumentException("Minimum age cannot be greater than maximum age");
-            }
         }
         this.minAge = minAge;
     }
@@ -112,11 +110,21 @@ public class AgePreference {
             if (maxAge < 0) {
                 throw new IllegalArgumentException("Maximum age cannot be negative");
             }
-            if (minAge != null && maxAge < minAge) {
-                throw new IllegalArgumentException("Maximum age cannot be less than minimum age");
-            }
         }
         this.maxAge = maxAge;
+    }
+
+    public void setAgeRange(Integer minAge, Integer maxAge) {
+        if (minAge != null && maxAge != null && minAge > maxAge) {
+            throw new IllegalArgumentException("Minimum age cannot be greater than maximum age");
+        }
+        setMinAge(minAge);
+        setMaxAge(maxAge);
+    }
+
+    @AssertTrue(message = "Minimum age must be less than or equal to maximum age")
+    private boolean isAgeRangeValid() {
+        return minAge == null || maxAge == null || minAge <= maxAge;
     }
 
     @Override
