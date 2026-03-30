@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "orientations")
@@ -18,6 +19,7 @@ public class Orientation {
     @Column(name = "orientation_id")
     private Long orientationId;
 
+    @NotNull
     @Column(nullable = false, unique = true)
     private String name;
 
@@ -25,7 +27,7 @@ public class Orientation {
     }
 
     public Orientation(String name) {
-        this.name = name;
+        setName(name);
     }
 
     public Long getOrientationId() {
@@ -41,7 +43,7 @@ public class Orientation {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNull(name);
     }
 
     @Override

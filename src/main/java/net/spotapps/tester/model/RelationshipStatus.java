@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "relationship_statuses")
@@ -18,6 +19,7 @@ public class RelationshipStatus {
     @Column(name = "relationship_status_id")
     private Long relationshipStatusId;
 
+    @NotNull
     @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
@@ -38,6 +40,10 @@ public class RelationshipStatus {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = Objects.requireNonNull(name);
     }
 
     @Override

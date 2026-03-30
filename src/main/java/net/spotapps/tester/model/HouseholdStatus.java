@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "household_statuses")
@@ -18,6 +19,7 @@ public class HouseholdStatus {
     @Column(name = "household_status_id")
     private Long householdStatusId;
 
+    @NotNull
     @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
@@ -25,7 +27,7 @@ public class HouseholdStatus {
     }
 
     public HouseholdStatus(String name) {
-        this.name = name;
+        setName(name);
     }
 
     public Long getHouseholdStatusId() {
@@ -38,6 +40,10 @@ public class HouseholdStatus {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = Objects.requireNonNull(name);
     }
 
     @Override

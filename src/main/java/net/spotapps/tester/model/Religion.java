@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "religions", uniqueConstraints = {
@@ -21,18 +22,20 @@ public class Religion {
     @Column(name = "religion_id")
     private Long religionId;
 
+    @NotNull
     @Column(name = "religion_name", nullable = false)
     private String religionName;
 
+    @NotNull
     @Column(name = "branch_name", nullable = false)
-    private String branchName = "";
+    private String branchName;
 
     public Religion() {
     }
 
     public Religion(String religionName, String branchName) {
-        this.religionName = religionName;
-        this.branchName = branchName != null ? branchName : "";
+        setReligionName(religionName);
+        setBranchName(branchName);
     }
 
     public Long getReligionId() {
@@ -48,7 +51,7 @@ public class Religion {
     }
 
     public void setReligionName(String religionName) {
-        this.religionName = religionName;
+        this.religionName = Objects.requireNonNull(religionName);
     }
 
     public String getBranchName() {
@@ -56,7 +59,7 @@ public class Religion {
     }
 
     public void setBranchName(String branchName) {
-        this.branchName = branchName != null ? branchName : "";
+        this.branchName = Objects.requireNonNullElse(branchName, "");
     }
 
     @Override

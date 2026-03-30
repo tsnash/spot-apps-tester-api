@@ -11,12 +11,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "languages")
 public class Language {
 
     @Id
+    // TODO: consider replacing with ISO 639 code and remove generated ID
+    // probably in the format of xxxnnn where xxx is the ISO 639 code and nnn is a
+    // sequence number for multiple entries of the same language
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "language_id")
     private Long languageId;
@@ -28,6 +32,7 @@ public class Language {
     @JoinColumn(name = "fluency_level_id")
     private FluencyLevel fluency;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private LanguagePreference languagePreference;
@@ -61,7 +66,7 @@ public class Language {
     }
 
     public void setLanguagePreference(LanguagePreference languagePreference) {
-        this.languagePreference = languagePreference;
+        this.languagePreference = Objects.requireNonNull(languagePreference);
     }
 
     @Override

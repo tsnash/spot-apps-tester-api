@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "pets")
@@ -31,6 +32,7 @@ public class Pet {
     @Column(name = "is_allowed")
     private Boolean isAllowed;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private PetsPreference petsPreference;
@@ -72,7 +74,7 @@ public class Pet {
     }
 
     public void setPetsPreference(PetsPreference petsPreference) {
-        this.petsPreference = petsPreference;
+        this.petsPreference = Objects.requireNonNull(petsPreference);
     }
 
     @Override

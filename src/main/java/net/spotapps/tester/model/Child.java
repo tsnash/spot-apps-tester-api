@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "children")
@@ -33,6 +34,7 @@ public class Child {
     @JoinColumn(name = "household_status_id")
     private HouseholdStatus inHousehold;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private ChildrenPreference childrenPreference;
@@ -74,7 +76,7 @@ public class Child {
     }
 
     public void setChildrenPreference(ChildrenPreference childrenPreference) {
-        this.childrenPreference = childrenPreference;
+        this.childrenPreference = Objects.requireNonNull(childrenPreference);
     }
 
     @Override

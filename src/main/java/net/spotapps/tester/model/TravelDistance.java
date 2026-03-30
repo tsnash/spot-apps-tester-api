@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "travel_distances")
@@ -18,6 +19,7 @@ public class TravelDistance {
     @Column(name = "travel_distance_id")
     private Long travelDistanceId;
 
+    @NotNull
     @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
@@ -38,6 +40,10 @@ public class TravelDistance {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = Objects.requireNonNull(name);
     }
 
     @Override

@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "genders")
@@ -18,6 +19,7 @@ public class Gender {
     @Column(name = "gender_id")
     private Long genderId;
 
+    @NotNull
     @Column(nullable = false, unique = true)
     private String name;
 
@@ -41,7 +43,7 @@ public class Gender {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNull(name);
     }
 
     @Override

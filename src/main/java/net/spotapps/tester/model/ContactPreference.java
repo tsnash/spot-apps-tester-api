@@ -11,7 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
+import jakarta.validation.constraints.NotNull;
 import net.spotapps.tester.persistence.encryption.CryptoConverter;
 
 @Entity
@@ -47,6 +47,7 @@ public class ContactPreference {
     @Convert(converter = CryptoConverter.class)
     private String emailAddress;
 
+    @NotNull
     @Schema(description = "Indicates if the user has verified their email address")
     @Column(name = "email_verified", nullable = false, columnDefinition = "boolean default false")
     private boolean emailVerified;
@@ -104,7 +105,7 @@ public class ContactPreference {
     }
 
     public void setEmailVerified(boolean emailVerified) {
-        this.emailVerified = emailVerified;
+        this.emailVerified = Objects.requireNonNull(emailVerified);
     }
 
     @Override
