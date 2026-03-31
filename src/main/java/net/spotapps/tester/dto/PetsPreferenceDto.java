@@ -18,21 +18,39 @@ public class PetsPreferenceDto {
     @Max(5)
     private Integer importance;
 
-    public List<PetDto> getPets() { return pets; }
-    public void setPets(List<PetDto> pets) { this.pets = pets; }
-    public Integer getImportance() { return importance; }
-    public void setImportance(Integer importance) { this.importance = importance; }
+    public List<PetDto> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<PetDto> pets) {
+        this.pets = pets;
+    }
+
+    public Integer getImportance() {
+        return importance;
+    }
+
+    public void setImportance(Integer importance) {
+        this.importance = importance;
+    }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof PetsPreferenceDto)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof PetsPreferenceDto))
+            return false;
         PetsPreferenceDto other = (PetsPreferenceDto) o;
-        return Objects.equals(importance, other.importance);
+        return Objects.equals(importance, other.importance) && Objects.equals(pets, other.pets);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(importance);
+        return Objects.hash(importance, pets);
+    }
+
+    @Override
+    public String toString() {
+        return "PetsPreferenceDto [pets=" + pets + ", importance=" + importance + "]";
     }
 }

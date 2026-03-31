@@ -77,6 +77,20 @@ public class VicePreference {
         }
     }
 
+    public void addVice(Vice vice) {
+        if (vice != null) {
+            this.vices.add(vice);
+            vice.setVicePreference(this);
+        }
+    }
+
+    public void removeVice(Vice vice) {
+        if (vice != null) {
+            this.vices.remove(vice);
+            vice.setVicePreference(null);
+        }
+    }
+
     public Integer getImportance() {
         return importance;
     }

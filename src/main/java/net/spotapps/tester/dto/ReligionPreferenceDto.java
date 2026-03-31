@@ -58,4 +58,10 @@ public class ReligionPreferenceDto {
     public int hashCode() {
         return Objects.hash(religion, importance, sameReligion);
     }
+
+    @Override
+    public String toString() {
+        return "ReligionPreferenceDto [religion=" + religion + ", importance=" + importance + ", sameReligion="
+                + sameReligion + "]";
+    }
 }

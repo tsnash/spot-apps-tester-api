@@ -47,11 +47,19 @@ public class RelationshipPreferenceDto {
         if (!(o instanceof RelationshipPreferenceDto))
             return false;
         RelationshipPreferenceDto other = (RelationshipPreferenceDto) o;
-        return Objects.equals(relationshipStatus, other.relationshipStatus);
+        return Objects.equals(relationshipStatus, other.relationshipStatus)
+                && Objects.equals(relationshipPractices, other.relationshipPractices)
+                && Objects.equals(relationshipInterests, other.relationshipInterests);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(relationshipStatus);
+        return Objects.hash(relationshipStatus, relationshipPractices, relationshipInterests);
+    }
+
+    @Override
+    public String toString() {
+        return "RelationshipPreferenceDto [relationshipStatus=" + relationshipStatus + ", relationshipPractices="
+                + relationshipPractices + ", relationshipInterests=" + relationshipInterests + "]";
     }
 }

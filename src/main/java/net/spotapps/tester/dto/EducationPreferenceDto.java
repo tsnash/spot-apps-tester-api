@@ -58,4 +58,10 @@ public class EducationPreferenceDto {
     public int hashCode() {
         return Objects.hash(highestDegree, concentration, importance);
     }
+
+    @Override
+    public String toString() {
+        return "EducationPreferenceDto [highestDegree=" + highestDegree + ", concentration=" + concentration
+                + ", importance=" + importance + "]";
+    }
 }

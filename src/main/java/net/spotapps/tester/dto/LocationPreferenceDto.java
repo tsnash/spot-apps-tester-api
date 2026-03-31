@@ -53,4 +53,10 @@ public class LocationPreferenceDto {
     public int hashCode() {
         return Objects.hash(useLocal, distanceInMiles, distanceInKilometers);
     }
+
+    @Override
+    public String toString() {
+        return "LocationPreferenceDto [useLocal=" + useLocal + ", distanceInMiles=" + distanceInMiles
+                + ", distanceInKilometers=" + distanceInKilometers + "]";
+    }
 }

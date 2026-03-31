@@ -49,4 +49,9 @@ public class VicePreferenceDto {
     public int hashCode() {
         return Objects.hash(importance, vices);
     }
+
+    @Override
+    public String toString() {
+        return "VicePreferenceDto [vices=" + vices + ", importance=" + importance + "]";
+    }
 }

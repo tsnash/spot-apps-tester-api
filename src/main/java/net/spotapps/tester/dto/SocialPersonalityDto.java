@@ -75,4 +75,11 @@ public class SocialPersonalityDto {
     public int hashCode() {
         return Objects.hash(openness, conscientiousness, extraversion, agreeableness, neuroticism);
     }
+
+    @Override
+    public String toString() {
+        return "SocialPersonalityDto [openness=" + openness + ", conscientiousness=" + conscientiousness
+                + ", extraversion=" + extraversion + ", agreeableness=" + agreeableness + ", neuroticism=" + neuroticism
+                + "]";
+    }
 }

@@ -61,7 +61,7 @@ public class Vice {
         return vicePreference;
     }
 
-    public void setVicePreference(VicePreference vicePreference) {
+    void setVicePreference(VicePreference vicePreference) {
         this.vicePreference = vicePreference;
     }
 

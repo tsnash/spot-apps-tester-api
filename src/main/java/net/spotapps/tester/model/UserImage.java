@@ -59,7 +59,7 @@ public class UserImage {
         return userProfile;
     }
 
-    public void setUserProfile(UserProfile userProfile) {
+    void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
 

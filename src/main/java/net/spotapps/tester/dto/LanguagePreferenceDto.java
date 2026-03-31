@@ -41,11 +41,16 @@ public class LanguagePreferenceDto {
         if (!(o instanceof LanguagePreferenceDto))
             return false;
         LanguagePreferenceDto other = (LanguagePreferenceDto) o;
-        return Objects.equals(importance, other.importance);
+        return Objects.equals(importance, other.importance) && Objects.equals(languagesSpoken, other.languagesSpoken);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(importance);
+        return Objects.hash(importance, languagesSpoken);
+    }
+
+    @Override
+    public String toString() {
+        return "LanguagePreferenceDto [languagesSpoken=" + languagesSpoken + ", importance=" + importance + "]";
     }
 }

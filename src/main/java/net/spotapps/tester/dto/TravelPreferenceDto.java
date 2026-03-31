@@ -79,4 +79,10 @@ public class TravelPreferenceDto {
     public int hashCode() {
         return Objects.hash(frequency, duration, distance, groupSize, importance);
     }
+
+    @Override
+    public String toString() {
+        return "TravelPreferenceDto [frequency=" + frequency + ", duration=" + duration + ", distance=" + distance
+                + ", groupSize=" + groupSize + ", importance=" + importance + "]";
+    }
 }

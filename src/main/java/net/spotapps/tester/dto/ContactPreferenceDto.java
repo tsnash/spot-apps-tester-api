@@ -86,4 +86,10 @@ public class ContactPreferenceDto {
     public int hashCode() {
         return Objects.hash(firstName, lastName, phoneNumber, emailAddress);
     }
+
+    @Override
+    public String toString() {
+        return "ContactPreferenceDto [firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber="
+                + phoneNumber + ", emailAddress=" + emailAddress + "]";
+    }
 }

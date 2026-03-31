@@ -73,8 +73,8 @@ public class Pet {
         return petsPreference;
     }
 
-    public void setPetsPreference(PetsPreference petsPreference) {
-        this.petsPreference = Objects.requireNonNull(petsPreference);
+    void setPetsPreference(PetsPreference petsPreference) {
+        this.petsPreference = petsPreference;
     }
 
     @Override

@@ -41,11 +41,16 @@ public class ChildrenPreferenceDto {
         if (!(o instanceof ChildrenPreferenceDto))
             return false;
         ChildrenPreferenceDto other = (ChildrenPreferenceDto) o;
-        return Objects.equals(moreChildren, other.moreChildren);
+        return Objects.equals(moreChildren, other.moreChildren) && Objects.equals(children, other.children);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(moreChildren);
+        return Objects.hash(moreChildren, children);
+    }
+
+    @Override
+    public String toString() {
+        return "ChildrenPreferenceDto [children=" + children + ", moreChildren=" + moreChildren + "]";
     }
 }

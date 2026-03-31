@@ -54,4 +54,9 @@ public class GenderPreferenceDto {
     public int hashCode() {
         return Objects.hash(gender, trans, orientation);
     }
+
+    @Override
+    public String toString() {
+        return "GenderPreferenceDto [gender=" + gender + ", trans=" + trans + ", orientation=" + orientation + "]";
+    }
 }

@@ -65,8 +65,8 @@ public class Language {
         return languagePreference;
     }
 
-    public void setLanguagePreference(LanguagePreference languagePreference) {
-        this.languagePreference = Objects.requireNonNull(languagePreference);
+    void setLanguagePreference(LanguagePreference languagePreference) {
+        this.languagePreference = languagePreference;
     }
 
     @Override

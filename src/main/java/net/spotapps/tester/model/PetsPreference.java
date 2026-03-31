@@ -77,6 +77,20 @@ public class PetsPreference {
         }
     }
 
+    public void addPet(Pet pet) {
+        if (pet != null) {
+            this.pets.add(pet);
+            pet.setPetsPreference(this);
+        }
+    }
+
+    public void removePet(Pet pet) {
+        if (pet != null) {
+            this.pets.remove(pet);
+            pet.setPetsPreference(null);
+        }
+    }
+
     public Integer getImportance() {
         return importance;
     }

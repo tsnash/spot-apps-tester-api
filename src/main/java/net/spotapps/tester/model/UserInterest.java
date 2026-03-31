@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "user_interests")
 public class UserInterest {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "interest_id")
@@ -59,7 +59,7 @@ public class UserInterest {
         return userProfile;
     }
 
-    public void setUserProfile(UserProfile userProfile) {
+    void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
 
@@ -97,6 +97,4 @@ public class UserInterest {
         return "UserInterest [interestId=" + interestId + ", interest=" + interest + "]";
     }
 
-    
-    
 }

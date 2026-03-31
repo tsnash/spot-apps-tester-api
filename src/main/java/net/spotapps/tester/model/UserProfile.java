@@ -216,12 +216,32 @@ public class UserProfile {
         }
     }
 
+    public void addImage(UserImage image) {
+        if (image != null) {
+            this.images.add(image);
+            image.setUserProfile(this);
+        }
+    }
+
+    public void removeImage(UserImage image) {
+        if (image != null) {
+            this.images.remove(image);
+            image.setUserProfile(null);
+        }
+    }
+
     public ContactPreference getContactPreference() {
         return contactPreference;
     }
 
     public void setContactPreference(ContactPreference contactPreference) {
+        if (this.contactPreference != null && this.contactPreference != contactPreference) {
+            this.contactPreference.setUserProfile(null);
+        }
         this.contactPreference = contactPreference;
+        if (contactPreference != null && contactPreference.getUserProfile() != this) {
+            contactPreference.setUserProfile(this);
+        }
     }
 
     public LocationPreference getLocationPreference() {
@@ -419,6 +439,20 @@ public class UserProfile {
         for (UserInterest interest : interests) {
             interest.setUserProfile(this);
             this.interests.add(interest);
+        }
+    }
+
+    public void addInterest(UserInterest interest) {
+        if (interest != null) {
+            this.interests.add(interest);
+            interest.setUserProfile(this);
+        }
+    }
+
+    public void removeInterest(UserInterest interest) {
+        if (interest != null) {
+            this.interests.remove(interest);
+            interest.setUserProfile(null);
         }
     }
 

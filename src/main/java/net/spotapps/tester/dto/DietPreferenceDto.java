@@ -43,11 +43,16 @@ public class DietPreferenceDto {
         if (!(o instanceof DietPreferenceDto))
             return false;
         DietPreferenceDto other = (DietPreferenceDto) o;
-        return Objects.equals(importance, other.importance);
+        return Objects.equals(importance, other.importance) && Objects.equals(restrictions, other.restrictions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(importance);
+        return Objects.hash(importance, restrictions);
+    }
+
+    @Override
+    public String toString() {
+        return "DietPreferenceDto [restrictions=" + restrictions + ", importance=" + importance + "]";
     }
 }

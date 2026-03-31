@@ -77,6 +77,20 @@ public class LanguagePreference {
         }
     }
 
+    public void addLanguageSpoken(Language language) {
+        if (language != null) {
+            this.languagesSpoken.add(language);
+            language.setLanguagePreference(this);
+        }
+    }
+
+    public void removeLanguageSpoken(Language language) {
+        if (language != null) {
+            this.languagesSpoken.remove(language);
+            language.setLanguagePreference(null);
+        }
+    }
+
     public Integer getImportance() {
         return importance;
     }
