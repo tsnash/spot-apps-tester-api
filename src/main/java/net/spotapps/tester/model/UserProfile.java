@@ -208,9 +208,11 @@ public class UserProfile {
         if (this.images == null) {
             this.images = new LinkedHashSet<>();
         }
+        this.images.forEach(image -> image.setUserProfile(null));
         this.images.clear();
-        if (images != null) {
-            this.images.addAll(images);
+        for (UserImage image : images) {
+            image.setUserProfile(this);
+            this.images.add(image);
         }
     }
 
@@ -227,7 +229,13 @@ public class UserProfile {
     }
 
     public void setLocationPreference(LocationPreference locationPreference) {
+        if (this.locationPreference != null && this.locationPreference != locationPreference) {
+            this.locationPreference.setUserProfile(null);
+        }
         this.locationPreference = locationPreference;
+        if (locationPreference != null && locationPreference.getUserProfile() != this) {
+            locationPreference.setUserProfile(this);
+        }
     }
 
     public SocialPersonality getSocialPersonality() {
@@ -235,7 +243,13 @@ public class UserProfile {
     }
 
     public void setSocialPersonality(SocialPersonality socialPersonality) {
+        if (this.socialPersonality != null && this.socialPersonality != socialPersonality) {
+            this.socialPersonality.setUserProfile(null);
+        }
         this.socialPersonality = socialPersonality;
+        if (socialPersonality != null && socialPersonality.getUserProfile() != this) {
+            socialPersonality.setUserProfile(this);
+        }
     }
 
     public GenderPreference getGenderPreference() {
@@ -243,7 +257,13 @@ public class UserProfile {
     }
 
     public void setGenderPreference(GenderPreference genderPreference) {
+        if (this.genderPreference != null && this.genderPreference != genderPreference) {
+            this.genderPreference.setUserProfile(null);
+        }
         this.genderPreference = genderPreference;
+        if (genderPreference != null && genderPreference.getUserProfile() != this) {
+            genderPreference.setUserProfile(this);
+        }
     }
 
     public RelationshipPreference getRelationshipPreference() {
@@ -251,7 +271,13 @@ public class UserProfile {
     }
 
     public void setRelationshipPreference(RelationshipPreference relationshipPreference) {
+        if (this.relationshipPreference != null && this.relationshipPreference != relationshipPreference) {
+            this.relationshipPreference.setUserProfile(null);
+        }
         this.relationshipPreference = relationshipPreference;
+        if (relationshipPreference != null && relationshipPreference.getUserProfile() != this) {
+            relationshipPreference.setUserProfile(this);
+        }
     }
 
     public ChildrenPreference getChildrenPreference() {
@@ -259,7 +285,13 @@ public class UserProfile {
     }
 
     public void setChildrenPreference(ChildrenPreference childrenPreference) {
+        if (this.childrenPreference != null && this.childrenPreference != childrenPreference) {
+            this.childrenPreference.setUserProfile(null);
+        }
         this.childrenPreference = childrenPreference;
+        if (childrenPreference != null && childrenPreference.getUserProfile() != this) {
+            childrenPreference.setUserProfile(this);
+        }
     }
 
     public AgePreference getAgePreference() {
@@ -267,7 +299,13 @@ public class UserProfile {
     }
 
     public void setAgePreference(AgePreference agePreference) {
+        if (this.agePreference != null && this.agePreference != agePreference) {
+            this.agePreference.setUserProfile(null);
+        }
         this.agePreference = agePreference;
+        if (agePreference != null && agePreference.getUserProfile() != this) {
+            agePreference.setUserProfile(this);
+        }
     }
 
     public ReligionPreference getReligionPreference() {
@@ -275,7 +313,13 @@ public class UserProfile {
     }
 
     public void setReligionPreference(ReligionPreference religionPreference) {
+        if (this.religionPreference != null && this.religionPreference != religionPreference) {
+            this.religionPreference.setUserProfile(null);
+        }
         this.religionPreference = religionPreference;
+        if (religionPreference != null && religionPreference.getUserProfile() != this) {
+            religionPreference.setUserProfile(this);
+        }
     }
 
     public EducationPreference getEducationPreference() {
@@ -283,7 +327,13 @@ public class UserProfile {
     }
 
     public void setEducationPreference(EducationPreference educationPreference) {
+        if (this.educationPreference != null && this.educationPreference != educationPreference) {
+            this.educationPreference.setUserProfile(null);
+        }
         this.educationPreference = educationPreference;
+        if (educationPreference != null && educationPreference.getUserProfile() != this) {
+            educationPreference.setUserProfile(this);
+        }
     }
 
     public LanguagePreference getLanguagePreference() {
@@ -291,7 +341,13 @@ public class UserProfile {
     }
 
     public void setLanguagePreference(LanguagePreference languagePreference) {
+        if (this.languagePreference != null && this.languagePreference != languagePreference) {
+            this.languagePreference.setUserProfile(null);
+        }
         this.languagePreference = languagePreference;
+        if (languagePreference != null && languagePreference.getUserProfile() != this) {
+            languagePreference.setUserProfile(this);
+        }
     }
 
     public VicePreference getVicePreference() {
@@ -299,7 +355,13 @@ public class UserProfile {
     }
 
     public void setVicePreference(VicePreference vicePreference) {
+        if (this.vicePreference != null && this.vicePreference != vicePreference) {
+            this.vicePreference.setUserProfile(null);
+        }
         this.vicePreference = vicePreference;
+        if (vicePreference != null && vicePreference.getUserProfile() != this) {
+            vicePreference.setUserProfile(this);
+        }
     }
 
     public PetsPreference getPetsPreference() {
@@ -307,7 +369,13 @@ public class UserProfile {
     }
 
     public void setPetsPreference(PetsPreference petsPreference) {
+        if (this.petsPreference != null && this.petsPreference != petsPreference) {
+            this.petsPreference.setUserProfile(null);
+        }
         this.petsPreference = petsPreference;
+        if (petsPreference != null && petsPreference.getUserProfile() != this) {
+            petsPreference.setUserProfile(this);
+        }
     }
 
     public TravelPreference getTravelPreference() {
@@ -315,7 +383,13 @@ public class UserProfile {
     }
 
     public void setTravelPreference(TravelPreference travelPreference) {
+        if (this.travelPreference != null && this.travelPreference != travelPreference) {
+            this.travelPreference.setUserProfile(null);
+        }
         this.travelPreference = travelPreference;
+        if (travelPreference != null && travelPreference.getUserProfile() != this) {
+            travelPreference.setUserProfile(this);
+        }
     }
 
     public DietPreference getDietPreference() {
@@ -323,7 +397,13 @@ public class UserProfile {
     }
 
     public void setDietPreference(DietPreference dietPreference) {
+        if (this.dietPreference != null && this.dietPreference != dietPreference) {
+            this.dietPreference.setUserProfile(null);
+        }
         this.dietPreference = dietPreference;
+        if (dietPreference != null && dietPreference.getUserProfile() != this) {
+            dietPreference.setUserProfile(this);
+        }
     }
 
     public Set<UserInterest> getInterests() {
@@ -334,9 +414,11 @@ public class UserProfile {
         if (this.interests == null) {
             this.interests = new LinkedHashSet<>();
         }
+        this.interests.forEach(interest -> interest.setUserProfile(null));
         this.interests.clear();
-        if (interests != null) {
-            this.interests.addAll(interests);
+        for (UserInterest interest : interests) {
+            interest.setUserProfile(this);
+            this.interests.add(interest);
         }
     }
 
