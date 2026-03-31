@@ -47,15 +47,17 @@ public class RelationshipInterestDto {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (o == null || getClass() != o.getClass())
+        if (!(o instanceof RelationshipInterestDto other))
             return false;
-        RelationshipInterestDto other = (RelationshipInterestDto) o;
-        return Objects.equals(relationshipInterestId, other.relationshipInterestId) && Objects.equals(name, other.name);
+        if (this.relationshipInterestId != null && other.relationshipInterestId != null) {
+            return Objects.equals(this.relationshipInterestId, other.relationshipInterestId);
+        }
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(relationshipInterestId, name);
+        return relationshipInterestId != null ? relationshipInterestId.hashCode() : System.identityHashCode(this);
     }
 
     @Override

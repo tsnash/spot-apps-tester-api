@@ -75,8 +75,8 @@ public class Child {
         return childrenPreference;
     }
 
-    public void setChildrenPreference(ChildrenPreference childrenPreference) {
-        this.childrenPreference = Objects.requireNonNull(childrenPreference);
+    void setChildrenPreference(ChildrenPreference childrenPreference) {
+        this.childrenPreference = childrenPreference;
     }
 
     @Override

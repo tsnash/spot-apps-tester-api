@@ -73,6 +73,20 @@ public class ChildrenPreference {
         }
     }
 
+    public void addChild(Child child) {
+        if (child != null) {
+            this.children.add(child);
+            child.setChildrenPreference(this);
+        }
+    }
+
+    public void removeChild(Child child) {
+        if (child != null) {
+            this.children.remove(child);
+            child.setChildrenPreference(null);
+        }
+    }
+
     public Boolean getMoreChildren() {
         return moreChildren;
     }
