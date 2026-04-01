@@ -5,18 +5,22 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "fluencyLevelId",
         "name"
 })
+@Schema(description = "Represents a level of language fluency.")
 public class FluencyLevelDto {
 
     @JsonProperty("fluencyLevelId")
+    @Schema(description = "The unique identifier for the fluency level.", example = "1")
     private Long fluencyLevelId;
 
     @JsonProperty("name")
+    @Schema(description = "The name of the fluency level.", example = "native")
     private String name;
 
     public FluencyLevelDto() {

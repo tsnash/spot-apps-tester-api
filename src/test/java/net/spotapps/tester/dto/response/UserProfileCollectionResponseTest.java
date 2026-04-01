@@ -1,4 +1,4 @@
-package net.spotapps.tester.model.response;
+package net.spotapps.tester.dto.response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -6,10 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class UserProfileSuccessResponseTest {
-    private UserProfileSuccessResponse testResponse1;
-    private UserProfileSuccessResponse testResponse2;
-    private UserProfileSuccessResponse testResponse3;
+public class UserProfileCollectionResponseTest {
+    private UserProfileCollectionResponse testResponse1;
+    private UserProfileCollectionResponse testResponse2;
+    private UserProfileCollectionResponse testResponse3;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -17,11 +17,11 @@ public class UserProfileSuccessResponseTest {
         sameMetadata.setStatusDescription("same");
         Metadata differentMetadata = new Metadata();
         differentMetadata.setStatusDescription("different");
-        testResponse1 = new UserProfileSuccessResponse();
+        testResponse1 = new UserProfileCollectionResponse();
         testResponse1.setMetadata(sameMetadata);
-        testResponse2 = new UserProfileSuccessResponse();
+        testResponse2 = new UserProfileCollectionResponse();
         testResponse2.setMetadata(sameMetadata);
-        testResponse3 = new UserProfileSuccessResponse();
+        testResponse3 = new UserProfileCollectionResponse();
         testResponse3.setMetadata(differentMetadata);
     }
 

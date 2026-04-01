@@ -2,7 +2,6 @@ package net.spotapps.tester.model;
 
 import java.util.Objects;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -26,24 +25,19 @@ public class AgePreference {
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
 
-    @Schema(description = "The day of the user's birth", example = "01")
     @Column(name = "birth_day")
     private String day;
 
-    @Schema(description = "The month of the user's birth", example = "January")
     @Column(name = "birth_month")
     private String month;
 
-    @Schema(description = "The year of the user's birth", example = "1990")
     @Column(name = "birth_year")
     private String year;
 
-    @Schema(description = "The minimum age the user is interested in")
     @Column(name = "min_age")
     @Min(18)
     private Integer minAge;
 
-    @Schema(description = "The maximum age the user is interested in")
     @Column(name = "max_age")
     @Min(18)
     private Integer maxAge;

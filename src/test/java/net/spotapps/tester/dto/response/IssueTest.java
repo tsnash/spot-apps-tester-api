@@ -1,4 +1,4 @@
-package net.spotapps.tester.model.response;
+package net.spotapps.tester.dto.response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

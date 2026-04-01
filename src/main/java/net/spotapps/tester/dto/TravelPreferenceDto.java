@@ -6,19 +6,39 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-
+@JsonPropertyOrder({
+        "frequency",
+        "duration",
+        "distance",
+        "groupSize",
+        "importance"
+})
+@Schema(description = "Represents a user's travel preferences.")
 public class TravelPreferenceDto {
+
     @JsonProperty("frequency")
+    @Schema(description = "The travel frequency preference.")
     private TravelFrequencyDto frequency;
+
     @JsonProperty("duration")
+    @Schema(description = "The travel duration preference.")
     private TravelDurationDto duration;
+
     @JsonProperty("distance")
+    @Schema(description = "The travel distance preference.")
     private TravelDistanceDto distance;
+
     @JsonProperty("groupSize")
+    @Schema(description = "The travel group size preference.")
     private TravelGroupSizeDto groupSize;
+
     @JsonProperty("importance")
+    @Schema(description = "The importance of the travel preferences.", minimum = "1", maximum = "5", example = "3")
     @Min(1)
     @Max(5)
     private Integer importance;

@@ -2,7 +2,6 @@ package net.spotapps.tester.model;
 
 import java.util.Objects;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,27 +25,22 @@ public class SocialPersonality {
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
 
-    @Schema(description = "Openness to experience trait")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "openness_id")
     private PersonalityScale openness;
 
-    @Schema(description = "Conscientiousness trait")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "conscientiousness_id")
     private PersonalityScale conscientiousness;
 
-    @Schema(description = "Extraversion trait")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "extraversion_id")
     private PersonalityScale extraversion;
 
-    @Schema(description = "Agreeableness trait")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "agreeableness_id")
     private PersonalityScale agreeableness;
 
-    @Schema(description = "Neuroticism trait")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "neuroticism_id")
     private PersonalityScale neuroticism;

@@ -5,18 +5,22 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "travelDistanceId",
         "name"
 })
+@Schema(description = "Represents a user's preference regarding distance from origin while traveling.")
 public class TravelDistanceDto {
 
     @JsonProperty("travelDistanceId")
+    @Schema(description = "The ID of the travel distance preference.", example = "1")
     private Long travelDistanceId;
 
     @JsonProperty("name")
+    @Schema(description = "The name of the travel distance preference.", example = "local")
     private String name;
 
     public TravelDistanceDto() {

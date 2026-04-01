@@ -21,11 +21,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import net.spotapps.tester.dao.UserProfileRepository;
 import net.spotapps.tester.dto.UserProfileDto;
+import net.spotapps.tester.exception.BadRequestException;
+import net.spotapps.tester.exception.NotFoundException;
 import net.spotapps.tester.model.UserImage;
 import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
-import net.spotapps.tester.model.exception.BadRequestException;
-import net.spotapps.tester.model.exception.NotFoundException;
 
 @SpringBootTest
 public class UserProfileServiceTest {
@@ -90,11 +90,13 @@ public class UserProfileServiceTest {
         when(repository.findWithAssociationsByUserId(VALID_NON_EXISTENT_ID))
                 .thenReturn(Optional.empty());
 
-        when(repository.findAllByUserIdInOrderByUserIdAsc(eq(Arrays.asList(VALID_EXISTING_IDS[0], VALID_EXISTING_IDS[1])
-                .reversed())))
+        when(repository.findAllByUserIdInOrderByUserIdAsc(
+                eq(Arrays.asList(VALID_EXISTING_IDS[0], VALID_EXISTING_IDS[1])
+                        .reversed())))
                 .thenReturn(Arrays.asList(testUserProfile1, testUserProfile2));
 
-        when(repository.findAllByUserIdInOrderByUserIdAsc(Arrays.asList(VALID_EXISTING_IDS[1], VALID_NON_EXISTENT_ID)))
+        when(repository.findAllByUserIdInOrderByUserIdAsc(
+                Arrays.asList(VALID_EXISTING_IDS[1], VALID_NON_EXISTENT_ID)))
                 .thenReturn(Arrays.asList(testUserProfile2));
 
         when(repository.findAllByUserIdInOrderByUserIdAsc(Arrays.asList(VALID_NON_EXISTENT_ID)))
@@ -230,7 +232,8 @@ public class UserProfileServiceTest {
 
         assertThrows(
                 BadRequestException.class,
-                () -> userProfileService.getUserProfileList(List.of("1000000000000000000000000000000000000")),
+                () -> userProfileService
+                        .getUserProfileList(List.of("1000000000000000000000000000000000000")),
                 "Should throw a BadRequestException");
         verifyNoMoreInteractions(repository);
 

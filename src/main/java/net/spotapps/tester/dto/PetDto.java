@@ -4,20 +4,33 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "petId",
+        "petType",
+        "quantity",
+        "isAllowed"
+})
+@Schema(description = "Represents a pet owned by or allowed by a user.")
 public class PetDto {
 
     @JsonProperty("petId")
+    @Schema(description = "The unique identifier for the pet record.", example = "1")
     private Long petId;
 
     @JsonProperty("petType")
+    @Schema(description = "The type of pet.")
     private PetTypeDto petType;
 
     @JsonProperty("quantity")
+    @Schema(description = "The number of pets of this type.", example = "1")
     private Integer quantity;
 
     @JsonProperty("isAllowed")
+    @Schema(description = "Indicates if this pet type is allowed in the user's home.", example = "true")
     private Boolean isAllowed;
 
     public Long getPetId() {

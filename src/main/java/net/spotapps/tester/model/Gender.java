@@ -20,7 +20,7 @@ public class Gender {
     private Long genderId;
 
     @NotNull
-    @Column(nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     public Gender() {

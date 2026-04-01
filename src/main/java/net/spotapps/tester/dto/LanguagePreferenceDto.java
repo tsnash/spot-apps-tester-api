@@ -5,15 +5,25 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-
+@JsonPropertyOrder({
+        "languagesSpoken",
+        "importance"
+})
+@Schema(description = "Represents a user's spoken languages and their preference for matching.")
 public class LanguagePreferenceDto {
+
     @JsonProperty("languagesSpoken")
+    @Schema(description = "A list of languages spoken by the user.")
     private List<LanguageDto> languagesSpoken;
+
     @JsonProperty("importance")
+    @Schema(description = "How important language matching is to the user.", minimum = "1", maximum = "5", example = "3")
     @Min(1)
     @Max(5)
     private Integer importance;

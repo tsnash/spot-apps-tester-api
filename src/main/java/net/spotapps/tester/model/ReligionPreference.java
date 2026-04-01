@@ -2,7 +2,6 @@ package net.spotapps.tester.model;
 
 import java.util.Objects;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,18 +27,15 @@ public class ReligionPreference {
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
 
-    @Schema(description = "The religious affiliation of the user")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "religion_id")
     private Religion religion;
 
-    @Schema(description = "The importance of religion to the user (0-5)")
     @Column(name = "importance")
     @Min(0)
     @Max(5)
     private Integer importance;
 
-    @Schema(description = "Whether the user prefers a partner with the same religion")
     @Column(name = "same_religion")
     private Boolean sameReligion;
 

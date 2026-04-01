@@ -4,7 +4,6 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,12 +30,10 @@ public class VicePreference {
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
 
-    @Schema(description = "List of user's vices and their frequencies")
     @OneToMany(mappedBy = "vicePreference", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("viceId ASC")
     private Set<Vice> vices = new LinkedHashSet<>();
 
-    @Schema(description = "The importance of vice preferences to the user (1-5)")
     @Column(name = "importance")
     @Min(1)
     @Max(5)

@@ -20,7 +20,7 @@ public class TravelDuration {
     private Long travelDurationId;
 
     @NotNull
-    @Column(nullable = false, unique = true, updatable = false)
+    @Column(name = "name", nullable = false, unique = true, updatable = false)
     private String name;
 
     public TravelDuration() {

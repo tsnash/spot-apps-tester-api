@@ -5,15 +5,28 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-
+@JsonPropertyOrder({
+        "relationshipStatus",
+        "relationshipPractices",
+        "relationshipInterests"
+})
+@Schema(description = "Represents a user's current relationship status and preferences.")
 public class RelationshipPreferenceDto {
+
     @JsonProperty("relationshipStatus")
+    @Schema(description = "The current relationship status of the user.")
     private RelationshipStatusDto relationshipStatus;
+
     @JsonProperty("relationshipPractices")
+    @Schema(description = "The relationship practices the user follows or prefers.")
     private Set<RelationshipPracticeDto> relationshipPractices;
+
     @JsonProperty("relationshipInterests")
+    @Schema(description = "The relationship interests of the user.")
     private Set<RelationshipInterestDto> relationshipInterests;
 
     public RelationshipStatusDto getRelationshipStatus() {

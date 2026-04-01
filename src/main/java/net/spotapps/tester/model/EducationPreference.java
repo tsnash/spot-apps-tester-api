@@ -2,7 +2,6 @@ package net.spotapps.tester.model;
 
 import java.util.Objects;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,16 +27,13 @@ public class EducationPreference {
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
 
-    @Schema(description = "The highest degree attained by the user")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "highest_degree_id")
     private EducationDegree highestDegree;
 
-    @Schema(description = "The field of study or concentration")
     @Column(name = "concentration")
     private String concentration;
 
-    @Schema(description = "The importance of education status to the user (1-5)")
     @Column(name = "importance")
     @Min(1)
     @Max(5)

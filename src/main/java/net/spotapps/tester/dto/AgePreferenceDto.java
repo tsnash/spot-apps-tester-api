@@ -4,19 +4,38 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-
+@JsonPropertyOrder({
+        "day",
+        "month",
+        "year",
+        "minAge",
+        "maxAge"
+})
+@Schema(description = "Represents a user's age preferences, including their own birth date and the preferred age range for potential matches.")
 public class AgePreferenceDto {
+
     @JsonProperty("day")
+    @Schema(description = "The day of the user's birth in the format DD", example = "01", minimum = "01", maximum = "31")
     private String day;
+
     @JsonProperty("month")
+    @Schema(description = "The month of the user's birth in the format MM", example = "01", minimum = "01", maximum = "12")
     private String month;
+
     @JsonProperty("year")
+    @Schema(description = "The year of the user's birth in the format YYYY", example = "1990", minimum = "1900")
     private String year;
+
     @JsonProperty("minAge")
+    @Schema(description = "The minimum preferred age", example = "25", minimum = "18")
     private Integer minAge;
+
     @JsonProperty("maxAge")
+    @Schema(description = "The maximum preferred age", example = "35", minimum = "18")
     private Integer maxAge;
 
     public String getDay() {

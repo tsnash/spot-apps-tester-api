@@ -20,7 +20,7 @@ public class TravelDistance {
     private Long travelDistanceId;
 
     @NotNull
-    @Column(nullable = false, unique = true, updatable = false)
+    @Column(name = "name", nullable = false, unique = true, updatable = false)
     private String name;
 
     public TravelDistance() {

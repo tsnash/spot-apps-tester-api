@@ -1,4 +1,4 @@
-package net.spotapps.tester.model.response;
+package net.spotapps.tester.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,7 +7,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "message" })
+@Schema(description = "Represents an issue that occurred during the processing of an HTTP request.")
 public class Issue {
+
     @JsonProperty("message")
     @Schema(description = "A message detailing an adverse occurrence of an operation.")
     private String message;

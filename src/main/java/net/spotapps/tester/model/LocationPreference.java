@@ -2,7 +2,6 @@ package net.spotapps.tester.model;
 
 import java.util.Objects;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "location_preferences")
@@ -24,15 +24,13 @@ public class LocationPreference {
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
 
-    @Schema(description = "Whether to use the user's current location or specified location")
+    @NotNull
     @Column(name = "use_local", nullable = false, columnDefinition = "boolean default false")
     private Boolean useLocal = false;
 
-    @Schema(description = "The maximum distance in miles the user is willing to search")
     @Column(name = "distance_in_miles")
     private Double distanceInMiles = 15.0;
 
-    @Schema(description = "The maximum distance in kilometers the user is willing to search")
     @Column(name = "distance_in_kilometers")
     private Double distanceInKilometers = 24.1401;
 

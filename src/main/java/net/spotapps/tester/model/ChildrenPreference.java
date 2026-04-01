@@ -4,7 +4,6 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,12 +28,10 @@ public class ChildrenPreference {
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
 
-    @Schema(description = "List of user's children")
     @OneToMany(mappedBy = "childrenPreference", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("childId ASC")
     private Set<Child> children = new LinkedHashSet<>();
 
-    @Schema(description = "Indicates if the user wants more children")
     @Column(name = "more_children")
     private Boolean moreChildren;
 

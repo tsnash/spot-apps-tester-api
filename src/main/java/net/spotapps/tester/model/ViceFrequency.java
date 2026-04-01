@@ -20,7 +20,7 @@ public class ViceFrequency {
     private Long viceFrequencyId;
 
     @NotNull
-    @Column(nullable = false, unique = true, updatable = false)
+    @Column(name = "name", nullable = false, unique = true, updatable = false)
     private String name;
 
     public ViceFrequency() {

@@ -1,8 +1,8 @@
-package net.spotapps.tester.model.exception;
+package net.spotapps.tester.exception;
 
 public class BadRequestException extends RuntimeException {
     private static final long serialVersionUID = 1L;
-    
+
     public BadRequestException(final String message) {
         super(message);
     }

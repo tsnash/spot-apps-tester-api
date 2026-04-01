@@ -1,4 +1,4 @@
-package net.spotapps.tester.model.exception;
+package net.spotapps.tester.exception;
 
 public class NotFoundException extends RuntimeException {
     private static final long serialVersionUID = 1L;

@@ -4,14 +4,28 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-
+@JsonPropertyOrder({
+        "gender",
+        "isTrans",
+        "orientation"
+})
+@Schema(description = "Represents a user's gender and orientation preferences.")
 public class GenderPreferenceDto {
+
     @JsonProperty("gender")
+    @Schema(description = "The gender identity of the user.")
     private GenderDto gender;
+
+    @JsonProperty("isTrans")
+    @Schema(description = "Indicates if the user identifies as transgender.", example = "false")
     private Boolean trans;
+
     @JsonProperty("orientation")
+    @Schema(description = "The sexual orientation of the user.")
     private OrientationDto orientation;
 
     public GenderDto getGender() {
@@ -22,7 +36,6 @@ public class GenderPreferenceDto {
         this.gender = gender;
     }
 
-    @JsonProperty("isTrans")
     public Boolean getTrans() {
         return trans;
     }

@@ -2,7 +2,6 @@ package net.spotapps.tester.model;
 
 import java.util.Objects;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -12,6 +11,7 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+
 import net.spotapps.tester.persistence.encryption.CryptoConverter;
 
 @Entity
@@ -27,28 +27,23 @@ public class ContactPreference {
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
 
-    @Schema(description = "The first name of the user", example = "Jane")
-    @Column(name = "first_name", length = 255)
+    @Column(name = "first_name", length = 64)
     @Convert(converter = CryptoConverter.class)
     private String firstName;
 
-    @Schema(description = "The last name of the user", example = "Doe")
-    @Column(name = "last_name", length = 255)
+    @Column(name = "last_name", length = 64)
     @Convert(converter = CryptoConverter.class)
     private String lastName;
 
-    @Schema(description = "The phone number of the user", example = "+15551234567")
     @Column(name = "phone_number", length = 64)
     @Convert(converter = CryptoConverter.class)
     private String phoneNumber;
 
-    @Schema(description = "The email address of the user", example = "jane.doe@example.com")
     @Column(name = "email_address", length = 512)
     @Convert(converter = CryptoConverter.class)
     private String emailAddress;
 
     @NotNull
-    @Schema(description = "Indicates if the user has verified their email address")
     @Column(name = "email_verified", nullable = false, columnDefinition = "boolean default false")
     private boolean emailVerified;
 

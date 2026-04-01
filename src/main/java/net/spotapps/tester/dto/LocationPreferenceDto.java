@@ -4,14 +4,28 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "useLocal",
+        "distanceInMiles",
+        "distanceInKilometers"
+})
+@Schema(description = "Represents a user's location preferences for matching.")
 public class LocationPreferenceDto {
+
     @JsonProperty("useLocal")
+    @Schema(description = "Indicates whether the user prefers local matches.", example = "true")
     private Boolean useLocal;
+
     @JsonProperty("distanceInMiles")
+    @Schema(description = "The maximum preferred distance in miles.", example = "25.0")
     private Double distanceInMiles;
+
     @JsonProperty("distanceInKilometers")
+    @Schema(description = "The maximum preferred distance in kilometers.", example = "40.23")
     private Double distanceInKilometers;
 
     public Boolean getUseLocal() {

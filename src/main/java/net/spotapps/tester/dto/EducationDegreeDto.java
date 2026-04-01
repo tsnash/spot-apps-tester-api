@@ -5,18 +5,22 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "educationDegreeId",
         "name"
 })
+@Schema(description = "Represents an education degree level.")
 public class EducationDegreeDto {
 
     @JsonProperty("educationDegreeId")
+    @Schema(description = "The unique identifier for the education degree.", example = "1")
     private Long educationDegreeId;
 
     @JsonProperty("name")
+    @Schema(description = "The name of the education degree.", example = "Bachelor's")
     private String name;
 
     public EducationDegreeDto() {

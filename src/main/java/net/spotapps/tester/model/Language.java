@@ -25,7 +25,8 @@ public class Language {
     @Column(name = "language_id")
     private Long languageId;
 
-    @Column(name = "language_name")
+    @NotNull
+    @Column(name = "language_name", nullable = false)
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)

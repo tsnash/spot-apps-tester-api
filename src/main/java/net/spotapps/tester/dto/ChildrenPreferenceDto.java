@@ -6,16 +6,22 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "children",
         "moreChildren"
 })
+@Schema(description = "Represents a user's affinity towards children.")
 public class ChildrenPreferenceDto {
+
     @JsonProperty("children")
+    @Schema(description = "A list of children associated with the user.")
     private List<ChildDto> children;
+
     @JsonProperty("moreChildren")
+    @Schema(description = "Indicates whether the user is open to having more children.", example = "true")
     private Boolean moreChildren;
 
     public List<ChildDto> getChildren() {

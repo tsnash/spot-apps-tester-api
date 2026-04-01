@@ -1,4 +1,4 @@
-package net.spotapps.tester.model.response;
+package net.spotapps.tester.dto.response;
 
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
         "metadata",
         "issues"
 })
+@Schema(description = "Represents an error response for an HTTP request, containing metadata and a list of issues that caused the error.")
 public class HttpRequestErrorResponse implements HttpRequestResponse {
 
     @JsonProperty("metadata")

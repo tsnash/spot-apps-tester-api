@@ -1,4 +1,4 @@
-package net.spotapps.tester.model.response;
+package net.spotapps.tester.dto.response;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ import net.spotapps.tester.dto.UserProfileDto;
         "metadata",
         "userProfiles"
 })
+@Schema(description = "Represents a collection of user profiles.")
 public class UserProfileCollectionResponse implements HttpRequestResponse {
 
     @JsonProperty("metadata")

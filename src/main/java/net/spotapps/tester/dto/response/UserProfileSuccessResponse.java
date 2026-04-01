@@ -1,4 +1,4 @@
-package net.spotapps.tester.model.response;
+package net.spotapps.tester.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,6 +12,7 @@ import net.spotapps.tester.dto.UserProfileDto;
         "metadata",
         "userProfile"
 })
+@Schema(description = "Represents a user profile response containing metadata and a single user profile.")
 public class UserProfileSuccessResponse implements HttpRequestResponse {
 
     @JsonProperty("metadata")

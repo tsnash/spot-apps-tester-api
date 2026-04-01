@@ -1,14 +1,14 @@
-package net.spotapps.tester.model.exception;
+package net.spotapps.tester.exception;
 
 import java.util.IllegalFormatException;
 import java.util.List;
 
 import net.spotapps.tester.UserProfileConstants;
 
-public class InvalidUserIdCollectionException extends BadRequestException {
+public class UserProfileCollectionNotFoundException extends NotFoundException {
     private static final long serialVersionUID = 1L;
-    
-    public InvalidUserIdCollectionException(final String message, final List<String> userIds) {
+
+    public UserProfileCollectionNotFoundException(final String message, final List<String> userIds) {
         super(formatMessage(message, userIds));
     }
 

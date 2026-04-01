@@ -13,13 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import net.spotapps.tester.model.exception.BadRequestException;
-import net.spotapps.tester.model.exception.NotFoundException;
-import net.spotapps.tester.model.exception.TooManyRequestsException;
-import net.spotapps.tester.model.response.Issue;
-import net.spotapps.tester.model.response.Metadata;
-import net.spotapps.tester.model.response.HttpRequestErrorResponse;
-import net.spotapps.tester.model.response.HttpRequestResponse;
+import net.spotapps.tester.exception.BadRequestException;
+import net.spotapps.tester.exception.NotFoundException;
+import net.spotapps.tester.exception.TooManyRequestsException;
+import net.spotapps.tester.dto.response.Issue;
+import net.spotapps.tester.dto.response.Metadata;
+import net.spotapps.tester.dto.response.HttpRequestErrorResponse;
+import net.spotapps.tester.dto.response.HttpRequestResponse;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

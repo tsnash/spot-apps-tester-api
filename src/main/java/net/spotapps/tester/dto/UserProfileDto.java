@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 
 import net.spotapps.tester.model.UserProfile;
@@ -33,87 +33,88 @@ import net.spotapps.tester.model.UserProfile;
         "dietPreference",
         "interests"
 })
+@Schema(description = "Represents a user's complete profile, including all preferences and interests.")
 public class UserProfileDto {
 
     @JsonProperty(required = true)
-    @JsonPropertyDescription("The unique identifier, shared with and derived from the associated User entity")
+    @Schema(description = "The unique identifier, shared with and derived from the associated User entity", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long userId;
 
     @JsonProperty(required = true)
-    @JsonPropertyDescription("List of references to images of the user")
+    @Schema(description = "List of references to images of the user", requiredMode = Schema.RequiredMode.REQUIRED)
     private List<UserImageDto> images;
 
     @JsonProperty(required = true)
-    @JsonPropertyDescription("The things and activities the user is interested in")
+    @Schema(description = "The things and activities the user is interested in", requiredMode = Schema.RequiredMode.REQUIRED)
     private List<UserInterestDto> interests;
 
     @JsonProperty(value = "contactPreference", required = true)
-    @JsonPropertyDescription("The user's contact preferences")
+    @Schema(description = "The user's contact preferences", requiredMode = Schema.RequiredMode.REQUIRED)
     @Valid
     private ContactPreferenceDto contactPreference;
 
     @JsonProperty(value = "locationPreference", required = true)
-    @JsonPropertyDescription("The user's location preferences")
+    @Schema(description = "The user's location preferences", requiredMode = Schema.RequiredMode.REQUIRED)
     @Valid
     private LocationPreferenceDto locationPreference;
 
     @JsonProperty(value = "socialPersonality", required = true)
-    @JsonPropertyDescription("The user's social personality attributes")
+    @Schema(description = "The user's social personality attributes", requiredMode = Schema.RequiredMode.REQUIRED)
     @Valid
     private SocialPersonalityDto socialPersonality;
 
     @JsonProperty(value = "genderPreference", required = true)
-    @JsonPropertyDescription("The user's gender preferences")
+    @Schema(description = "The user's gender preferences", requiredMode = Schema.RequiredMode.REQUIRED)
     @Valid
     private GenderPreferenceDto genderPreference;
 
     @JsonProperty(value = "relationshipPreference", required = true)
-    @JsonPropertyDescription("The user's relationship preferences")
+    @Schema(description = "The user's relationship preferences", requiredMode = Schema.RequiredMode.REQUIRED)
     @Valid
     private RelationshipPreferenceDto relationshipPreference;
 
     @JsonProperty(value = "childrenPreference", required = true)
-    @JsonPropertyDescription("The user's children preferences")
+    @Schema(description = "The user's children preferences", requiredMode = Schema.RequiredMode.REQUIRED)
     @Valid
     private ChildrenPreferenceDto childrenPreference;
 
     @JsonProperty(value = "agePreference", required = true)
-    @JsonPropertyDescription("The user's age preferences")
+    @Schema(description = "The user's age preferences", requiredMode = Schema.RequiredMode.REQUIRED)
     @Valid
     private AgePreferenceDto agePreference;
 
     @JsonProperty(value = "religionPreference", required = true)
-    @JsonPropertyDescription("The user's religion preferences")
+    @Schema(description = "The user's religion preferences", requiredMode = Schema.RequiredMode.REQUIRED)
     @Valid
     private ReligionPreferenceDto religionPreference;
 
     @JsonProperty(value = "educationPreference", required = true)
-    @JsonPropertyDescription("The user's education preferences")
+    @Schema(description = "The user's education preferences", requiredMode = Schema.RequiredMode.REQUIRED)
     @Valid
     private EducationPreferenceDto educationPreference;
 
     @JsonProperty(value = "languagePreference", required = true)
-    @JsonPropertyDescription("The user's language preferences")
+    @Schema(description = "The user's language preferences", requiredMode = Schema.RequiredMode.REQUIRED)
     @Valid
     private LanguagePreferenceDto languagePreference;
 
     @JsonProperty(value = "vicePreference", required = true)
-    @JsonPropertyDescription("The user's vice preferences")
+    @Schema(description = "The user's vice preferences", requiredMode = Schema.RequiredMode.REQUIRED)
     @Valid
     private VicePreferenceDto vicePreference;
 
     @JsonProperty(value = "petsPreference", required = true)
-    @JsonPropertyDescription("The user's pets preferences")
+    @Schema(description = "The user's pets preferences", requiredMode = Schema.RequiredMode.REQUIRED)
     @Valid
     private PetsPreferenceDto petsPreference;
 
     @JsonProperty(value = "travelPreference", required = true)
-    @JsonPropertyDescription("The user's travel preferences")
+    @Schema(description = "The user's travel preferences", requiredMode = Schema.RequiredMode.REQUIRED)
     @Valid
     private TravelPreferenceDto travelPreference;
 
     @JsonProperty(value = "dietPreference", required = true)
-    @JsonPropertyDescription("The user's diet preferences")
+    @Schema(description = "The user's diet preferences", requiredMode = Schema.RequiredMode.REQUIRED)
     @Valid
     private DietPreferenceDto dietPreference;
 

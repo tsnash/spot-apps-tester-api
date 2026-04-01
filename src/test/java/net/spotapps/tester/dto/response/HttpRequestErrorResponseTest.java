@@ -1,15 +1,18 @@
-package net.spotapps.tester.model.response;
+package net.spotapps.tester.dto.response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class UserProfileCollectionResponseTest {
-    private UserProfileCollectionResponse testResponse1;
-    private UserProfileCollectionResponse testResponse2;
-    private UserProfileCollectionResponse testResponse3;
+public class HttpRequestErrorResponseTest {
+    private HttpRequestErrorResponse testResponse1;
+    private HttpRequestErrorResponse testResponse2;
+    private HttpRequestErrorResponse testResponse3;
+    private HttpRequestErrorResponse testResponse4;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -17,12 +20,24 @@ public class UserProfileCollectionResponseTest {
         sameMetadata.setStatusDescription("same");
         Metadata differentMetadata = new Metadata();
         differentMetadata.setStatusDescription("different");
-        testResponse1 = new UserProfileCollectionResponse();
+
+        Issue sameIssue = new Issue();
+        sameIssue.setMessage("same");
+        Issue differentIssue = new Issue();
+        differentIssue.setMessage("different");
+
+        testResponse1 = new HttpRequestErrorResponse();
         testResponse1.setMetadata(sameMetadata);
-        testResponse2 = new UserProfileCollectionResponse();
+        testResponse1.setIssues(Arrays.asList(sameIssue));
+        testResponse2 = new HttpRequestErrorResponse();
         testResponse2.setMetadata(sameMetadata);
-        testResponse3 = new UserProfileCollectionResponse();
+        testResponse2.setIssues(Arrays.asList(sameIssue));
+        testResponse3 = new HttpRequestErrorResponse();
         testResponse3.setMetadata(differentMetadata);
+        testResponse3.setIssues(Arrays.asList(differentIssue));
+        testResponse4 = new HttpRequestErrorResponse();
+        testResponse4.setMetadata(sameMetadata);
+        testResponse4.setIssues(Arrays.asList(differentIssue));
     }
 
     @Test
@@ -30,6 +45,7 @@ public class UserProfileCollectionResponseTest {
 
         assertEquals(testResponse2, testResponse1, "Identical responses should be equal");
         assertNotEquals(testResponse3, testResponse1, "Different responses should not be equal");
+        assertNotEquals(testResponse4, testResponse1, "Responses with different issues should not be equal");
 
     }
 
@@ -43,7 +59,11 @@ public class UserProfileCollectionResponseTest {
         assertNotEquals(
                 testResponse3.hashCode(),
                 testResponse1.hashCode(),
-                "Different responses should have be equal hashcodes");
+                "Different responses should not have equal hashcodes");
+        assertNotEquals(
+                testResponse4.hashCode(),
+                testResponse1.hashCode(),
+                "Responses with different issues should not have equal hashcodes");
 
     }
 
@@ -58,6 +78,10 @@ public class UserProfileCollectionResponseTest {
                 testResponse3.toString(),
                 testResponse1.toString(),
                 "Different responses should not have equal strings");
+        assertNotEquals(
+                testResponse4.toString(),
+                testResponse1.toString(),
+                "Responses with different issues should not have equal strings");
 
     }
 }

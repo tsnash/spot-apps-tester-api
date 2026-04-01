@@ -5,6 +5,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -12,15 +13,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "religionName",
         "branchName"
 })
+@Schema(description = "Represents a religion and its branch.")
 public class ReligionDto {
 
     @JsonProperty("religionId")
+    @Schema(description = "The unique identifier for the religion.", example = "1")
     private Long religionId;
 
     @JsonProperty("religionName")
+    @Schema(description = "The name of the religion.", example = "christianity")
     private String religionName;
 
     @JsonProperty("branchName")
+    @Schema(description = "The name of the religious branch.", example = "catholic")
     private String branchName;
 
     public ReligionDto() {

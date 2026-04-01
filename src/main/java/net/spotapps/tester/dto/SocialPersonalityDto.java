@@ -4,19 +4,38 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-
+@JsonPropertyOrder({
+        "openness",
+        "conscientiousness",
+        "extraversion",
+        "agreeableness",
+        "neuroticism"
+})
+@Schema(description = "Represents a user's social personality traits based on the Big Five model.")
 public class SocialPersonalityDto {
+
     @JsonProperty("openness")
+    @Schema(description = "The openness trait.")
     private PersonalityScaleDto openness;
+
     @JsonProperty("conscientiousness")
+    @Schema(description = "The conscientiousness trait.")
     private PersonalityScaleDto conscientiousness;
+
     @JsonProperty("extraversion")
+    @Schema(description = "The extraversion trait.")
     private PersonalityScaleDto extraversion;
+
     @JsonProperty("agreeableness")
+    @Schema(description = "The agreeableness trait.")
     private PersonalityScaleDto agreeableness;
+
     @JsonProperty("neuroticism")
+    @Schema(description = "The neuroticism trait.")
     private PersonalityScaleDto neuroticism;
 
     public PersonalityScaleDto getOpenness() {

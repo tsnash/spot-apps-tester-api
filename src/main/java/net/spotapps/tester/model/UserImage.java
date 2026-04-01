@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user_images")
@@ -19,7 +20,8 @@ public class UserImage {
     @Column(name = "image_id")
     private Long imageId;
 
-    @Column
+    @NotNull
+    @Column(name = "image", nullable = false)
     private String image;
 
     @ManyToOne(fetch = FetchType.LAZY)

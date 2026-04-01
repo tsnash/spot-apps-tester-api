@@ -2,7 +2,6 @@ package net.spotapps.tester.model;
 
 import java.util.Objects;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,6 +11,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "gender_preferences")
@@ -26,16 +26,14 @@ public class GenderPreference {
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
 
-    @Schema(description = "The gender identity of the user")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gender_id")
     private Gender gender;
 
-    @Schema(description = "Indicates if the user identifies as transgender")
+    @NotNull
     @Column(name = "is_trans", nullable = false, columnDefinition = "boolean default false")
     private Boolean isTrans = false;
 
-    @Schema(description = "The sexual orientation of the user")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orientation_id")
     private Orientation orientation;

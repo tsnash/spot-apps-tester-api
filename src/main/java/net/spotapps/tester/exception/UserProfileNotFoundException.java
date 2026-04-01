@@ -1,17 +1,20 @@
-package net.spotapps.tester.model.exception;
+package net.spotapps.tester.exception;
 
 import java.util.IllegalFormatException;
 
 import net.spotapps.tester.UserProfileConstants;
 
-public class InvalidUserIdException extends BadRequestException {
+public class UserProfileNotFoundException extends NotFoundException {
     private static final long serialVersionUID = 1L;
-    
-    public InvalidUserIdException(final String message, final String userId) {
+
+    public UserProfileNotFoundException(final String message, final Long userId) {
         super(formatMessage(message, userId));
     }
 
-    private static String formatMessage(final String messageTemplate, final String userId) {
+    private static String formatMessage(final String messageTemplate, final Long userId) {
+        if (messageTemplate == null || userId == null) {
+            return UserProfileConstants.GENERIC_EXCEPTION_MESSAGE;
+        }
         String message;
         try {
             message = String.format(messageTemplate, userId);

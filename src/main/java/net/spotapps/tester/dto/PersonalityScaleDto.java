@@ -5,18 +5,22 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "personalityScaleId",
         "name"
 })
+@Schema(description = "Represents a rating on a personality scale.")
 public class PersonalityScaleDto {
 
     @JsonProperty("personalityScaleId")
+    @Schema(description = "The unique identifier for the personality scale level.", example = "3")
     private Long personalityScaleId;
 
     @JsonProperty("name")
+    @Schema(description = "The name/description of the personality scale level.", example = "neutral")
     private String name;
 
     public PersonalityScaleDto() {

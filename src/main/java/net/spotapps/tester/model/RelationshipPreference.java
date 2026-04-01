@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -30,27 +29,16 @@ public class RelationshipPreference {
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
 
-    @Schema(description = "The current relationship status of the user")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_id")
     private RelationshipStatus relationshipStatus;
 
-    @Schema(description = "The relationship practices the user follows or is open to")
     @ManyToMany
-    @JoinTable(
-        name = "user_relationship_practices",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "practice_id")
-    )
+    @JoinTable(name = "user_relationship_practices", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "practice_id"))
     private Set<RelationshipPractice> relationshipPractices = new HashSet<>();
 
-    @Schema(description = "The types of relationships the user is interested in")
     @ManyToMany
-    @JoinTable(
-        name = "user_relationship_interests",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "interest_id")
-    )
+    @JoinTable(name = "user_relationship_interests", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "interest_id"))
     private Set<RelationshipInterest> relationshipInterests = new HashSet<>();
 
     public Long getUserId() {

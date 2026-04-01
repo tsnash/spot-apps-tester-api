@@ -20,7 +20,7 @@ public class FluencyLevel {
     private Long fluencyLevelId;
 
     @NotNull
-    @Column(nullable = false, unique = true, updatable = false)
+    @Column(name = "name", nullable = false, unique = true, updatable = false)
     private String name;
 
     public FluencyLevel() {

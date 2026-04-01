@@ -5,18 +5,22 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "viceFrequencyId",
         "name"
 })
+@Schema(description = "Represents a user's preference in how often they travel.")
 public class ViceFrequencyDto {
 
     @JsonProperty("viceFrequencyId")
+    @Schema(description = "The unique identifier of the user's vice frequency.", example = "1")
     private Long viceFrequencyId;
 
     @JsonProperty("name")
+    @Schema(description = "The name of the user's vice frequency.", example = "often")
     private String name;
 
     public ViceFrequencyDto() {

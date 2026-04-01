@@ -2,7 +2,6 @@ package net.spotapps.tester.model;
 
 import java.util.Objects;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,27 +27,22 @@ public class TravelPreference {
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
 
-    @Schema(description = "How often the user likes to travel")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "frequency_id")
     private TravelFrequency frequency;
 
-    @Schema(description = "Preferred duration of trips")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "duration_id")
     private TravelDuration duration;
 
-    @Schema(description = "How far the user is willing to travel")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "distance_id")
     private TravelDistance distance;
 
-    @Schema(description = "Preferred travel group size")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_size_id")
     private TravelGroupSize groupSize;
 
-    @Schema(description = "The importance of travel preferences to the user (1-5)")
     @Column(name = "importance")
     @Min(1)
     @Max(5)

@@ -1,4 +1,4 @@
-package net.spotapps.tester.model.response;
+package net.spotapps.tester.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
         "statusCode",
         "statusDescription",
 })
+@Schema(description = "Represents additional data related to but not part of the request response.")
 public class Metadata {
 
     @JsonProperty("serviceName")

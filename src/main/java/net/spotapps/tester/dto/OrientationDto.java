@@ -5,18 +5,22 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "orientationId",
         "name"
 })
+@Schema(description = "Represents a sexual orientation.")
 public class OrientationDto {
 
     @JsonProperty("orientationId")
+    @Schema(description = "The unique identifier for the orientation.", example = "1")
     private Long orientationId;
 
     @JsonProperty("name")
+    @Schema(description = "The name of the orientation.", example = "heterosexual")
     private String name;
 
     public OrientationDto() {

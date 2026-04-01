@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import net.spotapps.tester.UserProfileConstants;
 import net.spotapps.tester.dao.UserProfileRepository;
 import net.spotapps.tester.dto.UserProfileDto;
+import net.spotapps.tester.exception.InvalidUserIdCollectionException;
+import net.spotapps.tester.exception.InvalidUserIdException;
+import net.spotapps.tester.exception.UserProfileCollectionNotFoundException;
+import net.spotapps.tester.exception.UserProfileNotFoundException;
 import net.spotapps.tester.model.UserProfile;
-import net.spotapps.tester.model.exception.InvalidUserIdCollectionException;
-import net.spotapps.tester.model.exception.InvalidUserIdException;
-import net.spotapps.tester.model.exception.UserProfileCollectionNotFoundException;
-import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 
 @Service
 public class UserProfileServiceImpl implements UserProfileService {

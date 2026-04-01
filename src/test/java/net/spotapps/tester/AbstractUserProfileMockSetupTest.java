@@ -13,13 +13,13 @@ import java.util.LinkedHashSet;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import net.spotapps.tester.dto.UserProfileDto;
+import net.spotapps.tester.exception.InvalidUserIdCollectionException;
+import net.spotapps.tester.exception.InvalidUserIdException;
+import net.spotapps.tester.exception.UserProfileCollectionNotFoundException;
+import net.spotapps.tester.exception.UserProfileNotFoundException;
 import net.spotapps.tester.model.UserImage;
 import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
-import net.spotapps.tester.model.exception.InvalidUserIdCollectionException;
-import net.spotapps.tester.model.exception.InvalidUserIdException;
-import net.spotapps.tester.model.exception.UserProfileCollectionNotFoundException;
-import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 import net.spotapps.tester.service.UserProfileService;
 
 public abstract class AbstractUserProfileMockSetupTest {

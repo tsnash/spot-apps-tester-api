@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -32,14 +31,12 @@ public class DietPreference {
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
 
-    @Schema(description = "The dietary restrictions of the user")
     @ElementCollection(targetClass = DietaryRestriction.class)
     @CollectionTable(name = "user_dietary_restrictions", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "restriction", columnDefinition = "varchar(255)")
     @Enumerated(EnumType.STRING)
     private Set<DietaryRestriction> restrictions = new HashSet<>();
 
-    @Schema(description = "The importance of dietary preferences to the user (1-5)")
     @Column(name = "importance")
     @Min(1)
     @Max(5)

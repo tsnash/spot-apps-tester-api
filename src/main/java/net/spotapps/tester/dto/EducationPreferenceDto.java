@@ -4,17 +4,30 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-
+@JsonPropertyOrder({
+        "highestDegree",
+        "concentration",
+        "importance"
+})
+@Schema(description = "Represents a user's education background and preferences.")
 public class EducationPreferenceDto {
+
     @JsonProperty("highestDegree")
+    @Schema(description = "The highest degree attained by the user.")
     private EducationDegreeDto highestDegree;
+
     @JsonProperty("concentration")
+    @Schema(description = "The user's field of study or concentration.", example = "Computer Science")
     private String concentration;
+
     @JsonProperty("importance")
+    @Schema(description = "How important education is to the user.", minimum = "1", maximum = "5", example = "3")
     @Min(1)
     @Max(5)
     private Integer importance;

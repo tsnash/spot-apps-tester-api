@@ -5,18 +5,22 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "relationshipStatusId",
         "name"
 })
+@Schema(description = "Represents a relationship status.")
 public class RelationshipStatusDto {
 
     @JsonProperty("relationshipStatusId")
+    @Schema(description = "The unique identifier for the relationship status.", example = "1")
     private Long relationshipStatusId;
 
     @JsonProperty("name")
+    @Schema(description = "The name of the relationship status.", example = "single")
     private String name;
 
     public RelationshipStatusDto() {

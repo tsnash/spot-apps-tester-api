@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user_interests")
@@ -19,7 +20,8 @@ public class UserInterest {
     @Column(name = "interest_id")
     private Long interestId;
 
-    @Column
+    @NotNull
+    @Column(name = "interest", nullable = false)
     private String interest;
 
     @ManyToOne(fetch = FetchType.LAZY)
