@@ -130,7 +130,7 @@ public class UserProfileRepositoryTest {
                 .containsExactly(2L, 4L, 5L);
 
         List<Long> notExpectedIds = Arrays.asList(10L, 6L);
-        actual = repository.findAllByUserIdInOrderByUserIdAsc(List.of(10L, 6L));
+        actual = repository.findAllByUserIdInOrderByUserIdAsc(notExpectedIds);
         assertThat(actual).isEmpty();
     }
 }
