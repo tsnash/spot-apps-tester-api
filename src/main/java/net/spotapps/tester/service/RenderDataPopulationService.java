@@ -163,127 +163,235 @@ public class RenderDataPopulationService {
     }
 
     private void initGenders() {
-        if (genderRepository.count() == 0) {
-            genderRepository.saveAll(List.of(new Gender("Male"), new Gender("Female"), new Gender("Non-binary")));
+        List<String> canonicalNames = List.of("Male", "Female", "Non-binary");
+        List<Gender> existing = genderRepository.findAll();
+        List<Gender> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(Gender::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            genderRepository.saveAll(toAdd);
         }
     }
 
     private void initOrientations() {
-        if (orientationRepository.count() == 0) {
-            orientationRepository.saveAll(List.of(new Orientation("Heterosexual"), new Orientation("Homosexual"), new Orientation("Bisexual")));
+        List<String> canonicalNames = List.of("Heterosexual", "Homosexual", "Bisexual");
+        List<Orientation> existing = orientationRepository.findAll();
+        List<Orientation> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(Orientation::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            orientationRepository.saveAll(toAdd);
         }
     }
 
     private void initPersonalityScales() {
-        if (personalityScaleRepository.count() == 0) {
-            personalityScaleRepository.saveAll(List.of(
-                    new PersonalityScale("Very Low"),
-                    new PersonalityScale("Low"),
-                    new PersonalityScale("Neutral"),
-                    new PersonalityScale("High"),
-                    new PersonalityScale("Very High")));
+        List<String> canonicalNames = List.of("Very Low", "Low", "Neutral", "High", "Very High");
+        List<PersonalityScale> existing = personalityScaleRepository.findAll();
+        List<PersonalityScale> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(PersonalityScale::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            personalityScaleRepository.saveAll(toAdd);
         }
     }
 
     private void initRelationshipStatuses() {
-        if (relationshipStatusRepository.count() == 0) {
-            relationshipStatusRepository.saveAll(List.of(new RelationshipStatus("Single"), new RelationshipStatus("Married"), new RelationshipStatus("Divorced")));
+        List<String> canonicalNames = List.of("Single", "Married", "Divorced");
+        List<RelationshipStatus> existing = relationshipStatusRepository.findAll();
+        List<RelationshipStatus> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(RelationshipStatus::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            relationshipStatusRepository.saveAll(toAdd);
         }
     }
 
     private void initRelationshipPractices() {
-        if (relationshipPracticeRepository.count() == 0) {
-            relationshipPracticeRepository.saveAll(List.of(new RelationshipPractice("Monogamy"), new RelationshipPractice("Polyamory"), new RelationshipPractice("Open Relationship")));
+        List<String> canonicalNames = List.of("Monogamy", "Polyamory", "Open Relationship");
+        List<RelationshipPractice> existing = relationshipPracticeRepository.findAll();
+        List<RelationshipPractice> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(RelationshipPractice::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            relationshipPracticeRepository.saveAll(toAdd);
         }
     }
 
     private void initRelationshipInterests() {
-        if (relationshipInterestRepository.count() == 0) {
-            relationshipInterestRepository.saveAll(List.of(new RelationshipInterest("Long-term"), new RelationshipInterest("Short-term"), new RelationshipInterest("Casual")));
+        List<String> canonicalNames = List.of("Long-term", "Short-term", "Casual");
+        List<RelationshipInterest> existing = relationshipInterestRepository.findAll();
+        List<RelationshipInterest> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(RelationshipInterest::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            relationshipInterestRepository.saveAll(toAdd);
         }
     }
 
     private void initReligions() {
-        if (religionRepository.count() == 0) {
-            religionRepository.saveAll(List.of(
-                    new Religion("Christianity", "Catholicism"),
-                    new Religion("Christianity", "Protestantism"),
-                    new Religion("Islam", "Sunni"),
-                    new Religion("Islam", "Shia"),
-                    new Religion("Judaism", "Orthodox"),
-                    new Religion("None", "Atheist")));
+        List<Religion> canonical = List.of(
+                new Religion("Christianity", "Catholicism"),
+                new Religion("Christianity", "Protestantism"),
+                new Religion("Islam", "Sunni"),
+                new Religion("Islam", "Shia"),
+                new Religion("Judaism", "Orthodox"),
+                new Religion("None", "Atheist"));
+        List<Religion> existing = religionRepository.findAll();
+        List<Religion> toAdd = canonical.stream()
+                .filter(c -> existing.stream().noneMatch(e -> e.getReligionName().equalsIgnoreCase(c.getReligionName()) && e.getBranchName().equalsIgnoreCase(c.getBranchName())))
+                .toList();
+        if (!toAdd.isEmpty()) {
+            religionRepository.saveAll(toAdd);
         }
     }
 
     private void initLifeStages() {
-        if (lifeStageRepository.count() == 0) {
-            lifeStageRepository.saveAll(List.of(new LifeStage("Infant"), new LifeStage("Toddler"), new LifeStage("Child"), new LifeStage("Teenager"), new LifeStage("Adult")));
+        List<String> canonicalNames = List.of("Infant", "Toddler", "Child", "Teenager", "Adult");
+        List<LifeStage> existing = lifeStageRepository.findAll();
+        List<LifeStage> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(LifeStage::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            lifeStageRepository.saveAll(toAdd);
         }
     }
 
     private void initChildGenders() {
-        if (childGenderRepository.count() == 0) {
-            childGenderRepository.saveAll(List.of(new ChildGender("M"), new ChildGender("F")));
+        List<String> canonicalNames = List.of("M", "F");
+        List<ChildGender> existing = childGenderRepository.findAll();
+        List<ChildGender> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(ChildGender::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            childGenderRepository.saveAll(toAdd);
         }
     }
 
     private void initHouseholdStatuses() {
-        if (householdStatusRepository.count() == 0) {
-            householdStatusRepository.saveAll(List.of(new HouseholdStatus("Full-time"), new HouseholdStatus("Part-time"), new HouseholdStatus("Visiting")));
+        List<String> canonicalNames = List.of("Full-time", "Part-time", "Visiting");
+        List<HouseholdStatus> existing = householdStatusRepository.findAll();
+        List<HouseholdStatus> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(HouseholdStatus::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            householdStatusRepository.saveAll(toAdd);
         }
     }
 
     private void initEducationDegrees() {
-        if (educationDegreeRepository.count() == 0) {
-            educationDegreeRepository.saveAll(List.of(new EducationDegree("High School"), new EducationDegree("Bachelor's"), new EducationDegree("Master's"), new EducationDegree("Doctorate")));
+        List<String> canonicalNames = List.of("High School", "Bachelor's", "Master's", "Doctorate");
+        List<EducationDegree> existing = educationDegreeRepository.findAll();
+        List<EducationDegree> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(EducationDegree::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            educationDegreeRepository.saveAll(toAdd);
         }
     }
 
     private void initFluencyLevels() {
-        if (fluencyLevelRepository.count() == 0) {
-            fluencyLevelRepository.saveAll(List.of(new FluencyLevel("Native"), new FluencyLevel("Fluent"), new FluencyLevel("Conversational"), new FluencyLevel("Basic")));
+        List<String> canonicalNames = List.of("Native", "Fluent", "Conversational", "Basic");
+        List<FluencyLevel> existing = fluencyLevelRepository.findAll();
+        List<FluencyLevel> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(FluencyLevel::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            fluencyLevelRepository.saveAll(toAdd);
         }
     }
 
     private void initViceTypes() {
-        if (viceTypeRepository.count() == 0) {
-            viceTypeRepository.saveAll(List.of(new ViceType("Smoking Cigarettes"), new ViceType("Drinking Alcohol"), new ViceType("Marijuana"), new ViceType("Vaping")));
+        List<String> canonicalNames = List.of("Smoking Cigarettes", "Drinking Alcohol", "Marijuana", "Vaping");
+        List<ViceType> existing = viceTypeRepository.findAll();
+        List<ViceType> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(ViceType::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            viceTypeRepository.saveAll(toAdd);
         }
     }
 
     private void initViceFrequencies() {
-        if (viceFrequencyRepository.count() == 0) {
-            viceFrequencyRepository.saveAll(List.of(new ViceFrequency("Often"), new ViceFrequency("Sometimes"), new ViceFrequency("Rarely"), new ViceFrequency("Never")));
+        List<String> canonicalNames = List.of("Often", "Sometimes", "Rarely", "Never");
+        List<ViceFrequency> existing = viceFrequencyRepository.findAll();
+        List<ViceFrequency> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(ViceFrequency::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            viceFrequencyRepository.saveAll(toAdd);
         }
     }
 
     private void initPetTypes() {
-        if (petTypeRepository.count() == 0) {
-            petTypeRepository.saveAll(List.of(new PetType("Dogs"), new PetType("Cats"), new PetType("Birds"), new PetType("Fish")));
+        List<String> canonicalNames = List.of("Dogs", "Cats", "Birds", "Fish");
+        List<PetType> existing = petTypeRepository.findAll();
+        List<PetType> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(PetType::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            petTypeRepository.saveAll(toAdd);
         }
     }
 
     private void initTravelFrequencies() {
-        if (travelFrequencyRepository.count() == 0) {
-            travelFrequencyRepository.saveAll(List.of(new TravelFrequency("Often"), new TravelFrequency("Sometimes"), new TravelFrequency("Rarely"), new TravelFrequency("Never")));
+        List<String> canonicalNames = List.of("Often", "Sometimes", "Rarely", "Never");
+        List<TravelFrequency> existing = travelFrequencyRepository.findAll();
+        List<TravelFrequency> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(TravelFrequency::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            travelFrequencyRepository.saveAll(toAdd);
         }
     }
 
     private void initTravelDurations() {
-        if (travelDurationRepository.count() == 0) {
-            travelDurationRepository.saveAll(List.of(new TravelDuration("Short"), new TravelDuration("Medium"), new TravelDuration("Long")));
+        List<String> canonicalNames = List.of("Short", "Medium", "Long");
+        List<TravelDuration> existing = travelDurationRepository.findAll();
+        List<TravelDuration> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(TravelDuration::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            travelDurationRepository.saveAll(toAdd);
         }
     }
 
     private void initTravelDistances() {
-        if (travelDistanceRepository.count() == 0) {
-            travelDistanceRepository.saveAll(List.of(new TravelDistance("Near"), new TravelDistance("Far"), new TravelDistance("International")));
+        List<String> canonicalNames = List.of("Near", "Far", "International");
+        List<TravelDistance> existing = travelDistanceRepository.findAll();
+        List<TravelDistance> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(TravelDistance::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            travelDistanceRepository.saveAll(toAdd);
         }
     }
 
     private void initTravelGroupSizes() {
-        if (travelGroupSizeRepository.count() == 0) {
-            travelGroupSizeRepository.saveAll(List.of(new TravelGroupSize("Solo"), new TravelGroupSize("Couple"), new TravelGroupSize("Small Group"), new TravelGroupSize("Large Group")));
+        List<String> canonicalNames = List.of("Solo", "Couple", "Small Group", "Large Group");
+        List<TravelGroupSize> existing = travelGroupSizeRepository.findAll();
+        List<TravelGroupSize> toAdd = canonicalNames.stream()
+                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
+                .map(TravelGroupSize::new)
+                .toList();
+        if (!toAdd.isEmpty()) {
+            travelGroupSizeRepository.saveAll(toAdd);
         }
     }
 
@@ -330,24 +438,71 @@ public class RenderDataPopulationService {
     }
 
     private void initPreferences() {
-        if (contactPreferenceRepository.count() == 0) {
-            List<UserProfile> userProfiles = userProfileRepository.findAll();
-            Random random = new Random();
+        List<UserProfile> userProfiles = userProfileRepository.findAllWithAssociations();
+        Random random = new Random();
 
-            for (UserProfile profile : userProfiles) {
+        // Prefetch lookup data
+        List<PersonalityScale> scales = personalityScaleRepository.findAll();
+        List<Gender> genders = genderRepository.findAll();
+        List<Orientation> orientations = orientationRepository.findAll();
+        List<RelationshipStatus> statuses = relationshipStatusRepository.findAll();
+        List<RelationshipPractice> practices = relationshipPracticeRepository.findAll();
+        List<RelationshipInterest> relationshipInterests = relationshipInterestRepository.findAll();
+        List<Religion> religions = religionRepository.findAll();
+        List<EducationDegree> degrees = educationDegreeRepository.findAll();
+        List<LifeStage> stages = lifeStageRepository.findAll();
+        List<ChildGender> childGenders = childGenderRepository.findAll();
+        List<HouseholdStatus> householdStatuses = householdStatusRepository.findAll();
+        List<FluencyLevel> fluencyLevels = fluencyLevelRepository.findAll();
+        List<ViceType> viceTypes = viceTypeRepository.findAll();
+        List<ViceFrequency> viceFrequencies = viceFrequencyRepository.findAll();
+        List<PetType> petTypes = petTypeRepository.findAll();
+        List<TravelFrequency> travelFrequencies = travelFrequencyRepository.findAll();
+        List<TravelDuration> travelDurations = travelDurationRepository.findAll();
+        List<TravelDistance> travelDistances = travelDistanceRepository.findAll();
+        List<TravelGroupSize> travelGroupSizes = travelGroupSizeRepository.findAll();
+
+        for (UserProfile profile : userProfiles) {
+            if (profile.getContactPreference() == null) {
                 initContactPreference(profile, random);
+            }
+            if (profile.getLocationPreference() == null) {
                 initLocationPreference(profile, random);
+            }
+            if (profile.getAgePreference() == null) {
                 initAgePreference(profile, random);
-                initSocialPersonality(profile, random);
-                initGenderPreference(profile, random);
-                initRelationshipPreference(profile, random);
-                initReligionPreference(profile, random);
-                initEducationPreference(profile, random);
-                initChildrenPreference(profile, random);
-                initLanguagePreference(profile, random);
-                initVicePreference(profile, random);
-                initPetsPreference(profile, random);
-                initTravelPreference(profile, random);
+            }
+            if (profile.getSocialPersonality() == null) {
+                initSocialPersonality(profile, random, scales);
+            }
+            if (profile.getGenderPreference() == null) {
+                initGenderPreference(profile, random, genders, orientations);
+            }
+            if (profile.getRelationshipPreference() == null) {
+                initRelationshipPreference(profile, random, statuses, practices, relationshipInterests);
+            }
+            if (profile.getReligionPreference() == null) {
+                initReligionPreference(profile, random, religions);
+            }
+            if (profile.getEducationPreference() == null) {
+                initEducationPreference(profile, random, degrees);
+            }
+            if (profile.getChildrenPreference() == null) {
+                initChildrenPreference(profile, random, stages, childGenders, householdStatuses);
+            }
+            if (profile.getLanguagePreference() == null) {
+                initLanguagePreference(profile, random, fluencyLevels);
+            }
+            if (profile.getVicePreference() == null) {
+                initVicePreference(profile, random, viceTypes, viceFrequencies);
+            }
+            if (profile.getPetsPreference() == null) {
+                initPetsPreference(profile, random, petTypes);
+            }
+            if (profile.getTravelPreference() == null) {
+                initTravelPreference(profile, random, travelFrequencies, travelDurations, travelDistances, travelGroupSizes);
+            }
+            if (profile.getDietPreference() == null) {
                 initDietPreference(profile, random);
             }
         }
@@ -360,7 +515,7 @@ public class RenderDataPopulationService {
         contact.setEmailAddress(RandomStringUtils.randomAlphabetic(5, 8) + "@example.com");
         contact.setPhoneNumber(RandomStringUtils.randomNumeric(10));
         contact.setEmailVerified(random.nextBoolean());
-        contact.setUserProfile(profile);
+        profile.setContactPreference(contact);
         contactPreferenceRepository.save(contact);
     }
 
@@ -368,7 +523,7 @@ public class RenderDataPopulationService {
         LocationPreference location = new LocationPreference();
         location.setUseLocal(random.nextBoolean());
         location.setDistanceInMiles(10.0 + random.nextDouble() * 90.0);
-        location.setUserProfile(profile);
+        profile.setLocationPreference(location);
         locationPreferenceRepository.save(location);
     }
 
@@ -379,12 +534,11 @@ public class RenderDataPopulationService {
         age.setYear(String.valueOf(1970 + random.nextInt(40)));
         age.setMinAge(18 + random.nextInt(10));
         age.setMaxAge(40 + random.nextInt(40));
-        age.setUserProfile(profile);
+        profile.setAgePreference(age);
         agePreferenceRepository.save(age);
     }
 
-    private void initSocialPersonality(UserProfile profile, Random random) {
-        List<PersonalityScale> scales = personalityScaleRepository.findAll();
+    private void initSocialPersonality(UserProfile profile, Random random, List<PersonalityScale> scales) {
         if (scales.isEmpty())
             return;
 
@@ -394,13 +548,11 @@ public class RenderDataPopulationService {
         social.setExtraversion(scales.get(random.nextInt(scales.size())));
         social.setAgreeableness(scales.get(random.nextInt(scales.size())));
         social.setNeuroticism(scales.get(random.nextInt(scales.size())));
-        social.setUserProfile(profile);
+        profile.setSocialPersonality(social);
         socialPersonalityRepository.save(social);
     }
 
-    private void initGenderPreference(UserProfile profile, Random random) {
-        List<Gender> genders = genderRepository.findAll();
-        List<Orientation> orientations = orientationRepository.findAll();
+    private void initGenderPreference(UserProfile profile, Random random, List<Gender> genders, List<Orientation> orientations) {
         if (genders.isEmpty() || orientations.isEmpty())
             return;
 
@@ -408,34 +560,30 @@ public class RenderDataPopulationService {
         genderPref.setGender(genders.get(random.nextInt(genders.size())));
         genderPref.setOrientation(orientations.get(random.nextInt(orientations.size())));
         genderPref.setTrans(random.nextBoolean());
-        genderPref.setUserProfile(profile);
+        profile.setGenderPreference(genderPref);
         genderPreferenceRepository.save(genderPref);
     }
 
-    private void initRelationshipPreference(UserProfile profile, Random random) {
-        List<RelationshipStatus> statuses = relationshipStatusRepository.findAll();
+    private void initRelationshipPreference(UserProfile profile, Random random, List<RelationshipStatus> statuses, List<RelationshipPractice> practices, List<RelationshipInterest> interests) {
         if (statuses.isEmpty())
             return;
 
         RelationshipPreference relation = new RelationshipPreference();
         relation.setRelationshipStatus(statuses.get(random.nextInt(statuses.size())));
 
-        List<RelationshipPractice> practices = relationshipPracticeRepository.findAll();
         if (!practices.isEmpty()) {
             relation.getRelationshipPractices().add(practices.get(random.nextInt(practices.size())));
         }
 
-        List<RelationshipInterest> interests = relationshipInterestRepository.findAll();
         if (!interests.isEmpty()) {
             relation.getRelationshipInterests().add(interests.get(random.nextInt(interests.size())));
         }
 
-        relation.setUserProfile(profile);
+        profile.setRelationshipPreference(relation);
         relationshipPreferenceRepository.save(relation);
     }
 
-    private void initReligionPreference(UserProfile profile, Random random) {
-        List<Religion> religions = religionRepository.findAll();
+    private void initReligionPreference(UserProfile profile, Random random, List<Religion> religions) {
         if (religions.isEmpty())
             return;
 
@@ -443,12 +591,11 @@ public class RenderDataPopulationService {
         religionPref.setReligion(religions.get(random.nextInt(religions.size())));
         religionPref.setImportance(1 + random.nextInt(5));
         religionPref.setSameReligion(random.nextBoolean());
-        religionPref.setUserProfile(profile);
+        profile.setReligionPreference(religionPref);
         religionPreferenceRepository.save(religionPref);
     }
 
-    private void initEducationPreference(UserProfile profile, Random random) {
-        List<EducationDegree> degrees = educationDegreeRepository.findAll();
+    private void initEducationPreference(UserProfile profile, Random random, List<EducationDegree> degrees) {
         if (degrees.isEmpty())
             return;
 
@@ -456,18 +603,15 @@ public class RenderDataPopulationService {
         education.setHighestDegree(degrees.get(random.nextInt(degrees.size())));
         education.setConcentration(RandomStringUtils.randomAlphabetic(8, 12));
         education.setImportance(1 + random.nextInt(5));
-        education.setUserProfile(profile);
+        profile.setEducationPreference(education);
         educationPreferenceRepository.save(education);
     }
 
-    private void initChildrenPreference(UserProfile profile, Random random) {
+    private void initChildrenPreference(UserProfile profile, Random random, List<LifeStage> stages, List<ChildGender> genders, List<HouseholdStatus> statuses) {
         ChildrenPreference childrenPref = new ChildrenPreference();
         childrenPref.setMoreChildren(random.nextBoolean());
 
         if (random.nextBoolean()) {
-            List<LifeStage> stages = lifeStageRepository.findAll();
-            List<ChildGender> genders = childGenderRepository.findAll();
-            List<HouseholdStatus> statuses = householdStatusRepository.findAll();
             if (!stages.isEmpty() && !genders.isEmpty() && !statuses.isEmpty()) {
                 Child child = new Child();
                 child.setLifeStage(stages.get(random.nextInt(stages.size())));
@@ -477,15 +621,14 @@ public class RenderDataPopulationService {
             }
         }
 
-        childrenPref.setUserProfile(profile);
+        profile.setChildrenPreference(childrenPref);
         childrenPreferenceRepository.save(childrenPref);
     }
 
-    private void initLanguagePreference(UserProfile profile, Random random) {
+    private void initLanguagePreference(UserProfile profile, Random random, List<FluencyLevel> levels) {
         LanguagePreference languagePref = new LanguagePreference();
         languagePref.setImportance(1 + random.nextInt(5));
 
-        List<FluencyLevel> levels = fluencyLevelRepository.findAll();
         if (!levels.isEmpty()) {
             Language language = new Language();
             language.setName(RandomStringUtils.randomAlphabetic(6, 10));
@@ -493,16 +636,14 @@ public class RenderDataPopulationService {
             languagePref.addLanguageSpoken(language);
         }
 
-        languagePref.setUserProfile(profile);
+        profile.setLanguagePreference(languagePref);
         languagePreferenceRepository.save(languagePref);
     }
 
-    private void initVicePreference(UserProfile profile, Random random) {
+    private void initVicePreference(UserProfile profile, Random random, List<ViceType> types, List<ViceFrequency> frequencies) {
         VicePreference vicePref = new VicePreference();
         vicePref.setImportance(1 + random.nextInt(5));
 
-        List<ViceType> types = viceTypeRepository.findAll();
-        List<ViceFrequency> frequencies = viceFrequencyRepository.findAll();
         if (!types.isEmpty() && !frequencies.isEmpty()) {
             Vice vice = new Vice();
             vice.setViceType(types.get(random.nextInt(types.size())));
@@ -510,15 +651,14 @@ public class RenderDataPopulationService {
             vicePref.addVice(vice);
         }
 
-        vicePref.setUserProfile(profile);
+        profile.setVicePreference(vicePref);
         vicePreferenceRepository.save(vicePref);
     }
 
-    private void initPetsPreference(UserProfile profile, Random random) {
+    private void initPetsPreference(UserProfile profile, Random random, List<PetType> types) {
         PetsPreference petsPref = new PetsPreference();
         petsPref.setImportance(1 + random.nextInt(5));
 
-        List<PetType> types = petTypeRepository.findAll();
         if (!types.isEmpty()) {
             Pet pet = new Pet();
             pet.setPetType(types.get(random.nextInt(types.size())));
@@ -527,16 +667,11 @@ public class RenderDataPopulationService {
             petsPref.addPet(pet);
         }
 
-        petsPref.setUserProfile(profile);
+        profile.setPetsPreference(petsPref);
         petsPreferenceRepository.save(petsPref);
     }
 
-    private void initTravelPreference(UserProfile profile, Random random) {
-        List<TravelFrequency> frequencies = travelFrequencyRepository.findAll();
-        List<TravelDuration> durations = travelDurationRepository.findAll();
-        List<TravelDistance> distances = travelDistanceRepository.findAll();
-        List<TravelGroupSize> groupSizes = travelGroupSizeRepository.findAll();
-
+    private void initTravelPreference(UserProfile profile, Random random, List<TravelFrequency> frequencies, List<TravelDuration> durations, List<TravelDistance> distances, List<TravelGroupSize> groupSizes) {
         if (frequencies.isEmpty() || durations.isEmpty() || distances.isEmpty() || groupSizes.isEmpty())
             return;
 
@@ -547,7 +682,7 @@ public class RenderDataPopulationService {
         travel.setGroupSize(groupSizes.get(random.nextInt(groupSizes.size())));
         travel.setImportance(1 + random.nextInt(5));
 
-        travel.setUserProfile(profile);
+        profile.setTravelPreference(travel);
         travelPreferenceRepository.save(travel);
     }
 
@@ -556,7 +691,7 @@ public class RenderDataPopulationService {
         diet.setImportance(1 + random.nextInt(5));
         diet.getRestrictions().add(DietaryRestriction.values()[random.nextInt(DietaryRestriction.values().length)]);
 
-        diet.setUserProfile(profile);
+        profile.setDietPreference(diet);
         dietPreferenceRepository.save(diet);
     }
 
