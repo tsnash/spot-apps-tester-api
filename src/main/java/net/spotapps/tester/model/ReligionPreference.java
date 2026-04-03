@@ -32,7 +32,7 @@ public class ReligionPreference {
     private Religion religion;
 
     @Column(name = "importance")
-    @Min(0)
+    @Min(1)
     @Max(5)
     private Integer importance;
 

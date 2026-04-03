@@ -24,7 +24,7 @@ public class ReligionPreferenceDto {
 
     @JsonProperty("importance")
     @Schema(description = "The importance of the user's religion preference.", example = "3")
-    @Min(0)
+    @Min(1)
     @Max(5)
     private Integer importance;
 
