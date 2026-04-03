@@ -1,8 +1,5 @@
 package net.spotapps.tester.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,27 +12,21 @@ public class LanguagePreferenceTest {
     @MethodSource("provideDifferentLanguagePreferences")
     public void testLanguagePreferenceInequality(LanguagePreference testLanguagePreference1,
             LanguagePreference testLanguagePreference2) {
-        assertNotEquals(testLanguagePreference1, testLanguagePreference2,
-                "Different language preferences should not be equal");
-        if (testLanguagePreference2 != null) {
-            assertNotEquals(testLanguagePreference2, testLanguagePreference1, "Inequality should be symmetric");
-        }
+        ModelTestHelper.assertInequality(testLanguagePreference1, testLanguagePreference2);
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalLanguagePreferences")
     public void testLanguagePreferenceEquality(LanguagePreference testLanguagePreference1,
             LanguagePreference testLanguagePreference2) {
-        assertEquals(testLanguagePreference1, testLanguagePreference2, "Identical language preferences should be equal");
-        assertEquals(testLanguagePreference2, testLanguagePreference1, "Equality should be symmetric");
+        ModelTestHelper.assertEquality(testLanguagePreference1, testLanguagePreference2);
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalLanguagePreferences")
     public void testLanguagePreferenceHashcodeEquality(LanguagePreference testLanguagePreference1,
             LanguagePreference testLanguagePreference2) {
-        assertEquals(testLanguagePreference1.hashCode(), testLanguagePreference2.hashCode(),
-                "Identical language preferences should have equal hash codes");
+        ModelTestHelper.assertHashcodeEquality(testLanguagePreference1, testLanguagePreference2);
     }
 
     private static Stream<Arguments> provideDifferentLanguagePreferences() {
@@ -64,6 +55,7 @@ public class LanguagePreferenceTest {
                 Arguments.of(languagePreference1, languagePreferenceNull),
                 Arguments.of(languagePreferenceNull, languagePreferenceNull2),
                 Arguments.of(languagePreference1, null),
+                Arguments.of(null, languagePreference1),
                 Arguments.of(languagePreference1AllFields, languagePreference2AllFields));
     }
 

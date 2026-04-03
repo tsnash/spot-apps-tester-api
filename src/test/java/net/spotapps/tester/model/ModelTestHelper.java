@@ -16,9 +16,7 @@ public final class ModelTestHelper {
 
     public static <T> void assertInequality(T a, T b) {
         assertNotEquals(a, b, "Different objects should not be equal");
-        if (b != null) {
-            assertNotEquals(b, a, "Inequality should be symmetric");
-        }
+        assertNotEquals(b, a, "Inequality should be symmetric");
     }
 
     public static <T> void assertHashcodeEquality(T a, T b) {
