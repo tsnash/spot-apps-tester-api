@@ -1,6 +1,0 @@
-reviews:
-  path_filters:
-    - "src/main/java/net/spotapps/tester/model/**"
-    - "!src/main/java/net/spotapps/tester/dao/**"
-    - "!src/main/java/net/spotapps/tester/dto/**"
-    - "!src/test/**"
