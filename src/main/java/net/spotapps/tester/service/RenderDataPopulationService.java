@@ -3,12 +3,16 @@ package net.spotapps.tester.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import jakarta.annotation.PostConstruct;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -162,76 +166,48 @@ public class RenderDataPopulationService {
         });
     }
 
-    private void initGenders() {
-        List<String> canonicalNames = List.of("Male", "Female", "Non-binary");
-        List<Gender> existing = genderRepository.findAll();
-        List<Gender> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(Gender::new)
+    private <T, ID> void upsertMissingLookups(
+            JpaRepository<T, ID> repository,
+            Function<T, String> nameExtractor,
+            List<String> canonicalNames,
+            Function<String, T> entityCreator) {
+        Set<String> existingNames = repository.findAll().stream()
+                .map(nameExtractor)
+                .map(name -> name.trim().toLowerCase())
+                .collect(Collectors.toSet());
+
+        List<T> toAdd = canonicalNames.stream()
+                .filter(name -> !existingNames.contains(name.trim().toLowerCase()))
+                .map(entityCreator)
                 .toList();
+
         if (!toAdd.isEmpty()) {
-            genderRepository.saveAll(toAdd);
+            repository.saveAll(toAdd);
         }
+    }
+
+    private void initGenders() {
+        upsertMissingLookups(genderRepository, Gender::getName, List.of("Male", "Female", "Non-binary"), Gender::new);
     }
 
     private void initOrientations() {
-        List<String> canonicalNames = List.of("Heterosexual", "Homosexual", "Bisexual");
-        List<Orientation> existing = orientationRepository.findAll();
-        List<Orientation> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(Orientation::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            orientationRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(orientationRepository, Orientation::getName, List.of("Heterosexual", "Homosexual", "Bisexual"), Orientation::new);
     }
 
     private void initPersonalityScales() {
-        List<String> canonicalNames = List.of("Very Low", "Low", "Neutral", "High", "Very High");
-        List<PersonalityScale> existing = personalityScaleRepository.findAll();
-        List<PersonalityScale> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(PersonalityScale::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            personalityScaleRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(personalityScaleRepository, PersonalityScale::getName, List.of("Very Low", "Low", "Neutral", "High", "Very High"), PersonalityScale::new);
     }
 
     private void initRelationshipStatuses() {
-        List<String> canonicalNames = List.of("Single", "Married", "Divorced");
-        List<RelationshipStatus> existing = relationshipStatusRepository.findAll();
-        List<RelationshipStatus> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(RelationshipStatus::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            relationshipStatusRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(relationshipStatusRepository, RelationshipStatus::getName, List.of("Single", "Married", "Divorced"), RelationshipStatus::new);
     }
 
     private void initRelationshipPractices() {
-        List<String> canonicalNames = List.of("Monogamy", "Polyamory", "Open Relationship");
-        List<RelationshipPractice> existing = relationshipPracticeRepository.findAll();
-        List<RelationshipPractice> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(RelationshipPractice::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            relationshipPracticeRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(relationshipPracticeRepository, RelationshipPractice::getName, List.of("Monogamy", "Polyamory", "Open Relationship"), RelationshipPractice::new);
     }
 
     private void initRelationshipInterests() {
-        List<String> canonicalNames = List.of("Long-term", "Short-term", "Casual");
-        List<RelationshipInterest> existing = relationshipInterestRepository.findAll();
-        List<RelationshipInterest> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(RelationshipInterest::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            relationshipInterestRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(relationshipInterestRepository, RelationshipInterest::getName, List.of("Long-term", "Short-term", "Casual"), RelationshipInterest::new);
     }
 
     private void initReligions() {
@@ -252,147 +228,51 @@ public class RenderDataPopulationService {
     }
 
     private void initLifeStages() {
-        List<String> canonicalNames = List.of("Infant", "Toddler", "Child", "Teenager", "Adult");
-        List<LifeStage> existing = lifeStageRepository.findAll();
-        List<LifeStage> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(LifeStage::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            lifeStageRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(lifeStageRepository, LifeStage::getName, List.of("Infant", "Toddler", "Child", "Teenager", "Adult"), LifeStage::new);
     }
 
     private void initChildGenders() {
-        List<String> canonicalNames = List.of("M", "F");
-        List<ChildGender> existing = childGenderRepository.findAll();
-        List<ChildGender> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(ChildGender::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            childGenderRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(childGenderRepository, ChildGender::getName, List.of("M", "F"), ChildGender::new);
     }
 
     private void initHouseholdStatuses() {
-        List<String> canonicalNames = List.of("Full-time", "Part-time", "Visiting");
-        List<HouseholdStatus> existing = householdStatusRepository.findAll();
-        List<HouseholdStatus> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(HouseholdStatus::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            householdStatusRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(householdStatusRepository, HouseholdStatus::getName, List.of("Full-time", "Part-time", "Visiting"), HouseholdStatus::new);
     }
 
     private void initEducationDegrees() {
-        List<String> canonicalNames = List.of("High School", "Bachelor's", "Master's", "Doctorate");
-        List<EducationDegree> existing = educationDegreeRepository.findAll();
-        List<EducationDegree> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(EducationDegree::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            educationDegreeRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(educationDegreeRepository, EducationDegree::getName, List.of("High School", "Bachelor's", "Master's", "Doctorate"), EducationDegree::new);
     }
 
     private void initFluencyLevels() {
-        List<String> canonicalNames = List.of("Native", "Fluent", "Conversational", "Basic");
-        List<FluencyLevel> existing = fluencyLevelRepository.findAll();
-        List<FluencyLevel> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(FluencyLevel::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            fluencyLevelRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(fluencyLevelRepository, FluencyLevel::getName, List.of("Native", "Fluent", "Conversational", "Basic"), FluencyLevel::new);
     }
 
     private void initViceTypes() {
-        List<String> canonicalNames = List.of("Smoking Cigarettes", "Drinking Alcohol", "Marijuana", "Vaping");
-        List<ViceType> existing = viceTypeRepository.findAll();
-        List<ViceType> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(ViceType::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            viceTypeRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(viceTypeRepository, ViceType::getName, List.of("Smoking Cigarettes", "Drinking Alcohol", "Marijuana", "Vaping"), ViceType::new);
     }
 
     private void initViceFrequencies() {
-        List<String> canonicalNames = List.of("Often", "Sometimes", "Rarely", "Never");
-        List<ViceFrequency> existing = viceFrequencyRepository.findAll();
-        List<ViceFrequency> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(ViceFrequency::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            viceFrequencyRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(viceFrequencyRepository, ViceFrequency::getName, List.of("Often", "Sometimes", "Rarely", "Never"), ViceFrequency::new);
     }
 
     private void initPetTypes() {
-        List<String> canonicalNames = List.of("Dogs", "Cats", "Birds", "Fish");
-        List<PetType> existing = petTypeRepository.findAll();
-        List<PetType> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(PetType::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            petTypeRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(petTypeRepository, PetType::getName, List.of("Dogs", "Cats", "Birds", "Fish"), PetType::new);
     }
 
     private void initTravelFrequencies() {
-        List<String> canonicalNames = List.of("Often", "Sometimes", "Rarely", "Never");
-        List<TravelFrequency> existing = travelFrequencyRepository.findAll();
-        List<TravelFrequency> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(TravelFrequency::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            travelFrequencyRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(travelFrequencyRepository, TravelFrequency::getName, List.of("Often", "Sometimes", "Rarely", "Never"), TravelFrequency::new);
     }
 
     private void initTravelDurations() {
-        List<String> canonicalNames = List.of("Short", "Medium", "Long");
-        List<TravelDuration> existing = travelDurationRepository.findAll();
-        List<TravelDuration> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(TravelDuration::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            travelDurationRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(travelDurationRepository, TravelDuration::getName, List.of("Short", "Medium", "Long"), TravelDuration::new);
     }
 
     private void initTravelDistances() {
-        List<String> canonicalNames = List.of("Near", "Far", "International");
-        List<TravelDistance> existing = travelDistanceRepository.findAll();
-        List<TravelDistance> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(TravelDistance::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            travelDistanceRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(travelDistanceRepository, TravelDistance::getName, List.of("Near", "Far", "International"), TravelDistance::new);
     }
 
     private void initTravelGroupSizes() {
-        List<String> canonicalNames = List.of("Solo", "Couple", "Small Group", "Large Group");
-        List<TravelGroupSize> existing = travelGroupSizeRepository.findAll();
-        List<TravelGroupSize> toAdd = canonicalNames.stream()
-                .filter(name -> existing.stream().noneMatch(e -> e.getName().equalsIgnoreCase(name)))
-                .map(TravelGroupSize::new)
-                .toList();
-        if (!toAdd.isEmpty()) {
-            travelGroupSizeRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(travelGroupSizeRepository, TravelGroupSize::getName, List.of("Solo", "Couple", "Small Group", "Large Group"), TravelGroupSize::new);
     }
 
     private void initUserProfiles() {
