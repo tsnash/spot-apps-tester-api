@@ -3,7 +3,11 @@ package net.spotapps.tester.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class ModelTestHelper {
+public final class ModelTestHelper {
+
+    private ModelTestHelper() {
+        throw new AssertionError();
+    }
 
     public static <T> void assertEquality(T a, T b) {
         assertEquals(a, b, "Identical objects should be equal");

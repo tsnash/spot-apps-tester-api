@@ -78,9 +78,14 @@ public class LanguagePreferenceTest {
         languagePreference1AllFields.setUserId(1L);
         languagePreference1AllFields.setImportance(5);
 
+        LanguagePreference languagePreferenceDifferentImportance = new LanguagePreference();
+        languagePreferenceDifferentImportance.setUserId(1L);
+        languagePreferenceDifferentImportance.setImportance(3);
+
         return Stream.of(
                 Arguments.of(languagePreference1, languagePreference1),
                 Arguments.of(languagePreference1, languagePreference2),
-                Arguments.of(languagePreference1, languagePreference1AllFields));
+                Arguments.of(languagePreference1, languagePreference1AllFields),
+                Arguments.of(languagePreference1AllFields, languagePreferenceDifferentImportance));
     }
 }

@@ -1,8 +1,5 @@
 package net.spotapps.tester.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,24 +11,19 @@ public class PetTest {
     @ParameterizedTest
     @MethodSource("provideDifferentPets")
     public void testPetInequality(Pet testPet1, Pet testPet2) {
-        assertNotEquals(testPet1, testPet2, "Different pets should not be equal");
-        if (testPet2 != null) {
-            assertNotEquals(testPet2, testPet1, "Inequality should be symmetric");
-        }
+        ModelTestHelper.assertInequality(testPet1, testPet2);
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalPets")
     public void testPetEquality(Pet testPet1, Pet testPet2) {
-        assertEquals(testPet1, testPet2, "Identical pets should be equal");
-        assertEquals(testPet2, testPet1, "Equality should be symmetric");
+        ModelTestHelper.assertEquality(testPet1, testPet2);
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalPets")
     public void testPetHashcodeEquality(Pet testPet1, Pet testPet2) {
-        assertEquals(testPet1.hashCode(), testPet2.hashCode(),
-                "Identical pets should have equal hash codes");
+        ModelTestHelper.assertHashcodeEquality(testPet1, testPet2);
     }
 
     private static Stream<Arguments> provideDifferentPets() {

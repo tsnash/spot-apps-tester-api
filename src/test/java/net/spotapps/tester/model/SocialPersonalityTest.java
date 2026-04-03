@@ -39,33 +39,13 @@ public class SocialPersonalityTest {
     }
 
     private static Stream<Arguments> provideDifferentSocialPersonalities() {
-        SocialPersonality socialPersonality1 = new SocialPersonality();
-        socialPersonality1.setUserId(1L);
+        SocialPersonality socialPersonality1 = createSocialPersonality(1L, "1", "2", "3", "4", "5");
+        SocialPersonality socialPersonality2 = createSocialPersonality(2L, "1", "2", "3", "4", "5");
+        SocialPersonality socialPersonalityNull = createSocialPersonality(null, null, null, null, null, null);
+        SocialPersonality socialPersonalityNull2 = createSocialPersonality(null, null, null, null, null, null);
 
-        SocialPersonality socialPersonality2 = new SocialPersonality();
-        socialPersonality2.setUserId(2L);
-
-        SocialPersonality socialPersonalityNull = new SocialPersonality();
-        socialPersonalityNull.setUserId(null);
-
-        SocialPersonality socialPersonalityNull2 = new SocialPersonality();
-        socialPersonalityNull2.setUserId(null);
-
-        SocialPersonality socialPersonality1AllFields = new SocialPersonality();
-        socialPersonality1AllFields.setUserId(1L);
-        socialPersonality1AllFields.setOpenness(new PersonalityScale("1"));
-        socialPersonality1AllFields.setConscientiousness(new PersonalityScale("2"));
-        socialPersonality1AllFields.setExtraversion(new PersonalityScale("3"));
-        socialPersonality1AllFields.setAgreeableness(new PersonalityScale("4"));
-        socialPersonality1AllFields.setNeuroticism(new PersonalityScale("5"));
-
-        SocialPersonality socialPersonality2AllFields = new SocialPersonality();
-        socialPersonality2AllFields.setUserId(2L);
-        socialPersonality2AllFields.setOpenness(new PersonalityScale("1"));
-        socialPersonality2AllFields.setConscientiousness(new PersonalityScale("2"));
-        socialPersonality2AllFields.setExtraversion(new PersonalityScale("3"));
-        socialPersonality2AllFields.setAgreeableness(new PersonalityScale("4"));
-        socialPersonality2AllFields.setNeuroticism(new PersonalityScale("5"));
+        SocialPersonality socialPersonality1AllFields = createSocialPersonality(1L, "1", "2", "3", "4", "5");
+        SocialPersonality socialPersonality2AllFields = createSocialPersonality(2L, "1", "2", "3", "4", "5");
 
         return Stream.of(
                 Arguments.of(socialPersonality1, socialPersonality2),
@@ -76,23 +56,24 @@ public class SocialPersonalityTest {
     }
 
     private static Stream<Arguments> provideIdenticalSocialPersonalities() {
-        SocialPersonality socialPersonality1 = new SocialPersonality();
-        socialPersonality1.setUserId(1L);
-
-        SocialPersonality socialPersonality2 = new SocialPersonality();
-        socialPersonality2.setUserId(1L);
-
-        SocialPersonality socialPersonality1AllFields = new SocialPersonality();
-        socialPersonality1AllFields.setUserId(1L);
-        socialPersonality1AllFields.setOpenness(new PersonalityScale("1"));
-        socialPersonality1AllFields.setConscientiousness(new PersonalityScale("2"));
-        socialPersonality1AllFields.setExtraversion(new PersonalityScale("3"));
-        socialPersonality1AllFields.setAgreeableness(new PersonalityScale("4"));
-        socialPersonality1AllFields.setNeuroticism(new PersonalityScale("5"));
+        SocialPersonality socialPersonality1 = createSocialPersonality(1L, null, null, null, null, null);
+        SocialPersonality socialPersonality2 = createSocialPersonality(1L, null, null, null, null, null);
+        SocialPersonality socialPersonality1AllFields = createSocialPersonality(1L, "1", "2", "3", "4", "5");
 
         return Stream.of(
                 Arguments.of(socialPersonality1, socialPersonality1),
                 Arguments.of(socialPersonality1, socialPersonality2),
                 Arguments.of(socialPersonality1, socialPersonality1AllFields));
+    }
+
+    private static SocialPersonality createSocialPersonality(Long userId, String openness, String conscientiousness, String extraversion, String agreeableness, String neuroticism) {
+        SocialPersonality sp = new SocialPersonality();
+        sp.setUserId(userId);
+        if (openness != null) sp.setOpenness(new PersonalityScale(openness));
+        if (conscientiousness != null) sp.setConscientiousness(new PersonalityScale(conscientiousness));
+        if (extraversion != null) sp.setExtraversion(new PersonalityScale(extraversion));
+        if (agreeableness != null) sp.setAgreeableness(new PersonalityScale(agreeableness));
+        if (neuroticism != null) sp.setNeuroticism(new PersonalityScale(neuroticism));
+        return sp;
     }
 }
