@@ -2,26 +2,29 @@ package net.spotapps.tester.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user_interests")
 public class UserInterest {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "interest_id")
     private Long interestId;
 
-    @Column
+    @NotNull
+    @Column(name = "interest", nullable = false)
     private String interest;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserProfile userProfile;
 
@@ -58,7 +61,7 @@ public class UserInterest {
         return userProfile;
     }
 
-    public void setUserProfile(UserProfile userProfile) {
+    void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
 
@@ -75,9 +78,7 @@ public class UserInterest {
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
+        if (!(obj instanceof UserInterest))
             return false;
         UserInterest other = (UserInterest) obj;
         if (interestId == null) {
@@ -98,6 +99,4 @@ public class UserInterest {
         return "UserInterest [interestId=" + interestId + ", interest=" + interest + "]";
     }
 
-    
-    
 }

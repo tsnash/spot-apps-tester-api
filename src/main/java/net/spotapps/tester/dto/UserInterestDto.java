@@ -3,18 +3,22 @@ package net.spotapps.tester.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "interestId",
         "interest"
 })
+@Schema(description = "Represents a user's interest, including its unique identifier and the interest name.")
 public class UserInterestDto {
 
     @JsonProperty("interestId")
+    @Schema(description = "The unique identifier of the user's interest.", example = "1")
     private Long interestId;
 
     @JsonProperty("interest")
+    @Schema(description = "The name of the user's interest.", example = "hiking")
     private String interest;
 
     public UserInterestDto() {

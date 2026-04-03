@@ -2,12 +2,14 @@ package net.spotapps.tester.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user_images")
@@ -18,10 +20,11 @@ public class UserImage {
     @Column(name = "image_id")
     private Long imageId;
 
-    @Column
+    @NotNull
+    @Column(name = "image", nullable = false)
     private String image;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserProfile userProfile;
 
@@ -58,7 +61,7 @@ public class UserImage {
         return userProfile;
     }
 
-    public void setUserProfile(UserProfile userProfile) {
+    void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
 
@@ -75,9 +78,7 @@ public class UserImage {
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
+        if (!(obj instanceof UserImage))
             return false;
         UserImage other = (UserImage) obj;
         if (imageId == null) {

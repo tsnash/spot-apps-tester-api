@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import net.spotapps.tester.UserProfileConstants;
 import net.spotapps.tester.dao.UserProfileRepository;
 import net.spotapps.tester.dto.UserProfileDto;
+import net.spotapps.tester.exception.InvalidUserIdCollectionException;
+import net.spotapps.tester.exception.InvalidUserIdException;
+import net.spotapps.tester.exception.UserProfileCollectionNotFoundException;
+import net.spotapps.tester.exception.UserProfileNotFoundException;
 import net.spotapps.tester.model.UserProfile;
-import net.spotapps.tester.model.exception.InvalidUserIdCollectionException;
-import net.spotapps.tester.model.exception.InvalidUserIdException;
-import net.spotapps.tester.model.exception.UserProfileCollectionNotFoundException;
-import net.spotapps.tester.model.exception.UserProfileNotFoundException;
 
 @Service
 public class UserProfileServiceImpl implements UserProfileService {
@@ -33,7 +33,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
         Long id = NumberUtils.createLong(userId);
 
-        UserProfile userProfile = userProfileRepository.findById(id).orElseThrow(
+        UserProfile userProfile = userProfileRepository.findWithAssociationsByUserId(id).orElseThrow(
                 () -> new UserProfileNotFoundException(UserProfileConstants.USER_PROFILE_NOT_FOUND_MESSAGE, id));
 
         return UserProfileDto.convertUserProfileToDto(userProfile);
@@ -44,7 +44,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
         if (userIds == null || userIds.isEmpty()) {
             throw new InvalidUserIdCollectionException(
-                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, 
+                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE,
                     userIds == null ? List.of("<null>") : List.of("<empty>"));
         }
 
@@ -72,7 +72,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public List<UserProfileDto> getAllProfiles() {
 
-        return userProfileRepository.findAll().stream()
+        return userProfileRepository.findAllWithAssociations().stream()
                 .map(UserProfileDto::convertUserProfileToDto)
                 .toList();
     }

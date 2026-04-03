@@ -3,18 +3,22 @@ package net.spotapps.tester.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "imageId",
         "image"
 })
+@Schema(description = "Represents a user's image, including its unique identifier and the image data itself.")
 public class UserImageDto {
 
     @JsonProperty("imageId")
+    @Schema(description = "The unique identifier of the user's image.", example = "1")
     private Long imageId;
 
     @JsonProperty("image")
+    @Schema(description = "The image filename.", example = "image.png")
     private String image;
 
     public UserImageDto() {

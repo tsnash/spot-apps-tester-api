@@ -1,7 +1,5 @@
 package net.spotapps.tester.persistence.encryption;
 
-import jakarta.persistence.AttributeConverter;
-import jakarta.persistence.Converter;
 import javax.crypto.Cipher;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -11,6 +9,9 @@ import java.security.GeneralSecurityException;
 import java.security.Key;
 import java.security.SecureRandom;
 import java.util.Base64;
+
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
 @Converter(autoApply = false)
 public class CryptoConverter implements AttributeConverter<String, String> {
@@ -80,7 +81,8 @@ public class CryptoConverter implements AttributeConverter<String, String> {
     }
 
     private void validateKey() {
-        if (encryptionKey == null || (encryptionKey.length != 16 && encryptionKey.length != 24 && encryptionKey.length != 32)) {
+        if (encryptionKey == null
+                || (encryptionKey.length != 16 && encryptionKey.length != 24 && encryptionKey.length != 32)) {
             throw new IllegalArgumentException("Invalid key length. Key must be 16, 24, or 32 bytes long.");
         }
     }

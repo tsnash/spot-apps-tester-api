@@ -1,11 +1,10 @@
 package net.spotapps.tester.persistence.encryption;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import java.util.Base64;
 
 import jakarta.annotation.PostConstruct;
-
-import java.util.Base64;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 @Component
 public class EncryptionKeyProvider {

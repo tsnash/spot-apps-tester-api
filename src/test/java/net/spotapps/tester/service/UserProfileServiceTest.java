@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +21,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import net.spotapps.tester.dao.UserProfileRepository;
 import net.spotapps.tester.dto.UserProfileDto;
+import net.spotapps.tester.exception.BadRequestException;
+import net.spotapps.tester.exception.NotFoundException;
 import net.spotapps.tester.model.UserImage;
 import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
-import net.spotapps.tester.model.exception.BadRequestException;
-import net.spotapps.tester.model.exception.NotFoundException;
 
 @SpringBootTest
 public class UserProfileServiceTest {
@@ -50,56 +51,58 @@ public class UserProfileServiceTest {
     void setUp() {
         testUserProfile1 = new UserProfile();
         testUserProfile1.setUserId(VALID_EXISTING_IDS[0]);
-        testUserProfile1.setImages(Arrays.asList(
+        testUserProfile1.setImages(new LinkedHashSet<>(Arrays.asList(
                 new UserImage(1L, "should"),
                 new UserImage(2L, "be"),
                 new UserImage(3L, "four"),
-                new UserImage(4L, "here")));
-        testUserProfile1.setInterests(Arrays.asList(
+                new UserImage(4L, "here"))));
+        testUserProfile1.setInterests(new LinkedHashSet<>(Arrays.asList(
                 new UserInterest(1L, "just"),
                 new UserInterest(2L, "some"),
-                new UserInterest(3L, "interests")));
+                new UserInterest(3L, "interests"))));
 
         testUserProfileDto1 = UserProfileDto.convertUserProfileToDto(testUserProfile1);
 
         testUserProfile2 = new UserProfile();
         testUserProfile2.setUserId(VALID_EXISTING_IDS[1]);
-        testUserProfile2.setImages(Arrays.asList(
+        testUserProfile2.setImages(new LinkedHashSet<>(Arrays.asList(
                 new UserImage(5L, "some"),
                 new UserImage(6L, "others"),
                 new UserImage(7L, "as"),
-                new UserImage(8L, "well")));
-        testUserProfile2.setInterests(Arrays.asList(
+                new UserImage(8L, "well"))));
+        testUserProfile2.setInterests(new LinkedHashSet<>(Arrays.asList(
                 new UserInterest(4L, "here"),
                 new UserInterest(5L, "are"),
                 new UserInterest(6L, "more"),
                 new UserInterest(7L, "of"),
-                new UserInterest(8L, "them")));
+                new UserInterest(8L, "them"))));
 
         testUserProfileDto2 = UserProfileDto.convertUserProfileToDto(testUserProfile2);
 
         repository = mock(UserProfileRepository.class);
 
-        when(repository.findById(eq(VALID_EXISTING_IDS[0])))
+        when(repository.findWithAssociationsByUserId(eq(VALID_EXISTING_IDS[0])))
                 .thenReturn(Optional.of(testUserProfile1));
 
-        when(repository.findById(VALID_EXISTING_IDS[1]))
+        when(repository.findWithAssociationsByUserId(VALID_EXISTING_IDS[1]))
                 .thenReturn(Optional.of(testUserProfile2));
 
-        when(repository.findById(VALID_NON_EXISTENT_ID))
+        when(repository.findWithAssociationsByUserId(VALID_NON_EXISTENT_ID))
                 .thenReturn(Optional.empty());
 
-        when(repository.findAllByUserIdInOrderByUserIdAsc(eq(Arrays.asList(VALID_EXISTING_IDS[0], VALID_EXISTING_IDS[1])
-                .reversed())))
+        when(repository.findAllByUserIdInOrderByUserIdAsc(
+                eq(Arrays.asList(VALID_EXISTING_IDS[0], VALID_EXISTING_IDS[1])
+                        .reversed())))
                 .thenReturn(Arrays.asList(testUserProfile1, testUserProfile2));
 
-        when(repository.findAllByUserIdInOrderByUserIdAsc(Arrays.asList(VALID_EXISTING_IDS[1], VALID_NON_EXISTENT_ID)))
+        when(repository.findAllByUserIdInOrderByUserIdAsc(
+                Arrays.asList(VALID_EXISTING_IDS[1], VALID_NON_EXISTENT_ID)))
                 .thenReturn(Arrays.asList(testUserProfile2));
 
         when(repository.findAllByUserIdInOrderByUserIdAsc(Arrays.asList(VALID_NON_EXISTENT_ID)))
                 .thenReturn(List.of());
 
-        when(repository.findAll())
+        when(repository.findAllWithAssociations())
                 .thenReturn(Arrays.asList(testUserProfile1, testUserProfile2));
 
         userProfileService = new UserProfileServiceImpl(repository);
@@ -113,7 +116,7 @@ public class UserProfileServiceTest {
     void testGetUserProfile() {
         // valid id profile exists
         UserProfileDto actual = userProfileService.getUserProfile(VALID_EXISTING_ID_INPUTS[0]);
-        verify(repository).findById(VALID_EXISTING_IDS[0]);
+        verify(repository).findWithAssociationsByUserId(VALID_EXISTING_IDS[0]);
         assertNotNull(actual, "This user profile should exist.");
         assertEquals(testUserProfileDto1, actual, "This user profile should match the test user profile 1");
 
@@ -122,7 +125,7 @@ public class UserProfileServiceTest {
                 NotFoundException.class,
                 () -> userProfileService.getUserProfile(VALID_NON_EXISTENT_ID_INPUT),
                 "Should throw a NotFoundException");
-        verify(repository).findById(VALID_NON_EXISTENT_ID);
+        verify(repository).findWithAssociationsByUserId(VALID_NON_EXISTENT_ID);
 
         // invalid id don't check for profile
         assertThrows(
@@ -203,7 +206,7 @@ public class UserProfileServiceTest {
         assertThrows(
                 BadRequestException.class,
                 () -> userProfileService.getUserProfileList(Arrays.asList(
-                VALID_EXISTING_ID_INPUTS[0], INVALID_ID_INPUTS[0])),
+                        VALID_EXISTING_ID_INPUTS[0], INVALID_ID_INPUTS[0])),
                 "Should throw a BadRequestException");
         verifyNoMoreInteractions(repository);
 
@@ -229,7 +232,8 @@ public class UserProfileServiceTest {
 
         assertThrows(
                 BadRequestException.class,
-                () -> userProfileService.getUserProfileList(List.of("1000000000000000000000000000000000000")),
+                () -> userProfileService
+                        .getUserProfileList(List.of("1000000000000000000000000000000000000")),
                 "Should throw a BadRequestException");
         verifyNoMoreInteractions(repository);
 
@@ -251,7 +255,7 @@ public class UserProfileServiceTest {
     @Test
     void testGetAllProfiles() {
         List<UserProfileDto> actual = userProfileService.getAllProfiles();
-        verify(repository).findAll();
+        verify(repository).findAllWithAssociations();
         assertEquals(
                 VALID_EXISTING_IDS.length,
                 actual.size(),

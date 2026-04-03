@@ -1,5 +1,7 @@
 package net.spotapps.tester.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -8,11 +10,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+
 import net.spotapps.tester.persistence.encryption.CryptoConverter;
-
-import java.util.Objects;
-
-import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "contact_preferences")
@@ -27,27 +27,23 @@ public class ContactPreference {
     @JoinColumn(name = "user_id")
     private UserProfile userProfile;
 
-    @Schema(description = "The first name of the user", example = "Jane")
-    @Column(name = "first_name", length = 255)
+    @Column(name = "first_name", length = 64)
     @Convert(converter = CryptoConverter.class)
     private String firstName;
 
-    @Schema(description = "The last name of the user", example = "Doe")
-    @Column(name = "last_name", length = 255)
+    @Column(name = "last_name", length = 64)
     @Convert(converter = CryptoConverter.class)
     private String lastName;
 
-    @Schema(description = "The phone number of the user", example = "+15551234567")
     @Column(name = "phone_number", length = 64)
     @Convert(converter = CryptoConverter.class)
     private String phoneNumber;
 
-    @Schema(description = "The email address of the user", example = "jane.doe@example.com")
     @Column(name = "email_address", length = 512)
     @Convert(converter = CryptoConverter.class)
     private String emailAddress;
 
-    @Schema(description = "Indicates if the user has verified their email address")
+    @NotNull
     @Column(name = "email_verified", nullable = false, columnDefinition = "boolean default false")
     private boolean emailVerified;
 
@@ -104,22 +100,28 @@ public class ContactPreference {
     }
 
     public void setEmailVerified(boolean emailVerified) {
-        this.emailVerified = emailVerified;
+        this.emailVerified = Objects.requireNonNull(emailVerified);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId);
+        if (userId != null) {
+            return Objects.hash(userId);
+        }
+        return System.identityHashCode(this);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null || getClass() != obj.getClass())
+        if (!(obj instanceof ContactPreference))
             return false;
         ContactPreference other = (ContactPreference) obj;
-        return Objects.equals(userId, other.userId);
+        if (userId != null && other.getUserId() != null) {
+            return Objects.equals(userId, other.getUserId());
+        }
+        return false;
     }
 
     @Override

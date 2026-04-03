@@ -12,4 +12,56 @@
 
     <user_images image_id="1" user_id="3" image="0.png"/>
     <user_interests interest_id="1" user_id="3" interest="programming"/>
+
+    <!-- Lookup Data -->
+    <genders gender_id="1" name="Male"/>
+    <genders gender_id="2" name="Female"/>
+    <genders gender_id="3" name="Non-binary"/>
+
+    <orientations orientation_id="1" name="Heterosexual"/>
+    <orientations orientation_id="2" name="Homosexual"/>
+
+    <personality_scales personality_scale_id="1" name="Very Low"/>
+    <personality_scales personality_scale_id="3" name="Neutral"/>
+    <personality_scales personality_scale_id="5" name="Very High"/>
+
+    <relationship_statuses relationship_status_id="1" name="Single"/>
+
+    <life_stages life_stage_id="1" name="Infant"/>
+    <child_genders child_gender_id="1" name="M"/>
+    <household_statuses household_status_id="1" name="Full-time"/>
+
+    <education_degrees education_degree_id="1" name="Bachelor's"/>
+    <fluency_levels fluency_level_id="1" name="Native"/>
+    <vice_types vice_type_id="1" name="Smoking Cigarettes"/>
+    <vice_frequencies vice_frequency_id="1" name="Often"/>
+    <pet_types pet_type_id="1" name="Dogs"/>
+
+    <travel_frequencies travel_frequency_id="1" name="Rarely"/>
+    <travel_durations travel_duration_id="1" name="Short"/>
+    <travel_distances travel_distance_id="1" name="Near"/>
+    <travel_group_sizes travel_group_size_id="1" name="Solo"/>
+
+    <religions religion_id="1" religion_name="Christianity" branch_name="Catholicism"/>
+
+    <!-- Preference Data for User 2 -->
+    <location_preferences user_id="2" use_local="true" distance_in_miles="20.0"/>
+    <social_personalities user_id="2" openness_id="3" conscientiousness_id="5" extraversion_id="1" agreeableness_id="3" neuroticism_id="1"/>
+    <gender_preferences user_id="2" gender_id="1" is_trans="false" orientation_id="1"/>
+    <relationship_preferences user_id="2" status_id="1"/>
+    <children_preferences user_id="2" more_children="true"/>
+    <children child_id="1" user_id="2" life_stage_id="1" gender_id="1" household_status_id="1"/>
+    <age_preferences user_id="2" birth_day="01" birth_month="January" birth_year="1990" min_age="18" max_age="99"/>
+    <religion_preferences user_id="2" religion_id="1" importance="5" same_religion="true"/>
+    <education_preferences user_id="2" highest_degree_id="1" concentration="Computer Science" importance="3"/>
+    <language_preferences user_id="2" importance="4"/>
+    <languages language_id="1" user_id="2" language_name="English" fluency_level_id="1"/>
+    <vice_preferences user_id="2" importance="2"/>
+    <vices vice_id="1" user_id="2" vice_type_id="1" frequency_id="1"/>
+    <pets_preferences user_id="2" importance="5"/>
+    <pets pet_id="1" user_id="2" pet_type_id="1" quantity="1" is_allowed="true"/>
+    <travel_preferences user_id="2" frequency_id="1" duration_id="1" distance_id="1" group_size_id="1" importance="3"/>
+    <diet_preferences user_id="2" importance="1"/>
+    <user_dietary_restrictions user_id="2" restriction="VEGAN"/>
+
 </dataset>

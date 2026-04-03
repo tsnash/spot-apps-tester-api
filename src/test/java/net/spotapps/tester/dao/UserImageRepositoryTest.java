@@ -19,7 +19,7 @@ public class UserImageRepositoryTest extends AbstractRepositoryTestBase {
 
     @Test
     public void verifyUserImagePersisted() {
-        UserProfile userProfile = createAndSaveUser();
+        UserProfile userProfile = createAndSaveUserWithProfile();
 
         UserImage image = new UserImage("test-image.png", userProfile);
 

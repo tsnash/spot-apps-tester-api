@@ -3,13 +3,16 @@ package net.spotapps.tester.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import static net.spotapps.tester.UserProfileConstants.INVALID_ID_MESSAGE;
 import static net.spotapps.tester.UserProfileConstants.USER_PROFILE_NOT_FOUND_MESSAGE;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 
+import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +25,18 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import io.restassured.path.json.JsonPath;
 import net.spotapps.tester.UserProfileConstants;
 import net.spotapps.tester.dto.UserProfileDto;
+import net.spotapps.tester.dto.response.HttpRequestErrorResponse;
+import net.spotapps.tester.dto.response.UserProfileCollectionResponse;
+import net.spotapps.tester.dto.response.UserProfileSuccessResponse;
+import net.spotapps.tester.exception.InvalidUserIdCollectionException;
+import net.spotapps.tester.exception.InvalidUserIdException;
+import net.spotapps.tester.exception.UserProfileCollectionNotFoundException;
+import net.spotapps.tester.exception.UserProfileNotFoundException;
 import net.spotapps.tester.model.UserImage;
 import net.spotapps.tester.model.UserInterest;
 import net.spotapps.tester.model.UserProfile;
-import net.spotapps.tester.model.exception.InvalidUserIdCollectionException;
-import net.spotapps.tester.model.exception.InvalidUserIdException;
-import net.spotapps.tester.model.exception.UserProfileCollectionNotFoundException;
-import net.spotapps.tester.model.exception.UserProfileNotFoundException;
-import net.spotapps.tester.model.response.UserProfileCollectionResponse;
-import net.spotapps.tester.model.response.HttpRequestErrorResponse;
-import net.spotapps.tester.model.response.UserProfileSuccessResponse;
 import net.spotapps.tester.service.UserProfileService;
 
 @WebMvcTest(value = UserProfileAPIContractImpl.class)
@@ -56,34 +58,34 @@ public class UserProfileAPIContractRestTest {
 
         testUserProfile1 = new UserProfile();
         testUserProfile1.setUserId(1L);
-        testUserProfile1.setImages(Arrays.asList(
+        testUserProfile1.setImages(new LinkedHashSet<>(Arrays.asList(
                 new UserImage(1L, "four"),
                 new UserImage(2L, "images"),
                 new UserImage(3L, "only"),
-                new UserImage(4L, "please")));
-        testUserProfile1.setInterests(Arrays.asList(
+                new UserImage(4L, "please"))));
+        testUserProfile1.setInterests(new LinkedHashSet<>(Arrays.asList(
                 new UserInterest(1L, "up"),
                 new UserInterest(2L, "to"),
                 new UserInterest(3L, "six"),
                 new UserInterest(4L, "of"),
                 new UserInterest(5L, "these"),
-                new UserInterest(6L, "allowed")));
+                new UserInterest(6L, "allowed"))));
 
         testUserProfileDto1 = UserProfileDto.convertUserProfileToDto(testUserProfile1);
 
         testUserProfile2 = new UserProfile();
         testUserProfile2.setUserId(2L);
-        testUserProfile2.setImages(Arrays.asList(
+        testUserProfile2.setImages(new LinkedHashSet<>(Arrays.asList(
                 new UserImage(5L, "just"),
                 new UserImage(6L, "these"),
                 new UserImage(7L, "four"),
-                new UserImage(8L, "images")));
-        testUserProfile2.setInterests(Arrays.asList(
+                new UserImage(8L, "images"))));
+        testUserProfile2.setInterests(new LinkedHashSet<>(Arrays.asList(
                 new UserInterest(7L, "you"),
                 new UserInterest(8L, "can"),
                 new UserInterest(9L, "vary"),
                 new UserInterest(10L, "this"),
-                new UserInterest(11L, "amount")));
+                new UserInterest(11L, "amount"))));
 
         testUserProfileDto2 = UserProfileDto.convertUserProfileToDto(testUserProfile2);
 
@@ -93,7 +95,8 @@ public class UserProfileAPIContractRestTest {
     void testGetUserProfiles() throws Exception {
 
         when(userProfileService.getAllProfiles())
-                .thenReturn(Arrays.asList(new UserProfileDto[] { testUserProfileDto1, testUserProfileDto2 }));
+                .thenReturn(Arrays.asList(
+                        new UserProfileDto[] { testUserProfileDto1, testUserProfileDto2 }));
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user-profiles")
                 .accept(MediaType.APPLICATION_JSON);
@@ -205,20 +208,23 @@ public class UserProfileAPIContractRestTest {
     void testGetUserProfilesContainingIds() throws Exception {
 
         when(userProfileService.getUserProfileList(Arrays.asList("1", "2")))
-                .thenReturn(Arrays.asList(new UserProfileDto[] { testUserProfileDto1, testUserProfileDto2 }));
-        
+                .thenReturn(Arrays.asList(
+                        new UserProfileDto[] { testUserProfileDto1, testUserProfileDto2 }));
+
         when(userProfileService.getUserProfileList(Arrays.asList("invalidID", "2")))
                 .thenThrow(new InvalidUserIdCollectionException(
-                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, Collections.singletonList("invalidID")));
+                        UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE,
+                        Collections.singletonList("invalidID")));
 
         when(userProfileService.getUserProfileList(Collections.emptyList()))
                 .thenThrow(new InvalidUserIdCollectionException(
-                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, List.of("<empty>")));
+                        UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE,
+                        List.of("<empty>")));
 
         when(userProfileService.getUserProfileList(Arrays.asList("3", "4")))
                 .thenThrow(new UserProfileCollectionNotFoundException(
-                    UserProfileConstants.USER_PROFILE_COLLECTION_NOT_FOUND_MESSAGE, Arrays.asList("3", "4")));
-
+                        UserProfileConstants.USER_PROFILE_COLLECTION_NOT_FOUND_MESSAGE,
+                        Arrays.asList("3", "4")));
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/user-profiles")
                 .accept(MediaType.APPLICATION_JSON)
@@ -260,7 +266,8 @@ public class UserProfileAPIContractRestTest {
 
         assertEquals(
                 new InvalidUserIdCollectionException(
-                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, Collections.singletonList("invalidID")).getMessage(),
+                        UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE,
+                        Collections.singletonList("invalidID")).getMessage(),
                 error.getIssues().get(0).getMessage(),
                 "The issue should have a matching Invalid ID message");
         assertEquals(
@@ -285,7 +292,8 @@ public class UserProfileAPIContractRestTest {
 
         assertEquals(
                 new InvalidUserIdCollectionException(
-                    UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, List.of("<empty>")).getMessage(),
+                        UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, List.of("<empty>"))
+                        .getMessage(),
                 error.getIssues().get(0).getMessage(),
                 "The issue should have a matching Invalid ID message");
         assertEquals(
@@ -310,7 +318,8 @@ public class UserProfileAPIContractRestTest {
 
         assertEquals(
                 new UserProfileCollectionNotFoundException(
-                    UserProfileConstants.USER_PROFILE_COLLECTION_NOT_FOUND_MESSAGE, Arrays.asList("3", "4")).getMessage(),
+                        UserProfileConstants.USER_PROFILE_COLLECTION_NOT_FOUND_MESSAGE,
+                        Arrays.asList("3", "4")).getMessage(),
                 error.getIssues().get(0).getMessage(),
                 "The issue should have a matching User Profile Not Found message");
         assertEquals(

@@ -12,10 +12,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import net.spotapps.tester.AbstractUserProfileMockSetupTest;
-import net.spotapps.tester.model.exception.BadRequestException;
-import net.spotapps.tester.model.exception.NotFoundException;
-import net.spotapps.tester.model.response.UserProfileCollectionResponse;
-import net.spotapps.tester.model.response.UserProfileSuccessResponse;
+import net.spotapps.tester.dto.response.UserProfileCollectionResponse;
+import net.spotapps.tester.dto.response.UserProfileSuccessResponse;
+import net.spotapps.tester.exception.BadRequestException;
+import net.spotapps.tester.exception.NotFoundException;
 
 @ExtendWith(SpringExtension.class)
 public class UserProfileAPIContractTest extends AbstractUserProfileMockSetupTest {
