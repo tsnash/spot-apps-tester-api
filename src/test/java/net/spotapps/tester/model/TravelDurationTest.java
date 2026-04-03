@@ -15,12 +15,16 @@ public class TravelDurationTest {
     @MethodSource("provideDifferentTravelDurations")
     public void testTravelDurationInequality(TravelDuration testTravelDuration1, TravelDuration testTravelDuration2) {
         assertNotEquals(testTravelDuration1, testTravelDuration2, "Different travel durations should not be equal");
+        if (testTravelDuration2 != null) {
+            assertNotEquals(testTravelDuration2, testTravelDuration1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalTravelDurations")
     public void testTravelDurationEquality(TravelDuration testTravelDuration1, TravelDuration testTravelDuration2) {
         assertEquals(testTravelDuration1, testTravelDuration2, "Identical travel durations should be equal");
+        assertEquals(testTravelDuration2, testTravelDuration1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -32,11 +36,7 @@ public class TravelDurationTest {
 
     private static Stream<Arguments> provideDifferentTravelDurations() {
         TravelDuration travelDuration1 = new TravelDuration("Weekend");
-        travelDuration1.setTravelDurationId(1L);
-
         TravelDuration travelDuration2 = new TravelDuration("Week");
-        travelDuration2.setTravelDurationId(2L);
-
         TravelDuration travelDurationNull = null;
 
         return Stream.of(

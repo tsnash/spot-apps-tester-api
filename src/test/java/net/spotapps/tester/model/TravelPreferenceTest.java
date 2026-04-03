@@ -17,6 +17,9 @@ public class TravelPreferenceTest {
             TravelPreference testTravelPreference2) {
         assertNotEquals(testTravelPreference1, testTravelPreference2,
                 "Different travel preferences should not be equal");
+        if (testTravelPreference2 != null) {
+            assertNotEquals(testTravelPreference2, testTravelPreference1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
@@ -24,6 +27,7 @@ public class TravelPreferenceTest {
     public void testTravelPreferenceEquality(TravelPreference testTravelPreference1,
             TravelPreference testTravelPreference2) {
         assertEquals(testTravelPreference1, testTravelPreference2, "Identical travel preferences should be equal");
+        assertEquals(testTravelPreference2, testTravelPreference1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -44,6 +48,9 @@ public class TravelPreferenceTest {
         TravelPreference travelPreferenceNull = new TravelPreference();
         travelPreferenceNull.setUserId(null);
 
+        TravelPreference travelPreferenceNull2 = new TravelPreference();
+        travelPreferenceNull2.setUserId(null);
+
         TravelPreference travelPreference1AllFields = new TravelPreference();
         travelPreference1AllFields.setUserId(1L);
         travelPreference1AllFields.setFrequency(new TravelFrequency("Often"));
@@ -57,6 +64,7 @@ public class TravelPreferenceTest {
         return Stream.of(
                 Arguments.of(travelPreference1, travelPreference2),
                 Arguments.of(travelPreference1, travelPreferenceNull),
+                Arguments.of(travelPreferenceNull, travelPreferenceNull2),
                 Arguments.of(travelPreference1, null),
                 Arguments.of(travelPreference1AllFields, travelPreference2AllFields));
     }
@@ -68,9 +76,6 @@ public class TravelPreferenceTest {
         TravelPreference travelPreference2 = new TravelPreference();
         travelPreference2.setUserId(1L);
 
-        TravelPreference travelPreferenceNull = new TravelPreference();
-        travelPreferenceNull.setUserId(null);
-
         TravelPreference travelPreference1AllFields = new TravelPreference();
         travelPreference1AllFields.setUserId(1L);
         travelPreference1AllFields.setFrequency(new TravelFrequency("Often"));
@@ -79,7 +84,6 @@ public class TravelPreferenceTest {
         return Stream.of(
                 Arguments.of(travelPreference1, travelPreference1),
                 Arguments.of(travelPreference1, travelPreference2),
-                Arguments.of(travelPreferenceNull, travelPreferenceNull),
                 Arguments.of(travelPreference1, travelPreference1AllFields));
     }
 }

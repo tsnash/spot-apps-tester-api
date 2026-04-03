@@ -15,12 +15,16 @@ public class DietPreferenceTest {
     @MethodSource("provideDifferentDietPreferences")
     public void testDietPreferenceInequality(DietPreference testDietPreference1, DietPreference testDietPreference2) {
         assertNotEquals(testDietPreference1, testDietPreference2, "Different diet preferences should not be equal");
+        if (testDietPreference2 != null) {
+            assertNotEquals(testDietPreference2, testDietPreference1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalDietPreferences")
     public void testDietPreferenceEquality(DietPreference testDietPreference1, DietPreference testDietPreference2) {
         assertEquals(testDietPreference1, testDietPreference2, "Identical diet preferences should be equal");
+        assertEquals(testDietPreference2, testDietPreference1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -40,6 +44,9 @@ public class DietPreferenceTest {
         DietPreference dietPreferenceNull = new DietPreference();
         dietPreferenceNull.setUserId(null);
 
+        DietPreference dietPreferenceNull2 = new DietPreference();
+        dietPreferenceNull2.setUserId(null);
+
         DietPreference dietPreference1AllFields = new DietPreference();
         dietPreference1AllFields.setUserId(1L);
         dietPreference1AllFields.setImportance(5);
@@ -51,6 +58,7 @@ public class DietPreferenceTest {
         return Stream.of(
                 Arguments.of(dietPreference1, dietPreference2),
                 Arguments.of(dietPreference1, dietPreferenceNull),
+                Arguments.of(dietPreferenceNull, dietPreferenceNull2),
                 Arguments.of(dietPreference1, null),
                 Arguments.of(dietPreference1AllFields, dietPreference2AllFields));
     }
@@ -62,9 +70,6 @@ public class DietPreferenceTest {
         DietPreference dietPreference2 = new DietPreference();
         dietPreference2.setUserId(1L);
 
-        DietPreference dietPreferenceNull = new DietPreference();
-        dietPreferenceNull.setUserId(null);
-
         DietPreference dietPreference1AllFields = new DietPreference();
         dietPreference1AllFields.setUserId(1L);
         dietPreference1AllFields.setImportance(5);
@@ -72,7 +77,6 @@ public class DietPreferenceTest {
         return Stream.of(
                 Arguments.of(dietPreference1, dietPreference1),
                 Arguments.of(dietPreference1, dietPreference2),
-                Arguments.of(dietPreferenceNull, dietPreferenceNull),
                 Arguments.of(dietPreference1, dietPreference1AllFields));
     }
 }

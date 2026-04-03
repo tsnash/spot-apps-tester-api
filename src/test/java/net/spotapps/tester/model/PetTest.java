@@ -15,12 +15,16 @@ public class PetTest {
     @MethodSource("provideDifferentPets")
     public void testPetInequality(Pet testPet1, Pet testPet2) {
         assertNotEquals(testPet1, testPet2, "Different pets should not be equal");
+        if (testPet2 != null) {
+            assertNotEquals(testPet2, testPet1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalPets")
     public void testPetEquality(Pet testPet1, Pet testPet2) {
         assertEquals(testPet1, testPet2, "Identical pets should be equal");
+        assertEquals(testPet2, testPet1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -40,6 +44,9 @@ public class PetTest {
         Pet petNull = new Pet();
         petNull.setPetId(null);
 
+        Pet petNull2 = new Pet();
+        petNull2.setPetId(null);
+
         Pet pet1AllFields = new Pet();
         pet1AllFields.setPetId(1L);
         pet1AllFields.setPetType(new PetType("Dog"));
@@ -55,6 +62,7 @@ public class PetTest {
         return Stream.of(
                 Arguments.of(pet1, pet2),
                 Arguments.of(pet1, petNull),
+                Arguments.of(petNull, petNull2),
                 Arguments.of(pet1, null),
                 Arguments.of(pet1AllFields, pet2AllFields));
     }
@@ -66,9 +74,6 @@ public class PetTest {
         Pet pet2 = new Pet();
         pet2.setPetId(1L);
 
-        Pet petNull = new Pet();
-        petNull.setPetId(null);
-
         Pet pet1AllFields = new Pet();
         pet1AllFields.setPetId(1L);
         pet1AllFields.setPetType(new PetType("Dog"));
@@ -78,7 +83,6 @@ public class PetTest {
         return Stream.of(
                 Arguments.of(pet1, pet1),
                 Arguments.of(pet1, pet2),
-                Arguments.of(petNull, petNull),
                 Arguments.of(pet1, pet1AllFields));
     }
 }

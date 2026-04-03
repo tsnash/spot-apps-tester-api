@@ -15,12 +15,16 @@ public class LanguageTest {
     @MethodSource("provideDifferentLanguages")
     public void testLanguageInequality(Language testLanguage1, Language testLanguage2) {
         assertNotEquals(testLanguage1, testLanguage2, "Different languages should not be equal");
+        if (testLanguage2 != null) {
+            assertNotEquals(testLanguage2, testLanguage1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalLanguages")
     public void testLanguageEquality(Language testLanguage1, Language testLanguage2) {
         assertEquals(testLanguage1, testLanguage2, "Identical languages should be equal");
+        assertEquals(testLanguage2, testLanguage1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -40,6 +44,9 @@ public class LanguageTest {
         Language languageNull = new Language();
         languageNull.setLanguageId(null);
 
+        Language languageNull2 = new Language();
+        languageNull2.setLanguageId(null);
+
         Language language1AllFields = new Language();
         language1AllFields.setLanguageId(1L);
         language1AllFields.setName("English");
@@ -53,6 +60,7 @@ public class LanguageTest {
         return Stream.of(
                 Arguments.of(language1, language2),
                 Arguments.of(language1, languageNull),
+                Arguments.of(languageNull, languageNull2),
                 Arguments.of(language1, null),
                 Arguments.of(language1AllFields, language2AllFields));
     }
@@ -64,9 +72,6 @@ public class LanguageTest {
         Language language2 = new Language();
         language2.setLanguageId(1L);
 
-        Language languageNull = new Language();
-        languageNull.setLanguageId(null);
-
         Language language1AllFields = new Language();
         language1AllFields.setLanguageId(1L);
         language1AllFields.setName("English");
@@ -75,7 +80,6 @@ public class LanguageTest {
         return Stream.of(
                 Arguments.of(language1, language1),
                 Arguments.of(language1, language2),
-                Arguments.of(languageNull, languageNull),
                 Arguments.of(language1, language1AllFields));
     }
 }

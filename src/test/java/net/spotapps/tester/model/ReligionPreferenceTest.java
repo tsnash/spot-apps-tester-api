@@ -17,6 +17,9 @@ public class ReligionPreferenceTest {
             ReligionPreference testReligionPreference2) {
         assertNotEquals(testReligionPreference1, testReligionPreference2,
                 "Different religion preferences should not be equal");
+        if (testReligionPreference2 != null) {
+            assertNotEquals(testReligionPreference2, testReligionPreference1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
@@ -24,6 +27,7 @@ public class ReligionPreferenceTest {
     public void testReligionPreferenceEquality(ReligionPreference testReligionPreference1,
             ReligionPreference testReligionPreference2) {
         assertEquals(testReligionPreference1, testReligionPreference2, "Identical religion preferences should be equal");
+        assertEquals(testReligionPreference2, testReligionPreference1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -44,6 +48,9 @@ public class ReligionPreferenceTest {
         ReligionPreference religionPreferenceNull = new ReligionPreference();
         religionPreferenceNull.setUserId(null);
 
+        ReligionPreference religionPreferenceNull2 = new ReligionPreference();
+        religionPreferenceNull2.setUserId(null);
+
         ReligionPreference religionPreference1AllFields = new ReligionPreference();
         religionPreference1AllFields.setUserId(1L);
         religionPreference1AllFields.setReligion(new Religion("Christianity", "Catholic"));
@@ -59,6 +66,7 @@ public class ReligionPreferenceTest {
         return Stream.of(
                 Arguments.of(religionPreference1, religionPreference2),
                 Arguments.of(religionPreference1, religionPreferenceNull),
+                Arguments.of(religionPreferenceNull, religionPreferenceNull2),
                 Arguments.of(religionPreference1, null),
                 Arguments.of(religionPreference1AllFields, religionPreference2AllFields));
     }
@@ -70,9 +78,6 @@ public class ReligionPreferenceTest {
         ReligionPreference religionPreference2 = new ReligionPreference();
         religionPreference2.setUserId(1L);
 
-        ReligionPreference religionPreferenceNull = new ReligionPreference();
-        religionPreferenceNull.setUserId(null);
-
         ReligionPreference religionPreference1AllFields = new ReligionPreference();
         religionPreference1AllFields.setUserId(1L);
         religionPreference1AllFields.setReligion(new Religion("Christianity", "Catholic"));
@@ -82,7 +87,6 @@ public class ReligionPreferenceTest {
         return Stream.of(
                 Arguments.of(religionPreference1, religionPreference1),
                 Arguments.of(religionPreference1, religionPreference2),
-                Arguments.of(religionPreferenceNull, religionPreferenceNull),
                 Arguments.of(religionPreference1, religionPreference1AllFields));
     }
 }

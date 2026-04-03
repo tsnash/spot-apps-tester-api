@@ -17,6 +17,9 @@ public class PetsPreferenceTest {
             PetsPreference testPetsPreference2) {
         assertNotEquals(testPetsPreference1, testPetsPreference2,
                 "Different pets preferences should not be equal");
+        if (testPetsPreference2 != null) {
+            assertNotEquals(testPetsPreference2, testPetsPreference1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
@@ -24,6 +27,7 @@ public class PetsPreferenceTest {
     public void testPetsPreferenceEquality(PetsPreference testPetsPreference1,
             PetsPreference testPetsPreference2) {
         assertEquals(testPetsPreference1, testPetsPreference2, "Identical pets preferences should be equal");
+        assertEquals(testPetsPreference2, testPetsPreference1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -44,6 +48,9 @@ public class PetsPreferenceTest {
         PetsPreference petsPreferenceNull = new PetsPreference();
         petsPreferenceNull.setUserId(null);
 
+        PetsPreference petsPreferenceNull2 = new PetsPreference();
+        petsPreferenceNull2.setUserId(null);
+
         PetsPreference petsPreference1AllFields = new PetsPreference();
         petsPreference1AllFields.setUserId(1L);
         petsPreference1AllFields.setImportance(5);
@@ -55,6 +62,7 @@ public class PetsPreferenceTest {
         return Stream.of(
                 Arguments.of(petsPreference1, petsPreference2),
                 Arguments.of(petsPreference1, petsPreferenceNull),
+                Arguments.of(petsPreferenceNull, petsPreferenceNull2),
                 Arguments.of(petsPreference1, null),
                 Arguments.of(petsPreference1AllFields, petsPreference2AllFields));
     }
@@ -66,9 +74,6 @@ public class PetsPreferenceTest {
         PetsPreference petsPreference2 = new PetsPreference();
         petsPreference2.setUserId(1L);
 
-        PetsPreference petsPreferenceNull = new PetsPreference();
-        petsPreferenceNull.setUserId(null);
-
         PetsPreference petsPreference1AllFields = new PetsPreference();
         petsPreference1AllFields.setUserId(1L);
         petsPreference1AllFields.setImportance(5);
@@ -76,7 +81,6 @@ public class PetsPreferenceTest {
         return Stream.of(
                 Arguments.of(petsPreference1, petsPreference1),
                 Arguments.of(petsPreference1, petsPreference2),
-                Arguments.of(petsPreferenceNull, petsPreferenceNull),
                 Arguments.of(petsPreference1, petsPreference1AllFields));
     }
 }

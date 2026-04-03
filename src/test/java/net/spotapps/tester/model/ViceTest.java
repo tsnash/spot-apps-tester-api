@@ -15,12 +15,16 @@ public class ViceTest {
     @MethodSource("provideDifferentVices")
     public void testViceInequality(Vice testVice1, Vice testVice2) {
         assertNotEquals(testVice1, testVice2, "Different vices should not be equal");
+        if (testVice2 != null) {
+            assertNotEquals(testVice2, testVice1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalVices")
     public void testViceEquality(Vice testVice1, Vice testVice2) {
         assertEquals(testVice1, testVice2, "Identical vices should be equal");
+        assertEquals(testVice2, testVice1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -40,6 +44,9 @@ public class ViceTest {
         Vice viceNull = new Vice();
         viceNull.setViceId(null);
 
+        Vice viceNull2 = new Vice();
+        viceNull2.setViceId(null);
+
         Vice vice1AllFields = new Vice();
         vice1AllFields.setViceId(1L);
         vice1AllFields.setViceType(new ViceType("Smoking"));
@@ -53,6 +60,7 @@ public class ViceTest {
         return Stream.of(
                 Arguments.of(vice1, vice2),
                 Arguments.of(vice1, viceNull),
+                Arguments.of(viceNull, viceNull2),
                 Arguments.of(vice1, null),
                 Arguments.of(vice1AllFields, vice2AllFields));
     }
@@ -64,9 +72,6 @@ public class ViceTest {
         Vice vice2 = new Vice();
         vice2.setViceId(1L);
 
-        Vice viceNull = new Vice();
-        viceNull.setViceId(null);
-
         Vice vice1AllFields = new Vice();
         vice1AllFields.setViceId(1L);
         vice1AllFields.setViceType(new ViceType("Smoking"));
@@ -75,7 +80,6 @@ public class ViceTest {
         return Stream.of(
                 Arguments.of(vice1, vice1),
                 Arguments.of(vice1, vice2),
-                Arguments.of(viceNull, viceNull),
                 Arguments.of(vice1, vice1AllFields));
     }
 }

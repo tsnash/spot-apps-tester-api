@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -15,12 +16,16 @@ public class PetTypeTest {
     @MethodSource("provideDifferentPetTypes")
     public void testPetTypeInequality(PetType testPetType1, PetType testPetType2) {
         assertNotEquals(testPetType1, testPetType2, "Different pet types should not be equal");
+        if (testPetType2 != null) {
+            assertNotEquals(testPetType2, testPetType1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalPetTypes")
     public void testPetTypeEquality(PetType testPetType1, PetType testPetType2) {
         assertEquals(testPetType1, testPetType2, "Identical pet types should be equal");
+        assertEquals(testPetType2, testPetType1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -28,6 +33,14 @@ public class PetTypeTest {
     public void testPetTypeHashcodeEquality(PetType testPetType1, PetType testPetType2) {
         assertEquals(testPetType1.hashCode(), testPetType2.hashCode(),
                 "Identical pet types should have equal hash codes");
+    }
+
+    @Test
+    public void testEqualsWithDifferentType() {
+        PetType petType = new PetType("Dog");
+        petType.setPetTypeId(1L);
+        assertNotEquals(petType, "Not a PetType");
+        assertNotEquals(petType, new Object());
     }
 
     private static Stream<Arguments> provideDifferentPetTypes() {

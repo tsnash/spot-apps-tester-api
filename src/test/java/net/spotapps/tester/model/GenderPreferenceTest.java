@@ -16,6 +16,9 @@ public class GenderPreferenceTest {
     public void testGenderPreferenceInequality(GenderPreference testGenderPreference1,
             GenderPreference testGenderPreference2) {
         assertNotEquals(testGenderPreference1, testGenderPreference2, "Different gender preferences should not be equal");
+        if (testGenderPreference2 != null) {
+            assertNotEquals(testGenderPreference2, testGenderPreference1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
@@ -23,6 +26,7 @@ public class GenderPreferenceTest {
     public void testGenderPreferenceEquality(GenderPreference testGenderPreference1,
             GenderPreference testGenderPreference2) {
         assertEquals(testGenderPreference1, testGenderPreference2, "Identical gender preferences should be equal");
+        assertEquals(testGenderPreference2, testGenderPreference1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -43,6 +47,9 @@ public class GenderPreferenceTest {
         GenderPreference genderPreferenceNull = new GenderPreference();
         genderPreferenceNull.setUserId(null);
 
+        GenderPreference genderPreferenceNull2 = new GenderPreference();
+        genderPreferenceNull2.setUserId(null);
+
         GenderPreference genderPreference1AllFields = new GenderPreference();
         genderPreference1AllFields.setUserId(1L);
         genderPreference1AllFields.setGender(new Gender("Man"));
@@ -58,6 +65,7 @@ public class GenderPreferenceTest {
         return Stream.of(
                 Arguments.of(genderPreference1, genderPreference2),
                 Arguments.of(genderPreference1, genderPreferenceNull),
+                Arguments.of(genderPreferenceNull, genderPreferenceNull2),
                 Arguments.of(genderPreference1, null),
                 Arguments.of(genderPreference1AllFields, genderPreference2AllFields));
     }
@@ -69,9 +77,6 @@ public class GenderPreferenceTest {
         GenderPreference genderPreference2 = new GenderPreference();
         genderPreference2.setUserId(1L);
 
-        GenderPreference genderPreferenceNull = new GenderPreference();
-        genderPreferenceNull.setUserId(null);
-
         GenderPreference genderPreference1AllFields = new GenderPreference();
         genderPreference1AllFields.setUserId(1L);
         genderPreference1AllFields.setGender(new Gender("Man"));
@@ -81,7 +86,6 @@ public class GenderPreferenceTest {
         return Stream.of(
                 Arguments.of(genderPreference1, genderPreference1),
                 Arguments.of(genderPreference1, genderPreference2),
-                Arguments.of(genderPreferenceNull, genderPreferenceNull),
                 Arguments.of(genderPreference1, genderPreference1AllFields));
     }
 }

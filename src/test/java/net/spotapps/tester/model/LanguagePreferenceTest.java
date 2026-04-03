@@ -17,6 +17,9 @@ public class LanguagePreferenceTest {
             LanguagePreference testLanguagePreference2) {
         assertNotEquals(testLanguagePreference1, testLanguagePreference2,
                 "Different language preferences should not be equal");
+        if (testLanguagePreference2 != null) {
+            assertNotEquals(testLanguagePreference2, testLanguagePreference1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
@@ -24,6 +27,7 @@ public class LanguagePreferenceTest {
     public void testLanguagePreferenceEquality(LanguagePreference testLanguagePreference1,
             LanguagePreference testLanguagePreference2) {
         assertEquals(testLanguagePreference1, testLanguagePreference2, "Identical language preferences should be equal");
+        assertEquals(testLanguagePreference2, testLanguagePreference1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -44,6 +48,9 @@ public class LanguagePreferenceTest {
         LanguagePreference languagePreferenceNull = new LanguagePreference();
         languagePreferenceNull.setUserId(null);
 
+        LanguagePreference languagePreferenceNull2 = new LanguagePreference();
+        languagePreferenceNull2.setUserId(null);
+
         LanguagePreference languagePreference1AllFields = new LanguagePreference();
         languagePreference1AllFields.setUserId(1L);
         languagePreference1AllFields.setImportance(5);
@@ -55,6 +62,7 @@ public class LanguagePreferenceTest {
         return Stream.of(
                 Arguments.of(languagePreference1, languagePreference2),
                 Arguments.of(languagePreference1, languagePreferenceNull),
+                Arguments.of(languagePreferenceNull, languagePreferenceNull2),
                 Arguments.of(languagePreference1, null),
                 Arguments.of(languagePreference1AllFields, languagePreference2AllFields));
     }
@@ -66,9 +74,6 @@ public class LanguagePreferenceTest {
         LanguagePreference languagePreference2 = new LanguagePreference();
         languagePreference2.setUserId(1L);
 
-        LanguagePreference languagePreferenceNull = new LanguagePreference();
-        languagePreferenceNull.setUserId(null);
-
         LanguagePreference languagePreference1AllFields = new LanguagePreference();
         languagePreference1AllFields.setUserId(1L);
         languagePreference1AllFields.setImportance(5);
@@ -76,7 +81,6 @@ public class LanguagePreferenceTest {
         return Stream.of(
                 Arguments.of(languagePreference1, languagePreference1),
                 Arguments.of(languagePreference1, languagePreference2),
-                Arguments.of(languagePreferenceNull, languagePreferenceNull),
                 Arguments.of(languagePreference1, languagePreference1AllFields));
     }
 }

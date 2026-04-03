@@ -15,12 +15,16 @@ public class AgePreferenceTest {
     @MethodSource("provideDifferentAgePreferences")
     public void testAgePreferenceInequality(AgePreference testAgePreference1, AgePreference testAgePreference2) {
         assertNotEquals(testAgePreference1, testAgePreference2, "Different age preferences should not be equal");
+        if (testAgePreference2 != null) {
+            assertNotEquals(testAgePreference2, testAgePreference1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalAgePreferences")
     public void testAgePreferenceEquality(AgePreference testAgePreference1, AgePreference testAgePreference2) {
         assertEquals(testAgePreference1, testAgePreference2, "Identical age preferences should be equal");
+        assertEquals(testAgePreference2, testAgePreference1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -39,6 +43,9 @@ public class AgePreferenceTest {
 
         AgePreference agePreferenceNull = new AgePreference();
         agePreferenceNull.setUserId(null);
+
+        AgePreference agePreferenceNull2 = new AgePreference();
+        agePreferenceNull2.setUserId(null);
 
         AgePreference agePreference1AllFields = new AgePreference();
         agePreference1AllFields.setUserId(1L);
@@ -59,6 +66,7 @@ public class AgePreferenceTest {
         return Stream.of(
                 Arguments.of(agePreference1, agePreference2),
                 Arguments.of(agePreference1, agePreferenceNull),
+                Arguments.of(agePreferenceNull, agePreferenceNull2),
                 Arguments.of(agePreference1, null),
                 Arguments.of(agePreference1AllFields, agePreference2AllFields));
     }
@@ -69,9 +77,6 @@ public class AgePreferenceTest {
 
         AgePreference agePreference2 = new AgePreference();
         agePreference2.setUserId(1L);
-
-        AgePreference agePreferenceNull = new AgePreference();
-        agePreferenceNull.setUserId(null);
 
         AgePreference agePreference1AllFields = new AgePreference();
         agePreference1AllFields.setUserId(1L);
@@ -84,7 +89,6 @@ public class AgePreferenceTest {
         return Stream.of(
                 Arguments.of(agePreference1, agePreference1),
                 Arguments.of(agePreference1, agePreference2),
-                Arguments.of(agePreferenceNull, agePreferenceNull),
                 Arguments.of(agePreference1, agePreference1AllFields));
     }
 }

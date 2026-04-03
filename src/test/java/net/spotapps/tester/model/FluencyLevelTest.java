@@ -15,12 +15,16 @@ public class FluencyLevelTest {
     @MethodSource("provideDifferentFluencyLevels")
     public void testFluencyLevelInequality(FluencyLevel testFluencyLevel1, FluencyLevel testFluencyLevel2) {
         assertNotEquals(testFluencyLevel1, testFluencyLevel2, "Different fluency levels should not be equal");
+        if (testFluencyLevel2 != null) {
+            assertNotEquals(testFluencyLevel2, testFluencyLevel1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalFluencyLevels")
     public void testFluencyLevelEquality(FluencyLevel testFluencyLevel1, FluencyLevel testFluencyLevel2) {
         assertEquals(testFluencyLevel1, testFluencyLevel2, "Identical fluency levels should be equal");
+        assertEquals(testFluencyLevel2, testFluencyLevel1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -37,10 +41,14 @@ public class FluencyLevelTest {
         FluencyLevel fluencyLevel2 = new FluencyLevel("Fluent");
         fluencyLevel2.setFluencyLevelId(2L);
 
+        FluencyLevel fluencyWithSameIdDifferentName = new FluencyLevel("Fluent");
+        fluencyWithSameIdDifferentName.setFluencyLevelId(1L);
+
         FluencyLevel fluencyLevelNull = null;
 
         return Stream.of(
                 Arguments.of(fluencyLevel1, fluencyLevel2),
+                Arguments.of(fluencyLevel1, fluencyWithSameIdDifferentName),
                 Arguments.of(fluencyLevel1, fluencyLevelNull));
     }
 

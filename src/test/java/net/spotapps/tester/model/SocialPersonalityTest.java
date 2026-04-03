@@ -17,6 +17,9 @@ public class SocialPersonalityTest {
             SocialPersonality testSocialPersonality2) {
         assertNotEquals(testSocialPersonality1, testSocialPersonality2,
                 "Different social personalities should not be equal");
+        if (testSocialPersonality2 != null) {
+            assertNotEquals(testSocialPersonality2, testSocialPersonality1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
@@ -24,6 +27,7 @@ public class SocialPersonalityTest {
     public void testSocialPersonalityEquality(SocialPersonality testSocialPersonality1,
             SocialPersonality testSocialPersonality2) {
         assertEquals(testSocialPersonality1, testSocialPersonality2, "Identical social personalities should be equal");
+        assertEquals(testSocialPersonality2, testSocialPersonality1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -44,6 +48,9 @@ public class SocialPersonalityTest {
         SocialPersonality socialPersonalityNull = new SocialPersonality();
         socialPersonalityNull.setUserId(null);
 
+        SocialPersonality socialPersonalityNull2 = new SocialPersonality();
+        socialPersonalityNull2.setUserId(null);
+
         SocialPersonality socialPersonality1AllFields = new SocialPersonality();
         socialPersonality1AllFields.setUserId(1L);
         socialPersonality1AllFields.setOpenness(new PersonalityScale("1"));
@@ -63,6 +70,7 @@ public class SocialPersonalityTest {
         return Stream.of(
                 Arguments.of(socialPersonality1, socialPersonality2),
                 Arguments.of(socialPersonality1, socialPersonalityNull),
+                Arguments.of(socialPersonalityNull, socialPersonalityNull2),
                 Arguments.of(socialPersonality1, null),
                 Arguments.of(socialPersonality1AllFields, socialPersonality2AllFields));
     }
@@ -73,9 +81,6 @@ public class SocialPersonalityTest {
 
         SocialPersonality socialPersonality2 = new SocialPersonality();
         socialPersonality2.setUserId(1L);
-
-        SocialPersonality socialPersonalityNull = new SocialPersonality();
-        socialPersonalityNull.setUserId(null);
 
         SocialPersonality socialPersonality1AllFields = new SocialPersonality();
         socialPersonality1AllFields.setUserId(1L);
@@ -88,7 +93,6 @@ public class SocialPersonalityTest {
         return Stream.of(
                 Arguments.of(socialPersonality1, socialPersonality1),
                 Arguments.of(socialPersonality1, socialPersonality2),
-                Arguments.of(socialPersonalityNull, socialPersonalityNull),
                 Arguments.of(socialPersonality1, socialPersonality1AllFields));
     }
 }

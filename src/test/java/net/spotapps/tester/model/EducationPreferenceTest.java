@@ -17,6 +17,9 @@ public class EducationPreferenceTest {
             EducationPreference testEducationPreference2) {
         assertNotEquals(testEducationPreference1, testEducationPreference2,
                 "Different education preferences should not be equal");
+        if (testEducationPreference2 != null) {
+            assertNotEquals(testEducationPreference2, testEducationPreference1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
@@ -24,6 +27,7 @@ public class EducationPreferenceTest {
     public void testEducationPreferenceEquality(EducationPreference testEducationPreference1,
             EducationPreference testEducationPreference2) {
         assertEquals(testEducationPreference1, testEducationPreference2, "Identical education preferences should be equal");
+        assertEquals(testEducationPreference2, testEducationPreference1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -44,6 +48,9 @@ public class EducationPreferenceTest {
         EducationPreference educationPreferenceNull = new EducationPreference();
         educationPreferenceNull.setUserId(null);
 
+        EducationPreference educationPreferenceNull2 = new EducationPreference();
+        educationPreferenceNull2.setUserId(null);
+
         EducationPreference educationPreference1AllFields = new EducationPreference();
         educationPreference1AllFields.setUserId(1L);
         educationPreference1AllFields.setHighestDegree(new EducationDegree("Bachelor"));
@@ -59,6 +66,7 @@ public class EducationPreferenceTest {
         return Stream.of(
                 Arguments.of(educationPreference1, educationPreference2),
                 Arguments.of(educationPreference1, educationPreferenceNull),
+                Arguments.of(educationPreferenceNull, educationPreferenceNull2),
                 Arguments.of(educationPreference1, null),
                 Arguments.of(educationPreference1AllFields, educationPreference2AllFields));
     }
@@ -70,9 +78,6 @@ public class EducationPreferenceTest {
         EducationPreference educationPreference2 = new EducationPreference();
         educationPreference2.setUserId(1L);
 
-        EducationPreference educationPreferenceNull = new EducationPreference();
-        educationPreferenceNull.setUserId(null);
-
         EducationPreference educationPreference1AllFields = new EducationPreference();
         educationPreference1AllFields.setUserId(1L);
         educationPreference1AllFields.setHighestDegree(new EducationDegree("Bachelor"));
@@ -82,7 +87,6 @@ public class EducationPreferenceTest {
         return Stream.of(
                 Arguments.of(educationPreference1, educationPreference1),
                 Arguments.of(educationPreference1, educationPreference2),
-                Arguments.of(educationPreferenceNull, educationPreferenceNull),
                 Arguments.of(educationPreference1, educationPreference1AllFields));
     }
 }

@@ -17,6 +17,9 @@ public class LocationPreferenceTest {
             LocationPreference testLocationPreference2) {
         assertNotEquals(testLocationPreference1, testLocationPreference2,
                 "Different location preferences should not be equal");
+        if (testLocationPreference2 != null) {
+            assertNotEquals(testLocationPreference2, testLocationPreference1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
@@ -24,6 +27,7 @@ public class LocationPreferenceTest {
     public void testLocationPreferenceEquality(LocationPreference testLocationPreference1,
             LocationPreference testLocationPreference2) {
         assertEquals(testLocationPreference1, testLocationPreference2, "Identical location preferences should be equal");
+        assertEquals(testLocationPreference2, testLocationPreference1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -44,6 +48,9 @@ public class LocationPreferenceTest {
         LocationPreference locationPreferenceNull = new LocationPreference();
         locationPreferenceNull.setUserId(null);
 
+        LocationPreference locationPreferenceNull2 = new LocationPreference();
+        locationPreferenceNull2.setUserId(null);
+
         LocationPreference locationPreference1AllFields = new LocationPreference();
         locationPreference1AllFields.setUserId(1L);
         locationPreference1AllFields.setUseLocal(true);
@@ -57,6 +64,7 @@ public class LocationPreferenceTest {
         return Stream.of(
                 Arguments.of(locationPreference1, locationPreference2),
                 Arguments.of(locationPreference1, locationPreferenceNull),
+                Arguments.of(locationPreferenceNull, locationPreferenceNull2),
                 Arguments.of(locationPreference1, null),
                 Arguments.of(locationPreference1AllFields, locationPreference2AllFields));
     }
@@ -68,9 +76,6 @@ public class LocationPreferenceTest {
         LocationPreference locationPreference2 = new LocationPreference();
         locationPreference2.setUserId(1L);
 
-        LocationPreference locationPreferenceNull = new LocationPreference();
-        locationPreferenceNull.setUserId(null);
-
         LocationPreference locationPreference1AllFields = new LocationPreference();
         locationPreference1AllFields.setUserId(1L);
         locationPreference1AllFields.setUseLocal(true);
@@ -79,7 +84,6 @@ public class LocationPreferenceTest {
         return Stream.of(
                 Arguments.of(locationPreference1, locationPreference1),
                 Arguments.of(locationPreference1, locationPreference2),
-                Arguments.of(locationPreferenceNull, locationPreferenceNull),
                 Arguments.of(locationPreference1, locationPreference1AllFields));
     }
 }

@@ -1,8 +1,5 @@
 package net.spotapps.tester.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,20 +11,19 @@ public class TravelGroupSizeTest {
     @ParameterizedTest
     @MethodSource("provideDifferentTravelGroupSizes")
     public void testTravelGroupSizeInequality(TravelGroupSize testTravelGroupSize1, TravelGroupSize testTravelGroupSize2) {
-        assertNotEquals(testTravelGroupSize1, testTravelGroupSize2, "Different travel group sizes should not be equal");
+        ModelTestHelper.assertInequality(testTravelGroupSize1, testTravelGroupSize2);
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalTravelGroupSizes")
     public void testTravelGroupSizeEquality(TravelGroupSize testTravelGroupSize1, TravelGroupSize testTravelGroupSize2) {
-        assertEquals(testTravelGroupSize1, testTravelGroupSize2, "Identical travel group sizes should be equal");
+        ModelTestHelper.assertEquality(testTravelGroupSize1, testTravelGroupSize2);
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalTravelGroupSizes")
     public void testTravelGroupSizeHashcodeEquality(TravelGroupSize testTravelGroupSize1, TravelGroupSize testTravelGroupSize2) {
-        assertEquals(testTravelGroupSize1.hashCode(), testTravelGroupSize2.hashCode(),
-                "Identical travel group sizes should have equal hash codes");
+        ModelTestHelper.assertHashcodeEquality(testTravelGroupSize1, testTravelGroupSize2);
     }
 
     private static Stream<Arguments> provideDifferentTravelGroupSizes() {

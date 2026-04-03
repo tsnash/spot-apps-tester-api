@@ -17,6 +17,9 @@ public class RelationshipPreferenceTest {
             RelationshipPreference testRelationshipPreference2) {
         assertNotEquals(testRelationshipPreference1, testRelationshipPreference2,
                 "Different relationship preferences should not be equal");
+        if (testRelationshipPreference2 != null) {
+            assertNotEquals(testRelationshipPreference2, testRelationshipPreference1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
@@ -24,6 +27,7 @@ public class RelationshipPreferenceTest {
     public void testRelationshipPreferenceEquality(RelationshipPreference testRelationshipPreference1,
             RelationshipPreference testRelationshipPreference2) {
         assertEquals(testRelationshipPreference1, testRelationshipPreference2, "Identical relationship preferences should be equal");
+        assertEquals(testRelationshipPreference2, testRelationshipPreference1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -44,6 +48,9 @@ public class RelationshipPreferenceTest {
         RelationshipPreference relationshipPreferenceNull = new RelationshipPreference();
         relationshipPreferenceNull.setUserId(null);
 
+        RelationshipPreference relationshipPreferenceNull2 = new RelationshipPreference();
+        relationshipPreferenceNull2.setUserId(null);
+
         RelationshipPreference relationshipPreference1AllFields = new RelationshipPreference();
         relationshipPreference1AllFields.setUserId(1L);
         relationshipPreference1AllFields.setRelationshipStatus(new RelationshipStatus("Single"));
@@ -55,6 +62,7 @@ public class RelationshipPreferenceTest {
         return Stream.of(
                 Arguments.of(relationshipPreference1, relationshipPreference2),
                 Arguments.of(relationshipPreference1, relationshipPreferenceNull),
+                Arguments.of(relationshipPreferenceNull, relationshipPreferenceNull2),
                 Arguments.of(relationshipPreference1, null),
                 Arguments.of(relationshipPreference1AllFields, relationshipPreference2AllFields));
     }
@@ -66,9 +74,6 @@ public class RelationshipPreferenceTest {
         RelationshipPreference relationshipPreference2 = new RelationshipPreference();
         relationshipPreference2.setUserId(1L);
 
-        RelationshipPreference relationshipPreferenceNull = new RelationshipPreference();
-        relationshipPreferenceNull.setUserId(null);
-
         RelationshipPreference relationshipPreference1AllFields = new RelationshipPreference();
         relationshipPreference1AllFields.setUserId(1L);
         relationshipPreference1AllFields.setRelationshipStatus(new RelationshipStatus("Single"));
@@ -76,7 +81,6 @@ public class RelationshipPreferenceTest {
         return Stream.of(
                 Arguments.of(relationshipPreference1, relationshipPreference1),
                 Arguments.of(relationshipPreference1, relationshipPreference2),
-                Arguments.of(relationshipPreferenceNull, relationshipPreferenceNull),
                 Arguments.of(relationshipPreference1, relationshipPreference1AllFields));
     }
 }

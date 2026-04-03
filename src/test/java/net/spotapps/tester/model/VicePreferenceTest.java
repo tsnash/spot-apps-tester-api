@@ -17,6 +17,9 @@ public class VicePreferenceTest {
             VicePreference testVicePreference2) {
         assertNotEquals(testVicePreference1, testVicePreference2,
                 "Different vice preferences should not be equal");
+        if (testVicePreference2 != null) {
+            assertNotEquals(testVicePreference2, testVicePreference1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
@@ -24,6 +27,7 @@ public class VicePreferenceTest {
     public void testVicePreferenceEquality(VicePreference testVicePreference1,
             VicePreference testVicePreference2) {
         assertEquals(testVicePreference1, testVicePreference2, "Identical vice preferences should be equal");
+        assertEquals(testVicePreference2, testVicePreference1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -44,6 +48,9 @@ public class VicePreferenceTest {
         VicePreference vicePreferenceNull = new VicePreference();
         vicePreferenceNull.setUserId(null);
 
+        VicePreference vicePreferenceNull2 = new VicePreference();
+        vicePreferenceNull2.setUserId(null);
+
         VicePreference vicePreference1AllFields = new VicePreference();
         vicePreference1AllFields.setUserId(1L);
         vicePreference1AllFields.setImportance(5);
@@ -55,6 +62,7 @@ public class VicePreferenceTest {
         return Stream.of(
                 Arguments.of(vicePreference1, vicePreference2),
                 Arguments.of(vicePreference1, vicePreferenceNull),
+                Arguments.of(vicePreferenceNull, vicePreferenceNull2),
                 Arguments.of(vicePreference1, null),
                 Arguments.of(vicePreference1AllFields, vicePreference2AllFields));
     }
@@ -66,9 +74,6 @@ public class VicePreferenceTest {
         VicePreference vicePreference2 = new VicePreference();
         vicePreference2.setUserId(1L);
 
-        VicePreference vicePreferenceNull = new VicePreference();
-        vicePreferenceNull.setUserId(null);
-
         VicePreference vicePreference1AllFields = new VicePreference();
         vicePreference1AllFields.setUserId(1L);
         vicePreference1AllFields.setImportance(5);
@@ -76,7 +81,6 @@ public class VicePreferenceTest {
         return Stream.of(
                 Arguments.of(vicePreference1, vicePreference1),
                 Arguments.of(vicePreference1, vicePreference2),
-                Arguments.of(vicePreferenceNull, vicePreferenceNull),
                 Arguments.of(vicePreference1, vicePreference1AllFields));
     }
 }

@@ -17,6 +17,9 @@ public class ChildrenPreferenceTest {
             ChildrenPreference testChildrenPreference2) {
         assertNotEquals(testChildrenPreference1, testChildrenPreference2,
                 "Different children preferences should not be equal");
+        if (testChildrenPreference2 != null) {
+            assertNotEquals(testChildrenPreference2, testChildrenPreference1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
@@ -24,6 +27,7 @@ public class ChildrenPreferenceTest {
     public void testChildrenPreferenceEquality(ChildrenPreference testChildrenPreference1,
             ChildrenPreference testChildrenPreference2) {
         assertEquals(testChildrenPreference1, testChildrenPreference2, "Identical children preferences should be equal");
+        assertEquals(testChildrenPreference2, testChildrenPreference1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -44,6 +48,9 @@ public class ChildrenPreferenceTest {
         ChildrenPreference childrenPreferenceNull = new ChildrenPreference();
         childrenPreferenceNull.setUserId(null);
 
+        ChildrenPreference childrenPreferenceNull2 = new ChildrenPreference();
+        childrenPreferenceNull2.setUserId(null);
+
         ChildrenPreference childrenPreference1AllFields = new ChildrenPreference();
         childrenPreference1AllFields.setUserId(1L);
         childrenPreference1AllFields.setMoreChildren(true);
@@ -55,6 +62,7 @@ public class ChildrenPreferenceTest {
         return Stream.of(
                 Arguments.of(childrenPreference1, childrenPreference2),
                 Arguments.of(childrenPreference1, childrenPreferenceNull),
+                Arguments.of(childrenPreferenceNull, childrenPreferenceNull2),
                 Arguments.of(childrenPreference1, null),
                 Arguments.of(childrenPreference1AllFields, childrenPreference2AllFields));
     }
@@ -66,9 +74,6 @@ public class ChildrenPreferenceTest {
         ChildrenPreference childrenPreference2 = new ChildrenPreference();
         childrenPreference2.setUserId(1L);
 
-        ChildrenPreference childrenPreferenceNull = new ChildrenPreference();
-        childrenPreferenceNull.setUserId(null);
-
         ChildrenPreference childrenPreference1AllFields = new ChildrenPreference();
         childrenPreference1AllFields.setUserId(1L);
         childrenPreference1AllFields.setMoreChildren(true);
@@ -76,7 +81,6 @@ public class ChildrenPreferenceTest {
         return Stream.of(
                 Arguments.of(childrenPreference1, childrenPreference1),
                 Arguments.of(childrenPreference1, childrenPreference2),
-                Arguments.of(childrenPreferenceNull, childrenPreferenceNull),
                 Arguments.of(childrenPreference1, childrenPreference1AllFields));
     }
 }

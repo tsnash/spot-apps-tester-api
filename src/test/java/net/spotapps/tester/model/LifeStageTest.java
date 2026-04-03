@@ -15,12 +15,16 @@ public class LifeStageTest {
     @MethodSource("provideDifferentLifeStages")
     public void testLifeStageInequality(LifeStage testLifeStage1, LifeStage testLifeStage2) {
         assertNotEquals(testLifeStage1, testLifeStage2, "Different life stages should not be equal");
+        if (testLifeStage2 != null) {
+            assertNotEquals(testLifeStage2, testLifeStage1, "Inequality should be symmetric");
+        }
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalLifeStages")
     public void testLifeStageEquality(LifeStage testLifeStage1, LifeStage testLifeStage2) {
         assertEquals(testLifeStage1, testLifeStage2, "Identical life stages should be equal");
+        assertEquals(testLifeStage2, testLifeStage1, "Equality should be symmetric");
     }
 
     @ParameterizedTest
@@ -37,10 +41,14 @@ public class LifeStageTest {
         LifeStage lifeStage2 = new LifeStage("Toddler");
         lifeStage2.setLifeStageId(2L);
 
+        LifeStage lifeStage3 = new LifeStage("Toddler");
+        lifeStage3.setLifeStageId(1L);
+
         LifeStage lifeStageNull = null;
 
         return Stream.of(
                 Arguments.of(lifeStage1, lifeStage2),
+                Arguments.of(lifeStage1, lifeStage3),
                 Arguments.of(lifeStage1, lifeStageNull));
     }
 
