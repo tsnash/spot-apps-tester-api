@@ -1,0 +1,222 @@
+package net.spotapps.tester.service;
+
+import java.util.List;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import net.spotapps.tester.config.LookupDataProperties;
+import net.spotapps.tester.dao.*;
+import net.spotapps.tester.model.*;
+
+@Service
+public class LookupDataPopulationService {
+
+    @Autowired
+    private LookupDataProperties lookupProperties;
+
+    @Autowired
+    private GenderRepository genderRepository;
+
+    @Autowired
+    private OrientationRepository orientationRepository;
+
+    @Autowired
+    private PersonalityScaleRepository personalityScaleRepository;
+
+    @Autowired
+    private RelationshipStatusRepository relationshipStatusRepository;
+
+    @Autowired
+    private RelationshipPracticeRepository relationshipPracticeRepository;
+
+    @Autowired
+    private RelationshipInterestRepository relationshipInterestRepository;
+
+    @Autowired
+    private ReligionRepository religionRepository;
+
+    @Autowired
+    private LifeStageRepository lifeStageRepository;
+
+    @Autowired
+    private ChildGenderRepository childGenderRepository;
+
+    @Autowired
+    private HouseholdStatusRepository householdStatusRepository;
+
+    @Autowired
+    private EducationDegreeRepository educationDegreeRepository;
+
+    @Autowired
+    private FluencyLevelRepository fluencyLevelRepository;
+
+    @Autowired
+    private ViceTypeRepository viceTypeRepository;
+
+    @Autowired
+    private ViceFrequencyRepository viceFrequencyRepository;
+
+    @Autowired
+    private PetTypeRepository petTypeRepository;
+
+    @Autowired
+    private TravelFrequencyRepository travelFrequencyRepository;
+
+    @Autowired
+    private TravelDurationRepository travelDurationRepository;
+
+    @Autowired
+    private TravelDistanceRepository travelDistanceRepository;
+
+    @Autowired
+    private TravelGroupSizeRepository travelGroupSizeRepository;
+
+    @PostConstruct
+    @Transactional
+    public void initLookups() {
+        initGenders();
+        initOrientations();
+        initPersonalityScales();
+        initRelationshipStatuses();
+        initRelationshipPractices();
+        initRelationshipInterests();
+        initReligions();
+        initLifeStages();
+        initChildGenders();
+        initHouseholdStatuses();
+        initEducationDegrees();
+        initFluencyLevels();
+        initViceTypes();
+        initViceFrequencies();
+        initPetTypes();
+        initTravelFrequencies();
+        initTravelDurations();
+        initTravelDistances();
+        initTravelGroupSizes();
+    }
+
+    private <T, ID> void upsertMissingLookups(
+            JpaRepository<T, ID> repository,
+            Function<T, String> nameExtractor,
+            List<String> canonicalNames,
+            Function<String, T> entityCreator) {
+        if (canonicalNames == null || canonicalNames.isEmpty()) {
+            return;
+        }
+
+        Set<String> existingNames = repository.findAll().stream()
+                .map(nameExtractor)
+                .map(name -> name.trim().toLowerCase())
+                .collect(Collectors.toSet());
+
+        List<T> toAdd = canonicalNames.stream()
+                .filter(name -> !existingNames.contains(name.trim().toLowerCase()))
+                .map(entityCreator)
+                .toList();
+
+        if (!toAdd.isEmpty()) {
+            repository.saveAll(toAdd);
+        }
+    }
+
+    private void initGenders() {
+        upsertMissingLookups(genderRepository, Gender::getName, lookupProperties.getGenders(), Gender::new);
+    }
+
+    private void initOrientations() {
+        upsertMissingLookups(orientationRepository, Orientation::getName, lookupProperties.getOrientations(), Orientation::new);
+    }
+
+    private void initPersonalityScales() {
+        upsertMissingLookups(personalityScaleRepository, PersonalityScale::getName, lookupProperties.getPersonalityScales(), PersonalityScale::new);
+    }
+
+    private void initRelationshipStatuses() {
+        upsertMissingLookups(relationshipStatusRepository, RelationshipStatus::getName, lookupProperties.getRelationshipStatuses(), RelationshipStatus::new);
+    }
+
+    private void initRelationshipPractices() {
+        upsertMissingLookups(relationshipPracticeRepository, RelationshipPractice::getName, lookupProperties.getRelationshipPractices(), RelationshipPractice::new);
+    }
+
+    private void initRelationshipInterests() {
+        upsertMissingLookups(relationshipInterestRepository, RelationshipInterest::getName, lookupProperties.getRelationshipInterests(), RelationshipInterest::new);
+    }
+
+    private void initReligions() {
+        List<LookupDataProperties.ReligionProperties> religionProps = lookupProperties.getReligions();
+        if (religionProps == null || religionProps.isEmpty()) {
+            return;
+        }
+
+        List<Religion> canonical = religionProps.stream()
+                .map(p -> new Religion(p.getName(), p.getBranch()))
+                .toList();
+
+        List<Religion> existing = religionRepository.findAll();
+        List<Religion> toAdd = canonical.stream()
+                .filter(c -> existing.stream().noneMatch(e -> 
+                    e.getReligionName().equalsIgnoreCase(c.getReligionName()) && 
+                    e.getBranchName().equalsIgnoreCase(c.getBranchName())))
+                .toList();
+
+        if (!toAdd.isEmpty()) {
+            religionRepository.saveAll(toAdd);
+        }
+    }
+
+    private void initLifeStages() {
+        upsertMissingLookups(lifeStageRepository, LifeStage::getName, lookupProperties.getLifeStages(), LifeStage::new);
+    }
+
+    private void initChildGenders() {
+        upsertMissingLookups(childGenderRepository, ChildGender::getName, lookupProperties.getChildGenders(), ChildGender::new);
+    }
+
+    private void initHouseholdStatuses() {
+        upsertMissingLookups(householdStatusRepository, HouseholdStatus::getName, lookupProperties.getHouseholdStatuses(), HouseholdStatus::new);
+    }
+
+    private void initEducationDegrees() {
+        upsertMissingLookups(educationDegreeRepository, EducationDegree::getName, lookupProperties.getEducationDegrees(), EducationDegree::new);
+    }
+
+    private void initFluencyLevels() {
+        upsertMissingLookups(fluencyLevelRepository, FluencyLevel::getName, lookupProperties.getFluencyLevels(), FluencyLevel::new);
+    }
+
+    private void initViceTypes() {
+        upsertMissingLookups(viceTypeRepository, ViceType::getName, lookupProperties.getViceTypes(), ViceType::new);
+    }
+
+    private void initViceFrequencies() {
+        upsertMissingLookups(viceFrequencyRepository, ViceFrequency::getName, lookupProperties.getViceFrequencies(), ViceFrequency::new);
+    }
+
+    private void initPetTypes() {
+        upsertMissingLookups(petTypeRepository, PetType::getName, lookupProperties.getPetTypes(), PetType::new);
+    }
+
+    private void initTravelFrequencies() {
+        upsertMissingLookups(travelFrequencyRepository, TravelFrequency::getName, lookupProperties.getTravelFrequencies(), TravelFrequency::new);
+    }
+
+    private void initTravelDurations() {
+        upsertMissingLookups(travelDurationRepository, TravelDuration::getName, lookupProperties.getTravelDurations(), TravelDuration::new);
+    }
+
+    private void initTravelDistances() {
+        upsertMissingLookups(travelDistanceRepository, TravelDistance::getName, lookupProperties.getTravelDistances(), TravelDistance::new);
+    }
+
+    private void initTravelGroupSizes() {
+        upsertMissingLookups(travelGroupSizeRepository, TravelGroupSize::getName, lookupProperties.getTravelGroupSizes(), TravelGroupSize::new);
+    }
+}
