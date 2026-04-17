@@ -50,22 +50,14 @@ docker run -p 8080:8080 -e ENCRYPTION_KEY=<your-generated-key> tester:latest
 |`SPRING_DATASOURCE_USERNAME`| `<Username>`                                |
 |`SPRING_DATASOURCE_PASSWORD`| `<Password>`                                |
 
-
-
 ## Roadmap
-- Implement remaining properties for `UserProfile` related entities
+- Rework predefined data for lookup tables
 
-- Consider and address PII concerns including but not limited to
-  - Encryption at rest for sensitive data
-    - **Note on Encryption Key Management:** The encryption key is sourced from the `ENCRYPTION_KEY` environment variable. For production environments, it is highly recommended to use a secure key management service such as AWS KMS or HashiCorp Vault.
-  - Proper audit logging for data access
-  - Compliance with GDPR/CCPA requirements
-  - Data retention and deletion policies
-  - Appropriate masking in logs and error messages
+- Authentication for users
+
+- Endpoint for updating user preferences
 
 - Develop models, services, and controllers for `DataProfile` and `RatingProfile` along with any additional properties
-
-- Consider emojis for commit prefixes for clarity
 
 - Admin login (`/admin`) and additional resource management endpoints (`/admin/{resource}`)
 
@@ -74,6 +66,14 @@ docker run -p 8080:8080 -e ENCRYPTION_KEY=<your-generated-key> tester:latest
 - Take a look at setting up database indexes
 
 - Decide on removing auxiliary ids from DTOs
+
+- Consider and address PII concerns including but not limited to
+  - Encryption at rest for sensitive data
+    - **Note on Encryption Key Management:** The encryption key is sourced from the `ENCRYPTION_KEY` environment variable. For production environments, it is highly recommended to use a secure key management service such as AWS KMS or HashiCorp Vault.
+  - Proper audit logging for data access
+  - Compliance with GDPR/CCPA requirements
+  - Data retention and deletion policies
+  - Appropriate masking in logs and error messages
 
 - When data persistence becomes necessary, update the DDL management strategy and include flyway or liquibase for database migrations
 

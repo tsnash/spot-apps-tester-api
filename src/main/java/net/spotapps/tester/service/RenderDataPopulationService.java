@@ -191,23 +191,28 @@ public class RenderDataPopulationService {
     }
 
     private void initOrientations() {
-        upsertMissingLookups(orientationRepository, Orientation::getName, List.of("Heterosexual", "Homosexual", "Bisexual"), Orientation::new);
+        upsertMissingLookups(orientationRepository, Orientation::getName,
+                List.of("Heterosexual", "Homosexual", "Bisexual"), Orientation::new);
     }
 
     private void initPersonalityScales() {
-        upsertMissingLookups(personalityScaleRepository, PersonalityScale::getName, List.of("Very Low", "Low", "Neutral", "High", "Very High"), PersonalityScale::new);
+        upsertMissingLookups(personalityScaleRepository, PersonalityScale::getName,
+                List.of("Very Low", "Low", "Neutral", "High", "Very High"), PersonalityScale::new);
     }
 
     private void initRelationshipStatuses() {
-        upsertMissingLookups(relationshipStatusRepository, RelationshipStatus::getName, List.of("Single", "Married", "Divorced"), RelationshipStatus::new);
+        upsertMissingLookups(relationshipStatusRepository, RelationshipStatus::getName,
+                List.of("Single", "Married", "Divorced"), RelationshipStatus::new);
     }
 
     private void initRelationshipPractices() {
-        upsertMissingLookups(relationshipPracticeRepository, RelationshipPractice::getName, List.of("Monogamy", "Polyamory", "Open Relationship"), RelationshipPractice::new);
+        upsertMissingLookups(relationshipPracticeRepository, RelationshipPractice::getName,
+                List.of("Monogamy", "Polyamory", "Open Relationship"), RelationshipPractice::new);
     }
 
     private void initRelationshipInterests() {
-        upsertMissingLookups(relationshipInterestRepository, RelationshipInterest::getName, List.of("Long-term", "Short-term", "Casual"), RelationshipInterest::new);
+        upsertMissingLookups(relationshipInterestRepository, RelationshipInterest::getName,
+                List.of("Long-term", "Short-term", "Casual"), RelationshipInterest::new);
     }
 
     private void initReligions() {
@@ -220,7 +225,9 @@ public class RenderDataPopulationService {
                 new Religion("None", "Atheist"));
         List<Religion> existing = religionRepository.findAll();
         List<Religion> toAdd = canonical.stream()
-                .filter(c -> existing.stream().noneMatch(e -> e.getReligionName().equalsIgnoreCase(c.getReligionName()) && e.getBranchName().equalsIgnoreCase(c.getBranchName())))
+                .filter(c -> existing.stream()
+                        .noneMatch(e -> e.getReligionName().equalsIgnoreCase(c.getReligionName())
+                                && e.getBranchName().equalsIgnoreCase(c.getBranchName())))
                 .toList();
         if (!toAdd.isEmpty()) {
             religionRepository.saveAll(toAdd);
@@ -228,7 +235,8 @@ public class RenderDataPopulationService {
     }
 
     private void initLifeStages() {
-        upsertMissingLookups(lifeStageRepository, LifeStage::getName, List.of("Infant", "Toddler", "Child", "Teenager", "Adult"), LifeStage::new);
+        upsertMissingLookups(lifeStageRepository, LifeStage::getName,
+                List.of("Infant", "Toddler", "Child", "Teenager", "Adult"), LifeStage::new);
     }
 
     private void initChildGenders() {
@@ -236,43 +244,53 @@ public class RenderDataPopulationService {
     }
 
     private void initHouseholdStatuses() {
-        upsertMissingLookups(householdStatusRepository, HouseholdStatus::getName, List.of("Full-time", "Part-time", "Visiting"), HouseholdStatus::new);
+        upsertMissingLookups(householdStatusRepository, HouseholdStatus::getName,
+                List.of("Full-time", "Part-time", "Visiting"), HouseholdStatus::new);
     }
 
     private void initEducationDegrees() {
-        upsertMissingLookups(educationDegreeRepository, EducationDegree::getName, List.of("High School", "Bachelor's", "Master's", "Doctorate"), EducationDegree::new);
+        upsertMissingLookups(educationDegreeRepository, EducationDegree::getName,
+                List.of("High School", "Bachelor's", "Master's", "Doctorate"), EducationDegree::new);
     }
 
     private void initFluencyLevels() {
-        upsertMissingLookups(fluencyLevelRepository, FluencyLevel::getName, List.of("Native", "Fluent", "Conversational", "Basic"), FluencyLevel::new);
+        upsertMissingLookups(fluencyLevelRepository, FluencyLevel::getName,
+                List.of("Native", "Fluent", "Conversational", "Basic"), FluencyLevel::new);
     }
 
     private void initViceTypes() {
-        upsertMissingLookups(viceTypeRepository, ViceType::getName, List.of("Smoking Cigarettes", "Drinking Alcohol", "Marijuana", "Vaping"), ViceType::new);
+        upsertMissingLookups(viceTypeRepository, ViceType::getName,
+                List.of("Smoking Cigarettes", "Drinking Alcohol", "Marijuana", "Vaping"), ViceType::new);
     }
 
     private void initViceFrequencies() {
-        upsertMissingLookups(viceFrequencyRepository, ViceFrequency::getName, List.of("Often", "Sometimes", "Rarely", "Never"), ViceFrequency::new);
+        upsertMissingLookups(viceFrequencyRepository, ViceFrequency::getName,
+                List.of("Often", "Sometimes", "Rarely", "Never"), ViceFrequency::new);
     }
 
     private void initPetTypes() {
-        upsertMissingLookups(petTypeRepository, PetType::getName, List.of("Dogs", "Cats", "Birds", "Fish"), PetType::new);
+        upsertMissingLookups(petTypeRepository, PetType::getName, List.of("Dogs", "Cats", "Birds", "Fish"),
+                PetType::new);
     }
 
     private void initTravelFrequencies() {
-        upsertMissingLookups(travelFrequencyRepository, TravelFrequency::getName, List.of("Often", "Sometimes", "Rarely", "Never"), TravelFrequency::new);
+        upsertMissingLookups(travelFrequencyRepository, TravelFrequency::getName,
+                List.of("Often", "Sometimes", "Rarely", "Never"), TravelFrequency::new);
     }
 
     private void initTravelDurations() {
-        upsertMissingLookups(travelDurationRepository, TravelDuration::getName, List.of("Short", "Medium", "Long"), TravelDuration::new);
+        upsertMissingLookups(travelDurationRepository, TravelDuration::getName, List.of("Short", "Medium", "Long"),
+                TravelDuration::new);
     }
 
     private void initTravelDistances() {
-        upsertMissingLookups(travelDistanceRepository, TravelDistance::getName, List.of("Near", "Far", "International"), TravelDistance::new);
+        upsertMissingLookups(travelDistanceRepository, TravelDistance::getName, List.of("Near", "Far", "International"),
+                TravelDistance::new);
     }
 
     private void initTravelGroupSizes() {
-        upsertMissingLookups(travelGroupSizeRepository, TravelGroupSize::getName, List.of("Solo", "Couple", "Small Group", "Large Group"), TravelGroupSize::new);
+        upsertMissingLookups(travelGroupSizeRepository, TravelGroupSize::getName,
+                List.of("Solo", "Couple", "Small Group", "Large Group"), TravelGroupSize::new);
     }
 
     private void initUserProfiles() {
@@ -380,7 +398,8 @@ public class RenderDataPopulationService {
                 initPetsPreference(profile, random, petTypes);
             }
             if (profile.getTravelPreference() == null) {
-                initTravelPreference(profile, random, travelFrequencies, travelDurations, travelDistances, travelGroupSizes);
+                initTravelPreference(profile, random, travelFrequencies, travelDurations, travelDistances,
+                        travelGroupSizes);
             }
             if (profile.getDietPreference() == null) {
                 initDietPreference(profile, random);
@@ -432,7 +451,8 @@ public class RenderDataPopulationService {
         socialPersonalityRepository.save(social);
     }
 
-    private void initGenderPreference(UserProfile profile, Random random, List<Gender> genders, List<Orientation> orientations) {
+    private void initGenderPreference(UserProfile profile, Random random, List<Gender> genders,
+            List<Orientation> orientations) {
         if (genders.isEmpty() || orientations.isEmpty())
             return;
 
@@ -444,7 +464,8 @@ public class RenderDataPopulationService {
         genderPreferenceRepository.save(genderPref);
     }
 
-    private void initRelationshipPreference(UserProfile profile, Random random, List<RelationshipStatus> statuses, List<RelationshipPractice> practices, List<RelationshipInterest> interests) {
+    private void initRelationshipPreference(UserProfile profile, Random random, List<RelationshipStatus> statuses,
+            List<RelationshipPractice> practices, List<RelationshipInterest> interests) {
         if (statuses.isEmpty())
             return;
 
@@ -487,7 +508,8 @@ public class RenderDataPopulationService {
         educationPreferenceRepository.save(education);
     }
 
-    private void initChildrenPreference(UserProfile profile, Random random, List<LifeStage> stages, List<ChildGender> genders, List<HouseholdStatus> statuses) {
+    private void initChildrenPreference(UserProfile profile, Random random, List<LifeStage> stages,
+            List<ChildGender> genders, List<HouseholdStatus> statuses) {
         ChildrenPreference childrenPref = new ChildrenPreference();
         childrenPref.setMoreChildren(random.nextBoolean());
 
@@ -520,7 +542,8 @@ public class RenderDataPopulationService {
         languagePreferenceRepository.save(languagePref);
     }
 
-    private void initVicePreference(UserProfile profile, Random random, List<ViceType> types, List<ViceFrequency> frequencies) {
+    private void initVicePreference(UserProfile profile, Random random, List<ViceType> types,
+            List<ViceFrequency> frequencies) {
         VicePreference vicePref = new VicePreference();
         vicePref.setImportance(1 + random.nextInt(5));
 
@@ -551,7 +574,8 @@ public class RenderDataPopulationService {
         petsPreferenceRepository.save(petsPref);
     }
 
-    private void initTravelPreference(UserProfile profile, Random random, List<TravelFrequency> frequencies, List<TravelDuration> durations, List<TravelDistance> distances, List<TravelGroupSize> groupSizes) {
+    private void initTravelPreference(UserProfile profile, Random random, List<TravelFrequency> frequencies,
+            List<TravelDuration> durations, List<TravelDistance> distances, List<TravelGroupSize> groupSizes) {
         if (frequencies.isEmpty() || durations.isEmpty() || distances.isEmpty() || groupSizes.isEmpty())
             return;
 
