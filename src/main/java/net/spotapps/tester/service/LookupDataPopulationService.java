@@ -9,7 +9,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import net.spotapps.tester.config.LookupDataProperties;
 import net.spotapps.tester.dao.ChildGenderRepository;
@@ -114,28 +114,32 @@ public class LookupDataPopulationService {
     @Autowired
     private TravelGroupSizeRepository travelGroupSizeRepository;
 
+    @Autowired
+    private TransactionTemplate transactionTemplate;
+
     @PostConstruct
-    @Transactional
     public void initLookups() {
-        initGenders();
-        initOrientations();
-        initPersonalityScales();
-        initRelationshipStatuses();
-        initRelationshipPractices();
-        initRelationshipInterests();
-        initReligions();
-        initLifeStages();
-        initChildGenders();
-        initHouseholdStatuses();
-        initEducationDegrees();
-        initFluencyLevels();
-        initViceTypes();
-        initViceFrequencies();
-        initPetTypes();
-        initTravelFrequencies();
-        initTravelDurations();
-        initTravelDistances();
-        initTravelGroupSizes();
+        transactionTemplate.executeWithoutResult(status -> {
+            initGenders();
+            initOrientations();
+            initPersonalityScales();
+            initRelationshipStatuses();
+            initRelationshipPractices();
+            initRelationshipInterests();
+            initReligions();
+            initLifeStages();
+            initChildGenders();
+            initHouseholdStatuses();
+            initEducationDegrees();
+            initFluencyLevels();
+            initViceTypes();
+            initViceFrequencies();
+            initPetTypes();
+            initTravelFrequencies();
+            initTravelDurations();
+            initTravelDistances();
+            initTravelGroupSizes();
+        });
     }
 
     private <T, ID> void upsertMissingLookups(
