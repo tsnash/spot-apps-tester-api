@@ -9,7 +9,28 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.spotapps.tester.dao.*;
+import net.spotapps.tester.dao.AgePreferenceRepository;
+import net.spotapps.tester.dao.ChildRepository;
+import net.spotapps.tester.dao.ChildrenPreferenceRepository;
+import net.spotapps.tester.dao.ContactPreferenceRepository;
+import net.spotapps.tester.dao.DietPreferenceRepository;
+import net.spotapps.tester.dao.EducationPreferenceRepository;
+import net.spotapps.tester.dao.GenderPreferenceRepository;
+import net.spotapps.tester.dao.LanguagePreferenceRepository;
+import net.spotapps.tester.dao.LanguageRepository;
+import net.spotapps.tester.dao.LocationPreferenceRepository;
+import net.spotapps.tester.dao.PetRepository;
+import net.spotapps.tester.dao.PetsPreferenceRepository;
+import net.spotapps.tester.dao.RelationshipPreferenceRepository;
+import net.spotapps.tester.dao.ReligionPreferenceRepository;
+import net.spotapps.tester.dao.SocialPersonalityRepository;
+import net.spotapps.tester.dao.TravelPreferenceRepository;
+import net.spotapps.tester.dao.UserImageRepository;
+import net.spotapps.tester.dao.UserInterestRepository;
+import net.spotapps.tester.dao.UserProfileRepository;
+import net.spotapps.tester.dao.UserRepository;
+import net.spotapps.tester.dao.VicePreferenceRepository;
+import net.spotapps.tester.dao.ViceRepository;
 
 @SpringBootTest
 @ActiveProfiles({"render", "lookups"})

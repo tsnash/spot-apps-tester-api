@@ -12,8 +12,44 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.spotapps.tester.config.LookupDataProperties;
-import net.spotapps.tester.dao.*;
-import net.spotapps.tester.model.*;
+import net.spotapps.tester.dao.ChildGenderRepository;
+import net.spotapps.tester.dao.EducationDegreeRepository;
+import net.spotapps.tester.dao.FluencyLevelRepository;
+import net.spotapps.tester.dao.GenderRepository;
+import net.spotapps.tester.dao.HouseholdStatusRepository;
+import net.spotapps.tester.dao.LifeStageRepository;
+import net.spotapps.tester.dao.OrientationRepository;
+import net.spotapps.tester.dao.PersonalityScaleRepository;
+import net.spotapps.tester.dao.PetTypeRepository;
+import net.spotapps.tester.dao.RelationshipInterestRepository;
+import net.spotapps.tester.dao.RelationshipPracticeRepository;
+import net.spotapps.tester.dao.RelationshipStatusRepository;
+import net.spotapps.tester.dao.ReligionRepository;
+import net.spotapps.tester.dao.TravelDistanceRepository;
+import net.spotapps.tester.dao.TravelDurationRepository;
+import net.spotapps.tester.dao.TravelFrequencyRepository;
+import net.spotapps.tester.dao.TravelGroupSizeRepository;
+import net.spotapps.tester.dao.ViceFrequencyRepository;
+import net.spotapps.tester.dao.ViceTypeRepository;
+import net.spotapps.tester.model.ChildGender;
+import net.spotapps.tester.model.EducationDegree;
+import net.spotapps.tester.model.FluencyLevel;
+import net.spotapps.tester.model.Gender;
+import net.spotapps.tester.model.HouseholdStatus;
+import net.spotapps.tester.model.LifeStage;
+import net.spotapps.tester.model.Orientation;
+import net.spotapps.tester.model.PersonalityScale;
+import net.spotapps.tester.model.PetType;
+import net.spotapps.tester.model.RelationshipInterest;
+import net.spotapps.tester.model.RelationshipPractice;
+import net.spotapps.tester.model.RelationshipStatus;
+import net.spotapps.tester.model.Religion;
+import net.spotapps.tester.model.TravelDistance;
+import net.spotapps.tester.model.TravelDuration;
+import net.spotapps.tester.model.TravelFrequency;
+import net.spotapps.tester.model.TravelGroupSize;
+import net.spotapps.tester.model.ViceFrequency;
+import net.spotapps.tester.model.ViceType;
 
 @Service
 public class LookupDataPopulationService {
