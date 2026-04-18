@@ -1,6 +1,7 @@
 package net.spotapps.tester.service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -147,23 +148,35 @@ public class LookupDataPopulationService {
             Function<T, String> nameExtractor,
             List<String> canonicalNames,
             Function<String, T> entityCreator) {
-        if (canonicalNames == null || canonicalNames.isEmpty()) {
+        upsertMissingLookups(repository, nameExtractor, canonicalNames, Function.identity(), entityCreator);
+    }
+
+    private <T, ID, S> void upsertMissingLookups(
+            JpaRepository<T, ID> repository,
+            Function<T, String> keyExtractor,
+            List<S> sourceItems,
+            Function<S, String> sourceKeyExtractor,
+            Function<S, T> entityCreator) {
+        if (sourceItems == null || sourceItems.isEmpty()) {
             return;
         }
 
-        Set<String> existingNames = repository.findAll().stream()
-                .map(nameExtractor)
-                .map(name -> name.trim().toLowerCase())
+        Set<String> existingKeys = repository.findAll().stream()
+                .map(item -> normalize(keyExtractor.apply(item)))
                 .collect(Collectors.toSet());
 
-        List<T> toAdd = canonicalNames.stream()
-                .filter(name -> !existingNames.contains(name.trim().toLowerCase()))
+        List<T> toAdd = sourceItems.stream()
+                .filter(source -> !existingKeys.contains(normalize(sourceKeyExtractor.apply(source))))
                 .map(entityCreator)
                 .toList();
 
         if (!toAdd.isEmpty()) {
             repository.saveAll(toAdd);
         }
+    }
+
+    private String normalize(String value) {
+        return value == null ? "" : value.trim().toLowerCase(Locale.ROOT);
     }
 
     private void initGenders() {
@@ -191,25 +204,13 @@ public class LookupDataPopulationService {
     }
 
     private void initReligions() {
-        List<LookupDataProperties.ReligionProperties> religionProps = lookupProperties.getReligions();
-        if (religionProps == null || religionProps.isEmpty()) {
-            return;
-        }
-
-        List<Religion> canonical = religionProps.stream()
-                .map(p -> new Religion(p.getName(), p.getBranch()))
-                .toList();
-
-        List<Religion> existing = religionRepository.findAll();
-        List<Religion> toAdd = canonical.stream()
-                .filter(c -> existing.stream().noneMatch(e -> 
-                    e.getReligionName().equalsIgnoreCase(c.getReligionName()) && 
-                    e.getBranchName().equalsIgnoreCase(c.getBranchName())))
-                .toList();
-
-        if (!toAdd.isEmpty()) {
-            religionRepository.saveAll(toAdd);
-        }
+        upsertMissingLookups(
+                religionRepository,
+                r -> r.getReligionName() + "|" + r.getBranchName(),
+                lookupProperties.getReligions(),
+                p -> p.getName() + "|" + p.getBranch(),
+                p -> new Religion(p.getName(), p.getBranch())
+        );
     }
 
     private void initLifeStages() {
