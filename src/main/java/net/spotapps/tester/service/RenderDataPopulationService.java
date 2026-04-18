@@ -3,24 +3,99 @@ package net.spotapps.tester.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import jakarta.annotation.PostConstruct;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import net.spotapps.tester.dao.*;
-import net.spotapps.tester.model.*;
+import net.spotapps.tester.dao.AgePreferenceRepository;
+import net.spotapps.tester.dao.ChildGenderRepository;
+import net.spotapps.tester.dao.ChildrenPreferenceRepository;
+import net.spotapps.tester.dao.ContactPreferenceRepository;
+import net.spotapps.tester.dao.DietPreferenceRepository;
+import net.spotapps.tester.dao.EducationDegreeRepository;
+import net.spotapps.tester.dao.EducationPreferenceRepository;
+import net.spotapps.tester.dao.FluencyLevelRepository;
+import net.spotapps.tester.dao.GenderPreferenceRepository;
+import net.spotapps.tester.dao.GenderRepository;
+import net.spotapps.tester.dao.HouseholdStatusRepository;
+import net.spotapps.tester.dao.LanguagePreferenceRepository;
+import net.spotapps.tester.dao.LifeStageRepository;
+import net.spotapps.tester.dao.LocationPreferenceRepository;
+import net.spotapps.tester.dao.OrientationRepository;
+import net.spotapps.tester.dao.PersonalityScaleRepository;
+import net.spotapps.tester.dao.PetTypeRepository;
+import net.spotapps.tester.dao.PetsPreferenceRepository;
+import net.spotapps.tester.dao.RelationshipInterestRepository;
+import net.spotapps.tester.dao.RelationshipPracticeRepository;
+import net.spotapps.tester.dao.RelationshipPreferenceRepository;
+import net.spotapps.tester.dao.RelationshipStatusRepository;
+import net.spotapps.tester.dao.ReligionPreferenceRepository;
+import net.spotapps.tester.dao.ReligionRepository;
+import net.spotapps.tester.dao.SocialPersonalityRepository;
+import net.spotapps.tester.dao.TravelDistanceRepository;
+import net.spotapps.tester.dao.TravelDurationRepository;
+import net.spotapps.tester.dao.TravelFrequencyRepository;
+import net.spotapps.tester.dao.TravelGroupSizeRepository;
+import net.spotapps.tester.dao.TravelPreferenceRepository;
+import net.spotapps.tester.dao.UserImageRepository;
+import net.spotapps.tester.dao.UserInterestRepository;
+import net.spotapps.tester.dao.UserProfileRepository;
+import net.spotapps.tester.dao.UserRepository;
+import net.spotapps.tester.dao.ViceFrequencyRepository;
+import net.spotapps.tester.dao.VicePreferenceRepository;
+import net.spotapps.tester.dao.ViceTypeRepository;
+import net.spotapps.tester.model.AgePreference;
+import net.spotapps.tester.model.Child;
+import net.spotapps.tester.model.ChildGender;
+import net.spotapps.tester.model.ChildrenPreference;
+import net.spotapps.tester.model.ContactPreference;
+import net.spotapps.tester.model.DietPreference;
+import net.spotapps.tester.model.DietaryRestriction;
+import net.spotapps.tester.model.EducationDegree;
+import net.spotapps.tester.model.EducationPreference;
+import net.spotapps.tester.model.FluencyLevel;
+import net.spotapps.tester.model.Gender;
+import net.spotapps.tester.model.GenderPreference;
+import net.spotapps.tester.model.HouseholdStatus;
+import net.spotapps.tester.model.Language;
+import net.spotapps.tester.model.LanguagePreference;
+import net.spotapps.tester.model.LifeStage;
+import net.spotapps.tester.model.LocationPreference;
+import net.spotapps.tester.model.Orientation;
+import net.spotapps.tester.model.PersonalityScale;
+import net.spotapps.tester.model.Pet;
+import net.spotapps.tester.model.PetType;
+import net.spotapps.tester.model.PetsPreference;
+import net.spotapps.tester.model.RelationshipInterest;
+import net.spotapps.tester.model.RelationshipPractice;
+import net.spotapps.tester.model.RelationshipPreference;
+import net.spotapps.tester.model.RelationshipStatus;
+import net.spotapps.tester.model.Religion;
+import net.spotapps.tester.model.ReligionPreference;
+import net.spotapps.tester.model.SocialPersonality;
+import net.spotapps.tester.model.TravelDistance;
+import net.spotapps.tester.model.TravelDuration;
+import net.spotapps.tester.model.TravelFrequency;
+import net.spotapps.tester.model.TravelGroupSize;
+import net.spotapps.tester.model.TravelPreference;
+import net.spotapps.tester.model.User;
+import net.spotapps.tester.model.UserImage;
+import net.spotapps.tester.model.UserInterest;
+import net.spotapps.tester.model.UserProfile;
+import net.spotapps.tester.model.Vice;
+import net.spotapps.tester.model.ViceFrequency;
+import net.spotapps.tester.model.VicePreference;
+import net.spotapps.tester.model.ViceType;
 
 @Service
 @Profile("render & !default")
+@DependsOn("lookupDataPopulationService")
 public class RenderDataPopulationService {
 
     @Autowired
@@ -140,157 +215,11 @@ public class RenderDataPopulationService {
     @PostConstruct
     public void initData() {
         transactionTemplate.executeWithoutResult(status -> {
-            initGenders();
-            initOrientations();
-            initPersonalityScales();
-            initRelationshipStatuses();
-            initRelationshipPractices();
-            initRelationshipInterests();
-            initReligions();
-            initLifeStages();
-            initChildGenders();
-            initHouseholdStatuses();
-            initEducationDegrees();
-            initFluencyLevels();
-            initViceTypes();
-            initViceFrequencies();
-            initPetTypes();
-            initTravelFrequencies();
-            initTravelDurations();
-            initTravelDistances();
-            initTravelGroupSizes();
             initUserProfiles();
             initUserImages();
             initUserInterests();
             initPreferences();
         });
-    }
-
-    private <T, ID> void upsertMissingLookups(
-            JpaRepository<T, ID> repository,
-            Function<T, String> nameExtractor,
-            List<String> canonicalNames,
-            Function<String, T> entityCreator) {
-        Set<String> existingNames = repository.findAll().stream()
-                .map(nameExtractor)
-                .map(name -> name.trim().toLowerCase())
-                .collect(Collectors.toSet());
-
-        List<T> toAdd = canonicalNames.stream()
-                .filter(name -> !existingNames.contains(name.trim().toLowerCase()))
-                .map(entityCreator)
-                .toList();
-
-        if (!toAdd.isEmpty()) {
-            repository.saveAll(toAdd);
-        }
-    }
-
-    private void initGenders() {
-        upsertMissingLookups(genderRepository, Gender::getName, List.of("Male", "Female", "Non-binary"), Gender::new);
-    }
-
-    private void initOrientations() {
-        upsertMissingLookups(orientationRepository, Orientation::getName,
-                List.of("Heterosexual", "Homosexual", "Bisexual"), Orientation::new);
-    }
-
-    private void initPersonalityScales() {
-        upsertMissingLookups(personalityScaleRepository, PersonalityScale::getName,
-                List.of("Very Low", "Low", "Neutral", "High", "Very High"), PersonalityScale::new);
-    }
-
-    private void initRelationshipStatuses() {
-        upsertMissingLookups(relationshipStatusRepository, RelationshipStatus::getName,
-                List.of("Single", "Married", "Divorced"), RelationshipStatus::new);
-    }
-
-    private void initRelationshipPractices() {
-        upsertMissingLookups(relationshipPracticeRepository, RelationshipPractice::getName,
-                List.of("Monogamy", "Polyamory", "Open Relationship"), RelationshipPractice::new);
-    }
-
-    private void initRelationshipInterests() {
-        upsertMissingLookups(relationshipInterestRepository, RelationshipInterest::getName,
-                List.of("Long-term", "Short-term", "Casual"), RelationshipInterest::new);
-    }
-
-    private void initReligions() {
-        List<Religion> canonical = List.of(
-                new Religion("Christianity", "Catholicism"),
-                new Religion("Christianity", "Protestantism"),
-                new Religion("Islam", "Sunni"),
-                new Religion("Islam", "Shia"),
-                new Religion("Judaism", "Orthodox"),
-                new Religion("None", "Atheist"));
-        List<Religion> existing = religionRepository.findAll();
-        List<Religion> toAdd = canonical.stream()
-                .filter(c -> existing.stream()
-                        .noneMatch(e -> e.getReligionName().equalsIgnoreCase(c.getReligionName())
-                                && e.getBranchName().equalsIgnoreCase(c.getBranchName())))
-                .toList();
-        if (!toAdd.isEmpty()) {
-            religionRepository.saveAll(toAdd);
-        }
-    }
-
-    private void initLifeStages() {
-        upsertMissingLookups(lifeStageRepository, LifeStage::getName,
-                List.of("Infant", "Toddler", "Child", "Teenager", "Adult"), LifeStage::new);
-    }
-
-    private void initChildGenders() {
-        upsertMissingLookups(childGenderRepository, ChildGender::getName, List.of("M", "F"), ChildGender::new);
-    }
-
-    private void initHouseholdStatuses() {
-        upsertMissingLookups(householdStatusRepository, HouseholdStatus::getName,
-                List.of("Full-time", "Part-time", "Visiting"), HouseholdStatus::new);
-    }
-
-    private void initEducationDegrees() {
-        upsertMissingLookups(educationDegreeRepository, EducationDegree::getName,
-                List.of("High School", "Bachelor's", "Master's", "Doctorate"), EducationDegree::new);
-    }
-
-    private void initFluencyLevels() {
-        upsertMissingLookups(fluencyLevelRepository, FluencyLevel::getName,
-                List.of("Native", "Fluent", "Conversational", "Basic"), FluencyLevel::new);
-    }
-
-    private void initViceTypes() {
-        upsertMissingLookups(viceTypeRepository, ViceType::getName,
-                List.of("Smoking Cigarettes", "Drinking Alcohol", "Marijuana", "Vaping"), ViceType::new);
-    }
-
-    private void initViceFrequencies() {
-        upsertMissingLookups(viceFrequencyRepository, ViceFrequency::getName,
-                List.of("Often", "Sometimes", "Rarely", "Never"), ViceFrequency::new);
-    }
-
-    private void initPetTypes() {
-        upsertMissingLookups(petTypeRepository, PetType::getName, List.of("Dogs", "Cats", "Birds", "Fish"),
-                PetType::new);
-    }
-
-    private void initTravelFrequencies() {
-        upsertMissingLookups(travelFrequencyRepository, TravelFrequency::getName,
-                List.of("Often", "Sometimes", "Rarely", "Never"), TravelFrequency::new);
-    }
-
-    private void initTravelDurations() {
-        upsertMissingLookups(travelDurationRepository, TravelDuration::getName, List.of("Short", "Medium", "Long"),
-                TravelDuration::new);
-    }
-
-    private void initTravelDistances() {
-        upsertMissingLookups(travelDistanceRepository, TravelDistance::getName, List.of("Near", "Far", "International"),
-                TravelDistance::new);
-    }
-
-    private void initTravelGroupSizes() {
-        upsertMissingLookups(travelGroupSizeRepository, TravelGroupSize::getName,
-                List.of("Solo", "Couple", "Small Group", "Large Group"), TravelGroupSize::new);
     }
 
     private void initUserProfiles() {
@@ -398,8 +327,7 @@ public class RenderDataPopulationService {
                 initPetsPreference(profile, random, petTypes);
             }
             if (profile.getTravelPreference() == null) {
-                initTravelPreference(profile, random, travelFrequencies, travelDurations, travelDistances,
-                        travelGroupSizes);
+                initTravelPreference(profile, random, travelFrequencies, travelDurations, travelDistances, travelGroupSizes);
             }
             if (profile.getDietPreference() == null) {
                 initDietPreference(profile, random);
@@ -451,8 +379,7 @@ public class RenderDataPopulationService {
         socialPersonalityRepository.save(social);
     }
 
-    private void initGenderPreference(UserProfile profile, Random random, List<Gender> genders,
-            List<Orientation> orientations) {
+    private void initGenderPreference(UserProfile profile, Random random, List<Gender> genders, List<Orientation> orientations) {
         if (genders.isEmpty() || orientations.isEmpty())
             return;
 
@@ -464,8 +391,7 @@ public class RenderDataPopulationService {
         genderPreferenceRepository.save(genderPref);
     }
 
-    private void initRelationshipPreference(UserProfile profile, Random random, List<RelationshipStatus> statuses,
-            List<RelationshipPractice> practices, List<RelationshipInterest> interests) {
+    private void initRelationshipPreference(UserProfile profile, Random random, List<RelationshipStatus> statuses, List<RelationshipPractice> practices, List<RelationshipInterest> interests) {
         if (statuses.isEmpty())
             return;
 
@@ -508,8 +434,7 @@ public class RenderDataPopulationService {
         educationPreferenceRepository.save(education);
     }
 
-    private void initChildrenPreference(UserProfile profile, Random random, List<LifeStage> stages,
-            List<ChildGender> genders, List<HouseholdStatus> statuses) {
+    private void initChildrenPreference(UserProfile profile, Random random, List<LifeStage> stages, List<ChildGender> genders, List<HouseholdStatus> statuses) {
         ChildrenPreference childrenPref = new ChildrenPreference();
         childrenPref.setMoreChildren(random.nextBoolean());
 
@@ -542,8 +467,7 @@ public class RenderDataPopulationService {
         languagePreferenceRepository.save(languagePref);
     }
 
-    private void initVicePreference(UserProfile profile, Random random, List<ViceType> types,
-            List<ViceFrequency> frequencies) {
+    private void initVicePreference(UserProfile profile, Random random, List<ViceType> types, List<ViceFrequency> frequencies) {
         VicePreference vicePref = new VicePreference();
         vicePref.setImportance(1 + random.nextInt(5));
 
@@ -574,8 +498,7 @@ public class RenderDataPopulationService {
         petsPreferenceRepository.save(petsPref);
     }
 
-    private void initTravelPreference(UserProfile profile, Random random, List<TravelFrequency> frequencies,
-            List<TravelDuration> durations, List<TravelDistance> distances, List<TravelGroupSize> groupSizes) {
+    private void initTravelPreference(UserProfile profile, Random random, List<TravelFrequency> frequencies, List<TravelDuration> durations, List<TravelDistance> distances, List<TravelGroupSize> groupSizes) {
         if (frequencies.isEmpty() || durations.isEmpty() || distances.isEmpty() || groupSizes.isEmpty())
             return;
 

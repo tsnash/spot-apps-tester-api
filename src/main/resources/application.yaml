@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    include: lookups
   jpa:
     show-sql: true
     hibernate:

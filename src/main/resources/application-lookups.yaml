@@ -1,0 +1,97 @@
+tester:
+  lookups:
+    genders:
+      - Male
+      - Female
+      - Non-binary
+    orientations:
+      - Heterosexual
+      - Homosexual
+      - Bisexual
+    personality-scales:
+      - Very Low
+      - Low
+      - Neutral
+      - High
+      - Very High
+    relationship-statuses:
+      - Single
+      - Married
+      - Divorced
+    relationship-practices:
+      - Monogamy
+      - Polyamory
+      - Open Relationship
+    relationship-interests:
+      - Long-term
+      - Short-term
+      - Casual
+    religions:
+      - name: Christianity
+        branch: Catholicism
+      - name: Christianity
+        branch: Protestantism
+      - name: Islam
+        branch: Sunni
+      - name: Islam
+        branch: Shia
+      - name: Judaism
+        branch: Orthodox
+      - name: "None"
+        branch: Atheist
+    life-stages:
+      - Infant
+      - Toddler
+      - Child
+      - Teenager
+      - Adult
+    child-genders:
+      - M
+      - F
+    household-statuses:
+      - Full-time
+      - Part-time
+      - Visiting
+    education-degrees:
+      - High School
+      - Bachelor's
+      - Master's
+      - Doctorate
+    fluency-levels:
+      - Native
+      - Fluent
+      - Conversational
+      - Basic
+    vice-types:
+      - Smoking Cigarettes
+      - Drinking Alcohol
+      - Marijuana
+      - Vaping
+    vice-frequencies:
+      - Often
+      - Sometimes
+      - Rarely
+      - Never
+    pet-types:
+      - Dogs
+      - Cats
+      - Birds
+      - Fish
+    travel-frequencies:
+      - Often
+      - Sometimes
+      - Rarely
+      - Never
+    travel-durations:
+      - Short
+      - Medium
+      - Long
+    travel-distances:
+      - Near
+      - Far
+      - International
+    travel-group-sizes:
+      - Solo
+      - Couple
+      - Small Group
+      - Large Group
