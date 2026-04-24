@@ -536,11 +536,11 @@ public class UserProfileDto {
                 if (p.getPetType() != null)
                     pDto.setPetType(new PetTypeDto(p.getPetType().getPetTypeId(), p.getPetType().getName()));
                 pDto.setQuantity(p.getQuantity());
-                pDto.setIsAllowed(p.getIsAllowed());
                 return pDto;
             }).toList());
         }
         dto.setImportance(pp.getImportance());
+        dto.setIsAllowed(pp.getIsAllowed());
         return dto;
     }
 

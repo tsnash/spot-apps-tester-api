@@ -43,13 +43,11 @@ public class PetTest {
         pet1AllFields.setPetId(1L);
         pet1AllFields.setPetType(new PetType("Dog"));
         pet1AllFields.setQuantity(2);
-        pet1AllFields.setIsAllowed(true);
 
         Pet pet2AllFields = new Pet();
         pet2AllFields.setPetId(2L);
         pet2AllFields.setPetType(new PetType("Dog"));
         pet2AllFields.setQuantity(2);
-        pet2AllFields.setIsAllowed(true);
 
         return Stream.of(
                 Arguments.of(pet1, pet2),
@@ -70,7 +68,6 @@ public class PetTest {
         pet1AllFields.setPetId(1L);
         pet1AllFields.setPetType(new PetType("Dog"));
         pet1AllFields.setQuantity(2);
-        pet1AllFields.setIsAllowed(true);
 
         return Stream.of(
                 Arguments.of(pet1, pet1),

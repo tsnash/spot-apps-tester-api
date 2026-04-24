@@ -485,12 +485,12 @@ public class RenderDataPopulationService {
     private void initPetsPreference(UserProfile profile, Random random, List<PetType> types) {
         PetsPreference petsPref = new PetsPreference();
         petsPref.setImportance(1 + random.nextInt(5));
+        petsPref.setIsAllowed(random.nextBoolean());
 
         if (!types.isEmpty()) {
             Pet pet = new Pet();
             pet.setPetType(types.get(random.nextInt(types.size())));
             pet.setQuantity(1 + random.nextInt(3));
-            pet.setIsAllowed(random.nextBoolean());
             petsPref.addPet(pet);
         }
 
