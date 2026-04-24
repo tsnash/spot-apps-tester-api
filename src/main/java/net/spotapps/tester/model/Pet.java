@@ -29,9 +29,6 @@ public class Pet {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name = "is_allowed")
-    private Boolean isAllowed;
-
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -59,14 +56,6 @@ public class Pet {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    public Boolean getIsAllowed() {
-        return isAllowed;
-    }
-
-    public void setIsAllowed(Boolean isAllowed) {
-        this.isAllowed = isAllowed;
     }
 
     public PetsPreference getPetsPreference() {

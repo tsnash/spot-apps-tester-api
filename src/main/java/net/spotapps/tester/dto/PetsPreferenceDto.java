@@ -13,7 +13,8 @@ import jakarta.validation.constraints.Min;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "pets",
-        "importance"
+        "importance",
+        "isAllowed"
 })
 @Schema(description = "Represents a user's pets and their preference for matches with pets.")
 public class PetsPreferenceDto {
@@ -27,6 +28,10 @@ public class PetsPreferenceDto {
     @Min(1)
     @Max(5)
     private Integer importance;
+
+    @JsonProperty("isAllowed")
+    @Schema(description = "Indicates if pets are allowed in the user's home.", example = "true")
+    private Boolean isAllowed;
 
     public List<PetDto> getPets() {
         return pets;
@@ -44,6 +49,14 @@ public class PetsPreferenceDto {
         this.importance = importance;
     }
 
+    public Boolean getIsAllowed() {
+        return isAllowed;
+    }
+
+    public void setIsAllowed(Boolean isAllowed) {
+        this.isAllowed = isAllowed;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -51,16 +64,17 @@ public class PetsPreferenceDto {
         if (!(o instanceof PetsPreferenceDto))
             return false;
         PetsPreferenceDto other = (PetsPreferenceDto) o;
-        return Objects.equals(importance, other.importance) && Objects.equals(pets, other.pets);
+        return Objects.equals(importance, other.importance) && Objects.equals(pets, other.pets)
+                && Objects.equals(isAllowed, other.isAllowed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(importance, pets);
+        return Objects.hash(importance, pets, isAllowed);
     }
 
     @Override
     public String toString() {
-        return "PetsPreferenceDto [pets=" + pets + ", importance=" + importance + "]";
+        return "PetsPreferenceDto [pets=" + pets + ", importance=" + importance + ", isAllowed=" + isAllowed + "]";
     }
 }
