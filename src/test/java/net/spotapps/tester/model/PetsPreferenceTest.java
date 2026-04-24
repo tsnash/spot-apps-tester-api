@@ -54,10 +54,12 @@ public class PetsPreferenceTest {
         PetsPreference petsPreference1AllFields = new PetsPreference();
         petsPreference1AllFields.setUserId(1L);
         petsPreference1AllFields.setImportance(5);
+        petsPreference1AllFields.setIsAllowed(true);
 
         PetsPreference petsPreference2AllFields = new PetsPreference();
         petsPreference2AllFields.setUserId(2L);
         petsPreference2AllFields.setImportance(5);
+        petsPreference2AllFields.setIsAllowed(true);
 
         return Stream.of(
                 Arguments.of(petsPreference1, petsPreference2),
@@ -77,6 +79,7 @@ public class PetsPreferenceTest {
         PetsPreference petsPreference1AllFields = new PetsPreference();
         petsPreference1AllFields.setUserId(1L);
         petsPreference1AllFields.setImportance(5);
+        petsPreference1AllFields.setIsAllowed(true);
 
         return Stream.of(
                 Arguments.of(petsPreference1, petsPreference1),

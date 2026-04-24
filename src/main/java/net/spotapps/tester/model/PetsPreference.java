@@ -39,6 +39,9 @@ public class PetsPreference {
     @Max(5)
     private Integer importance;
 
+    @Column(name = "is_allowed")
+    private Boolean isAllowed;
+
     public Long getUserId() {
         return userId;
     }
@@ -94,6 +97,14 @@ public class PetsPreference {
 
     public void setImportance(Integer importance) {
         this.importance = importance;
+    }
+
+    public Boolean getIsAllowed() {
+        return isAllowed;
+    }
+
+    public void setIsAllowed(Boolean isAllowed) {
+        this.isAllowed = isAllowed;
     }
 
     @Override
