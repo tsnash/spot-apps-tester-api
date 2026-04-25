@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "serviceName",
-        "statusCode",
         "statusDescription",
 })
 @Schema(description = "Represents additional data related to but not part of the request response.")
@@ -17,10 +16,6 @@ public class Metadata {
     @JsonProperty("serviceName")
     @Schema(description = "The name of the service that provided this response.")
     private String serviceName;
-
-    @JsonProperty("statusCode")
-    @Schema(description = "The status code associated with this response.")
-    private String statusCode;
 
     @JsonProperty("statusDescription")
     @Schema(defaultValue = "The status message associated with this response.")
@@ -37,14 +32,6 @@ public class Metadata {
         this.serviceName = serviceName;
     }
 
-    public String getStatusCode() {
-        return statusCode;
-    }
-
-    public void setStatusCode(String statusCode) {
-        this.statusCode = statusCode;
-    }
-
     public String getStatusDescription() {
         return statusDescription;
     }
@@ -58,7 +45,6 @@ public class Metadata {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((serviceName == null) ? 0 : serviceName.hashCode());
-        result = prime * result + ((statusCode == null) ? 0 : statusCode.hashCode());
         result = prime * result + ((statusDescription == null) ? 0 : statusDescription.hashCode());
         return result;
     }
@@ -77,11 +63,6 @@ public class Metadata {
                 return false;
         } else if (!serviceName.equals(other.serviceName))
             return false;
-        if (statusCode == null) {
-            if (other.statusCode != null)
-                return false;
-        } else if (!statusCode.equals(other.statusCode))
-            return false;
         if (statusDescription == null) {
             if (other.statusDescription != null)
                 return false;
@@ -92,8 +73,7 @@ public class Metadata {
 
     @Override
     public String toString() {
-        return "Metadata [serviceName=" + serviceName + ", statusCode=" + statusCode + ", statusDescription="
-                + statusDescription + "]";
+        return "Metadata [serviceName=" + serviceName + ", statusDescription=" + statusDescription + "]";
     }
 
 }

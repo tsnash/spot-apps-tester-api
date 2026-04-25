@@ -20,9 +20,16 @@ import net.spotapps.tester.dto.response.Issue;
 import net.spotapps.tester.dto.response.Metadata;
 import net.spotapps.tester.dto.response.HttpRequestErrorResponse;
 import net.spotapps.tester.dto.response.HttpRequestResponse;
+import net.spotapps.tester.service.MetadataService;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    private MetadataService metadataService;
+
+    public GlobalExceptionHandler(MetadataService metadataService) {
+        this.metadataService = metadataService;
+    }
 
     @ApiResponse(responseCode = "404", description = "Requested resource was not found.", content = {
             @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = HttpRequestErrorResponse.class)) })
@@ -58,17 +65,9 @@ public class GlobalExceptionHandler {
         return error(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred.", e);
     }
 
-    private Metadata initializeMetadata() {
-        Metadata metadata = new Metadata();
-        metadata.setServiceName("User Profile Service");
-        return metadata;
-    }
-
     private ResponseEntity<HttpRequestResponse> error(HttpStatus status, String description,
-            RuntimeException exception) {
-        Metadata metadata = initializeMetadata();
-        metadata.setStatusCode(status.getReasonPhrase());
-        metadata.setStatusDescription(description);
+            Exception exception) {
+        Metadata metadata = metadataService.createMetadata(exception, description);
         Issue issue = new Issue();
         // TODO: generate correlation ID and log it with the exception message
         // TODO: replace with generic message that contains generated correlation ID

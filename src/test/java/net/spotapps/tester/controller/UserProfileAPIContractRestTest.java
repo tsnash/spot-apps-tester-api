@@ -30,6 +30,7 @@ import net.spotapps.tester.dto.UserProfileDto;
 import net.spotapps.tester.dto.response.HttpRequestErrorResponse;
 import net.spotapps.tester.dto.response.UserProfileCollectionResponse;
 import net.spotapps.tester.dto.response.UserProfileSuccessResponse;
+import net.spotapps.tester.service.MetadataService;
 import net.spotapps.tester.exception.InvalidUserIdCollectionException;
 import net.spotapps.tester.exception.InvalidUserIdException;
 import net.spotapps.tester.exception.UserProfileCollectionNotFoundException;
@@ -47,6 +48,9 @@ public class UserProfileAPIContractRestTest {
 
     @MockitoBean
     private UserProfileService userProfileService;
+
+    @MockitoBean
+    private MetadataService metadataService;
 
     private UserProfile testUserProfile1;
     private UserProfile testUserProfile2;
@@ -115,10 +119,6 @@ public class UserProfileAPIContractRestTest {
                 actual.getUserProfiles().get(1),
                 "The second profile should match");
         assertEquals(
-                HttpStatus.OK.getReasonPhrase(),
-                actual.getMetadata().getStatusCode(),
-                "The metadata should reflect the OK status");
-        assertEquals(
                 HttpStatus.OK.value(),
                 result.getResponse().getStatus(),
                 "The response should reflect the OK status");
@@ -150,10 +150,6 @@ public class UserProfileAPIContractRestTest {
                 actual.getUserProfile(),
                 "The fetched user profile should match the original");
         assertEquals(
-                HttpStatus.OK.getReasonPhrase(),
-                actual.getMetadata().getStatusCode(),
-                "The metadata should reflect the OK status");
-        assertEquals(
                 HttpStatus.OK.value(),
                 result.getResponse().getStatus(),
                 "The response should reflect the OK status");
@@ -172,10 +168,6 @@ public class UserProfileAPIContractRestTest {
                 error.getIssues().get(0).getMessage(),
                 "The issue should have a matching User Profile Not Found message");
         assertEquals(
-                HttpStatus.NOT_FOUND.getReasonPhrase(),
-                error.getMetadata().getStatusCode(),
-                "The metadata should reflect the NOT FOUND status");
-        assertEquals(
                 HttpStatus.NOT_FOUND.value(),
                 result.getResponse().getStatus(),
                 "The response should reflect the NOT FOUND status");
@@ -193,10 +185,6 @@ public class UserProfileAPIContractRestTest {
                 new InvalidUserIdException(INVALID_ID_MESSAGE, "invalidID").getMessage(),
                 error.getIssues().get(0).getMessage(),
                 "The issue should have a matching Invalid ID message");
-        assertEquals(
-                HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                error.getMetadata().getStatusCode(),
-                "The metadata should reflect the BAD REQUEST status");
         assertEquals(
                 HttpStatus.BAD_REQUEST.value(),
                 result.getResponse().getStatus(),
@@ -245,10 +233,6 @@ public class UserProfileAPIContractRestTest {
                 actual.getUserProfiles().get(0),
                 "The first profile should match");
         assertEquals(
-                HttpStatus.OK.getReasonPhrase(),
-                actual.getMetadata().getStatusCode(),
-                "The metadata should reflect the OK status");
-        assertEquals(
                 HttpStatus.OK.value(),
                 result.getResponse().getStatus(),
                 "The response should reflect the OK status");
@@ -270,10 +254,6 @@ public class UserProfileAPIContractRestTest {
                         Collections.singletonList("invalidID")).getMessage(),
                 error.getIssues().get(0).getMessage(),
                 "The issue should have a matching Invalid ID message");
-        assertEquals(
-                HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                error.getMetadata().getStatusCode(),
-                "The metadata should reflect the BAD REQUEST status");
         assertEquals(
                 HttpStatus.BAD_REQUEST.value(),
                 result.getResponse().getStatus(),
@@ -297,10 +277,6 @@ public class UserProfileAPIContractRestTest {
                 error.getIssues().get(0).getMessage(),
                 "The issue should have a matching Invalid ID message");
         assertEquals(
-                HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                error.getMetadata().getStatusCode(),
-                "The metadata should reflect the BAD REQUEST status");
-        assertEquals(
                 HttpStatus.BAD_REQUEST.value(),
                 result.getResponse().getStatus(),
                 "The response should reflect the BAD REQUEST status");
@@ -322,10 +298,6 @@ public class UserProfileAPIContractRestTest {
                         Arrays.asList("3", "4")).getMessage(),
                 error.getIssues().get(0).getMessage(),
                 "The issue should have a matching User Profile Not Found message");
-        assertEquals(
-                HttpStatus.NOT_FOUND.getReasonPhrase(),
-                error.getMetadata().getStatusCode(),
-                "The metadata should reflect the NOT FOUND status");
         assertEquals(
                 HttpStatus.NOT_FOUND.value(),
                 result.getResponse().getStatus(),

@@ -21,15 +21,18 @@ import net.spotapps.tester.dto.response.HttpRequestResponse;
 import net.spotapps.tester.dto.response.Metadata;
 import net.spotapps.tester.dto.response.UserProfileCollectionResponse;
 import net.spotapps.tester.dto.response.UserProfileSuccessResponse;
+import net.spotapps.tester.service.MetadataService;
 import net.spotapps.tester.service.UserProfileService;
 
 @RestController
 @RequestMapping("/user-profiles")
 public class UserProfileAPIContractImpl implements UserProfileAPIContract {
 
+    private MetadataService metadataService;
     private UserProfileService userProfileService;
 
-    public UserProfileAPIContractImpl(final UserProfileService userProfileService) {
+    public UserProfileAPIContractImpl(final MetadataService metadataService, final UserProfileService userProfileService) {
+        this.metadataService = metadataService;
         this.userProfileService = userProfileService;
     }
 
@@ -55,7 +58,7 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
     }
 
     private ResponseEntity<HttpRequestResponse> buildResponse(List<UserProfileDto> userProfiles) {
-        Metadata metadata = createMetadata("User profile(s) fetched.");
+        Metadata metadata = metadataService.createMetadata(UserProfileService.class, "User profile(s) fetched.");
         UserProfileCollectionResponse response = new UserProfileCollectionResponse();
         response.setMetadata(metadata);
         response.setUserProfiles(userProfiles);
@@ -63,19 +66,11 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
     }
 
     private ResponseEntity<HttpRequestResponse> buildResponse(UserProfileDto userProfile) {
-        Metadata metadata = createMetadata("User profile fetched.");
+        Metadata metadata = metadataService.createMetadata(UserProfileService.class, "User profile fetched.");
         UserProfileSuccessResponse response = new UserProfileSuccessResponse();
         response.setMetadata(metadata);
         response.setUserProfile(userProfile);
         return ResponseEntity.ok(response);
-    }
-
-    private Metadata createMetadata(String description) {
-        Metadata metadata = new Metadata();
-        metadata.setServiceName("User Profile Service");
-        metadata.setStatusCode(HttpStatus.OK.getReasonPhrase());
-        metadata.setStatusDescription(description);
-        return metadata;
     }
 
 }

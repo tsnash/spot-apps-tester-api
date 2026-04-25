@@ -11,21 +11,27 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+
 import net.spotapps.tester.AbstractUserProfileMockSetupTest;
 import net.spotapps.tester.dto.response.UserProfileCollectionResponse;
 import net.spotapps.tester.dto.response.UserProfileSuccessResponse;
 import net.spotapps.tester.exception.BadRequestException;
 import net.spotapps.tester.exception.NotFoundException;
+import net.spotapps.tester.service.MetadataService;
 
 @ExtendWith(SpringExtension.class)
 public class UserProfileAPIContractTest extends AbstractUserProfileMockSetupTest {
 
     private UserProfileAPIContract userProfileAPIContract;
 
+    @MockitoBean
+    private MetadataService metadataService;
+
     @BeforeEach
     public void setUp() {
         super.setUp();
-        userProfileAPIContract = new UserProfileAPIContractImpl(userProfileService);
+        userProfileAPIContract = new UserProfileAPIContractImpl(metadataService, userProfileService);
     }
 
     @Test
