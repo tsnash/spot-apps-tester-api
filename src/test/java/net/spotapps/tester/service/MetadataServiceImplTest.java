@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import net.spotapps.tester.dto.response.Metadata;
 
-public class MetadataServiceImplTest {
+class MetadataServiceImplTest {
 
     private MetadataServiceImpl metadataService;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         metadataService = new MetadataServiceImpl();
     }
 
@@ -27,15 +27,6 @@ public class MetadataServiceImplTest {
     void testCreateMetadataFromClassWithImplSuffix() {
         Metadata metadata = metadataService.createMetadata(UserProfileServiceImpl.class, "Test description");
         assertEquals("User Profile Service", metadata.getServiceName());
-    }
-
-    @Test
-    void testFormatClassNameWithAcronyms() {
-        // Use a fake class name for testing acronym splitting if no real one exists
-        // Since we can't easily create a class at runtime here, let's test the private method if possible or use an existing one if any.
-        // I'll test it via createMetadata with a class that has multiple uppercase letters.
-        // Actually, I'll just trust the regex for now as I can't easily add a new class just for this test.
-        // Wait, I can use an anonymous class or a nested class.
     }
 
     static class XMLParserImpl {}
@@ -64,7 +55,16 @@ public class MetadataServiceImplTest {
 
     @Test
     void testDetermineServiceNameFromExceptionStackScan() {
-        // This is hard to test without a real stack trace containing the service package.
-        // But the logic is straightforward.
+        Exception e = new Exception("Test");
+        StackTraceElement serviceElement = new StackTraceElement(
+                "net.spotapps.tester.service.SomeBusinessService", "someMethod", "SomeBusinessService.java", 10);
+        StackTraceElement[] stackTrace = new StackTraceElement[] {
+                new StackTraceElement("net.spotapps.tester.other.OtherClass", "otherMethod", "OtherClass.java", 5),
+                serviceElement
+        };
+        e.setStackTrace(stackTrace);
+
+        Metadata metadata = metadataService.createMetadata(e, "Test");
+        assertEquals("Some Business Service", metadata.getServiceName());
     }
 }
