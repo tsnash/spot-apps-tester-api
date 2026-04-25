@@ -28,8 +28,8 @@ import net.spotapps.tester.service.UserProfileService;
 @RequestMapping("/user-profiles")
 public class UserProfileAPIContractImpl implements UserProfileAPIContract {
 
-    private MetadataService metadataService;
-    private UserProfileService userProfileService;
+    private final MetadataService metadataService;
+    private final UserProfileService userProfileService;
 
     public UserProfileAPIContractImpl(final MetadataService metadataService, final UserProfileService userProfileService) {
         this.metadataService = metadataService;

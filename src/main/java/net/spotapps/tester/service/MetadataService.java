@@ -8,4 +8,6 @@ public interface MetadataService {
 
     Metadata createMetadata(Exception exception, String description);
 
+    Metadata createMetadata(Exception exception, Class<?> serviceInterface, String description);
+
 }

@@ -9,9 +9,9 @@ import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import net.spotapps.tester.AbstractUserProfileMockSetupTest;
 import net.spotapps.tester.dto.response.UserProfileCollectionResponse;
@@ -20,12 +20,12 @@ import net.spotapps.tester.exception.BadRequestException;
 import net.spotapps.tester.exception.NotFoundException;
 import net.spotapps.tester.service.MetadataService;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({ SpringExtension.class, MockitoExtension.class })
 public class UserProfileAPIContractTest extends AbstractUserProfileMockSetupTest {
 
     private UserProfileAPIContract userProfileAPIContract;
 
-    @MockitoBean
+    @Mock
     private MetadataService metadataService;
 
     @BeforeEach

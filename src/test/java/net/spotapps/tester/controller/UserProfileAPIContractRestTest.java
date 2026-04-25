@@ -1,6 +1,10 @@
 package net.spotapps.tester.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -28,6 +32,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import net.spotapps.tester.UserProfileConstants;
 import net.spotapps.tester.dto.UserProfileDto;
 import net.spotapps.tester.dto.response.HttpRequestErrorResponse;
+import net.spotapps.tester.dto.response.Metadata;
 import net.spotapps.tester.dto.response.UserProfileCollectionResponse;
 import net.spotapps.tester.dto.response.UserProfileSuccessResponse;
 import net.spotapps.tester.service.MetadataService;
@@ -98,6 +103,13 @@ public class UserProfileAPIContractRestTest {
     @Test
     void testGetUserProfiles() throws Exception {
 
+        Metadata expectedMetadata = new Metadata();
+        expectedMetadata.setServiceName("User Profile Service");
+        expectedMetadata.setStatusDescription("User profile(s) fetched.");
+
+        when(metadataService.createMetadata(eq(UserProfileService.class), anyString()))
+                .thenReturn(expectedMetadata);
+
         when(userProfileService.getAllProfiles())
                 .thenReturn(Arrays.asList(
                         new UserProfileDto[] { testUserProfileDto1, testUserProfileDto2 }));
@@ -114,6 +126,8 @@ public class UserProfileAPIContractRestTest {
                 2,
                 actual.getUserProfiles().size(),
                 "There should be two total user profiles");
+        assertNotNull(actual.getMetadata(), "Metadata should not be null");
+        assertEquals("User Profile Service", actual.getMetadata().getServiceName());
         assertEquals(
                 testUserProfileDto2,
                 actual.getUserProfiles().get(1),
@@ -127,6 +141,13 @@ public class UserProfileAPIContractRestTest {
 
     @Test
     void testGetUserProfileById() throws Exception {
+
+        Metadata expectedMetadata = new Metadata();
+        expectedMetadata.setServiceName("User Profile Service");
+        expectedMetadata.setStatusDescription("User profile fetched.");
+
+        when(metadataService.createMetadata(eq(UserProfileService.class), anyString()))
+                .thenReturn(expectedMetadata);
 
         when(userProfileService.getUserProfile("1"))
                 .thenReturn(testUserProfileDto1);
@@ -149,6 +170,8 @@ public class UserProfileAPIContractRestTest {
                 testUserProfileDto1,
                 actual.getUserProfile(),
                 "The fetched user profile should match the original");
+        assertNotNull(actual.getMetadata(), "Metadata should not be null");
+        assertEquals("User Profile Service", actual.getMetadata().getServiceName());
         assertEquals(
                 HttpStatus.OK.value(),
                 result.getResponse().getStatus(),
@@ -195,6 +218,13 @@ public class UserProfileAPIContractRestTest {
     @Test
     void testGetUserProfilesContainingIds() throws Exception {
 
+        Metadata expectedMetadata = new Metadata();
+        expectedMetadata.setServiceName("User Profile Service");
+        expectedMetadata.setStatusDescription("User profile(s) fetched.");
+
+        when(metadataService.createMetadata(eq(UserProfileService.class), anyString()))
+                .thenReturn(expectedMetadata);
+
         when(userProfileService.getUserProfileList(Arrays.asList("1", "2")))
                 .thenReturn(Arrays.asList(
                         new UserProfileDto[] { testUserProfileDto1, testUserProfileDto2 }));
@@ -232,6 +262,8 @@ public class UserProfileAPIContractRestTest {
                 testUserProfileDto1,
                 actual.getUserProfiles().get(0),
                 "The first profile should match");
+        assertNotNull(actual.getMetadata(), "Metadata should not be null");
+        assertEquals("User Profile Service", actual.getMetadata().getServiceName());
         assertEquals(
                 HttpStatus.OK.value(),
                 result.getResponse().getStatus(),

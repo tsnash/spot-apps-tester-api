@@ -25,7 +25,7 @@ import net.spotapps.tester.service.MetadataService;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    private MetadataService metadataService;
+    private final MetadataService metadataService;
 
     public GlobalExceptionHandler(MetadataService metadataService) {
         this.metadataService = metadataService;
