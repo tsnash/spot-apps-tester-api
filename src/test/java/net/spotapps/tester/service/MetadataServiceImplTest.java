@@ -29,8 +29,6 @@ class MetadataServiceImplTest {
         assertEquals("User Profile Service", metadata.getServiceName());
     }
 
-    static class XMLParserImpl {}
-
     @Test
     void testAcronymFormattingAndImplStripping() {
         Metadata metadata = metadataService.createMetadata(XMLParserImpl.class, "Test");
@@ -67,4 +65,6 @@ class MetadataServiceImplTest {
         Metadata metadata = metadataService.createMetadata(e, "Test");
         assertEquals("Some Business Service", metadata.getServiceName());
     }
+
+    static class XMLParserImpl {}
 }
