@@ -4,10 +4,10 @@ import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VAL
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import java.util.List;
+import java.util.UUID;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,7 +55,7 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
     }
 
     private ResponseEntity<HttpRequestResponse> buildResponse(List<UserProfileDto> userProfiles) {
-        Metadata metadata = createMetadata("User profile(s) fetched.");
+        Metadata metadata = createMetadata();
         UserProfileCollectionResponse response = new UserProfileCollectionResponse();
         response.setMetadata(metadata);
         response.setUserProfiles(userProfiles);
@@ -63,18 +63,16 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
     }
 
     private ResponseEntity<HttpRequestResponse> buildResponse(UserProfileDto userProfile) {
-        Metadata metadata = createMetadata("User profile fetched.");
+        Metadata metadata = createMetadata();
         UserProfileSuccessResponse response = new UserProfileSuccessResponse();
         response.setMetadata(metadata);
         response.setUserProfile(userProfile);
         return ResponseEntity.ok(response);
     }
 
-    private Metadata createMetadata(String description) {
+    private Metadata createMetadata() {
         Metadata metadata = new Metadata();
-        metadata.setServiceName("User Profile Service");
-        metadata.setStatusCode(HttpStatus.OK.getReasonPhrase());
-        metadata.setStatusDescription(description);
+        metadata.setTraceId(UUID.randomUUID().toString());
         return metadata;
     }
 

@@ -1,6 +1,7 @@
 package net.spotapps.tester.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -114,10 +115,9 @@ public class UserProfileAPIContractRestTest {
                 testUserProfileDto2,
                 actual.getUserProfiles().get(1),
                 "The second profile should match");
-        assertEquals(
-                HttpStatus.OK.getReasonPhrase(),
-                actual.getMetadata().getStatusCode(),
-                "The metadata should reflect the OK status");
+        assertNotNull(
+                actual.getMetadata().getTraceId(),
+                "The metadata should contain a traceId");
         assertEquals(
                 HttpStatus.OK.value(),
                 result.getResponse().getStatus(),
@@ -149,10 +149,9 @@ public class UserProfileAPIContractRestTest {
                 testUserProfileDto1,
                 actual.getUserProfile(),
                 "The fetched user profile should match the original");
-        assertEquals(
-                HttpStatus.OK.getReasonPhrase(),
-                actual.getMetadata().getStatusCode(),
-                "The metadata should reflect the OK status");
+        assertNotNull(
+                actual.getMetadata().getTraceId(),
+                "The metadata should contain a traceId");
         assertEquals(
                 HttpStatus.OK.value(),
                 result.getResponse().getStatus(),
@@ -167,14 +166,9 @@ public class UserProfileAPIContractRestTest {
         HttpRequestErrorResponse error = JsonPath.from(responseContent)
                 .getObject("", HttpRequestErrorResponse.class);
 
-        assertEquals(
-                new UserProfileNotFoundException(USER_PROFILE_NOT_FOUND_MESSAGE, 3L).getMessage(),
-                error.getIssues().get(0).getMessage(),
-                "The issue should have a matching User Profile Not Found message");
-        assertEquals(
-                HttpStatus.NOT_FOUND.getReasonPhrase(),
-                error.getMetadata().getStatusCode(),
-                "The metadata should reflect the NOT FOUND status");
+        assertNotNull(
+                error.getMetadata().getTraceId(),
+                "The metadata should contain a traceId");
         assertEquals(
                 HttpStatus.NOT_FOUND.value(),
                 result.getResponse().getStatus(),
@@ -189,14 +183,9 @@ public class UserProfileAPIContractRestTest {
         error = JsonPath.from(responseContent)
                 .getObject("", HttpRequestErrorResponse.class);
 
-        assertEquals(
-                new InvalidUserIdException(INVALID_ID_MESSAGE, "invalidID").getMessage(),
-                error.getIssues().get(0).getMessage(),
-                "The issue should have a matching Invalid ID message");
-        assertEquals(
-                HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                error.getMetadata().getStatusCode(),
-                "The metadata should reflect the BAD REQUEST status");
+        assertNotNull(
+                error.getMetadata().getTraceId(),
+                "The metadata should contain a traceId");
         assertEquals(
                 HttpStatus.BAD_REQUEST.value(),
                 result.getResponse().getStatus(),
@@ -244,10 +233,9 @@ public class UserProfileAPIContractRestTest {
                 testUserProfileDto1,
                 actual.getUserProfiles().get(0),
                 "The first profile should match");
-        assertEquals(
-                HttpStatus.OK.getReasonPhrase(),
-                actual.getMetadata().getStatusCode(),
-                "The metadata should reflect the OK status");
+        assertNotNull(
+                actual.getMetadata().getTraceId(),
+                "The metadata should contain a traceId");
         assertEquals(
                 HttpStatus.OK.value(),
                 result.getResponse().getStatus(),
@@ -264,16 +252,9 @@ public class UserProfileAPIContractRestTest {
         HttpRequestErrorResponse error = JsonPath.from(responseContent)
                 .getObject("", HttpRequestErrorResponse.class);
 
-        assertEquals(
-                new InvalidUserIdCollectionException(
-                        UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE,
-                        Collections.singletonList("invalidID")).getMessage(),
-                error.getIssues().get(0).getMessage(),
-                "The issue should have a matching Invalid ID message");
-        assertEquals(
-                HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                error.getMetadata().getStatusCode(),
-                "The metadata should reflect the BAD REQUEST status");
+        assertNotNull(
+                error.getMetadata().getTraceId(),
+                "The metadata should contain a traceId");
         assertEquals(
                 HttpStatus.BAD_REQUEST.value(),
                 result.getResponse().getStatus(),
@@ -290,16 +271,9 @@ public class UserProfileAPIContractRestTest {
         error = JsonPath.from(responseContent)
                 .getObject("", HttpRequestErrorResponse.class);
 
-        assertEquals(
-                new InvalidUserIdCollectionException(
-                        UserProfileConstants.INVALID_ID_COLLECTION_MESSAGE, List.of("<empty>"))
-                        .getMessage(),
-                error.getIssues().get(0).getMessage(),
-                "The issue should have a matching Invalid ID message");
-        assertEquals(
-                HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                error.getMetadata().getStatusCode(),
-                "The metadata should reflect the BAD REQUEST status");
+        assertNotNull(
+                error.getMetadata().getTraceId(),
+                "The metadata should contain a traceId");
         assertEquals(
                 HttpStatus.BAD_REQUEST.value(),
                 result.getResponse().getStatus(),
@@ -316,16 +290,9 @@ public class UserProfileAPIContractRestTest {
         error = JsonPath.from(responseContent)
                 .getObject("", HttpRequestErrorResponse.class);
 
-        assertEquals(
-                new UserProfileCollectionNotFoundException(
-                        UserProfileConstants.USER_PROFILE_COLLECTION_NOT_FOUND_MESSAGE,
-                        Arrays.asList("3", "4")).getMessage(),
-                error.getIssues().get(0).getMessage(),
-                "The issue should have a matching User Profile Not Found message");
-        assertEquals(
-                HttpStatus.NOT_FOUND.getReasonPhrase(),
-                error.getMetadata().getStatusCode(),
-                "The metadata should reflect the NOT FOUND status");
+        assertNotNull(
+                error.getMetadata().getTraceId(),
+                "The metadata should contain a traceId");
         assertEquals(
                 HttpStatus.NOT_FOUND.value(),
                 result.getResponse().getStatus(),

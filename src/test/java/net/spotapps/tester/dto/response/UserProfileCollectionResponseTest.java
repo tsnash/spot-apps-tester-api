@@ -14,9 +14,9 @@ public class UserProfileCollectionResponseTest {
     @BeforeEach
     public void setUp() throws Exception {
         Metadata sameMetadata = new Metadata();
-        sameMetadata.setStatusDescription("same");
+        sameMetadata.setTraceId("same");
         Metadata differentMetadata = new Metadata();
-        differentMetadata.setStatusDescription("different");
+        differentMetadata.setTraceId("different");
         testResponse1 = new UserProfileCollectionResponse();
         testResponse1.setMetadata(sameMetadata);
         testResponse2 = new UserProfileCollectionResponse();
@@ -43,7 +43,7 @@ public class UserProfileCollectionResponseTest {
         assertNotEquals(
                 testResponse3.hashCode(),
                 testResponse1.hashCode(),
-                "Different responses should have be equal hashcodes");
+                "Different responses should not have equal hashcodes");
 
     }
 
