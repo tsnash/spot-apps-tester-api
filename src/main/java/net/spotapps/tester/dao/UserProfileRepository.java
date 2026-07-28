@@ -3,10 +3,10 @@ package net.spotapps.tester.dao;
 import java.util.List;
 import java.util.Optional;
 
+import org.jspecify.annotations.NonNull;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.lang.NonNull;
 
 import net.spotapps.tester.model.UserProfile;
 

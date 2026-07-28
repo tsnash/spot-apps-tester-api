@@ -1,7 +1,7 @@
 package net.spotapps.tester.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager;
 
 import net.spotapps.tester.model.User;
 import net.spotapps.tester.model.UserProfile;
