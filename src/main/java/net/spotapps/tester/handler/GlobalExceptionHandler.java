@@ -2,7 +2,7 @@ package net.spotapps.tester.handler;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import java.util.Collections;
+import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import net.spotapps.tester.exception.BadRequestException;
 import net.spotapps.tester.exception.NotFoundException;
 import net.spotapps.tester.exception.TooManyRequestsException;
-import net.spotapps.tester.dto.response.Issue;
 import net.spotapps.tester.dto.response.Metadata;
 import net.spotapps.tester.dto.response.HttpRequestErrorResponse;
 import net.spotapps.tester.dto.response.HttpRequestResponse;
@@ -29,7 +28,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({ NotFoundException.class })
     protected ResponseEntity<HttpRequestResponse> notFound(
             HttpServletRequest request, RuntimeException e) {
-        return error(HttpStatus.NOT_FOUND, "Requested resource was not found.", e);
+        return error(HttpStatus.NOT_FOUND, e);
     }
 
     @ApiResponse(responseCode = "400", description = "Supplied data was invalid.", content = {
@@ -37,7 +36,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({ BadRequestException.class })
     protected ResponseEntity<HttpRequestResponse> badRequest(
             HttpServletRequest request, RuntimeException e) {
-        return error(HttpStatus.BAD_REQUEST, "Supplied data was invalid.", e);
+        return error(HttpStatus.BAD_REQUEST, e);
     }
 
     @ApiResponse(responseCode = "429", description = "The user has sent too many requests in a given amount of time.", content = {
@@ -46,8 +45,7 @@ public class GlobalExceptionHandler {
     protected ResponseEntity<HttpRequestResponse> tooManyRequests(
             HttpServletRequest request, RuntimeException e) {
 
-        return error(HttpStatus.TOO_MANY_REQUESTS,
-                "The user has sent too many requests in a given amount of time.", e);
+        return error(HttpStatus.TOO_MANY_REQUESTS, e);
     }
 
     @ApiResponse(responseCode = "500", description = "An unexpected error occurred.", content = {
@@ -55,27 +53,20 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = { RuntimeException.class })
     protected ResponseEntity<HttpRequestResponse> internalServerError(
             HttpServletRequest request, RuntimeException e) {
-        return error(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred.", e);
+        return error(HttpStatus.INTERNAL_SERVER_ERROR, e);
     }
 
     private Metadata initializeMetadata() {
         Metadata metadata = new Metadata();
-        metadata.setServiceName("User Profile Service");
+        metadata.setTraceId(UUID.randomUUID().toString());
         return metadata;
     }
 
-    private ResponseEntity<HttpRequestResponse> error(HttpStatus status, String description,
-            RuntimeException exception) {
+    private ResponseEntity<HttpRequestResponse> error(HttpStatus status, RuntimeException exception) {
         Metadata metadata = initializeMetadata();
-        metadata.setStatusCode(status.getReasonPhrase());
-        metadata.setStatusDescription(description);
-        Issue issue = new Issue();
-        // TODO: generate correlation ID and log it with the exception message
-        // TODO: replace with generic message that contains generated correlation ID
-        issue.setMessage(exception.getMessage());
+        // TODO: log exception message along with the generated traceId
         HttpRequestErrorResponse body = new HttpRequestErrorResponse();
         body.setMetadata(metadata);
-        body.setIssues(Collections.singletonList(issue));
         return new ResponseEntity<>(body, status);
     }
 }

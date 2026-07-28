@@ -8,25 +8,25 @@ import org.junit.jupiter.api.Test;
 
 public class MetadataTest {
 
-    private Metadata testIssue1;
-    private Metadata testIssue2;
-    private Metadata testIssue3;
+    private Metadata testMetadata1;
+    private Metadata testMetadata2;
+    private Metadata testMetadata3;
 
     @BeforeEach
     public void setUp() throws Exception {
-        testIssue1 = new Metadata();
-        testIssue1.setStatusDescription("same");
-        testIssue2 = new Metadata();
-        testIssue2.setStatusDescription("same");
-        testIssue3 = new Metadata();
-        testIssue3.setStatusDescription("different");
+        testMetadata1 = new Metadata();
+        testMetadata1.setTraceId("same");
+        testMetadata2 = new Metadata();
+        testMetadata2.setTraceId("same");
+        testMetadata3 = new Metadata();
+        testMetadata3.setTraceId("different");
     }
 
     @Test
     void testEquals() throws Exception {
 
-        assertEquals(testIssue2, testIssue1, "Identical metadata should be equal");
-        assertNotEquals(testIssue3, testIssue1, "Different metadata should not be equal");
+        assertEquals(testMetadata2, testMetadata1, "Identical metadata should be equal");
+        assertNotEquals(testMetadata3, testMetadata1, "Different metadata should not be equal");
 
     }
 
@@ -34,12 +34,12 @@ public class MetadataTest {
     void testHashCode() throws Exception {
 
         assertEquals(
-                testIssue2.hashCode(),
-                testIssue1.hashCode(),
+                testMetadata2.hashCode(),
+                testMetadata1.hashCode(),
                 "Identical metadata should have equal hashcodes");
         assertNotEquals(
-                testIssue3.hashCode(),
-                testIssue1.hashCode(),
+                testMetadata3.hashCode(),
+                testMetadata1.hashCode(),
                 "Different metadata should not have equal hashcodes");
 
     }
@@ -48,12 +48,12 @@ public class MetadataTest {
     void testToString() throws Exception {
 
         assertEquals(
-                testIssue2.toString(),
-                testIssue1.toString(),
+                testMetadata2.toString(),
+                testMetadata1.toString(),
                 "Identical metadata should have equal strings");
         assertNotEquals(
-                testIssue3.toString(),
-                testIssue1.toString(),
+                testMetadata3.toString(),
+                testMetadata1.toString(),
                 "Different metadata should not have equal strings");
 
     }
