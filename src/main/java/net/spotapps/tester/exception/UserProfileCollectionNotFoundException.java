@@ -1,11 +1,13 @@
 package net.spotapps.tester.exception;
 
+import java.io.Serial;
 import java.util.IllegalFormatException;
 import java.util.List;
 
 import net.spotapps.tester.UserProfileConstants;
 
 public class UserProfileCollectionNotFoundException extends NotFoundException {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     public UserProfileCollectionNotFoundException(final String message, final List<String> userIds) {

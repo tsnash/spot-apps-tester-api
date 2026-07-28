@@ -1,10 +1,12 @@
 package net.spotapps.tester.exception;
 
+import java.io.Serial;
 import java.util.IllegalFormatException;
 
 import net.spotapps.tester.UserProfileConstants;
 
 public class InvalidUserIdException extends BadRequestException {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     public InvalidUserIdException(final String message, final String userId) {
