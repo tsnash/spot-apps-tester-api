@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class Metadata {
 
     @JsonProperty("traceId")
-    @Schema(description = "A unique identifier for the request, used for tracking and logging.", example = "trace-1234abcd")
+    @Schema(description = "A unique identifier for the request, used for tracking and logging.", example = "550e8400-e29b-41d4-a716-446655440000")
     private String traceId;
 
     public Metadata() {
