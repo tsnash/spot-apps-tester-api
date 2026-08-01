@@ -71,8 +71,7 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
     }
 
     private Metadata createMetadata() {
-        Metadata metadata = new Metadata();
-        metadata.setTraceId(UUID.randomUUID().toString());
+        Metadata metadata = new Metadata(UUID.randomUUID().toString());
         return metadata;
     }
 

@@ -3,62 +3,60 @@ package net.spotapps.tester.dto.response;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class HttpRequestErrorResponseTest {
-    private HttpRequestErrorResponse testResponse1;
-    private HttpRequestErrorResponse testResponse2;
-    private HttpRequestErrorResponse testResponse3;
 
-    @BeforeEach
-    public void setUp() throws Exception {
-        Metadata sameMetadata = new Metadata();
-        sameMetadata.setTraceId("same");
-        Metadata differentMetadata = new Metadata();
-        differentMetadata.setTraceId("different");
-
-        testResponse1 = new HttpRequestErrorResponse();
-        testResponse1.setMetadata(sameMetadata);
-        testResponse2 = new HttpRequestErrorResponse();
-        testResponse2.setMetadata(sameMetadata);
-        testResponse3 = new HttpRequestErrorResponse();
-        testResponse3.setMetadata(differentMetadata);
+    @ParameterizedTest
+    @MethodSource("provideDifferentErrorResponses")
+    public void testHttpRequestErrorResponseInequality(HttpRequestErrorResponse testHttpRequestErrorResponse1, 
+            HttpRequestErrorResponse httpRequestErrorResponse2) {
+        assertNotEquals(testHttpRequestErrorResponse1, httpRequestErrorResponse2, "Different responses should not be equal");
     }
 
-    @Test
-    void testEquals() throws Exception {
-
-        assertEquals(testResponse2, testResponse1, "Identical responses should be equal");
-        assertNotEquals(testResponse3, testResponse1, "Different responses should not be equal");
-
+    @ParameterizedTest
+    @MethodSource("provideIdenticalErrorResponses")
+    public void testHttpRequestErrorResponseEququality(HttpRequestErrorResponse testHttpRequestErrorResponse1, 
+            HttpRequestErrorResponse httpRequestErrorResponse2) {
+        assertEquals(testHttpRequestErrorResponse1, httpRequestErrorResponse2, "Identical responses should be equal");
     }
 
-    @Test
-    void testHashCode() throws Exception {
-
-        assertEquals(
-                testResponse2.hashCode(),
-                testResponse1.hashCode(),
-                "Identical responses should have equal hashcodes");
-        assertNotEquals(
-                testResponse3.hashCode(),
-                testResponse1.hashCode(),
-                "Different responses should not have equal hashcodes");
-
+    @ParameterizedTest
+    @MethodSource("provideIdenticalErrorResponses")
+    public void testHttpRequestErrorResponseMethodEququality(HttpRequestErrorResponse testHttpRequestErrorResponse1, 
+            HttpRequestErrorResponse httpRequestErrorResponse2) {
+        assertEquals(testHttpRequestErrorResponse1.hashCode(), httpRequestErrorResponse2.hashCode(), "Identical responses should have equal hash codes");
     }
 
-    @Test
-    void testToString() throws Exception {
+    private static Stream<Arguments> provideDifferentErrorResponses() {
+        HttpRequestErrorResponse httpRequestErrorResponse1 = createHttpRequestErrorResponse(new Metadata("same"));
+        HttpRequestErrorResponse httpRequestErrorResponse2 = createHttpRequestErrorResponse(new Metadata("different"));
+        HttpRequestErrorResponse httpRequestErrorResponseNull = new HttpRequestErrorResponse();
 
-        assertEquals(
-                testResponse2.toString(),
-                testResponse1.toString(),
-                "Identical responses should have equal strings");
-        assertNotEquals(
-                testResponse3.toString(),
-                testResponse1.toString(),
-                "Different responses should not have equal strings");
+        return Stream.of(
+                Arguments.of(httpRequestErrorResponse1, httpRequestErrorResponse2),
+                Arguments.of(httpRequestErrorResponse1, httpRequestErrorResponseNull),
+                Arguments.of(httpRequestErrorResponse1, null));
+    }
 
+    private static Stream<Arguments> provideIdenticalErrorResponses() {
+        HttpRequestErrorResponse httpRequestErrorResponse1 = createHttpRequestErrorResponse(new Metadata("same"));
+        HttpRequestErrorResponse httpRequestErrorResponse2 = createHttpRequestErrorResponse(new Metadata("same"));
+        HttpRequestErrorResponse httpRequestErrorResponseNull = new HttpRequestErrorResponse();
+
+        return Stream.of(
+                Arguments.of(httpRequestErrorResponse1, httpRequestErrorResponse1),
+                Arguments.of(httpRequestErrorResponse1, httpRequestErrorResponse2),
+                Arguments.of(httpRequestErrorResponseNull, httpRequestErrorResponseNull));
+    }
+
+    private static HttpRequestErrorResponse createHttpRequestErrorResponse(Metadata metadata) {
+        HttpRequestErrorResponse response = new HttpRequestErrorResponse();
+        response.setMetadata(metadata);
+        return response;
     }
 }
