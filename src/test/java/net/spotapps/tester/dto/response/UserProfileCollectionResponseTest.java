@@ -3,11 +3,14 @@ package net.spotapps.tester.dto.response;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import net.spotapps.tester.dto.UserProfileDto;
 
 public class UserProfileCollectionResponseTest {
 
@@ -33,19 +36,21 @@ public class UserProfileCollectionResponseTest {
     }
 
     private static Stream<Arguments> provideDifferentCollectionsResponses() {
-        UserProfileCollectionResponse userProfileCollectionResponse1 = createUserProfileCollectionResponse(new Metadata("same"));
-        UserProfileCollectionResponse userProfileCollectionResponse2 = createUserProfileCollectionResponse(new Metadata("different"));
+        UserProfileCollectionResponse userProfileCollectionResponse1 = createUserProfileCollectionResponse("same", 1L);
+        UserProfileCollectionResponse userProfileCollectionResponse2 = createUserProfileCollectionResponse("different", 1L);
+        UserProfileCollectionResponse userProfileCollectionResponse3 = createUserProfileCollectionResponse("same", 2L);
         UserProfileCollectionResponse userProfileCollectionResponseNull = new UserProfileCollectionResponse();
 
         return Stream.of(
             Arguments.of(userProfileCollectionResponse1, userProfileCollectionResponse2),
+            Arguments.of(userProfileCollectionResponse1, userProfileCollectionResponse3),
             Arguments.of(userProfileCollectionResponse1, userProfileCollectionResponseNull),
             Arguments.of(userProfileCollectionResponse1, null));
     }
 
     private static Stream<Arguments> provideIdenticalCollectionsResponses() {
-        UserProfileCollectionResponse userProfileCollectionResponse1 = createUserProfileCollectionResponse(new Metadata("same"));
-        UserProfileCollectionResponse userProfileCollectionResponse2 = createUserProfileCollectionResponse(new Metadata("same"));
+        UserProfileCollectionResponse userProfileCollectionResponse1 = createUserProfileCollectionResponse("same", 1L);
+        UserProfileCollectionResponse userProfileCollectionResponse2 = createUserProfileCollectionResponse("same", 1L);
         UserProfileCollectionResponse userProfileCollectionResponseNull = new UserProfileCollectionResponse();
 
         return Stream.of(
@@ -54,9 +59,14 @@ public class UserProfileCollectionResponseTest {
             Arguments.of(userProfileCollectionResponseNull, userProfileCollectionResponseNull));
     }
 
-    private static UserProfileCollectionResponse createUserProfileCollectionResponse(Metadata metadata) {
+    private static UserProfileCollectionResponse createUserProfileCollectionResponse(String traceId, Long userId) {
         UserProfileCollectionResponse response = new UserProfileCollectionResponse();
-        response.setMetadata(metadata);
+
+        UserProfileDto userProfile = new UserProfileDto();
+        userProfile.setUserId(userId);
+
+        response.setMetadata(new Metadata(traceId));
+        response.setUserProfiles(List.of(userProfile));
         return response;
     }
 }

@@ -9,6 +9,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import net.spotapps.tester.dto.UserProfileDto;
+
 public class HttpRequestErrorResponseTest {
 
     @ParameterizedTest
@@ -33,8 +35,8 @@ public class HttpRequestErrorResponseTest {
     }
 
     private static Stream<Arguments> provideDifferentErrorResponses() {
-        HttpRequestErrorResponse httpRequestErrorResponse1 = createHttpRequestErrorResponse(new Metadata("same"));
-        HttpRequestErrorResponse httpRequestErrorResponse2 = createHttpRequestErrorResponse(new Metadata("different"));
+        HttpRequestErrorResponse httpRequestErrorResponse1 = createHttpRequestErrorResponse("same");
+        HttpRequestErrorResponse httpRequestErrorResponse2 = createHttpRequestErrorResponse("different");
         HttpRequestErrorResponse httpRequestErrorResponseNull = new HttpRequestErrorResponse();
 
         return Stream.of(
@@ -44,8 +46,8 @@ public class HttpRequestErrorResponseTest {
     }
 
     private static Stream<Arguments> provideIdenticalErrorResponses() {
-        HttpRequestErrorResponse httpRequestErrorResponse1 = createHttpRequestErrorResponse(new Metadata("same"));
-        HttpRequestErrorResponse httpRequestErrorResponse2 = createHttpRequestErrorResponse(new Metadata("same"));
+        HttpRequestErrorResponse httpRequestErrorResponse1 = createHttpRequestErrorResponse("same");
+        HttpRequestErrorResponse httpRequestErrorResponse2 = createHttpRequestErrorResponse("same");
         HttpRequestErrorResponse httpRequestErrorResponseNull = new HttpRequestErrorResponse();
 
         return Stream.of(
@@ -54,9 +56,10 @@ public class HttpRequestErrorResponseTest {
                 Arguments.of(httpRequestErrorResponseNull, httpRequestErrorResponseNull));
     }
 
-    private static HttpRequestErrorResponse createHttpRequestErrorResponse(Metadata metadata) {
+    private static HttpRequestErrorResponse createHttpRequestErrorResponse(String traceId) {
         HttpRequestErrorResponse response = new HttpRequestErrorResponse();
-        response.setMetadata(metadata);
+
+        response.setMetadata(new Metadata(traceId));
         return response;
     }
 }

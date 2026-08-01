@@ -9,6 +9,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import net.spotapps.tester.dto.UserProfileDto;
+
 public class UserProfileSuccessResponseTest {
 
     @ParameterizedTest
@@ -33,19 +35,21 @@ public class UserProfileSuccessResponseTest {
     }
 
     private static Stream<Arguments> provideDifferentSuccessResponses() {
-        UserProfileSuccessResponse userProfileSuccessResponse1 = createUserProfileSuccessResponse(new Metadata("same"));
-        UserProfileSuccessResponse userProfileSuccessResponse2 = createUserProfileSuccessResponse(new Metadata("different"));
+        UserProfileSuccessResponse userProfileSuccessResponse1 = createUserProfileSuccessResponse("same", 1L);
+        UserProfileSuccessResponse userProfileSuccessResponse2 = createUserProfileSuccessResponse("different", 1L);
+        UserProfileSuccessResponse userProfileSuccessResponse3 = createUserProfileSuccessResponse("same", 2L);
         UserProfileSuccessResponse userProfileSuccessResponseNull = new UserProfileSuccessResponse();
 
         return Stream.of(
             Arguments.of(userProfileSuccessResponse1, userProfileSuccessResponse2),
+            Arguments.of(userProfileSuccessResponse1, userProfileSuccessResponse3),
             Arguments.of(userProfileSuccessResponse1, userProfileSuccessResponseNull),
             Arguments.of(userProfileSuccessResponse1, null));
     }
 
     private static Stream<Arguments> provideIdenticalSuccessResponses() {
-        UserProfileSuccessResponse userProfileSuccessResponse1 = createUserProfileSuccessResponse(new Metadata("same"));
-        UserProfileSuccessResponse userProfileSuccessResponse2 = createUserProfileSuccessResponse(new Metadata("same"));
+        UserProfileSuccessResponse userProfileSuccessResponse1 = createUserProfileSuccessResponse("same", 1L);
+        UserProfileSuccessResponse userProfileSuccessResponse2 = createUserProfileSuccessResponse("same", 1L);
         UserProfileSuccessResponse userProfileSuccessResponseNull = new UserProfileSuccessResponse();
 
         return Stream.of(
@@ -54,9 +58,14 @@ public class UserProfileSuccessResponseTest {
             Arguments.of(userProfileSuccessResponseNull, userProfileSuccessResponseNull));
     }
 
-    private static UserProfileSuccessResponse createUserProfileSuccessResponse(Metadata metadata) {
+    private static UserProfileSuccessResponse createUserProfileSuccessResponse(String traceId, Long userId) {
         UserProfileSuccessResponse response = new UserProfileSuccessResponse();
-        response.setMetadata(metadata);
+        
+        UserProfileDto userProfile = new UserProfileDto();
+        userProfile.setUserId(userId);
+
+        response.setMetadata(new Metadata(traceId));
+        response.setUserProfile(userProfile);
         return response;
     }
 }
