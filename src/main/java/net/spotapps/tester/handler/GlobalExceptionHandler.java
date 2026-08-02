@@ -44,7 +44,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = { TooManyRequestsException.class })
     protected ResponseEntity<HttpRequestResponse> tooManyRequests(
             HttpServletRequest request, RuntimeException e) {
-
         return error(HttpStatus.TOO_MANY_REQUESTS, e);
     }
 
@@ -56,16 +55,12 @@ public class GlobalExceptionHandler {
         return error(HttpStatus.INTERNAL_SERVER_ERROR, e);
     }
 
-    private Metadata initializeMetadata() {
-        Metadata metadata = new Metadata(UUID.randomUUID().toString());
-        return metadata;
-    }
-
     private ResponseEntity<HttpRequestResponse> error(HttpStatus status, RuntimeException exception) {
-        Metadata metadata = initializeMetadata();
+        String traceId = UUID.randomUUID().toString();
         // TODO: log exception message along with the generated traceId
+
         HttpRequestErrorResponse body = new HttpRequestErrorResponse();
-        body.setMetadata(metadata);
+        body.setMetadata(new Metadata(traceId));
         return new ResponseEntity<>(body, status);
     }
 }
