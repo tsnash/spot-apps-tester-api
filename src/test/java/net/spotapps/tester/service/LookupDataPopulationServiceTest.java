@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import net.spotapps.tester.dao.GenderPreferenceRepository;
 import net.spotapps.tester.dao.GenderRepository;
 import net.spotapps.tester.dao.ReligionRepository;
 import net.spotapps.tester.model.Gender;
@@ -29,7 +30,7 @@ public class LookupDataPopulationServiceTest {
     private ReligionRepository religionRepository;
 
     @Autowired
-    private net.spotapps.tester.dao.GenderPreferenceRepository genderPreferenceRepository;
+    private GenderPreferenceRepository genderPreferenceRepository;
 
     @Test
     void testInitLookupsIdempotency() {
