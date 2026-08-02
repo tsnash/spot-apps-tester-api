@@ -1,2 +1,2 @@
 encryption:
-  key: P57DYej7WZOi3KlAKY1uD0ao2BE1Ovaw8cvPmzbGEBA=
+  key: ${TEST_ENCRYPTION_KEY:${random.base64(32)}}
