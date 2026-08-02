@@ -1,10 +1,20 @@
 spring:
+  application:
+    name: tester
   profiles:
     include: lookups
+  session:
+    jdbc:
+      initialize-schema: always
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: env,configprops
 
 springdoc:
   swagger-ui:
@@ -14,6 +24,8 @@ test:
   reset:
     sql:
       template: ALTER TABLE %s ALTER COLUMN id RESTART WITH 1
+encryption:
+  key: ${ENCRYPTION_KEY}
 
 ---
 spring:
@@ -22,6 +34,7 @@ spring:
       on-profile: local
 tester:
   title: Local Tester Application
+  swaggerTitle: Local Swagger Docs
   
 logging:
   level:
@@ -37,3 +50,4 @@ spring:
     show-sql: false
 tester:
   title: Render Tester Application
+  swaggerTitle: Render Swagger Docs
