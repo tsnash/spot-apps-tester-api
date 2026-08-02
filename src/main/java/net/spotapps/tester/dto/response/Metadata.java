@@ -21,6 +21,10 @@ public class Metadata {
     public Metadata() {
     }
 
+    public Metadata(String traceId) {
+        setTraceId(traceId);
+    }
+
     public String getTraceId() {
         return traceId;
     }

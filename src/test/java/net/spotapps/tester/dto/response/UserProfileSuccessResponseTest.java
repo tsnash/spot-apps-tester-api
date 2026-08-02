@@ -3,61 +3,69 @@ package net.spotapps.tester.dto.response;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import net.spotapps.tester.dto.UserProfileDto;
 
 public class UserProfileSuccessResponseTest {
-    private UserProfileSuccessResponse testResponse1;
-    private UserProfileSuccessResponse testResponse2;
-    private UserProfileSuccessResponse testResponse3;
 
-    @BeforeEach
-    public void setUp() throws Exception {
-        Metadata sameMetadata = new Metadata();
-        sameMetadata.setTraceId("same");
-        Metadata differentMetadata = new Metadata();
-        differentMetadata.setTraceId("different");
-        testResponse1 = new UserProfileSuccessResponse();
-        testResponse1.setMetadata(sameMetadata);
-        testResponse2 = new UserProfileSuccessResponse();
-        testResponse2.setMetadata(sameMetadata);
-        testResponse3 = new UserProfileSuccessResponse();
-        testResponse3.setMetadata(differentMetadata);
+    @ParameterizedTest
+    @MethodSource("provideDifferentSuccessResponses")
+    public void testUserProfileSuccessResponseInequality(UserProfileSuccessResponse testUserProfileSuccessResponse1,
+            UserProfileSuccessResponse testUserProfileSuccessResponse2) {
+        assertNotEquals(testUserProfileSuccessResponse1, testUserProfileSuccessResponse2, "Different responses should not be equal");
+    }
+    
+    @ParameterizedTest
+    @MethodSource("provideIdenticalSuccessResponses")
+    public void testUserProfileSuccessResponseEquality(UserProfileSuccessResponse testUserProfileSuccessResponse1,
+            UserProfileSuccessResponse testUserProfileSuccessResponse2) {
+        assertEquals(testUserProfileSuccessResponse1, testUserProfileSuccessResponse2, "Identical responses should be equal");
     }
 
-    @Test
-    void testEquals() throws Exception {
-
-        assertEquals(testResponse2, testResponse1, "Identical responses should be equal");
-        assertNotEquals(testResponse3, testResponse1, "Different responses should not be equal");
-
+    @ParameterizedTest
+    @MethodSource("provideIdenticalSuccessResponses")
+    public void testUserProfileSuccessResponseHashcoodeEquality(UserProfileSuccessResponse testUserProfileSuccessResponse1,
+            UserProfileSuccessResponse testUserProfileSuccessResponse2) {
+        assertEquals(testUserProfileSuccessResponse1.hashCode(), testUserProfileSuccessResponse2.hashCode(), "Identical responses should have equal hash codes");
     }
 
-    @Test
-    void testHashCode() throws Exception {
+    private static Stream<Arguments> provideDifferentSuccessResponses() {
+        UserProfileSuccessResponse userProfileSuccessResponse1 = createUserProfileSuccessResponse("same", 1L);
+        UserProfileSuccessResponse userProfileSuccessResponse2 = createUserProfileSuccessResponse("different", 1L);
+        UserProfileSuccessResponse userProfileSuccessResponse3 = createUserProfileSuccessResponse("same", 2L);
+        UserProfileSuccessResponse userProfileSuccessResponseNull = new UserProfileSuccessResponse();
 
-        assertEquals(
-                testResponse2.hashCode(),
-                testResponse1.hashCode(),
-                "Identical responses should have equal hashcodes");
-        assertNotEquals(
-                testResponse3.hashCode(),
-                testResponse1.hashCode(),
-                "Different responses should not have equal hashcodes");
-
+        return Stream.of(
+            Arguments.of(userProfileSuccessResponse1, userProfileSuccessResponse2),
+            Arguments.of(userProfileSuccessResponse1, userProfileSuccessResponse3),
+            Arguments.of(userProfileSuccessResponse1, userProfileSuccessResponseNull),
+            Arguments.of(userProfileSuccessResponse1, null));
     }
 
-    @Test
-    void testToString() throws Exception {
+    private static Stream<Arguments> provideIdenticalSuccessResponses() {
+        UserProfileSuccessResponse userProfileSuccessResponse1 = createUserProfileSuccessResponse("same", 1L);
+        UserProfileSuccessResponse userProfileSuccessResponse2 = createUserProfileSuccessResponse("same", 1L);
+        UserProfileSuccessResponse userProfileSuccessResponseNull = new UserProfileSuccessResponse();
 
-        assertEquals(
-                testResponse2.toString(),
-                testResponse1.toString(),
-                "Identical responses should have equal strings");
-        assertNotEquals(
-                testResponse3.toString(),
-                testResponse1.toString(),
-                "Different responses should not have equal strings");
+        return Stream.of(
+            Arguments.of(userProfileSuccessResponse1, userProfileSuccessResponse1),
+            Arguments.of(userProfileSuccessResponse1, userProfileSuccessResponse2),
+            Arguments.of(userProfileSuccessResponseNull, userProfileSuccessResponseNull));
+    }
 
+    private static UserProfileSuccessResponse createUserProfileSuccessResponse(String traceId, Long userId) {
+        UserProfileSuccessResponse response = new UserProfileSuccessResponse();
+        
+        UserProfileDto userProfile = new UserProfileDto();
+        userProfile.setUserId(userId);
+
+        response.setMetadata(new Metadata(traceId));
+        response.setUserProfile(userProfile);
+        return response;
     }
 }

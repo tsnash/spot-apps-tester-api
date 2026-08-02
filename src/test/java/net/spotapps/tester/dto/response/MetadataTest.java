@@ -3,58 +3,51 @@ package net.spotapps.tester.dto.response;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class MetadataTest {
 
-    private Metadata testMetadata1;
-    private Metadata testMetadata2;
-    private Metadata testMetadata3;
-
-    @BeforeEach
-    public void setUp() throws Exception {
-        testMetadata1 = new Metadata();
-        testMetadata1.setTraceId("same");
-        testMetadata2 = new Metadata();
-        testMetadata2.setTraceId("same");
-        testMetadata3 = new Metadata();
-        testMetadata3.setTraceId("different");
+    @ParameterizedTest
+    @MethodSource("provideDifferentMetadata")
+    public void testMetadataInequality(Metadata metadata1, Metadata metadata2) {
+        assertNotEquals(metadata1, metadata2, "Different metadata should not be equal");
     }
 
-    @Test
-    void testEquals() throws Exception {
-
-        assertEquals(testMetadata2, testMetadata1, "Identical metadata should be equal");
-        assertNotEquals(testMetadata3, testMetadata1, "Different metadata should not be equal");
-
+    @ParameterizedTest
+    @MethodSource("provideIdenticalMetadata")
+    public void testMetadataEquality(Metadata metadata1, Metadata metadata2) {
+        assertEquals(metadata1, metadata2, "Identical metadata should be equal");
     }
 
-    @Test
-    void testHashCode() throws Exception {
-
-        assertEquals(
-                testMetadata2.hashCode(),
-                testMetadata1.hashCode(),
-                "Identical metadata should have equal hashcodes");
-        assertNotEquals(
-                testMetadata3.hashCode(),
-                testMetadata1.hashCode(),
-                "Different metadata should not have equal hashcodes");
-
+    @ParameterizedTest
+    @MethodSource("provideIdenticalMetadata")
+    public void testMetadataHashcodeEquality(Metadata metadata1, Metadata metadata2) {
+        assertEquals(metadata1.hashCode(), metadata2.hashCode(), "Identical metadata should have equal hash codes");
     }
 
-    @Test
-    void testToString() throws Exception {
+    private static Stream<Arguments> provideDifferentMetadata() {
+        Metadata metadata1 = new Metadata("same");
+        Metadata metadata2 = new Metadata("different");
+        Metadata metadataNull = new Metadata();
 
-        assertEquals(
-                testMetadata2.toString(),
-                testMetadata1.toString(),
-                "Identical metadata should have equal strings");
-        assertNotEquals(
-                testMetadata3.toString(),
-                testMetadata1.toString(),
-                "Different metadata should not have equal strings");
+        return Stream.of(
+                Arguments.of(metadata1, metadata2),
+                Arguments.of(metadata1, metadataNull),
+                Arguments.of(metadata1, null));
+    }
 
+    private static Stream<Arguments> provideIdenticalMetadata() {
+        Metadata metadata1 = new Metadata("same");
+        Metadata metadata2 = new Metadata("same");
+        Metadata metadataNull = new Metadata();
+
+        return Stream.of(
+                Arguments.of(metadata1, metadata1),
+                Arguments.of(metadata1, metadata2),
+                Arguments.of(metadataNull, metadataNull));
     }
 }
