@@ -7,7 +7,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -55,68 +54,62 @@ import net.spotapps.tester.model.ViceType;
 @Service
 public class LookupDataPopulationService {
 
-    @Autowired
-    private LookupDataProperties lookupProperties;
+    private final LookupDataProperties lookupProperties;
+    private final GenderRepository genderRepository;
+    private final OrientationRepository orientationRepository;
+    private final PersonalityScaleRepository personalityScaleRepository;
+    private final RelationshipStatusRepository relationshipStatusRepository;
+    private final RelationshipPracticeRepository relationshipPracticeRepository;
+    private final RelationshipInterestRepository relationshipInterestRepository;
+    private final ReligionRepository religionRepository;
+    private final LifeStageRepository lifeStageRepository;
+    private final ChildGenderRepository childGenderRepository;
+    private final HouseholdStatusRepository householdStatusRepository;
+    private final EducationDegreeRepository educationDegreeRepository;
+    private final FluencyLevelRepository fluencyLevelRepository;
+    private final ViceTypeRepository viceTypeRepository;
+    private final ViceFrequencyRepository viceFrequencyRepository;
+    private final PetTypeRepository petTypeRepository;
+    private final TravelFrequencyRepository travelFrequencyRepository;
+    private final TravelDurationRepository travelDurationRepository;
+    private final TravelDistanceRepository travelDistanceRepository;
+    private final TravelGroupSizeRepository travelGroupSizeRepository;
+    private final TransactionTemplate transactionTemplate;
 
-    @Autowired
-    private GenderRepository genderRepository;
-
-    @Autowired
-    private OrientationRepository orientationRepository;
-
-    @Autowired
-    private PersonalityScaleRepository personalityScaleRepository;
-
-    @Autowired
-    private RelationshipStatusRepository relationshipStatusRepository;
-
-    @Autowired
-    private RelationshipPracticeRepository relationshipPracticeRepository;
-
-    @Autowired
-    private RelationshipInterestRepository relationshipInterestRepository;
-
-    @Autowired
-    private ReligionRepository religionRepository;
-
-    @Autowired
-    private LifeStageRepository lifeStageRepository;
-
-    @Autowired
-    private ChildGenderRepository childGenderRepository;
-
-    @Autowired
-    private HouseholdStatusRepository householdStatusRepository;
-
-    @Autowired
-    private EducationDegreeRepository educationDegreeRepository;
-
-    @Autowired
-    private FluencyLevelRepository fluencyLevelRepository;
-
-    @Autowired
-    private ViceTypeRepository viceTypeRepository;
-
-    @Autowired
-    private ViceFrequencyRepository viceFrequencyRepository;
-
-    @Autowired
-    private PetTypeRepository petTypeRepository;
-
-    @Autowired
-    private TravelFrequencyRepository travelFrequencyRepository;
-
-    @Autowired
-    private TravelDurationRepository travelDurationRepository;
-
-    @Autowired
-    private TravelDistanceRepository travelDistanceRepository;
-
-    @Autowired
-    private TravelGroupSizeRepository travelGroupSizeRepository;
-
-    @Autowired
-    private TransactionTemplate transactionTemplate;
+    LookupDataPopulationService(LookupDataProperties lookupProperties, GenderRepository genderRepository, 
+            OrientationRepository orientationRepository, PersonalityScaleRepository personalityScaleRepository, 
+            RelationshipStatusRepository relationshipStatusRepository, 
+            RelationshipPracticeRepository relationshipPracticeRepository, 
+            RelationshipInterestRepository relationshipInterestRepository, 
+            ReligionRepository religionRepository, LifeStageRepository lifeStageRepository, 
+            ChildGenderRepository childGenderRepository, HouseholdStatusRepository householdStatusRepository, 
+            EducationDegreeRepository educationDegreeRepository, FluencyLevelRepository fluencyLevelRepository, 
+            ViceTypeRepository viceTypeRepository, ViceFrequencyRepository viceFrequencyRepository, 
+            PetTypeRepository petTypeRepository, TravelFrequencyRepository travelFrequencyRepository, 
+            TravelDurationRepository travelDurationRepository, TravelDistanceRepository travelDistanceRepository, 
+            TravelGroupSizeRepository travelGroupSizeRepository, TransactionTemplate transactionTemplate) {
+        this.lookupProperties = lookupProperties;
+        this.genderRepository = genderRepository;
+        this.orientationRepository = orientationRepository;
+        this.personalityScaleRepository = personalityScaleRepository;
+        this.relationshipStatusRepository = relationshipStatusRepository;
+        this.relationshipPracticeRepository = relationshipPracticeRepository;
+        this.relationshipInterestRepository = relationshipInterestRepository;
+        this.religionRepository = religionRepository;
+        this.lifeStageRepository = lifeStageRepository;
+        this.childGenderRepository = childGenderRepository;
+        this.householdStatusRepository = householdStatusRepository;
+        this.educationDegreeRepository = educationDegreeRepository;
+        this.fluencyLevelRepository = fluencyLevelRepository;
+        this.viceTypeRepository = viceTypeRepository;
+        this.viceFrequencyRepository = viceFrequencyRepository;
+        this.petTypeRepository = petTypeRepository;
+        this.travelFrequencyRepository = travelFrequencyRepository;
+        this.travelDurationRepository = travelDurationRepository;
+        this.travelDistanceRepository = travelDistanceRepository;
+        this.travelGroupSizeRepository = travelGroupSizeRepository;
+        this.transactionTemplate = transactionTemplate;
+    }
 
     @PostConstruct
     public void initLookups() {

@@ -7,7 +7,6 @@ import java.util.stream.IntStream;
 
 import jakarta.annotation.PostConstruct;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -98,119 +97,107 @@ import net.spotapps.tester.model.ViceType;
 @DependsOn("lookupDataPopulationService")
 public class RenderDataPopulationService {
 
-    @Autowired
-    private UserProfileRepository userProfileRepository;
+    private final UserProfileRepository userProfileRepository;
+    private final UserImageRepository userImageRepository;
+    private final UserInterestRepository userInterestRepository;
+    private final UserRepository userRepository;
+    private final GenderRepository genderRepository;
+    private final OrientationRepository orientationRepository;
+    private final PersonalityScaleRepository personalityScaleRepository;
+    private final RelationshipStatusRepository relationshipStatusRepository;
+    private final RelationshipPracticeRepository relationshipPracticeRepository;
+    private final RelationshipInterestRepository relationshipInterestRepository;
+    private final ReligionRepository religionRepository;
+    private final LifeStageRepository lifeStageRepository;
+    private final ChildGenderRepository childGenderRepository;
+    private final HouseholdStatusRepository householdStatusRepository;
+    private final EducationDegreeRepository educationDegreeRepository;
+    private final FluencyLevelRepository fluencyLevelRepository;
+    private final ViceTypeRepository viceTypeRepository;
+    private final ViceFrequencyRepository viceFrequencyRepository;
+    private final PetTypeRepository petTypeRepository;
+    private final TravelFrequencyRepository travelFrequencyRepository;
+    private final TravelDurationRepository travelDurationRepository;
+    private final TravelDistanceRepository travelDistanceRepository;
+    private final TravelGroupSizeRepository travelGroupSizeRepository;
+    private final ContactPreferenceRepository contactPreferenceRepository;
+    private final LocationPreferenceRepository locationPreferenceRepository;
+    private final SocialPersonalityRepository socialPersonalityRepository;
+    private final GenderPreferenceRepository genderPreferenceRepository;
+    private final RelationshipPreferenceRepository relationshipPreferenceRepository;
+    private final ChildrenPreferenceRepository childrenPreferenceRepository;
+    private final AgePreferenceRepository agePreferenceRepository;
+    private final ReligionPreferenceRepository religionPreferenceRepository;
+    private final EducationPreferenceRepository educationPreferenceRepository;
+    private final LanguagePreferenceRepository languagePreferenceRepository;
+    private final VicePreferenceRepository vicePreferenceRepository;
+    private final PetsPreferenceRepository petsPreferenceRepository;
+    private final TravelPreferenceRepository travelPreferenceRepository;
+    private final DietPreferenceRepository dietPreferenceRepository;
+    private final TransactionTemplate transactionTemplate;
 
-    @Autowired
-    private UserImageRepository userImageRepository;
-
-    @Autowired
-    private UserInterestRepository userInterestRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private GenderRepository genderRepository;
-
-    @Autowired
-    private OrientationRepository orientationRepository;
-
-    @Autowired
-    private PersonalityScaleRepository personalityScaleRepository;
-
-    @Autowired
-    private RelationshipStatusRepository relationshipStatusRepository;
-
-    @Autowired
-    private RelationshipPracticeRepository relationshipPracticeRepository;
-
-    @Autowired
-    private RelationshipInterestRepository relationshipInterestRepository;
-
-    @Autowired
-    private ReligionRepository religionRepository;
-
-    @Autowired
-    private LifeStageRepository lifeStageRepository;
-
-    @Autowired
-    private ChildGenderRepository childGenderRepository;
-
-    @Autowired
-    private HouseholdStatusRepository householdStatusRepository;
-
-    @Autowired
-    private EducationDegreeRepository educationDegreeRepository;
-
-    @Autowired
-    private FluencyLevelRepository fluencyLevelRepository;
-
-    @Autowired
-    private ViceTypeRepository viceTypeRepository;
-
-    @Autowired
-    private ViceFrequencyRepository viceFrequencyRepository;
-
-    @Autowired
-    private PetTypeRepository petTypeRepository;
-
-    @Autowired
-    private TravelFrequencyRepository travelFrequencyRepository;
-
-    @Autowired
-    private TravelDurationRepository travelDurationRepository;
-
-    @Autowired
-    private TravelDistanceRepository travelDistanceRepository;
-
-    @Autowired
-    private TravelGroupSizeRepository travelGroupSizeRepository;
-
-    @Autowired
-    private ContactPreferenceRepository contactPreferenceRepository;
-
-    @Autowired
-    private LocationPreferenceRepository locationPreferenceRepository;
-
-    @Autowired
-    private SocialPersonalityRepository socialPersonalityRepository;
-
-    @Autowired
-    private GenderPreferenceRepository genderPreferenceRepository;
-
-    @Autowired
-    private RelationshipPreferenceRepository relationshipPreferenceRepository;
-
-    @Autowired
-    private ChildrenPreferenceRepository childrenPreferenceRepository;
-
-    @Autowired
-    private AgePreferenceRepository agePreferenceRepository;
-
-    @Autowired
-    private ReligionPreferenceRepository religionPreferenceRepository;
-
-    @Autowired
-    private EducationPreferenceRepository educationPreferenceRepository;
-
-    @Autowired
-    private LanguagePreferenceRepository languagePreferenceRepository;
-
-    @Autowired
-    private VicePreferenceRepository vicePreferenceRepository;
-
-    @Autowired
-    private PetsPreferenceRepository petsPreferenceRepository;
-
-    @Autowired
-    private TravelPreferenceRepository travelPreferenceRepository;
-
-    @Autowired
-    private DietPreferenceRepository dietPreferenceRepository;
-
-    @Autowired
-    private TransactionTemplate transactionTemplate;
+    RenderDataPopulationService(UserProfileRepository userProfileRepository, UserImageRepository userImageRepository, 
+            UserInterestRepository userInterestRepository, UserRepository userRepository, GenderRepository genderRepository, 
+            OrientationRepository orientationRepository, PersonalityScaleRepository personalityScaleRepository, 
+            RelationshipStatusRepository relationshipStatusRepository, 
+            RelationshipPracticeRepository relationshipPracticeRepository, 
+            RelationshipInterestRepository relationshipInterestRepository, ReligionRepository religionRepository, 
+            LifeStageRepository lifeStageRepository, ChildGenderRepository childGenderRepository, 
+            HouseholdStatusRepository householdStatusRepository, EducationDegreeRepository educationDegreeRepository, 
+            FluencyLevelRepository fluencyLevelRepository, ViceTypeRepository viceTypeRepository, 
+            ViceFrequencyRepository viceFrequencyRepository, PetTypeRepository petTypeRepository, 
+            TravelFrequencyRepository travelFrequencyRepository, TravelDurationRepository travelDurationRepository, 
+            TravelDistanceRepository travelDistanceRepository, TravelGroupSizeRepository travelGroupSizeRepository, 
+            ContactPreferenceRepository contactPreferenceRepository, 
+            LocationPreferenceRepository locationPreferenceRepository, 
+            SocialPersonalityRepository socialPersonalityRepository, 
+            GenderPreferenceRepository genderPreferenceRepository, 
+            RelationshipPreferenceRepository relationshipPreferenceRepository, 
+            ChildrenPreferenceRepository childrenPreferenceRepository, AgePreferenceRepository agePreferenceRepository, 
+            ReligionPreferenceRepository religionPreferenceRepository, 
+            EducationPreferenceRepository educationPreferenceRepository, 
+            LanguagePreferenceRepository languagePreferenceRepository, VicePreferenceRepository vicePreferenceRepository, 
+            PetsPreferenceRepository petsPreferenceRepository, TravelPreferenceRepository travelPreferenceRepository, 
+            DietPreferenceRepository dietPreferenceRepository, TransactionTemplate transactionTemplate) {
+        this.userProfileRepository = userProfileRepository;
+        this.userImageRepository = userImageRepository;
+        this.userInterestRepository = userInterestRepository;
+        this.userRepository = userRepository;
+        this.genderRepository = genderRepository;
+        this.orientationRepository = orientationRepository;
+        this.personalityScaleRepository = personalityScaleRepository;
+        this.relationshipStatusRepository = relationshipStatusRepository;
+        this.relationshipPracticeRepository = relationshipPracticeRepository;
+        this.relationshipInterestRepository = relationshipInterestRepository;
+        this.religionRepository = religionRepository;
+        this.lifeStageRepository = lifeStageRepository;
+        this.childGenderRepository = childGenderRepository;
+        this.householdStatusRepository = householdStatusRepository;
+        this.educationDegreeRepository = educationDegreeRepository;
+        this.fluencyLevelRepository = fluencyLevelRepository;
+        this.viceTypeRepository = viceTypeRepository;
+        this.viceFrequencyRepository = viceFrequencyRepository;
+        this.petTypeRepository = petTypeRepository;
+        this.travelFrequencyRepository = travelFrequencyRepository;
+        this.travelDurationRepository = travelDurationRepository;
+        this.travelDistanceRepository = travelDistanceRepository;
+        this.travelGroupSizeRepository = travelGroupSizeRepository;
+        this.contactPreferenceRepository = contactPreferenceRepository;
+        this.locationPreferenceRepository = locationPreferenceRepository;
+        this.socialPersonalityRepository = socialPersonalityRepository;
+        this.genderPreferenceRepository = genderPreferenceRepository;
+        this.relationshipPreferenceRepository = relationshipPreferenceRepository;
+        this.childrenPreferenceRepository = childrenPreferenceRepository;
+        this.agePreferenceRepository = agePreferenceRepository;
+        this.religionPreferenceRepository = religionPreferenceRepository;
+        this.educationPreferenceRepository = educationPreferenceRepository;
+        this.languagePreferenceRepository = languagePreferenceRepository;
+        this.vicePreferenceRepository = vicePreferenceRepository;
+        this.petsPreferenceRepository = petsPreferenceRepository;
+        this.travelPreferenceRepository = travelPreferenceRepository;
+        this.dietPreferenceRepository = dietPreferenceRepository;
+        this.transactionTemplate = transactionTemplate;
+    }
 
     @PostConstruct
     public void initData() {
