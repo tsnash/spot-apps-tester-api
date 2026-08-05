@@ -33,9 +33,7 @@ spring:
     activate:
       on-profile: local
 tester:
-  title: Local Tester Application
-  swaggerTitle: Local Swagger Docs
-  
+  title: Local Tester Application  
 logging:
   level:
     org.springframework: INFO
@@ -50,4 +48,3 @@ spring:
     show-sql: false
 tester:
   title: Render Tester Application
-  swaggerTitle: Render Swagger Docs
