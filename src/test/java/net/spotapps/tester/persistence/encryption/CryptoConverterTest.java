@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.Base64;
+import java.security.SecureRandom;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,9 @@ public class CryptoConverterTest {
     @BeforeEach
     public void setUp() {
         cryptoConverter = new CryptoConverter();
-        CryptoConverter.setEncryptionKey(Base64.getDecoder().decode("P57DYej7WZOi3KlAKY1uD0ao2BE1Ovaw8cvPmzbGEBA="));
+        byte[] key = new byte[32];
+        new SecureRandom().nextBytes(key);
+        CryptoConverter.setEncryptionKey(key);
     }
 
     @Test
