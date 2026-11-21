@@ -75,3 +75,17 @@ import local.PACKAGE;
 * There should only be two types of exceptions defined here.
   * A base exception that extends `RuntimeException` that is named after an HTTP response code with a generic message. It must be handled in the `GlobalExceptionHandler` class.
   * A custom exception that should only extend one of the aforementioned base exception classes. Its name and message should better reflect the specific problem that occurred.
+
+## Agent skills
+
+### Issue tracker
+
+GitHub issues via `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default canonical roles (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+single-context (`GLOSSARY.md` and `docs/adr/` at the repo root). See `docs/agents/domain.md`.
