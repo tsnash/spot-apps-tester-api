@@ -8,7 +8,7 @@ Java SpringBoot API for testing operations against various models
 | `/user-profiles` | Retrieve users and their preference info |
 
 ## Local Notes
-- Project uses Java 21 SDK w/ Maven 3.9.9
+- Project uses Java 25 SDK w/ Maven 3.10.1
 
 - Either set `spring.profiles.active` via config or `SPRING_PROFILES_ACTIVE` via environment variable to `local`
 
