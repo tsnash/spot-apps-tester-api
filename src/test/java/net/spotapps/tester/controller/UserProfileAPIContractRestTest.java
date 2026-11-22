@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import tools.jackson.databind.ObjectMapper;
 
 import net.spotapps.tester.UserProfileConstants;
 import net.spotapps.tester.dto.UserProfileDto;
@@ -45,6 +45,9 @@ public class UserProfileAPIContractRestTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @MockitoBean
     private UserProfileService userProfileService;
@@ -104,8 +107,8 @@ public class UserProfileAPIContractRestTest {
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         String responseContent = result.getResponse().getContentAsString();
-        UserProfileCollectionResponse actual = JsonPath.from(responseContent)
-                .getObject("", UserProfileCollectionResponse.class);
+        UserProfileCollectionResponse actual = objectMapper.readValue(
+                responseContent, UserProfileCollectionResponse.class);
 
         assertEquals(
                 2,
@@ -142,8 +145,8 @@ public class UserProfileAPIContractRestTest {
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         String responseContent = result.getResponse().getContentAsString();
-        UserProfileSuccessResponse actual = JsonPath.from(responseContent)
-                .getObject("", UserProfileSuccessResponse.class);
+        UserProfileSuccessResponse actual = objectMapper.readValue(
+                responseContent, UserProfileSuccessResponse.class);
 
         assertEquals(
                 testUserProfileDto1,
@@ -163,8 +166,8 @@ public class UserProfileAPIContractRestTest {
 
         result = mockMvc.perform(requestBuilder).andReturn();
         responseContent = result.getResponse().getContentAsString();
-        HttpRequestErrorResponse error = JsonPath.from(responseContent)
-                .getObject("", HttpRequestErrorResponse.class);
+        HttpRequestErrorResponse error = objectMapper.readValue(
+                responseContent, HttpRequestErrorResponse.class);
 
         assertNotNull(
                 error.getMetadata().getTraceId(),
@@ -180,8 +183,7 @@ public class UserProfileAPIContractRestTest {
 
         result = mockMvc.perform(requestBuilder).andReturn();
         responseContent = result.getResponse().getContentAsString();
-        error = JsonPath.from(responseContent)
-                .getObject("", HttpRequestErrorResponse.class);
+        error = objectMapper.readValue(responseContent, HttpRequestErrorResponse.class);
 
         assertNotNull(
                 error.getMetadata().getTraceId(),
@@ -222,8 +224,8 @@ public class UserProfileAPIContractRestTest {
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         String responseContent = result.getResponse().getContentAsString();
-        UserProfileCollectionResponse actual = JsonPath.from(responseContent)
-                .getObject("", UserProfileCollectionResponse.class);
+        UserProfileCollectionResponse actual = objectMapper.readValue(
+                responseContent, UserProfileCollectionResponse.class);
 
         assertEquals(
                 2,
@@ -249,8 +251,8 @@ public class UserProfileAPIContractRestTest {
 
         result = mockMvc.perform(requestBuilder).andReturn();
         responseContent = result.getResponse().getContentAsString();
-        HttpRequestErrorResponse error = JsonPath.from(responseContent)
-                .getObject("", HttpRequestErrorResponse.class);
+        HttpRequestErrorResponse error = objectMapper.readValue(
+                responseContent, HttpRequestErrorResponse.class);
 
         assertNotNull(
                 error.getMetadata().getTraceId(),
@@ -268,8 +270,7 @@ public class UserProfileAPIContractRestTest {
 
         result = mockMvc.perform(requestBuilder).andReturn();
         responseContent = result.getResponse().getContentAsString();
-        error = JsonPath.from(responseContent)
-                .getObject("", HttpRequestErrorResponse.class);
+        error = objectMapper.readValue(responseContent, HttpRequestErrorResponse.class);
 
         assertNotNull(
                 error.getMetadata().getTraceId(),
@@ -287,8 +288,7 @@ public class UserProfileAPIContractRestTest {
 
         result = mockMvc.perform(requestBuilder).andReturn();
         responseContent = result.getResponse().getContentAsString();
-        error = JsonPath.from(responseContent)
-                .getObject("", HttpRequestErrorResponse.class);
+        error = objectMapper.readValue(responseContent, HttpRequestErrorResponse.class);
 
         assertNotNull(
                 error.getMetadata().getTraceId(),
