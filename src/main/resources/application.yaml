@@ -1,50 +1,100 @@
 spring:
   application:
     name: tester
-  profiles:
-    include: lookups
+  config:
+    import:
+      - "optional:classpath:application-lookups.yaml"
   session:
     jdbc:
-      initialize-schema: always
+      initialize-schema: embedded
   jpa:
-    show-sql: true
+    open-in-view: false
     hibernate:
       ddl-auto: create-drop
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
+    serialization:
+      write-dates-as-timestamps: false
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+
+server:
+  port: ${PORT:8080}
+  shutdown: graceful
+
 management:
   endpoints:
     web:
       exposure:
-        exclude: env,configprops
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when_authorized
+      probes:
+        enabled: true
 
 springdoc:
   swagger-ui:
     use-root-path: true
 
-test:
-  reset:
-    sql:
-      template: ALTER TABLE %s ALTER COLUMN id RESTART WITH 1
 encryption:
   key: ${ENCRYPTION_KEY}
 
 ---
+# ------------------------------------------------------------------
+# Local Profile
+# ------------------------------------------------------------------
 spring:
   config:
     activate:
       on-profile: local
+  datasource:
+    url: jdbc:h2:mem:testerdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
 tester:
   title: Local Tester Application  
+
 logging:
   level:
     org.springframework: INFO
     org.springdoc: DEBUG
 
 ---
+# ------------------------------------------------------------------
+# Render Profile
+# ------------------------------------------------------------------
 spring:
   config:
     activate:
       on-profile: render
+  datasource:
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 300000
+      max-lifetime: 1800000
   jpa:
     show-sql: false
+    hibernate:
+      ddl-auto: create
+
 tester:
   title: Render Tester Application
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: WARN
