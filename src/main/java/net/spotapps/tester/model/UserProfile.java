@@ -36,6 +36,8 @@ import jakarta.persistence.Table;
         @NamedAttributeNode(value = "childrenPreference", subgraph = "children-subgraph"),
         @NamedAttributeNode(value = "religionPreference", subgraph = "religion-subgraph"),
         @NamedAttributeNode(value = "educationPreference", subgraph = "education-subgraph"),
+        @NamedAttributeNode(value = "languagePreference", subgraph = "language-preference-subgraph"),
+        @NamedAttributeNode(value = "dietPreference", subgraph = "diet-preference-subgraph"),
         @NamedAttributeNode(value = "vicePreference", subgraph = "vice-subgraph"),
         @NamedAttributeNode(value = "petsPreference", subgraph = "pets-subgraph"),
         @NamedAttributeNode(value = "travelPreference", subgraph = "travel-subgraph")
@@ -69,6 +71,15 @@ import jakarta.persistence.Table;
         }),
         @NamedSubgraph(name = "education-subgraph", attributeNodes = {
                 @NamedAttributeNode("highestDegree")
+        }),
+        @NamedSubgraph(name = "language-preference-subgraph", attributeNodes = {
+                @NamedAttributeNode(value = "languagesSpoken", subgraph = "language-subgraph")
+        }),
+        @NamedSubgraph(name = "language-subgraph", attributeNodes = {
+                @NamedAttributeNode("fluency")
+        }),
+        @NamedSubgraph(name = "diet-preference-subgraph", attributeNodes = {
+                @NamedAttributeNode("restrictions")
         }),
         @NamedSubgraph(name = "vice-subgraph", attributeNodes = {
                 @NamedAttributeNode(value = "vices", subgraph = "vice-details-subgraph")
