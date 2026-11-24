@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.util.Arrays;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +99,23 @@ public class UserProfileRepositoryTest {
     }
 
     @Test
+    public void testPreferenceCollectionsAreLoadedByAssociationQueries() {
+        UserProfile actual = repository.findWithAssociationsByUserId(2L).orElseThrow();
+        assertPreferenceCollectionsInitialized(actual);
+
+        entityManager.clear();
+        actual = repository.findAllByUserIdInOrderByUserIdAsc(List.of(2L)).getFirst();
+        assertPreferenceCollectionsInitialized(actual);
+
+        entityManager.clear();
+        actual = repository.findAllWithAssociations().stream()
+                .filter(profile -> profile.getUserId().equals(2L))
+                .findFirst()
+                .orElseThrow();
+        assertPreferenceCollectionsInitialized(actual);
+    }
+
+    @Test
     public void testFindOneByIdLazyLoadOutsideTransaction() {
         UserProfile actual = repository.findById(3L).orElseThrow();
 
@@ -124,5 +142,15 @@ public class UserProfileRepositoryTest {
         List<Long> notExpectedIds = Arrays.asList(10L, 6L);
         actual = repository.findAllByUserIdInOrderByUserIdAsc(notExpectedIds);
         assertThat(actual).isEmpty();
+    }
+
+    private static void assertPreferenceCollectionsInitialized(UserProfile profile) {
+        assertThat(profile.getLanguagePreference()).isNotNull();
+        assertThat(Hibernate.isInitialized(profile.getLanguagePreference().getLanguagesSpoken())).isTrue();
+        assertThat(Hibernate.isInitialized(
+                profile.getLanguagePreference().getLanguagesSpoken().iterator().next().getFluency())).isTrue();
+
+        assertThat(profile.getDietPreference()).isNotNull();
+        assertThat(Hibernate.isInitialized(profile.getDietPreference().getRestrictions())).isTrue();
     }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.spotapps.tester.UserProfileConstants;
 import net.spotapps.tester.dao.UserProfileRepository;
@@ -15,6 +16,7 @@ import net.spotapps.tester.exception.UserProfileNotFoundException;
 import net.spotapps.tester.model.UserProfile;
 
 @Service
+@Transactional(readOnly = true)
 public class UserProfileServiceImpl implements UserProfileService {
 
     private final UserProfileRepository userProfileRepository;
