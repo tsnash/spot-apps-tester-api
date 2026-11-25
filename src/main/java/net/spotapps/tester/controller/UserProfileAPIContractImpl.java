@@ -49,7 +49,7 @@ public class UserProfileAPIContractImpl implements UserProfileAPIContract {
     @Override
     @PostMapping(consumes = { APPLICATION_JSON_VALUE, APPLICATION_FORM_URLENCODED_VALUE }, produces = {
             APPLICATION_JSON_VALUE })
-    public ResponseEntity<HttpRequestResponse> getUserProfiles(@Valid @RequestBody List<String> userIds,
+    public ResponseEntity<HttpRequestResponse> getUserProfiles(@RequestBody List<@Valid String> userIds,
             HttpServletRequest request) {
         return buildResponse(userProfileService.getUserProfileList(userIds));
     }

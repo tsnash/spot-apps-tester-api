@@ -78,6 +78,6 @@ public interface UserProfileAPIContract {
     @PostMapping(consumes = { APPLICATION_JSON_VALUE, APPLICATION_FORM_URLENCODED_VALUE }, produces = {
             APPLICATION_JSON_VALUE })
     ResponseEntity<HttpRequestResponse> getUserProfiles(
-            @Parameter(required = true, description = "List of user IDs associated with user profiles") @Valid @RequestBody List<String> userIds,
+            @Parameter(required = true, description = "List of user IDs associated with user profiles") @RequestBody List<@Valid String> userIds,
             HttpServletRequest request);
 }
