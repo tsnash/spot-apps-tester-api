@@ -1,2 +1,7 @@
+spring:
+  config:
+    import:
+      - "optional:classpath:application-lookups.yaml"
+
 encryption:
   key: ${TEST_ENCRYPTION_KEY:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=}
