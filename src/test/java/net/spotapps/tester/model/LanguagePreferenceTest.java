@@ -6,27 +6,29 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import net.spotapps.tester.EqualityTestHelper;
+
 public class LanguagePreferenceTest {
 
     @ParameterizedTest
     @MethodSource("provideDifferentLanguagePreferences")
     public void testLanguagePreferenceInequality(LanguagePreference testLanguagePreference1,
             LanguagePreference testLanguagePreference2) {
-        ModelTestHelper.assertInequality(testLanguagePreference1, testLanguagePreference2);
+        EqualityTestHelper.assertInequality(testLanguagePreference1, testLanguagePreference2);
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalLanguagePreferences")
     public void testLanguagePreferenceEquality(LanguagePreference testLanguagePreference1,
             LanguagePreference testLanguagePreference2) {
-        ModelTestHelper.assertEquality(testLanguagePreference1, testLanguagePreference2);
+        EqualityTestHelper.assertEquality(testLanguagePreference1, testLanguagePreference2);
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalLanguagePreferences")
     public void testLanguagePreferenceHashcodeEquality(LanguagePreference testLanguagePreference1,
             LanguagePreference testLanguagePreference2) {
-        ModelTestHelper.assertHashcodeEquality(testLanguagePreference1, testLanguagePreference2);
+        EqualityTestHelper.assertHashcodeEquality(testLanguagePreference1, testLanguagePreference2);
     }
 
     private static Stream<Arguments> provideDifferentLanguagePreferences() {

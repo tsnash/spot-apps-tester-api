@@ -6,24 +6,26 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import net.spotapps.tester.EqualityTestHelper;
+
 public class PetTest {
 
     @ParameterizedTest
     @MethodSource("provideDifferentPets")
     public void testPetInequality(Pet testPet1, Pet testPet2) {
-        ModelTestHelper.assertInequality(testPet1, testPet2);
+        EqualityTestHelper.assertInequality(testPet1, testPet2);
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalPets")
     public void testPetEquality(Pet testPet1, Pet testPet2) {
-        ModelTestHelper.assertEquality(testPet1, testPet2);
+        EqualityTestHelper.assertEquality(testPet1, testPet2);
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalPets")
     public void testPetHashcodeEquality(Pet testPet1, Pet testPet2) {
-        ModelTestHelper.assertHashcodeEquality(testPet1, testPet2);
+        EqualityTestHelper.assertHashcodeEquality(testPet1, testPet2);
     }
 
     private static Stream<Arguments> provideDifferentPets() {

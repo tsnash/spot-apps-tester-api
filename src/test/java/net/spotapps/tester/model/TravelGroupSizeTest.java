@@ -6,24 +6,26 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import net.spotapps.tester.EqualityTestHelper;
+
 public class TravelGroupSizeTest {
 
     @ParameterizedTest
     @MethodSource("provideDifferentTravelGroupSizes")
     public void testTravelGroupSizeInequality(TravelGroupSize testTravelGroupSize1, TravelGroupSize testTravelGroupSize2) {
-        ModelTestHelper.assertInequality(testTravelGroupSize1, testTravelGroupSize2);
+        EqualityTestHelper.assertInequality(testTravelGroupSize1, testTravelGroupSize2);
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalTravelGroupSizes")
     public void testTravelGroupSizeEquality(TravelGroupSize testTravelGroupSize1, TravelGroupSize testTravelGroupSize2) {
-        ModelTestHelper.assertEquality(testTravelGroupSize1, testTravelGroupSize2);
+        EqualityTestHelper.assertEquality(testTravelGroupSize1, testTravelGroupSize2);
     }
 
     @ParameterizedTest
     @MethodSource("provideIdenticalTravelGroupSizes")
     public void testTravelGroupSizeHashcodeEquality(TravelGroupSize testTravelGroupSize1, TravelGroupSize testTravelGroupSize2) {
-        ModelTestHelper.assertHashcodeEquality(testTravelGroupSize1, testTravelGroupSize2);
+        EqualityTestHelper.assertHashcodeEquality(testTravelGroupSize1, testTravelGroupSize2);
     }
 
     private static Stream<Arguments> provideDifferentTravelGroupSizes() {
